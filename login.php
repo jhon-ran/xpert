@@ -8,6 +8,7 @@ if ($_SERVER["REQUEST_METHOD"]=="POST") {
     $email=(isset($_POST['email']))?htmlspecialchars($_POST['email']):null;
     $password=(isset($_POST['password']))?$_POST['password']:null;
 
+        //Verificar si el usuario (email) existe en BD
     try {
         $pdo = new PDO("mysql:host=$servidor;dbname=$baseDatos",$usuario,$contrasena);
         //para que PDO maneje los errores de manera automática
@@ -18,11 +19,29 @@ if ($_SERVER["REQUEST_METHOD"]=="POST") {
         $sentencia = $pdo->prepare($sql);
         //Ejecutar la consulta
         $sentencia->execute(['email'=>$email]);
-        //Obtener los datos
-        $usuarios = $sentencia->fetch(PDO::FETCH_ASSOC);
+        //Obtener los datos de la consulta
+        $usuarios = $sentencia->fetchAll(PDO::FETCH_ASSOC);
         print_r($usuarios);
 
+        //Se inicializa la variable en flase para verificar si el password es correcto
+        $login = false; 
+        //Recorrer el arreglo de usuarios recuperados de la consulta
+        foreach($usuarios as $usuario) {
+            //if (password_verify($password,$usuario['password'])) {
+                //$_SESSION['loggedUser'] = $usuario;
+            //Comparar password ingresado con el de la BD
+            if($password==$usuario['password']){
+                //Si es correcto, la variable cambia a true
+                $login = true;
+            }
+        }
 
+        if($login){
+            echo "Existe en la BD";
+        }else{
+            echo "No existe en la BD";  
+        }
+        
     } catch (PDOException $ex) {
         echo "Error de conexión:".$ex->getMessage();
     }
