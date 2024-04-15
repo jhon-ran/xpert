@@ -27,10 +27,9 @@ if ($_SERVER["REQUEST_METHOD"]=="POST") {
         $login = false; 
         //Recorrer el arreglo de usuarios recuperados de la consulta
         foreach($usuarios as $usuario) {
-            //if (password_verify($password,$usuario['password'])) {
+            //Comparar password encriptado ingresado con el de la BD
+            if (password_verify($password, $usuario['password'])) {
                 //$_SESSION['loggedUser'] = $usuario;
-            //Comparar password ingresado con el de la BD
-            if($password==$usuario['password']){
                 //Si es correcto, la variable cambia a true
                 $login = true;
             }

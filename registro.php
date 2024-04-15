@@ -59,6 +59,10 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
             $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);//para que PDO maneje los errores de manera automática
             $sql = "INSERT INTO `usuarios` (`id`, `nombre`, `apellidos`, `email`, `password`) 
             VALUES (NULL, :nombre, :apellidos, :email, :password)";
+
+            //Encriptar la contraseña
+            $newPassword = password_hash($password, PASSWORD_DEFAULT);
+
             //Preparar la consulta
             $resultado=$pdo->prepare($sql);
             //Ejecutar la consulta tomano los datos recibidos del formulario
@@ -66,7 +70,7 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
                 ':nombre'=>$nombre, 
                 ':apellidos'=>$apellidos,
                 ':email'=>$email,
-                ':password'=>$password
+                ':password'=>$newPassword
             ));
             //Redireccionar al login después de inscribirse
             header("Location:login.html");
