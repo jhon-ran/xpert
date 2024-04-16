@@ -1,4 +1,6 @@
 <?php 
+//se inicializa variable de sesión
+session_start();
 //Verifciar si hay datos por el metodo post
 if ($_SERVER["REQUEST_METHOD"]=="POST") {
     include("conexion.php");
@@ -48,8 +50,10 @@ if ($_SERVER["REQUEST_METHOD"]=="POST") {
         foreach($usuarios as $usuario) {
             //Comparar password encriptado ingresado con el de la BD
             if (password_verify($password, $usuario['password'])) {
-                //$_SESSION['loggedUser'] = $usuario;
-                //Si es correcto, la variable cambia a true
+                //Guardar el id y nombre del usuario de la BD en las variables de sesión
+                $_SESSION['usuario_id']= $usuario['id'];
+                $_SESSION['usuario_nombre']= $usuario['nombre']." ".$usuario['apellidos'];
+
                 $login = true;
             }
         }
