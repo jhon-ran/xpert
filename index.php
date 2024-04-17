@@ -6,28 +6,15 @@ if(!isset($_SESSION['usuario_id'])){
     header('Location:login.html');
     exit();
 }
-
 ?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Panel de bienvenida</title>
-</head>
-<body>
 
-    <div class="topnav">
-        <a class="active" href="#home">Inicio</a>
-        <a href="#news">Tours</a>
-        <a href="#contact">Contact</a>
-        <a href="cerrar.php">Cerrar</a>
-    </div>
+<!-- Se llama el header desde los templates-->
+<?php include("templates/header.php"); ?>
 
     
     <h2>Bienvenid@ <?php echo $_SESSION['usuario_nombre']?></h2>
     <h3>Ingresaste como <?php echo $_SESSION['usuario_tipo']?></h3>
     <p>Este es el inicio de una aventura</p>
-</body>
-</html>
 
+<!-- Se llama el footer desde los templates-->
+<?php include("templates/footer.php"); ?>
