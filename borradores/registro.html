@@ -7,6 +7,7 @@
 </head>
 <body>
     <h2>Registro</h2>
+
     <form action="registro.php" id="formularioRegistro" method="post">
         Nombre:
         <input type="text" name="nombre" id="nombre" required><br>
@@ -19,14 +20,18 @@
         Repetir contraseña: 
         <input type="password" name="confirmarPassword" id="confirmarPassword" required><br>
         <button type="submit">Registrar</button>
+        <a href="login.html">Login</a>
     </form>
 
     <script>
     //Script para verificar que las contraseñas sean iguales antes de mandar los datos por POST 
         // Función para comparar las contraseñas
+        
         function comparaPasswords() {
             var password = document.getElementById("password");
             var confirmarPassword = document.getElementById("confirmarPassword");
+            var statusRegistro = false;
+            
 
             // Verificar que el password y la confirmación sean iguales
             if (password.value!== confirmarPassword.value) {
@@ -35,7 +40,11 @@
             } else {
                 // Limpiar el mensaje de error
                 confirmarPassword.setCustomValidity("");
+                statusRegistro = true;
             }
+            if(statusRegistro == true){
+                alert("Se ha creado el usuario exitosamente!"); 
+            };
         }
 
         // Se llama la función cuando se intente enviar el POST

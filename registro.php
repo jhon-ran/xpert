@@ -5,6 +5,8 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
     include("conexion.php");
     //Array para guardar los errores
     $errores= array();
+    //Variable para saber si se ha registrado correctamente
+    $succes = false;
     //Imprimir los datos del formulario en pantalla
     //print_r($_POST);
 
@@ -44,7 +46,7 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
         $errores['confirmarPassword'] = "Las contraseñas no coinciden";
     }
 
-}
+
     //Imprimir errores en pantalla si los hay
    foreach($errores as $error){
     echo "<li>$error</li>";
@@ -72,17 +74,75 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
                 ':email'=>$email,
                 ':password'=>$newPassword
             ));
-            //Redireccionar al login después de inscribirse
-            header("Location:login.html");
-        
+            //la variable para mensaje de éxito se actualiza a true después de insertar el usuario
+            $succes = true;
     
-            echo "Usuario registrado";
+            //Redireccionar al login después de 5 segundos de registrarse para ver mensaje de éxitoe
+            //header("Location:login.html");
+            header("Refresh: 2; url=login.html");
     
         }catch(Exception $ex){
             echo "Error de conexión:".$ex->getMessage();
         }
    }else {
-    echo  "<a href='registro.html'>Regresar a formulario</>";
+    echo  "<a href='registro.php'>Regresar a formulario</>";
+    //La variable para mensaje de exito se actualiza a false si no se pudo insertar
+    $succes=false;
    }
 
+}
 ?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h2>Registro</h2>
+    <form action="registro.php" id="formularioRegistro" method="post">
+        Nombre:
+        <input type="text" name="nombre" id="nombre" required><br>
+        Apellido: 
+        <input type="text" name="apellidos" id="apellidos" required><br>
+        Correo:
+        <input type="email" name="email" id="email"><br>
+        Contraseña: 
+        <input type="password" name="password" id="password" required><br>
+        Repetir contraseña: 
+        <input type="password" name="confirmarPassword" id="confirmarPassword" required><br>
+        <button type="submit">Registrar</button>
+        <a href="login.html">Login</a>
+    </form>
+
+    <!--Script para mostrar un mensaje de éxito si se inserto el usuario correctamente-->
+    <?php
+        if (isset($succes)){ echo "<script>alert('Se ha creado el usuario exitosamente!');</script>";};
+    ?>
+
+    <script>
+    //Script para verificar que las contraseñas sean iguales antes de mandar los datos por POST 
+        // Función para comparar las contraseñas
+        
+        function comparaPasswords() {
+            var password = document.getElementById("password");
+            var confirmarPassword = document.getElementById("confirmarPassword");    
+
+            // Verificar que el password y la confirmación sean iguales
+            if (password.value!== confirmarPassword.value) {
+                // Mostrar el error
+                    confirmarPassword.setCustomValidity("Las contraseñas no coinciden");
+            } else {
+                // Limpiar el mensaje de error
+                confirmarPassword.setCustomValidity("");
+            }
+        }
+
+        // Se llama la función cuando se intente enviar el POST
+        document.getElementById("confirmarPassword").addEventListener("input", comparaPasswords);
+    </script>
+
+</body>
+</html>

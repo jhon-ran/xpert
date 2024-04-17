@@ -76,7 +76,7 @@ if ($_SERVER["REQUEST_METHOD"]=="POST") {
         echo "<li>$error</li>";
     }
     //Redireccionar a login
-    echo  "<a href='login.html'>Regresar a login</>";
+    echo  "<a href='login.php'>Regresar a login</>";
 }
 }
 
