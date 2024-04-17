@@ -13,6 +13,21 @@ if ($_SERVER["REQUEST_METHOD"]=="POST") {
     $email=(isset($_POST['email']))?htmlspecialchars($_POST['email']):null;
     $password=(isset($_POST['password']))?$_POST['password']:null;
 
+    //*********INICIA CODIGO PARA VALIDAR CAPTCHA ANTES DE ENVIAR DATOS DE FORMULARIO
+    //Obtener la IP del usuario
+    $ip = $_SERVER['REMOTE_ADDR'];
+    //variable para almacenar la respuesta del captcha
+    $captcha = $_POST['g-recaptcha-response'];
+    $secretKey = "";
+    //Validar captcha
+    $respuesta =file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=$secretKey&response=$captcha&remoteip=$ip");
+    //Decodificar la respuesta en un array
+    $atributos =json_decode($respuesta, TRUE);
+    //Si el captcha no es correcto
+    if(!$atributos['success']){
+        $errores['captcha'] = "Verificar captcha";
+    }
+    //*********TERMINA CODIGO PARA VALIDAR CAPTCHA ANTES DE ENVIAR DATOS DE FORMULARIO
 
 
     //Validación que el correo no esté vacío y que tenga el formato requerido
@@ -53,6 +68,7 @@ if ($_SERVER["REQUEST_METHOD"]=="POST") {
                 //Guardar el id y nombre del usuario de la BD en las variables de sesión
                 $_SESSION['usuario_id']= $usuario['id'];
                 $_SESSION['usuario_nombre']= $usuario['nombre']." ".$usuario['apellidos'];
+                $_SESSION['usuario_tipo']= $usuario['tipo'];
 
                 $login = true;
             }
@@ -76,7 +92,7 @@ if ($_SERVER["REQUEST_METHOD"]=="POST") {
         echo "<li>$error</li>";
     }
     //Redireccionar a login
-    echo  "<a href='login.php'>Regresar a login</>";
+    echo  "<a href='login.html'>Regresar a login</>";
 }
 }
 

@@ -13,13 +13,20 @@ if(!isset($_SESSION['usuario_id'])){
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Panel de bienvenida</title>
 </head>
 <body>
-    <a href="cerrar.php">Cerrar</a>
-    <br> 
+
+    <div class="topnav">
+        <a class="active" href="#home">Inicio</a>
+        <a href="#news">Tours</a>
+        <a href="#contact">Contact</a>
+        <a href="cerrar.php">Cerrar</a>
+    </div>
+
     
     <h2>Bienvenid@ <?php echo $_SESSION['usuario_nombre']?></h2>
+    <h3>Ingresaste como <?php echo $_SESSION['usuario_tipo']?></h3>
     <p>Este es el inicio de una aventura</p>
 </body>
 </html>

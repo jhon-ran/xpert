@@ -62,7 +62,7 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
             $sql = "INSERT INTO `usuarios` (`id`, `nombre`, `apellidos`, `email`, `password`) 
             VALUES (NULL, :nombre, :apellidos, :email, :password)";
 
-            //Encriptar la contraseña
+            //Encriptar la contraseña y se guarda en nueva variable
             $newPassword = password_hash($password, PASSWORD_DEFAULT);
 
             //Preparar la consulta
@@ -72,7 +72,7 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
                 ':nombre'=>$nombre, 
                 ':apellidos'=>$apellidos,
                 ':email'=>$email,
-                ':password'=>$newPassword
+                ':password'=>$newPassword //se envia el valor de la nueva variable con la contraseña encriptada
             ));
             //la variable para mensaje de éxito se actualiza a true después de insertar el usuario
             $succes = true;
