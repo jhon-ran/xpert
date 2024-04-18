@@ -1,3 +1,8 @@
+<?php
+//url de base en localhost para concatenar en la navbar y evitar errores de redirección (dinámica)
+$url_base = "http://localhost/xpert/"
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,7 +14,8 @@
 
     <div class="topnav">
         <a class="active" href="#home">Inicio</a>
-        <a href="#news">Tours</a>
-        <a href="#contact">Contact</a>
+        <a href="<?php echo $url_base;?>secciones/usuarios/">Usuarios</a>
+        <a href="<?php echo $url_base;?>secciones/tours/">Tours</a>
+        <a href="<?php echo $url_base;?>secciones/cupones/">Cupones</a>
         <a href="cerrar.php">Cerrar</a>
     </div>
