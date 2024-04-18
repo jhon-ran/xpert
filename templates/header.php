@@ -17,5 +17,5 @@ $url_base = "http://localhost/xpert/"
         <a href="<?php echo $url_base;?>secciones/usuarios/">Usuarios</a>
         <a href="<?php echo $url_base;?>secciones/tours/">Tours</a>
         <a href="<?php echo $url_base;?>secciones/cupones/">Cupones</a>
-        <a href="cerrar.php">Cerrar</a>
+        <a href="../../cerrar.php">Cerrar</a>
     </div>

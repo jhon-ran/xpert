@@ -4,6 +4,9 @@
 
 <br>
 <h1>Bienvenidos al index de usuarios</h1>
+<a href="crear.php">Registrar</a>
+ <br>
+  <br>
 <table>
   <tr>
     <th>Nombre</th>
@@ -17,7 +20,7 @@
     <td>Morales Piña</td>
     <td>pina@gmail.com</td>
     <td>cliente</td>
-    <td>Editar | Eliminar </td>
+    <td><a href="">Editar</a> | <a href="">Eliminar</a>  </td>
   </tr>
 </table>
 
