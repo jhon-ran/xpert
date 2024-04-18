@@ -9,6 +9,7 @@
   <br>
 <table>
   <tr>
+  <th>ID</th>
     <th>Nombre</th>
     <th>Apellidos</th>
     <th>Email</th>
@@ -16,6 +17,7 @@
     <th>Acciones</th>
   </tr>
   <tr>
+    <td>16</td>
     <td>Norma</td>
     <td>Morales Piña</td>
     <td>pina@gmail.com</td>
