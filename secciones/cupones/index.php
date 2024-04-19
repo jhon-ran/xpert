@@ -60,7 +60,7 @@ $cupones = $sentencia->fetchAll(PDO::FETCH_ASSOC);
     <td><?php echo $registro['restricciones']?></td>
     <td><?php echo $registro['fechaCreacion']?></td>
     <!--Envia el id através de la url-->
-    <td><a href="">Editar</a> | 
+    <td><a href="editar.php?txtID=<?php echo $registro['id']?>">Editar</a> | 
     <a href="index.php?txtID=<?php echo $registro['id']?>">Eliminar</a>  </td>
   </tr>
   <?php }?>

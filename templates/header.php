@@ -1,6 +1,6 @@
 <?php
 //url de base en localhost para concatenar en la navbar y evitar errores de redirección (dinámica)
-$url_base = "http://localhost/xpert/"
+$url_base = "http://localhost:8080/xpert/"
 ?>
 
 <!DOCTYPE html>
