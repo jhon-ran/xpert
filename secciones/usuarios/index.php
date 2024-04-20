@@ -1,6 +1,25 @@
 <!-- Importar conexión a BD-->
 <?php include("../../bd.php");
 
+//******Inicia código para eliminar registro******
+//Para recolectar información del url con el botón "eliminar" método GET
+//Se verifica que el id exista en el url
+if(isset($_GET['txtID'])){
+  //Se crea variable para asignar el valor del id seleccionado
+   //Si esta variable existe, se asigna ese valor, de lo contrario se queda
+   $txtID = (isset($_GET['txtID']))?$_GET['txtID']:$_GET['txtID'];
+   //Se prepara sentencia para borrar dato seleccionado (id)
+   $sentencia = $conexion->prepare("DELETE FROM usuarios WHERE id=:id");
+   //Asignar los valores que vienen del método GET (id seleccionado por params)
+   //Se asigna el valor de la variable a la sentencia
+   $sentencia->bindParam(":id",$txtID);
+   //Se ejecuta la sentencia con el valor asignado para borrar
+   $sentencia->execute();
+   //Redirecionar después de eliminar a la lista de puestos
+   header("Location:index.php");
+ }
+ //******Termina código para eliminar registro******
+
 //******Inicia código para mostrar todos los registros******
 //Se prepara sentencia para seleccionar todos los datos 
 $sentencia = $conexion->prepare("SELECT * FROM usuarios");
