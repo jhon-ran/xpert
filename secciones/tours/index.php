@@ -40,7 +40,7 @@ $tours = $sentencia->fetchAll(PDO::FETCH_ASSOC);
             <li>Actividades para hacer: <?php echo $registro['actividades']?></li>
             <li>¿Incluye transportación? <?php echo $registro['incluyeTransporte']?></li>
             <li>Vehículo: <?php echo $registro['transporte']?></li>
-            <li>Staff: <?php echo $registro['atiende']?></li>
+            <li>Staff: <?php echo $registro['staff']?></li>
             <li>Desde: $<?php echo $registro['precioBase']?></li>
             <li>Descuento: $<?php echo $registro['descuento']?></li>
             <li>Redes sociales: <?php echo $registro['redes']?></li>
