@@ -28,7 +28,9 @@ $tours = $sentencia->fetchAll(PDO::FETCH_ASSOC);
             <li>Tipo de tour: <?php echo $registro['tipo']?></li>
             <li>Tamaño de grupo: <?php echo $registro['capacidad']?> personas</li>
             <li>Idiomas: <?php echo $registro['idiomas']?></li>
-            <li>Foto: <?php echo $registro['foto']?></li>
+            <li>
+                <img width="300" src="<?php echo $registro['foto']?>" alt="foto"/>
+            </li>
             <li>Vista general: <?php echo $registro['vistaGeneral']?></li>
             <li>Destacado: <?php echo $registro['destacado']?></li>
             <li>Itinerario: <?php echo $registro['itinerario']?></li>
