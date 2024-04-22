@@ -76,7 +76,7 @@ if($_POST){
         <input type="datetime-local" name="terminoValidez" id="terminoValidez" value = "<?php echo $terminoValidez;?>"><br>
         <p>Restricciones:</p>
         <!-- Para que se muestren los datos en textarea se deben poner en placeholder-->
-        <textarea name="restricciones" id="restricciones" cols="40" rows="5" value = "<?php echo $restricciones;?>" placeholder="<?php echo $restricciones;?>"></textarea><br>
+        <textarea name="restricciones" id="restricciones" cols="40" rows="5"><?php echo $restricciones;?></textarea><br>
         <button type="submit">Editar cupón</button>
         <a href="index.php">Cancelar</a>
 </form>
