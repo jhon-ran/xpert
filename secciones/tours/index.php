@@ -1,6 +1,45 @@
 <!-- Importar conexión a BD-->
 <?php include("../../bd.php");
 
+//******Inicia código para eliminar registro******
+//Para recolectar información del url con el botón "eliminar" método GET
+//Se verifica que el id exista en el url
+if(isset($_GET['txtID'])){
+    //Se crea variable para asignar el valor del id seleccionado
+     //Si esta variable existe, se asigna ese valor, de lo contrario se queda
+     $txtID = (isset($_GET['txtID']))?$_GET['txtID']:$_GET['txtID'];
+
+    //******Inicia código para eliminar foto de carpeta tours******
+    //buscar el archivo relacionado con la foto
+    $sentencia = $conexion->prepare("SELECT foto FROM tours WHERE id=:id");
+    $sentencia->bindParam(":id",$txtID);
+    $sentencia->execute();
+    //se recupera solo un registro asosiado al id
+    $foto_tour = $sentencia->fetch(PDO::FETCH_LAZY);
+
+    //Si existe ese archivo de la foto o diferente de vacío
+    if(isset($foto_tour["foto"]) && $foto_tour["foto"]!=""){
+        //Si el archivo existe dentro de la carpeta actual
+        if(file_exists("./".$foto_tour["foto"])){
+            //Se elimina el archivo
+            unlink("./".$foto_tour["foto"]);
+        }
+    }
+    //******Termina código para eliminar foto de carpeta tours******
+
+    
+    //Se prepara sentencia para borrar dato seleccionado (id)
+    $sentencia = $conexion->prepare("DELETE FROM tours WHERE id=:id");
+    //Asignar los valores que vienen del método GET (id seleccionado por params)
+    //Se asigna el valor de la variable a la sentencia
+    $sentencia->bindParam(":id",$txtID);
+    //Se ejecuta la sentencia con el valor asignado para borrar
+    $sentencia->execute();
+    //Redirecionar después de eliminar a la lista de puestos
+    header("Location:index.php");
+}
+   //******Termina código para eliminar registro******
+
 //******Inicia código para mostrar todos los registros******
 //Se prepara sentencia para seleccionar todos los datos 
 $sentencia = $conexion->prepare("SELECT * FROM tours");

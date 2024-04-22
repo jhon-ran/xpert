@@ -40,21 +40,6 @@ if($_POST){
         $sentencia->bindParam(":capacidad",$capacidad);
         $sentencia->bindParam(":idiomas",$idiomas);
 
-        $sentencia->bindParam(":vistaGeneral",$vistaGeneral);
-        $sentencia->bindParam(":destacado",$destacado);
-        $sentencia->bindParam(":itinerario",$itinerario); 
-        $sentencia->bindParam(":incluye",$incluye);
-        $sentencia->bindParam(":ubicacion",$ubicacion);
-        $sentencia->bindParam(":queTraer",$queTraer);
-        $sentencia->bindParam(":infoAdicional",$infoAdicional);
-        $sentencia->bindParam(":polCancel",$polCancel);
-        $sentencia->bindParam(":actividades",$actividades);
-        $sentencia->bindParam(":incluyeTransporte",$incluyeTransporte);
-        $sentencia->bindParam(":transporte",$transporte);
-        $sentencia->bindParam(":staff",$staff);
-        $sentencia->bindParam(":precioBase",$precioBase);
-        $sentencia->bindParam(":descuento",$descuento);
-        $sentencia->bindParam(":redes",$redes);
 
         //******Inicia código para adjuntar foto******
         //Obtenemos tiempo para ir cambiando el nombre y que no se sobre escriba
@@ -73,8 +58,24 @@ if($_POST){
         }
         //Se actualiza en BD el nombre de archivo
         $sentencia->bindParam(":foto",$nombreArchivo_foto);
-    //******Termina código para adjuntar foto******
+        //******Termina código para adjuntar foto******
 
+        //Se continuan los bindParam después de foto
+        $sentencia->bindParam(":vistaGeneral",$vistaGeneral);
+        $sentencia->bindParam(":destacado",$destacado);
+        $sentencia->bindParam(":itinerario",$itinerario); 
+        $sentencia->bindParam(":incluye",$incluye);
+        $sentencia->bindParam(":ubicacion",$ubicacion);
+        $sentencia->bindParam(":queTraer",$queTraer);
+        $sentencia->bindParam(":infoAdicional",$infoAdicional);
+        $sentencia->bindParam(":polCancel",$polCancel);
+        $sentencia->bindParam(":actividades",$actividades);
+        $sentencia->bindParam(":incluyeTransporte",$incluyeTransporte);
+        $sentencia->bindParam(":transporte",$transporte);
+        $sentencia->bindParam(":staff",$staff);
+        $sentencia->bindParam(":precioBase",$precioBase);
+        $sentencia->bindParam(":descuento",$descuento);
+        $sentencia->bindParam(":redes",$redes);
         //Se ejecuta la sentencia con los valores de param asignados
         $sentencia->execute();
         //Redirecionar a la lista de puestos
