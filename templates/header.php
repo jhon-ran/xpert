@@ -13,9 +13,14 @@ $url_base = "http://localhost/xpert/"
 <body>
 
     <div class="topnav">
-        <a class="active" href="#home">Inicio</a>
+        <!--<a class="active" href="#home">Inicio</a>-->
+        <a href="<?php echo $url_base;?>secciones/cuenta/">Mi cuenta</a>
         <a href="<?php echo $url_base;?>secciones/usuarios/">Usuarios</a>
         <a href="<?php echo $url_base;?>secciones/tours/">Tours</a>
         <a href="<?php echo $url_base;?>secciones/cupones/">Cupones</a>
+        <a href="<?php echo $url_base;?>secciones/staff/">Staff</a>
+        <a href="<?php echo $url_base;?>secciones/transporte/">Transporte</a>
+        <a href="<?php echo $url_base;?>secciones/notificaciones/">Notificaciones</a>
+        <a href="<?php echo $url_base;?>secciones/reportes/">Reportes</a>
         <a href="../../cerrar.php">Cerrar</a>
     </div>
