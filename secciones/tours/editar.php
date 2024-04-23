@@ -126,8 +126,50 @@ if($_POST){
     //Para las fotos y pdfs hay que darle el parametro 'name'
     $foto = (isset($_FILES["foto"]['name'])? $_FILES["foto"]['name']:"");
 
-    //Redirecionar a la lista de puestos
-    //header("Location:index.php");
+    //******Inicia código para adjuntar foto******
+    //Obtenemos tiempo para ir cambiando el nombre y que no se sobre escriba
+    $fecha_foto = new DateTime();
+    //Crear nuevo nombre de archivo: Si $foto tiene un valor,se crea el nombre con time stamp y el valor de nombre de foto, si no queda vacio
+    //Se crea variable para guardar nombre de archivo
+    $nombreArchivo_foto = ($foto!='')?$fecha_foto->getTimestamp()."_".$_FILES["foto"]['name']:"";
+    //Variable temp para guardar nombre de foto con nombre de archivo binario
+    //Se obtiene el nombre temporal del archivo
+    $tmp_foto = $_FILES["foto"]['tmp_name'];
+    //Si el archivo tmp no está vacio
+    if($tmp_foto!=''){
+        //Movemos el archivo en direccion predeterminada
+        //Esta dirección corresponde a a la carpeta donde estamos ->./ "tours"
+        move_uploaded_file($tmp_foto,"./".$nombreArchivo_foto);
+
+        //******Inicia código para eliminar foto de carpeta tours******
+        //buscar el archivo relacionado con la foto. Si existe se ejecuta la sentencia
+        $sentencia = $conexion->prepare("SELECT foto FROM tours WHERE id=:id");
+        $sentencia->bindParam(":id",$txtID);
+        $sentencia->execute();
+        //se recupera solo un registro asosiado al id
+        $foto_tour = $sentencia->fetch(PDO::FETCH_LAZY);
+
+        //Si existe ese archivo de la foto o diferente de vacío
+        if(isset($foto_tour["foto"]) && $foto_tour["foto"]!=""){
+            //Si el archivo existe dentro de la carpeta actual
+            if(file_exists("./".$foto_tour["foto"])){
+                //Se elimina el archivo
+                unlink("./".$foto_tour["foto"]);
+            }
+        }
+        //******Termina código para eliminar foto de carpeta tours******
+
+        //Sentencia para actualizar foto en BD
+        $sentencia = $conexion->prepare("UPDATE tours SET foto=:foto WHERE id=:id");
+        //Se actualiza en BD el nombre de archivo
+        $sentencia->bindParam(":foto",$nombreArchivo_foto);
+        $sentencia->bindParam(":id",$txtID);
+        $sentencia->execute();
+    }
+    //******Termina código para adjuntar foto******
+
+    //Redirecionar a la lista de tours
+    header("Location:index.php");
 }
 //******Termina código para actualizar registro******
 ?>
@@ -177,7 +219,7 @@ ID:
         <p>Actividades para hacer:</p>
         <textarea name="actividades" id="actividades" cols="50" rows="5"><?php echo $actividades;?></textarea><br>
         <label for="incluyeTransporte">Actualmente incluye transporte?</label>
-        "<?php echo $incluyeTransporte;?>"
+        <?php echo $incluyeTransporte;?>
         <br>
         Transportación incluida:
         <select name="incluyeTransporte" id="incluyeTransporte">
