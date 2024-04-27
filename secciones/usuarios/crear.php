@@ -128,6 +128,54 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
         <a href="index.php">Cancelar</a>
     </form>
 
+    <!--Nuevo look inicia-->
+    <div class="card">
+        <div class="card-header">Datos del usuario</div>
+        <div class="card-body">
+            <form action="crear.php" id="formularioRegistro" method="post">
+                <div class="mb-3">
+                    <label for="nombre" class="form-label">Nombre</label>
+                    <input type="text" class="form-control" name="nombre" id="nombre" aria-describedby="helpId" placeholder=""/>
+                </div>
+                <div class="mb-3">
+                    <label for="apellidos" class="form-label">Apellidos</label>
+                    <input type="text" class="form-control" name="apellidos" id="apellidos" aria-describedby="helpId" placeholder=""/>
+                </div>
+                <div class="mb-3">
+                    <label for="email" class="form-label">Correo</label>
+                    <input type="email" class="form-control" name="email" id="email"aria-describedby="helpId" placeholder=""/>
+                </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label">Contraseña</label>
+                    <input
+                        type="password" class="form-control" name="password" id="password" aria-describedby="helpId" placeholder=""/>
+                </div>
+                <div class="mb-3">
+                    <label for="confirmarPassword" class="form-label">Repetir contraseña</label>
+                    <input
+                        type="password" class="form-control" name="confirmarPassword" id="confirmarPassword" aria-describedby="helpId" placeholder=""/>
+                </div>
+                <div class="mb-3">
+                    <label for="" class="form-label">Tipo de usuario</label>
+                    <select
+                        class="form-select form-select-lg"
+                        name=""
+                        id=""
+                    >
+                        <option selected>Seleccione una opción</option>
+                        <option value="admin">Administrador</option>
+                        <option value="cmiente">Cliente</option>
+                        <option value="ventas">Ventas</option>
+                    </select>
+                </div>
+                
+            </form>
+
+        </div>
+        <div class="card-footer text-muted"></div>
+    </div>
+    <!--Nuevo look termina-->
+
     <!--Script para mostrar un mensaje de éxito si se inserto el usuario correctamente-->
     <?php
         if (isset($succes)){ echo "<script>alert('Se ha creado el usuario exitosamente!');</script>";};
