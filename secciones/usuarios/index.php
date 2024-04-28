@@ -33,35 +33,7 @@ $usuarios = $sentencia->fetchAll(PDO::FETCH_ASSOC);
 <!-- Se llama el header desde los templates-->
 <!-- ../../ sube 2 niveles para poder acceder al folder de templates desde la posición actual-->
 <?php include("../../templates/header.php"); ?>
-
-<br>
-<h1>Usuarios registrados</h1>
-<a href="crear.php">Registrar</a>
- <br>
-  <br>
-<table>
-  <tr>
-  <th>ID</th>
-    <th>Nombre</th>
-    <th>Apellidos</th>
-    <th>Email</th>
-    <th>Tipo de usuario</th>
-    <th>Acciones</th>
-  </tr>
-  <?php foreach($usuarios as $registro){ ?>
-  <tr>
-    <td><?php echo $registro['id']?></td>
-    <td><?php echo $registro['nombre']?></td>
-    <td><?php echo $registro['apellidos']?></td>
-    <td><?php echo $registro['email']?></td>
-    <td><?php echo $registro['tipo']?></td>
-    <!--Envia el id através de la url-->
-    <td><a href="editar.php?txtID=<?php echo $registro['id']?>">Editar</a> | 
-    <a href="index.php?txtID=<?php echo $registro['id']?>">Eliminar</a>  </td>
-  </tr>
-  <?php }?>
-</table>
-
+<h2>Usuarios registrados</h2>
 <!--Nuevo look inicia-->
 <div class="card">
   <div class="card-header">
@@ -85,17 +57,19 @@ $usuarios = $sentencia->fetchAll(PDO::FETCH_ASSOC);
           </tr>
         </thead>
         <tbody>
+        <?php foreach($usuarios as $registro){ ?>
           <tr class="">
-            <td scope="row">16</td>
-            <td>Martha</td>
-            <td>Anchez</td>
-            <td>sanchez@hotmail</td>
-            <td>Admin</td>
+            <td scope="row"><?php echo $registro['id']?></td>
+            <td><?php echo $registro['nombre']?></td>
+            <td><?php echo $registro['apellidos']?></td>
+            <td><?php echo $registro['email']?></td>
+            <td><?php echo $registro['tipo']?></td>
             <td>
               <a name="" id="" class="btn btn-info" href="editar.php?txtID=<?php echo $registro['id']?>" role="button">Editar</a>
               <a name="" id="" class="btn btn-danger" href="index.php?txtID=<?php echo $registro['id']?>">Eliminar</a>
             </td>
           </tr>
+          <?php }?>
         </tbody>
       </table>
     </div>

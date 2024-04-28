@@ -93,6 +93,20 @@ $tours = $sentencia->fetchAll(PDO::FETCH_ASSOC);
    
     <?php }?>
 
+
+    <!--Nuevo look inicia-->
+<?php foreach($tours as $registro){ ?>
+<div class="card" style="width: 18rem;">
+    <img src="<?php echo $registro['foto']?>" class="card-img-top" alt="...">
+    <div class="card-body">
+        <h5 class="card-title"><?php echo $registro['titulo']?></h5>
+        <p class="card-text"><?php echo $registro['vistaGeneral']?></p>
+        <a href="editar.php?txtID=<?php echo $registro['id']?>" class="btn btn-primary">Editar</a>
+    </div>
+</div>
+<?php }?>
+    <!--Nuevo look termnia-->
+
 <!-- Se llama el footer desde los templates-->
 <!-- ../../ sube 2 niveles para poder acceder al folder de templates desde la posición actual-->
 <?php include("../../templates/footer.php"); ?>

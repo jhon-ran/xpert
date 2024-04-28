@@ -60,26 +60,43 @@ if($_POST){
 <!-- ../../ sube 2 niveles para poder acceder al folder de templates desde la posición actual-->
 <?php include("../../templates/header.php"); ?>
 
-    
-<h1>Editar Cupones</h1>
-<br>
-<form action="editar.php" id="editarCupones" method="post">
-        ID:
-        <input type="text" value ="<?php echo $txtID;?>" readonly name="txtID" id="txtID" placeholder="ID"/><br>
-        Nombre:
-        <input type="text" name="nombre" id="nombre" value = "<?php echo $nombre;?>"><br>
-        Descuento:
-        <input type="number" name="descuento" id="descuento" value = "<?php echo $descuento;?>"><br>
-        Inicio de validez:
-        <input type="datetime-local" name="inicioValidez" id="inicioValidez" value = "<?php echo $inicioValidez;?>"><br>
-        Termino de validez:
-        <input type="datetime-local" name="terminoValidez" id="terminoValidez" value = "<?php echo $terminoValidez;?>"><br>
-        <p>Restricciones:</p>
-        <!-- Para que se muestren los datos en textarea se deben poner en placeholder-->
-        <textarea name="restricciones" id="restricciones" cols="40" rows="5"><?php echo $restricciones;?></textarea><br>
-        <button type="submit">Editar cupón</button>
-        <a href="index.php">Cancelar</a>
-</form>
+<h2>Editar Cupones</h2>
+<!--Nuevo look empieza-->
+<div class="card">
+        <div class="card-header">Datos del cupón</div>
+                <div class="card-body">
+                        <form action="editar.php" id="editarCupones" method="post">
+                                <div class="mb-3">
+                                        <label for="nombre" class="form-label">Nombre</label>
+                                        <input type="text" class="form-control" value ="<?php echo $txtID;?>" readonly name="txtID" id="txtID" aria-describedby="helpId" placeholder=""/>
+                                </div>
+                                <div class="mb-3">
+                                        <label for="nombre" class="form-label">Nombre</label>
+                                        <input type="text" class="form-control" value = "<?php echo $nombre;?>" name="nombre" id="nombre" aria-describedby="helpId" placeholder=""/>
+                                </div>
+                                <div class="mb-3">
+                                        <label for="descuento" class="form-label">Descuento</label>
+                                        <input type="number" class="form-control" value = "<?php echo $descuento;?>" name="descuento" id="descuento" aria-describedby="helpId" placeholder=""/>
+                                </div>
+                                <div class="mb-3">
+                                        <label for="inicioValidez" class="form-label">Inicio de validez</label>
+                                        <input type="datetime-local" class="form-control" name="inicioValidez" id="inicioValidez" value = "<?php echo $inicioValidez;?>" aria-describedby="helpId" placeholder=""/>
+                                </div>
+                                <div class="mb-3">
+                                        <label for="terminoValidez" class="form-label">Termino de validez</label>
+                                        <input type="datetime-local" class="form-control" name="terminoValidez" id="terminoValidez" value = "<?php echo $terminoValidez;?>" aria-describedby="helpId" placeholder=""/>
+                                </div>
+                                <div class="mb-3">
+                                        <label for="restricciones">Restricciones</label>
+                                        <textarea class="form-control" name="restricciones" id="restricciones" rows="3"><?php echo $restricciones;?></textarea>
+                                </div>
+                                <button type="submit" class="btn btn-success">Editar</button>
+                                <a name="" id="" class="btn btn-primary" href="index.php" role="button">Cancelar</a>
+                        </form>
+                </div>
+        <div class="card-footer text-muted"></div>
+</div>
+    <!--Nuevo look termina-->
 
 <!-- Se llama el footer desde los templates-->
 <!-- ../../ sube 2 niveles para poder acceder al folder de templates desde la posición actual-->

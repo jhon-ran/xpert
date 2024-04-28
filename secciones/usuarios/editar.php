@@ -66,36 +66,59 @@ if($_POST){
 <!-- Se llama el header desde los templates-->
 <!-- ../../ sube 2 niveles para poder acceder al folder de templates desde la posición actual-->
 <?php include("../../templates/header.php"); ?>
-<h1>Editar Usuario</h1>
+    <!--Nuevo look inicia-->
+    <h2>Editar usuario</h2>
+    <div class="card">
+        <div class="card-header">Datos del usuario</div>
+        <div class="card-body">
+            <form action="editar.php" id="editarUsuarios" method="post">
+            <div class="mb-3">
+                    <label for="txtID" class="form-label">ID</label>
+                    <input type="text" class="form-control" value ="<?php echo $txtID;?>" name="txtID" id="txtID" aria-describedby="helpId" readonly placeholder=""/>
+                </div>
+                <div class="mb-3">
+                    <label for="nombre" class="form-label">Nombre</label>
+                    <input type="text" class="form-control" value="<?php echo $nombre;?>" name="nombre" id="nombre" aria-describedby="helpId" placeholder=""/>
+                </div>
+                <div class="mb-3">
+                    <label for="apellidos" class="form-label">Apellidos</label>
+                    <input type="text" class="form-control" name="apellidos" id="apellidos" value = "<?php echo $apellidos;?>" aria-describedby="helpId" placeholder=""/>
+                </div>
+                <div class="mb-3">
+                    <label for="email" class="form-label">Correo</label>
+                    <input type="email" class="form-control" name="email" id="email" value = "<?php echo $email;?>" aria-describedby="helpId" placeholder=""/>
+                </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label">Contraseña</label>
+                    <input
+                        type="password" class="form-control" name="password" id="password" aria-describedby="helpId" placeholder=""/>
+                </div>
+                <div class="mb-3">
+                    <label for="confirmarPassword" class="form-label">Confirmar contraseña</label>
+                    <input
+                        type="password" class="form-control" name="confirmarPassword" id="confirmarPassword" aria-describedby="helpId" placeholder="Repita la contraseña"/>
+                </div>
+                <div class="mb-3">
+                    <label for="nombre" class="form-label">Tipo de usuario actual</label>
+                    <input type="text" class="form-control" name="tipoUsuario" id="tipoUsuario" value = "<?php echo $tipo;?>" readonly aria-describedby="helpId" placeholder=""/>
+                </div>
+                <div class="mb-3">
+                    <label for="tipo" class="form-label">Tipo de usuario</label>
+                    <select class="form-select form-select-sm" name="tipo" id="tipo">
+                        <option value="" selected>Seleccione una opción</option>
+                        <option value="admin">Administrador</option>
+                        <option value="cliente">Cliente</option>
+                        <option value="ventas">Ventas</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-success">Registrar</button>
+                <a name="" id="" class="btn btn-primary" href="index.php" role="button">Cancelar</a>
+            </form>
 
-<form action="editar.php" id="editarUsuarios" method="post">
-
-        ID:
-        <input type="text" value ="<?php echo $txtID;?>" readonly name="txtID" id="txtID" placeholder="ID"/><br>
-        Nombre:
-        <input type="text" name="nombre" id="nombre" value = "<?php echo $nombre;?>" required><br>
-        Apellido: 
-        <input type="text" name="apellidos" id="apellidos" value = "<?php echo $apellidos;?>" required><br>
-        Correo:
-        <input type="email" name="email" id="email" value = "<?php echo $email;?>"><br>
-        Contraseña: 
-        <input type="password" name="password" id="password" placeholder="Ingrese nueva contraseña" required><br>
-        Repetir contraseña: 
-        <input type="password" name="confirmarPassword" id="confirmarPassword" required placeholder="Repita la contraseña" required><br>
-        <label for="tipoUsuario">Tipo de usuario actual:</label>
-        <input type="text" name="tipoUsuario" id="tipoUsuario" value = "<?php echo $tipo;?>" readonly><br>
-        <label for="tipo">Nuevo tipo de usuario:</label>
-        <select name="tipo" id="tipo">
-            <option value="admin">administrador</option>
-            <option value="cliente">cliente</option>
-            <option value="ventas">ventas</option>
-        </select>
-        <br>
-        <br>
-        <button type="submit">Editar</button>
-        <a href="index.php">Cancelar</a>
-    </form>
-
+        </div>
+        <div class="card-footer text-muted"></div>
+    </div>
+    <!--Nuevo look termina-->
 
     <script>
     //Script para verificar que las contraseñas sean iguales antes de mandar los datos por POST 

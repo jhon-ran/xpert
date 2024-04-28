@@ -32,39 +32,7 @@ $cupones = $sentencia->fetchAll(PDO::FETCH_ASSOC);
 <!-- Se llama el header desde los templates-->
 <!-- ../../ sube 2 niveles para poder acceder al folder de templates desde la posición actual-->
 <?php include("../../templates/header.php"); ?>
-
-    
-<h1>Cupones existentes</h1>
-
-<a href="crear.php">Crear cupones</a>
-<br>
-  <br>
-<table>
-  <tr>
-    <th>ID</th>
-    <th>Nombre</th>
-    <th>Descuento</th>
-    <th>Inicio de validez</th>
-    <th>Termino de validez</th>
-    <th>Restricciones</th>
-    <th>Fecha de creación</th>
-    <th>Acciones</th>
-  </tr>
-  <?php foreach($cupones as $registro){ ?>
-  <tr>
-    <td><?php echo $registro['id']?></td>
-    <td><?php echo $registro['nombre']?></td>
-    <td><?php echo $registro['descuento']?></td>
-    <td><?php echo $registro['inicioValidez']?></td>
-    <td><?php echo $registro['terminoValidez']?></td>
-    <td><?php echo $registro['restricciones']?></td>
-    <td><?php echo $registro['fechaCreacion']?></td>
-    <!--Envia el id através de la url-->
-    <td><a href="editar.php?txtID=<?php echo $registro['id']?>">Editar</a> | 
-    <a href="index.php?txtID=<?php echo $registro['id']?>">Eliminar</a>  </td>
-  </tr>
-  <?php }?>
-</table>
+<h2>Cupones existentes</h2>
 
 <!--Nuevo look inicia-->
 <div class="card">
@@ -72,12 +40,8 @@ $cupones = $sentencia->fetchAll(PDO::FETCH_ASSOC);
     <a name="" id="" class="btn btn-primary" href="crear.php" role="button" >Crear cupones</a>
   </div>
   <div class="card-body">
-    <div
-      class="table-responsive-sm"
-    >
-      <table
-        class="table"
-      >
+    <div class="table-responsive-sm">
+      <table class="table">
         <thead>
           <tr>
             <th scope="col">ID</th>
@@ -91,19 +55,21 @@ $cupones = $sentencia->fetchAll(PDO::FETCH_ASSOC);
           </tr>
         </thead>
         <tbody>
+        <?php foreach($cupones as $registro){ ?>
           <tr class="">
-            <td scope="row">17</td>
-            <td>Erly2024</td>
-            <td>500</td>
-            <td>05/05/2024</td>
-            <td>10/05/2024</td>
-            <td>Ninguna</td>
-            <td>24/04/2024</td>
+            <td scope="row"><?php echo $registro['id']?></td>
+            <td><?php echo $registro['nombre']?></td>
+            <td><?php echo $registro['descuento']?></td>
+            <td><?php echo $registro['inicioValidez']?></td>
+            <td><?php echo $registro['terminoValidez']?></td>
+            <td><?php echo $registro['restricciones']?></td>
+            <td><?php echo $registro['fechaCreacion']?></td>
             <td>
               <a name="" id="" class="btn btn-info" href="editar.php?txtID=<?php echo $registro['id']?>" role="button">Editar</a>
               <a name="" id="" class="btn btn-danger" href="index.php?txtID=<?php echo $registro['id']?>">Eliminar</a>
             </td>
           </tr>
+          <?php }?>
         </tbody>
       </table>
     </div>
