@@ -92,7 +92,7 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
             echo "Error de conexión:".$ex->getMessage();
         }
    }else {
-    echo  "<a href='registro.php'>Regresar a formulario</>";
+    echo  "<a href='crear.php'>Regresar a formulario</>";
     //La variable para mensaje de exito se actualiza a false si no se pudo insertar
     $succes=false;
    }
@@ -103,7 +103,7 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
 <!-- Se llama el header desde los templates-->
 <!-- ../../ sube 2 niveles para poder acceder al folder de templates desde la posición actual-->
 <?php include("../../templates/header.php"); ?>
-
+    <!--
     <h2>Registro</h2>
     <form action="crear.php" id="formularioRegistro" method="post">
         Nombre:
@@ -127,8 +127,10 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
         <button type="submit">Registrar</button>
         <a href="index.php">Cancelar</a>
     </form>
+    -->
 
     <!--Nuevo look inicia-->
+    <h2>Registrar usuarios</h2>
     <div class="card">
         <div class="card-header">Datos del usuario</div>
         <div class="card-body">
@@ -151,24 +153,21 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
                         type="password" class="form-control" name="password" id="password" aria-describedby="helpId" placeholder=""/>
                 </div>
                 <div class="mb-3">
-                    <label for="confirmarPassword" class="form-label">Repetir contraseña</label>
+                    <label for="confirmarPassword" class="form-label">Confirmar contraseña</label>
                     <input
-                        type="password" class="form-control" name="confirmarPassword" id="confirmarPassword" aria-describedby="helpId" placeholder=""/>
+                        type="password" class="form-control" name="confirmarPassword" id="confirmarPassword" aria-describedby="helpId" placeholder="Repita la contraseña"/>
                 </div>
                 <div class="mb-3">
-                    <label for="" class="form-label">Tipo de usuario</label>
-                    <select
-                        class="form-select form-select-lg"
-                        name=""
-                        id=""
-                    >
-                        <option selected>Seleccione una opción</option>
+                    <label for="tipo" class="form-label">Tipo de usuario</label>
+                    <select class="form-select form-select-sm" name="tipo" id="tipo">
+                        <option value="" selected>Seleccione una opción</option>
                         <option value="admin">Administrador</option>
-                        <option value="cmiente">Cliente</option>
+                        <option value="cliente">Cliente</option>
                         <option value="ventas">Ventas</option>
                     </select>
                 </div>
-                
+                <button type="submit" class="btn btn-success">Registrar</button>
+                <a name="" id="" class="btn btn-primary" href="index.php" role="button">Cancelar</a>
             </form>
 
         </div>
@@ -181,7 +180,11 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
         if (isset($succes)){ echo "<script>alert('Se ha creado el usuario exitosamente!');</script>";};
     ?>
 
-    <script>
+<!-- Se llama el footer desde los templates-->
+<!-- ../../ sube 2 niveles para poder acceder al folder de templates desde la posición actual-->
+<?php include("../../templates/footer.php"); ?>
+
+<script>
     //Script para verificar que las contraseñas sean iguales antes de mandar los datos por POST 
         // Función para comparar las contraseñas
         
@@ -202,7 +205,3 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
         // Se llama la función cuando se intente enviar el POST
         document.getElementById("confirmarPassword").addEventListener("input", comparaPasswords);
     </script>
-
-<!-- Se llama el footer desde los templates-->
-<!-- ../../ sube 2 niveles para poder acceder al folder de templates desde la posición actual-->
-<?php include("../../templates/footer.php"); ?>

@@ -35,7 +35,7 @@ $usuarios = $sentencia->fetchAll(PDO::FETCH_ASSOC);
 <?php include("../../templates/header.php"); ?>
 
 <br>
-<h1>Bienvenidos al index de usuarios</h1>
+<h1>Usuarios registrados</h1>
 <a href="crear.php">Registrar</a>
  <br>
   <br>
@@ -65,14 +65,7 @@ $usuarios = $sentencia->fetchAll(PDO::FETCH_ASSOC);
 <!--Nuevo look inicia-->
 <div class="card">
   <div class="card-header">
-    <a
-      name=""
-      id=""
-      class="btn btn-primary"
-      href="crear.php"
-      role="button"
-      >Registrar</a
-    >
+    <a name="" id="" class="btn btn-primary" href="crear.php" role="button" >Registrar</a>
   </div>
   <div class="card-body">
     <div

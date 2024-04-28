@@ -34,7 +34,7 @@ $cupones = $sentencia->fetchAll(PDO::FETCH_ASSOC);
 <?php include("../../templates/header.php"); ?>
 
     
-<h1>Bienvenidos al index de cupones</h1>
+<h1>Cupones existentes</h1>
 
 <a href="crear.php">Crear cupones</a>
 <br>
@@ -65,6 +65,51 @@ $cupones = $sentencia->fetchAll(PDO::FETCH_ASSOC);
   </tr>
   <?php }?>
 </table>
+
+<!--Nuevo look inicia-->
+<div class="card">
+  <div class="card-header">
+    <a name="" id="" class="btn btn-primary" href="crear.php" role="button" >Crear cupones</a>
+  </div>
+  <div class="card-body">
+    <div
+      class="table-responsive-sm"
+    >
+      <table
+        class="table"
+      >
+        <thead>
+          <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Descuento</th>
+            <th scope="col">Inicio de validez</th>
+            <th scope="col">Termino de validez</th>
+            <th scope="col">Restricciones</th>
+            <th scope="col">Fecha de creación</th>
+            <th scope="col">Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="">
+            <td scope="row">17</td>
+            <td>Erly2024</td>
+            <td>500</td>
+            <td>05/05/2024</td>
+            <td>10/05/2024</td>
+            <td>Ninguna</td>
+            <td>24/04/2024</td>
+            <td>
+              <a name="" id="" class="btn btn-info" href="editar.php?txtID=<?php echo $registro['id']?>" role="button">Editar</a>
+              <a name="" id="" class="btn btn-danger" href="index.php?txtID=<?php echo $registro['id']?>">Eliminar</a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+  <!--Nuevo look termina-->
 
 <!-- Se llama el footer desde los templates-->
 <!-- ../../ sube 2 niveles para poder acceder al folder de templates desde la posición actual-->
