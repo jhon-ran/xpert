@@ -41,7 +41,7 @@ $cupones = $sentencia->fetchAll(PDO::FETCH_ASSOC);
   </div>
   <div class="card-body">
     <div class="table-responsive-sm">
-      <table class="table">
+      <table class="table" id="tabla_id">
         <thead>
           <tr>
             <th scope="col">ID</th>
@@ -66,7 +66,8 @@ $cupones = $sentencia->fetchAll(PDO::FETCH_ASSOC);
             <td><?php echo $registro['fechaCreacion']?></td>
             <td>
               <a name="" id="" class="btn btn-info" href="editar.php?txtID=<?php echo $registro['id']?>" role="button">Editar</a>
-              <a name="" id="" class="btn btn-danger" href="index.php?txtID=<?php echo $registro['id']?>">Eliminar</a>
+              <!--Se sustituye el link del registro por la función SweatAlert para confirmar borrado-->
+              <a name="" id="" class="btn btn-danger" href="javascript:borrar(<?php echo $registro['id']?>);">Eliminar</a>
             </td>
           </tr>
           <?php }?>
@@ -76,6 +77,23 @@ $cupones = $sentencia->fetchAll(PDO::FETCH_ASSOC);
   </div>
 </div>
   <!--Nuevo look termina-->
+
+<script>
+  function borrar(id){
+    //Se llama a la función del SweetAlert API para mostrar un mensaje de confirmación
+    Swal.fire({
+      title: "¿Estás seguro que quieres borrar el registro?",
+      showCancelButton: true,
+      confirmButtonText: "Sí"
+    }).then((result) => {
+        //Si el usuario confirma la eliminación, se redirecciona a la página de eliminación
+        if (result.isConfirmed) {
+          window.location="index.php?txtID="+id;
+        } 
+    });
+        //index.php?txtID=
+  }
+</script>
 
 <!-- Se llama el footer desde los templates-->
 <!-- ../../ sube 2 niveles para poder acceder al folder de templates desde la posición actual-->

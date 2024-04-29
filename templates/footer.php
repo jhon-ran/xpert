@@ -15,5 +15,22 @@
     integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
     crossorigin="anonymous"
 ></script>
+
+<!--Función para llamar Data Tables-->
+<script>
+  $(document).ready(function(){
+    $("#tabla_id").DataTable({
+      "pageLength":3,
+      lengthMenu:[
+        [3,5,10,25,50],
+        [3,5,10,25,50]
+      ],
+      "language": {
+          //No carga modulo de lengua, genera error, descomentar cuando haya solución
+            //"url":"//cdn.datatables.net/plug-ins/2.0.5/i18n/es-MX.json"
+        }
+    });
+  });
+</script>
 </body>
 </html>

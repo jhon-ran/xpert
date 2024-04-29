@@ -43,9 +43,7 @@ $usuarios = $sentencia->fetchAll(PDO::FETCH_ASSOC);
     <div
       class="table-responsive-sm"
     >
-      <table
-        class="table"
-      >
+      <table class="table" id="tabla_id">
         <thead>
           <tr>
             <th scope="col">ID</th>
