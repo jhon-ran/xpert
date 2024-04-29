@@ -56,10 +56,9 @@ $tours = $sentencia->fetchAll(PDO::FETCH_ASSOC);
 <?php include("../../templates/header.php"); ?>
 
     
-<h1>Bienvenidos al index de tours</h1>
+<h2>Tours y excursiones</h2>
 <a href="crear.php">Crear tours</a>
     <?php foreach($tours as $registro){ ?>
-
         <ul>
             <li>ID: <?php echo $registro['id']?></li>
             <li><?php echo $registro['titulo']?></li>
@@ -90,21 +89,31 @@ $tours = $sentencia->fetchAll(PDO::FETCH_ASSOC);
             <a href="index.php?txtID=<?php echo $registro['id']?>">Eliminar</a></li>
             <hr/>
         </ul>  
-   
     <?php }?>
 
 
     <!--Nuevo look inicia-->
-<?php foreach($tours as $registro){ ?>
-<div class="card" style="width: 18rem;">
-    <img src="<?php echo $registro['foto']?>" class="card-img-top" alt="...">
-    <div class="card-body">
-        <h5 class="card-title"><?php echo $registro['titulo']?></h5>
-        <p class="card-text"><?php echo $registro['vistaGeneral']?></p>
-        <a href="editar.php?txtID=<?php echo $registro['id']?>" class="btn btn-primary">Editar</a>
+
+<div class="row row-cols-1 row-cols-md-4 g-3">
+    <?php foreach($tours as $registro){ ?>
+    <div class="col">
+        <div class="card mx-auto" style="width: 100%;">
+            <img src="<?php echo $registro['foto']?>" class="card-img-top" alt="...">
+            <div class="card-body">
+                <p class="card-text"><small class="text-muted"><?php echo $registro['ubicacion']?></small></p>
+                <h5 class="card-title"><?php echo $registro['titulo']?></h5>
+                <div class="row justify-content-between">
+                    <div class="col-4"><p class="card-text"><small class="text-muted"><?php echo $registro['duracion']?>hrs.</small></p></div>
+                    <div class="col-4"><p class="card-text"><small class="text-muted">desde $<?php echo $registro['precioBase']?></small></p></div>
+                </div>
+                <a href="editar.php?txtID=<?php echo $registro['id']?>" class="btn btn-primary">Editar</a>
+                <a href="index.php?txtID=<?php echo $registro['id']?>" class="btn btn-danger">Eliminar</a>
+            </div>
+        </div>
     </div>
+    <?php }?>
 </div>
-<?php }?>
+
     <!--Nuevo look termnia-->
 
 <!-- Se llama el footer desde los templates-->
