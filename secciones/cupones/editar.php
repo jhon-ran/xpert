@@ -50,7 +50,10 @@ if($_POST){
         $sentencia->bindParam(":restricciones",$restricciones);
         //Se ejecuta la sentencia con los valores de param asignados
         $sentencia->execute();
-        header("Location:index.php");
+        //Mensaje de confirmación de modificación que activa Sweet Alert 2
+        $mensaje="Registro modificado";
+        //Redirecionar después de modificar a la lista de cupones
+        header("Location:index.php?mensaje=".$mensaje);
     }
     //******Termina código para recibir registro******
 ?>

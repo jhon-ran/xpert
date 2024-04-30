@@ -21,8 +21,10 @@ if($_POST){
         $sentencia->bindParam(":restricciones",$restricciones);
         //Se ejecuta la sentencia con los valores de param asignados
         $sentencia->execute();
-        //Redirecionar a la lista de puestos
-        header("Location:index.php");
+        //Mensaje de confirmación de creado que activa Sweet Alert 2
+        $mensaje="Registro creado";
+        //Redirecionar después de crear a la lista de cupones
+        header("Location:index.php?mensaje=".$mensaje);
     }
 ?>
 <!-- Se llama el header desde los templates-->

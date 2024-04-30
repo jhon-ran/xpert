@@ -65,3 +65,12 @@ $url_base = "/xpert/";
         </header>       
 
         <main class="container">
+            <!--Inicia código de mensaje de alerta cuando se borra registro-->
+        <!--Si hay algo en el métod get-->
+        <?php if(isset($_GET['mensaje'])){ ?>
+            <!--se corre el mensaje de eliminado en línea 19-->
+            <script>
+                Swal.fire({icon:"success", title:"<?php echo $_GET['mensaje'];?>"});
+            </script>
+        <?php } ?>
+        <!--Termina código de mensaje de alerta cuando se borra registro-->

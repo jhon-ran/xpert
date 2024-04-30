@@ -15,8 +15,11 @@ if(isset($_GET['txtID'])){
    $sentencia->bindParam(":id",$txtID);
    //Se ejecuta la sentencia con el valor asignado para borrar
    $sentencia->execute();
-   //Redirecionar después de eliminar a la lista de puestos
-   header("Location:index.php");
+  //Mensaje de confirmación de borrado que activa Sweet Alert 2
+  $mensaje="Registro eliminado";
+  //Redirecionar después de eliminar a la lista de puestos
+  //Llama a código de templates/footer.php
+  header("Location:index.php?mensaje=".$mensaje);
  }
  //******Termina código para eliminar registro******
 
@@ -33,6 +36,9 @@ $usuarios = $sentencia->fetchAll(PDO::FETCH_ASSOC);
 <!-- Se llama el header desde los templates-->
 <!-- ../../ sube 2 niveles para poder acceder al folder de templates desde la posición actual-->
 <?php include("../../templates/header.php"); ?>
+
+
+
 <h2>Usuarios registrados</h2>
 <!--Nuevo look inicia-->
 <div class="card">
@@ -64,7 +70,7 @@ $usuarios = $sentencia->fetchAll(PDO::FETCH_ASSOC);
             <td><?php echo $registro['tipo']?></td>
             <td>
               <a name="" id="" class="btn btn-info" href="editar.php?txtID=<?php echo $registro['id']?>" role="button">Editar</a>
-              <a name="" id="" class="btn btn-danger" href="index.php?txtID=<?php echo $registro['id']?>">Eliminar</a>
+              <a name="" id="" class="btn btn-danger" href="javascript:borrar(<?php echo $registro['id']?>);">Eliminar</a>
             </td>
           </tr>
           <?php }?>

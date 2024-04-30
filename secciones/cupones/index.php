@@ -15,8 +15,11 @@ if(isset($_GET['txtID'])){
   $sentencia->bindParam(":id",$txtID);
   //Se ejecuta la sentencia con el valor asignado para borrar
   $sentencia->execute();
+  //Mensaje de confirmación de borrado que activa Sweet Alert 2
+  //Llama a código de templates/footer.php
+  $mensaje="Registro eliminado";
   //Redirecionar después de eliminar a la lista de puestos
-  header("Location:index.php");
+  header("Location:index.php?mensaje=".$mensaje);
 }
 //******Termina código para eliminar registro******
 
@@ -32,6 +35,7 @@ $cupones = $sentencia->fetchAll(PDO::FETCH_ASSOC);
 <!-- Se llama el header desde los templates-->
 <!-- ../../ sube 2 niveles para poder acceder al folder de templates desde la posición actual-->
 <?php include("../../templates/header.php"); ?>
+
 <h2>Cupones existentes</h2>
 
 <!--Nuevo look inicia-->
@@ -77,23 +81,6 @@ $cupones = $sentencia->fetchAll(PDO::FETCH_ASSOC);
   </div>
 </div>
   <!--Nuevo look termina-->
-
-<script>
-  function borrar(id){
-    //Se llama a la función del SweetAlert API para mostrar un mensaje de confirmación
-    Swal.fire({
-      title: "¿Estás seguro que quieres borrar el registro?",
-      showCancelButton: true,
-      confirmButtonText: "Sí"
-    }).then((result) => {
-        //Si el usuario confirma la eliminación, se redirecciona a la página de eliminación
-        if (result.isConfirmed) {
-          window.location="index.php?txtID="+id;
-        } 
-    });
-        //index.php?txtID=
-  }
-</script>
 
 <!-- Se llama el footer desde los templates-->
 <!-- ../../ sube 2 niveles para poder acceder al folder de templates desde la posición actual-->

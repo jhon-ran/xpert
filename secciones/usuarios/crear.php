@@ -83,9 +83,11 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
             //la variable para mensaje de éxito se actualiza a true después de insertar el usuario
             $succes = true;
     
-            //Redireccionar al login después de 5 segundos de registrarse para ver mensaje de éxito
-            //header("Refresh: 2; url=index.php");
-            header("Location:index.php");
+            //Mensaje de confirmación de creación que activa Sweet Alert 2
+            //Llama a código de templates/header.php
+            $mensaje="Registro creado";
+            //Redirecionar después de crear a la lista de puestos
+            header("Location:index.php?mensaje=".$mensaje);
             
     
         }catch(Exception $ex){

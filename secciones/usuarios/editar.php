@@ -56,8 +56,11 @@ if($_POST){
     $sentencia->bindParam(":tipo",$tipo);
     $sentencia->bindParam(":id",$txtID);
     $sentencia->execute();
-    //Redirecionar a la lista de puestos
-    header("Location:index.php");
+    //Mensaje de confirmación de edición que activa Sweet Alert 2
+    //Llama a código de templates/header.php
+    $mensaje="Registro editado";
+    //Redirecionar después de editar a la lista de puestos
+    header("Location:index.php?mensaje=".$mensaje);
 }
 
 //******Termina código para modificar registro******

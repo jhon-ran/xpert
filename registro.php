@@ -77,7 +77,7 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
             //la variable para mensaje de éxito se actualiza a true después de insertar el usuario
             $succes = true;
     
-            //Redireccionar al login después de 5 segundos de registrarse para ver mensaje de éxitoe
+            //Redireccionar al login después de 5 segundos de registrarse para ver errores
             //header("Location:login.html");
             header("Refresh: 2; url=login.html");
     
@@ -93,15 +93,40 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
 }
 ?>
 
-<!DOCTYPE html>
+
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <h2>Registro</h2>
+    <head>
+        <title>Title</title>
+        <!-- Required meta tags -->
+        <meta charset="utf-8" />
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1, shrink-to-fit=no"
+        />
+        <!-- Bootstrap CSS v5.2.1 -->
+        <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+            crossorigin="anonymous"
+        />
+        <!-- cdn JQuery v.3.7.1-->
+        <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+        <!-- cdn DataTables v.1.12.1 -->
+        <link rel="stylesheet" href="https://cdn.datatables.net/2.0.5/css/dataTables.dataTables.css" />
+        <script src="https://cdn.datatables.net/2.0.5/js/dataTables.js"></script>
+        <!-- cdn para Sweet Alert 2, alertas de acciones -->
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    </head>
+
+    <body>
+        <header>
+        </header>       
+
+        <main class="container">
+
+    <!--
     <form action="registro.php" id="formularioRegistro" method="post">
         Nombre:
         <input type="text" name="nombre" id="nombre" required><br>
@@ -116,6 +141,46 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
         <button type="submit">Registrar</button>
         <a href="login.html">Login</a>
     </form>
+    -->
+
+        <!--Nuevo look inicia-->
+    <h2>Registrarse</h2>
+    <div class="card">
+        <div class="card-header">Datos del usuario</div>
+        <div class="card-body">
+            <form action="registro.php" id="formularioRegistro" method="post">
+                <div class="mb-3">
+                    <label for="nombre" class="form-label">Nombre</label>
+                    <input type="text" class="form-control" name="nombre" id="nombre" aria-describedby="helpId" placeholder=""/>
+                </div>
+                <div class="mb-3">
+                    <label for="apellidos" class="form-label">Apellidos</label>
+                    <input type="text" class="form-control" name="apellidos" id="apellidos" aria-describedby="helpId" placeholder=""/>
+                </div>
+                <div class="mb-3">
+                    <label for="email" class="form-label">Correo</label>
+                    <input type="email" class="form-control" name="email" id="email"aria-describedby="helpId" placeholder=""/>
+                </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label">Contraseña</label>
+                    <input
+                        type="password" class="form-control" name="password" id="password" aria-describedby="helpId" placeholder=""/>
+                </div>
+                <div class="mb-3">
+                    <label for="confirmarPassword" class="form-label">Confirmar contraseña</label>
+                    <input
+                        type="password" class="form-control" name="confirmarPassword" id="confirmarPassword" aria-describedby="helpId" placeholder="Repita la contraseña"/>
+                </div>
+                <button type="submit" class="btn btn-success">Registrar</button>
+                <a name="" id="" class="btn btn-primary" href="login.html" role="button">Login</a>
+            </form>
+
+        </div>
+        <div class="card-footer text-muted"></div>
+    </div>
+    <!--Nuevo look termina-->
+
+
 
     <!--Script para mostrar un mensaje de éxito si se inserto el usuario correctamente-->
     <?php
@@ -144,5 +209,38 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
         document.getElementById("confirmarPassword").addEventListener("input", comparaPasswords);
     </script>
 
+</main>
+<footer>
+  <p>Xpert Tours 2024</p>
+</footer>
+<!-- Bootstrap JavaScript Libraries -->
+<script
+    src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+    integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+    crossorigin="anonymous"
+></script>
+
+<script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
+    integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
+    crossorigin="anonymous"
+></script>
+
+<!--Función para llamar Data Tables-->
+<script>
+  $(document).ready(function(){
+    $("#tabla_id").DataTable({
+      "pageLength":3,
+      lengthMenu:[
+        [3,5,10,25,50],
+        [3,5,10,25,50]
+      ],
+      "language": {
+          //No carga modulo de lengua, genera error, descomentar cuando haya solución
+            //"url":"//cdn.datatables.net/plug-ins/2.0.5/i18n/es-MX.json"
+        }
+    });
+  });
+</script>
 </body>
 </html>

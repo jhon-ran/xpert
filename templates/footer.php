@@ -32,5 +32,22 @@
     });
   });
 </script>
+
+<script>
+  function borrar(id){
+    //Se llama a la función del SweetAlert API para mostrar un mensaje de confirmación
+    Swal.fire({
+      title: "¿Estás seguro que quieres borrar el registro?",
+      showCancelButton: true,
+      confirmButtonText: "Sí"
+    }).then((result) => {
+        //Si el usuario confirma la eliminación, se redirecciona a la página de eliminación
+        if (result.isConfirmed) {
+          window.location="index.php?txtID="+id;
+        } 
+    });
+        //index.php?txtID=
+  }
+</script>
 </body>
 </html>
