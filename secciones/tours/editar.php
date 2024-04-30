@@ -182,9 +182,7 @@ if($_POST){
 <!-- ../../ sube 2 niveles para poder acceder al folder de templates desde la posición actual-->
 <?php include("../../templates/header.php"); ?>
 
-    
-<h1>Editar Tours</h1>
-
+<!--
 <form action="editar.php" id="editarTours" method="post" enctype="multipart/form-data">
 ID:
         <input type="text" value ="<?php echo $txtID;?>" readonly name="txtID" id="txtID" placeholder="ID"/><br>
@@ -203,7 +201,6 @@ ID:
         <img width="300" src="<?php echo $foto;?>" alt="foto"/>
         
         <input type="file" name="foto" id="foto"><br>
-        <!-- Para que se muestren los datos en textarea se deben poner en placeholder-->
         <p>Vista general:</p>
         <textarea name="vistaGeneral" id="vistaGeneral" cols="50" rows="5"><?php echo $vistaGeneral;?></textarea><br>
         <p>Destacado:</p>
@@ -244,6 +241,129 @@ ID:
         <button type="submit">Editar tour</button>
         <a href="index.php">Cancelar</a>
 </form>
+-->
+
+    <!--Nuevo look inicia-->
+    <h2>Editar tour</h2>
+    <div class="card">
+        <div class="card-header">Información del tour</div>
+        <div class="card-body">
+            <form action="editar.php" id="editarTours" method="post" enctype="multipart/form-data">
+            <div class="mb-3">
+                    <label for="txtID" class="form-label">ID</label>
+                    <input type="text" class="form-control" value="<?php echo $txtID;?>" name="txtID" id="txtID" aria-describedby="helpId" readonly placeholder=""/>
+                </div>
+                <div class="mb-3">
+                    <label for="titulo" class="form-label">Título</label>
+                    <input type="text" class="form-control" value="<?php echo $titulo;?>" name="titulo" id="titulo" aria-describedby="helpId" placeholder=""/>
+                </div>
+                <div class="mb-3">
+                    <label for="duracion" class="form-label">Duración en horas</label>
+                    <input type="number" class="form-control" name="duracion" id="duracion" value="<?php echo $duracion;?>" aria-describedby="helpId" placeholder=""/>
+                </div>
+                <div class="mb-3">
+                    <label for="tipo" class="form-label">Tipo</label>
+                    <input type="text" class="form-control" name="tipo" id="tipo" value="<?php echo $tipo;?>" aria-describedby="helpId" placeholder=""/>
+                </div>
+                <div class="mb-3">
+                    <label for="capacidad" class="form-label">Capacidad máxima</label>
+                    <input
+                        type="number" class="form-control" name="capacidad" id="capacidad" value="<?php echo $capacidad;?>"aria-describedby="helpId" placeholder=""/>
+                </div>
+                <div class="mb-3">
+                    <label for="idiomas" class="form-label">Idiomas</label>
+                    <input
+                        type="text" class="form-control" name="idiomas" id="idiomas" value="<?php echo $idiomas;?>" aria-describedby="helpId" placeholder=""/>
+                </div>
+                <div class="mb-3">
+                    <img src="<?php echo $foto;?>" class="img-fluid rounded-top" alt="Foto tour"/>
+                </div>
+                <div class="mb-3">
+                    <label for="foto" class="form-label">Foto</label>
+                    <input
+                        type="file" class="form-control" name="foto" id="foto" aria-describedby="helpId" placeholder=""/>
+                </div>
+                <div class="mb-3">
+                    <label for="vistaGenera">Vista general</label>
+                    <textarea class="form-control" name="vistaGeneral" id="vistaGeneral" rows="3"><?php echo $vistaGeneral;?></textarea>
+                </div>
+                <div class="mb-3">
+                    <label for="destacado">Destacado</label>
+                    <textarea class="form-control" name="destacado" id="destacado" rows="3"><?php echo $destacado;?></textarea>
+                </div>
+                <div class="mb-3">
+                    <label for="itinerario">Itinerario</label>
+                    <textarea class="form-control" name="itinerario" id="itinerario" rows="3"><?php echo $itinerario;?></textarea>
+                </div>
+                <div class="mb-3">
+                    <label for="incluye">Incluye</label>
+                    <textarea class="form-control" name="incluye" id="incluye" rows="3"><?php echo $incluye;?></textarea>
+                </div>
+                <div class="mb-3">
+                    <label for="ubicacion" class="form-label">Ubicación</label>
+                    <input
+                        type="text" class="form-control" name="ubicacion" id="ubicacion" value="<?php echo $ubicacion;?>" aria-describedby="helpId" placeholder=""/>
+                </div>
+                <div class="mb-3">
+                    <label for="queTraer">Qué traer</label>
+                    <textarea class="form-control" name="queTraer" id="queTraer" rows="3"><?php echo $queTraer;?></textarea>
+                </div>
+                <div class="mb-3">
+                    <label for="infoAdicional">Información adicional</label>
+                    <textarea class="form-control" name="infoAdicional" id="infoAdicional" rows="3"><?php echo $infoAdicional;?></textarea>
+                </div>
+                <div class="mb-3">
+                    <label for="polCancel">Política de cancelación</label>
+                    <textarea class="form-control" name="polCancel" id="polCancel" rows="3"><?php echo $polCancel;?></textarea>
+                </div>
+                <div class="mb-3">
+                    <label for="actividades">Actividades para hacer</label>
+                    <textarea class="form-control" name="actividades" id="actividades" rows="3"><?php echo $actividades;?></textarea>
+                </div>
+                <div class="mb-3">
+                    <label for="" class="form-label">Actualmente <b><?php echo $incluyeTransporte;?></b> incluye transporte</label>
+                </div>
+                <div class="mb-3">
+                    <label for="incluyeTransporte" class="form-label">¿La transportación está incuída?</label>
+                    <select class="form-select form-select-sm" name="incluyeTransporte" id="incluyeTransporte">
+                        <option value="<?php echo $incluyeTransporte;?>"><?php echo $incluyeTransporte;?></option>
+                        <option value="sí">Sí</option>
+                        <option value="no">No</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="transporte" class="form-label">Tipo de transporte</label>
+                    <input
+                        type="text" class="form-control" name="transporte" id="transporte" value="<?php echo $transporte;?>" aria-describedby="helpId" placeholder=""/>
+                </div>
+                <div class="mb-3">
+                    <label for="staff" class="form-label">Staff a cargo</label>
+                    <input
+                        type="text" class="form-control" name="staff" id="staff" value="<?php echo $staff;?>" aria-describedby="helpId" placeholder=""/>
+                </div>
+                <div class="mb-3">
+                    <label for="precioBase" class="form-label">Precio desde</label>
+                    <input type="number" class="form-control" name="precioBase" id="precioBase" value="<?php echo $precioBase;?>" aria-describedby="helpId" placeholder=""/>
+                </div>
+                <div class="mb-3">
+                    <label for="descuento" class="form-label">Descuento</label>
+                    <input type="number" class="form-control" name="descuento" id="descuento" value="<?php echo $descuento;?>" aria-describedby="helpId" placeholder=""/>
+                </div>
+                <div class="mb-3">
+                    <label for="redes" class="form-label">Redes sociales</label>
+                    <input
+                        type="text" class="form-control" name="redes" id="redes" value="<?php echo $redes;?>" aria-describedby="helpId" placeholder=""/>
+                </div>
+                <button type="submit" class="btn btn-success">Actualizar</button>
+                <a name="" id="" class="btn btn-primary" href="index.php" role="button">Cancelar</a>
+            </form>
+
+        </div>
+        <div class="card-footer text-muted"></div>
+    </div>
+    <!--Nuevo look termina-->
+
+
 
 <!-- Se llama el footer desde los templates-->
 <!-- ../../ sube 2 niveles para poder acceder al folder de templates desde la posición actual-->

@@ -60,9 +60,7 @@ $tours = $sentencia->fetchAll(PDO::FETCH_ASSOC);
 <!-- ../../ sube 2 niveles para poder acceder al folder de templates desde la posición actual-->
 <?php include("../../templates/header.php"); ?>
 
-    
-<h2>Tours y excursiones</h2>
-<a href="crear.php">Crear tours</a>
+<!--
     <?php foreach($tours as $registro){ ?>
         <ul>
             <li>ID: <?php echo $registro['id']?></li>
@@ -95,10 +93,19 @@ $tours = $sentencia->fetchAll(PDO::FETCH_ASSOC);
             <hr/>
         </ul>  
     <?php }?>
-
+    -->
+<br>
+    <div class="p-5 mb-4 bg-light rounded-3">
+        <div class="container-fluid py-5">
+            <h2 class="display-5 fw-bold">Tours, excursiones y actividades</h2>
+            <p class="col-md-8 fs-4">
+                Aquí puedes encontrar todos los tours, excursiones o actividades que ofrecemos en México.
+            </p>
+            <a name="" id="" class="btn btn-primary btn-lg" href="crear.php" role="button" >Crear nuevo tour</a>
+        </div>
+    </div>
 
     <!--Nuevo look inicia-->
-
 <div class="row row-cols-1 row-cols-md-4 g-3">
     <?php foreach($tours as $registro){ ?>
     <div class="col">

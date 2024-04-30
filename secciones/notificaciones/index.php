@@ -7,7 +7,12 @@ session_start();
 <?php include("../../templates/header.php"); ?>
 
     
-<h1>Bienvenidos al index de notificaciones </h1>
+    <br>
+    <div class="p-5 mb-4 bg-light rounded-3">
+        <div class="container-fluid py-5">
+            <h1 class="display-5 fw-bold">Bienvenid@s a las notificaciones</h1>
+        </div>
+    </div>
 
 <!-- Se llama el footer desde los templates-->
 <!-- ../../ sube 2 niveles para poder acceder al folder de templates desde la posición actual-->
