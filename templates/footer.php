@@ -20,14 +20,14 @@
 <script>
   $(document).ready(function(){
     $("#tabla_id").DataTable({
-      "pageLength":3,
+      "pageLength":10,
       lengthMenu:[
         [3,5,10,25,50],
         [3,5,10,25,50]
       ],
       "language": {
           //No carga modulo de lengua, genera error, descomentar cuando haya solución
-            //"url":"//cdn.datatables.net/plug-ins/2.0.5/i18n/es-MX.json"
+            "url":"https://cdn.datatables.net/plug-ins/2.0.5/i18n/es-MX.json"
         }
     });
   });
