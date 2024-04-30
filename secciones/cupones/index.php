@@ -1,5 +1,7 @@
 <!-- Importar conexión a BD-->
 <?php include("../../bd.php"); 
+//se inicializa variable de sesión
+session_start();
 
 //******Inicia código para eliminar registro******
 //Para recolectar información del url con el botón "eliminar" método GET

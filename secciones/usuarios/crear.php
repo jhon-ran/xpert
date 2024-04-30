@@ -1,6 +1,7 @@
 
 <?php
-
+//se inicializa variable de sesión
+session_start();
 //Verifciar si hay datos por el metodo post
 if($_SERVER["REQUEST_METHOD"]=="POST"){
     include("../../conexion.php");

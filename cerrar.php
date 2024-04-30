@@ -7,6 +7,6 @@ if(session_status()==PHP_SESSION_NONE) {
 //Se destruye variable de sesión
 session_destroy();
 //Se redirecciona a la página de login
-header('Location:login.html');
+header('Location:login.php');
 exit();
 ?>

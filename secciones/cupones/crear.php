@@ -1,5 +1,7 @@
 <!-- Importar conexión a BD-->
 <?php include("../../bd.php"); 
+//se inicializa variable de sesión
+session_start();
 if($_POST){
         print_r($_POST);
     

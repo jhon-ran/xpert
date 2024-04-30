@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en">
     <head>
-        <title>Title</title>
+        <title>Login</title>
         <!-- Required meta tags -->
         <meta charset="utf-8" />
         <meta
@@ -19,21 +19,58 @@
         <title>Login</title>
     </head>
     <body>
-        
-    <h3>Bienvenid@s </h3>
-    <form action="login.php" method="post">
-        Correo:
-        <input type="text" name="email" placeholder="Ingrese correro"><br><br>
-        Contraseña:   
-        <input type="password" name="password" placeholder="Ingrese contraseña"><br><br>
-        <div class="g-recaptcha" data-sitekey="6LeYc74pAAAAAAvREuXjkM4inSyqJPTb5xxTr3Gk"></div>
-        <br/> 
-        <input type="submit" value="Iniciar sesión">
-        <a href="registro.php">Registrarse</a>
-    </form>
-    <footer>
-        <p>Xpert Tours 2024</p>
-      </footer>
+
+        <header>
+            <h2 class="text-center">Xpert Tours</h2>
+        </header>
+
+        <!--
+        <h3>Bienvenid@s </h3>
+        <form action="login.php" method="post">
+            Correo:
+            <input type="text" name="email" placeholder="Ingrese correro"><br><br>
+            Contraseña:   
+            <input type="password" name="password" placeholder="Ingrese contraseña"><br><br>
+            <div class="g-recaptcha" data-sitekey="6LeYc74pAAAAAAvREuXjkM4inSyqJPTb5xxTr3Gk"></div>
+            <br/> 
+            <input type="submit" value="Iniciar sesión">
+            <a href="registro.php">Registrarse</a>
+        </form>
+        -->
+
+        <main class="container">
+
+            <div class=""row">
+                <div class="col-md-4">
+                <br><br>
+                </div>
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-header">Login</div>
+                        <div class="card-body">
+                            <form action="login.php" method="post">
+                                <div class="mb-3">
+                                    <label for="email" class="form-label">Correo</label>
+                                    <input type="email" class="form-control" name="email" id="email" aria-describedby="helpId" placeholder="Ingrese correo"/>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="password" class="form-label">Contraseña</label>
+                                    <input type="password" class="form-control" name="password" id="password" aria-describedby="helpId" placeholder="Ingrese contraseña"/>
+                                </div>
+                                <div class="g-recaptcha" data-sitekey="6LeYc74pAAAAAAvREuXjkM4inSyqJPTb5xxTr3Gk"></div>
+                                <button type="submit" class="btn btn-primary">Iniciar sesión</button>
+                            </form>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+
+        </main>
+
+        <footer>
+            <p>Xpert Tours 2024</p>
+        </footer>
       <!-- Bootstrap JavaScript Libraries -->
       <script
           src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"

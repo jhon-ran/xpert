@@ -3,6 +3,13 @@
 $url_base = "/xpert/";
 //url de base en localhost para concatenar en la navbar y evitar errores de redirección (dinámica)
 //$url_base = "http://localhost/xpert/";
+
+//si no existe la variable de sesión usuario_id, se redirige al login
+if(!isset($_SESSION['usuario_id'])){
+    header('Location:'.$url_base.'login.php');
+    exit();
+}
+
 ?>
 
 <!doctype html>
@@ -58,7 +65,8 @@ $url_base = "/xpert/";
                     <a class="nav-link" href="<?php echo $url_base;?>secciones/reportes/">Reportes</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="../../cerrar.php">Cerrar</a>
+                    <!--<a class="nav-link" href="../../cerrar.php">Cerrar</a>-->
+                    <a class="nav-link" href="<?php echo $url_base;?>cerrar.php">Cerrar</a
                 </li>
             </ul>
         </nav>

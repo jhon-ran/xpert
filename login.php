@@ -57,7 +57,7 @@ if ($_SERVER["REQUEST_METHOD"]=="POST") {
         $sentencia->execute(['email'=>$email]);
         //Obtener los datos de la consulta
         $usuarios = $sentencia->fetchAll(PDO::FETCH_ASSOC);
-        print_r($usuarios);
+        //print_r($usuarios);
 
         //Se inicializa la variable en flase para verificar si el password es correcto
         $login = false; 
@@ -79,23 +79,102 @@ if ($_SERVER["REQUEST_METHOD"]=="POST") {
             //redirección al index
             header("Location: index.php");
         }else{
-            echo "No existe en la BD";  
+            $error ="El usuario o contraseña son incorrectos";  
         }
          
     } catch (PDOException $ex) {
         echo "Error de conexión:".$ex->getMessage();
     }
 
-}else{
-    //Imprimir errores en pantalla si los hay
-    foreach($errores as $error){
-        echo "<li>$error</li>";
+    }else{
+        //Imprimir errores en pantalla si los hay
+        foreach($errores as $error){
+            //echo "<li>$error</li>";
+            $error;
+        }
+        //Redireccionar a login
+        //echo  "<a href='login.php'>Regresar a login</>";
     }
-    //Redireccionar a login
-    echo  "<a href='login.html'>Regresar a login</>";
 }
-}
-
-
-
 ?>
+
+<!doctype html>
+<html lang="en">
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8" />
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1, shrink-to-fit=no"
+        />
+        <!-- Bootstrap CSS v5.2.1 -->
+        <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+            crossorigin="anonymous"
+        />
+        <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+        <title>Login</title>
+    </head>
+    <body>
+
+        <header class="text-center">
+            <h1>Xpert Tours</h1>
+        </header>
+        <br>
+        <main class="container">
+
+            <div class="row">
+                <div class="col-md-4">
+                <br><br>
+                </div>
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-header">Login</div>
+                        <!--Inicio envio de mensaje de error-->
+                        <div class="card-body">
+                            <?php if(isset($error)) { ?>
+                            <div class="alert alert-danger" role="alert">
+                                <strong><?php echo $error;?></strong>
+                            </div>
+                            <?php }?>
+                        <!--termina envio de mensaje de error-->
+                            <form action="login.php" method="post">
+                                <div class="mb-3">
+                                    <label for="email" class="form-label">Correo</label>
+                                    <input type="email" class="form-control" name="email" id="email" aria-describedby="helpId" placeholder="Ingrese correo"/>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="password" class="form-label">Contraseña</label>
+                                    <input type="password" class="form-control" name="password" id="password" aria-describedby="helpId" placeholder="Ingrese contraseña"/>
+                                </div>
+                                <div class="g-recaptcha" data-sitekey="6LeYc74pAAAAAAvREuXjkM4inSyqJPTb5xxTr3Gk"></div>
+                                <button type="submit" class="btn btn-primary">Iniciar sesión</button>
+                                <a name="" id="" class="btn btn-success" href="registro.php" role="button" >Registrarse</a>
+                            </form>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+
+        </main>
+
+        <footer>
+            <p>Xpert Tours 2024</p>
+        </footer>
+      <!-- Bootstrap JavaScript Libraries -->
+      <script
+          src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+          integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+          crossorigin="anonymous"
+      ></script>
+      
+      <script
+          src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
+          integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
+          crossorigin="anonymous"
+      ></script>
+      </body>
+</html>

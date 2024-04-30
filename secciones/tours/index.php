@@ -1,3 +1,8 @@
+<?php 
+//se inicializa variable de sesión
+session_start();
+?>
+
 <!-- Importar conexión a BD-->
 <?php include("../../bd.php");
 

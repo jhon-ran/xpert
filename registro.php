@@ -172,7 +172,7 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
                         type="password" class="form-control" name="confirmarPassword" id="confirmarPassword" aria-describedby="helpId" placeholder="Repita la contraseña"/>
                 </div>
                 <button type="submit" class="btn btn-success">Registrar</button>
-                <a name="" id="" class="btn btn-primary" href="login.html" role="button">Login</a>
+                <a name="" id="" class="btn btn-primary" href="login.php" role="button">Login</a>
             </form>
 
         </div>

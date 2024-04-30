@@ -1,5 +1,9 @@
 <!-- Importar conexión a BD-->
 <?php include("../../bd.php"); 
+
+//se inicializa variable de sesión
+session_start();
+
 //******Inicia código para recibir registro******
 //Para verificar que se envía un id
 if(isset($_GET['txtID'])){
