@@ -3,8 +3,8 @@
 //se inicializa variable de sesión
 session_start();
 if($_POST){
-        print_r($_POST);
-    
+        //Array para guardar los errores
+        $errores= array();
         //Validación: que exista la información enviada, lo vamos a igualar a ese valor,
         //de lo contratrio lo deja en blanco
         $nombre = (isset($_POST["nombre"])? $_POST["nombre"]:"");
@@ -12,11 +12,14 @@ if($_POST){
         $inicioValidez = (isset($_POST["inicioValidez"])? $_POST["inicioValidez"]:"");
         $terminoValidez = (isset($_POST["terminoValidez"])? $_POST["terminoValidez"]:"");
         $restricciones = (isset($_POST["restricciones"])? $_POST["restricciones"]:"");
+
         //Preparar la inseción de los datos enviados por POST
         $sentencia = $conexion->prepare("INSERT INTO cupones(id,nombre,descuento,inicioValidez,terminoValidez,restricciones) 
         VALUES (null, :nombre, :descuento, :inicioValidez, :terminoValidez, :restricciones)" );
+
         //Asignar los valores que vienen del formulario (POST)
-        $sentencia->bindParam(":nombre",$nombre);
+        //Se convierte el nombre del cupón a mayusculas antes de enviarlo a la BD con strtoupper()
+        $sentencia->bindParam(":nombre",strtoupper($nombre));
         $sentencia->bindParam(":descuento",$descuento);
         $sentencia->bindParam(":inicioValidez",$inicioValidez);
         $sentencia->bindParam(":terminoValidez",$terminoValidez);

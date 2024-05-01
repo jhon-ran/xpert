@@ -42,6 +42,32 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
         //Verificar que el correo sea válido (formato) 
         $errores['email'] = "El correo no es válido";
     } 
+
+        //******Inicia validación de password existente en bd*****
+        try {
+            $conn = new PDO("mysql:host=$servidor;dbname=$baseDatos",$usuario,$contrasena);
+            $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            
+            $email = $_POST['email'];
+            // Consulta para ver si usuario ya existe en la base de datos
+            $sql = "SELECT * FROM usuarios WHERE email = :email";
+            $stmt = $conn->prepare($sql);
+            $stmt->bindParam(':email', $email);
+            $stmt->execute();
+        
+            $resultado = $stmt->fetch(PDO::FETCH_ASSOC);
+            // Si el resultado es verdadero, el usuario ya existe y se muestra un mensaje de error
+            if ($resultado) {
+                $errores['email'] = "Ya existe un usuario con ese correo";
+            }
+        
+        } catch(PDOException $e) {
+            echo "Error de conexión: ". $e->getMessage();
+        }
+    
+        //******Termina validación de password existente en bd*****
+
+
     //validar que la contraseña no está vacía
     if (empty($password)) {
         $errores['password'] = "La contraseña es obligatoria";
@@ -61,6 +87,11 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
         $errores['confirmarPassword'] = "La confirmación de contraseña es obligatoria";
     }elseif ($password!=$confirmarPassword) {
         $errores['confirmarPassword'] = "Las contraseñas no coinciden";
+    }
+
+    //validar que el tipo de usuario no está vacio (dropdown)
+    if (empty($tipo)) {
+        $errores['tipo'] = "Debe seleccionar un tipo de usuario";
     }
 
 
