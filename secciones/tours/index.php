@@ -101,7 +101,9 @@ $tours = $sentencia->fetchAll(PDO::FETCH_ASSOC);
             <p class="col-md-8 fs-4">
                 Aquí puedes encontrar todos los tours, excursiones o actividades que ofrecemos en México.
             </p>
-            <a name="" id="" class="btn btn-primary btn-lg" href="crear.php" role="button" >Crear nuevo tour</a>
+            <?php if($_SESSION["usuario_tipo"]=="admin"  || $_SESSION["usuario_tipo"]=="superadmin"):?>
+                <a name="" id="" class="btn btn-primary btn-lg" href="crear.php" role="button" >Crear nuevo tour</a>
+            <?php endif; ?>
         </div>
     </div>
 
@@ -118,11 +120,17 @@ $tours = $sentencia->fetchAll(PDO::FETCH_ASSOC);
                     <div class="col-4"><p class="card-text"><small class="text-muted"><?php echo $registro['duracion']?>hrs.</small></p></div>
                     <div class="col-4"><p class="card-text"><small class="text-muted">desde $<?php echo $registro['precioBase']?></small></p></div>
                 </div>
-                <a href="editar.php?txtID=<?php echo $registro['id']?>" class="btn btn-primary">Editar</a>
-                <a href="index.php?txtID=<?php echo $registro['id']?>" class="btn btn-danger">Eliminar</a>
+                <?php if($_SESSION["usuario_tipo"]=="admin"  || $_SESSION["usuario_tipo"]=="superadmin"):?>
+                    <a href="editar.php?txtID=<?php echo $registro['id']?>" class="btn btn-primary">Editar</a>
+                    <a href="index.php?txtID=<?php echo $registro['id']?>" class="btn btn-danger">Eliminar</a>
+                <?php elseif($_SESSION["usuario_tipo"]=="ventas"):?>
+                    <a href="editar.php?txtID=<?php echo $registro['id']?>" class="btn btn-primary">Editar</a>
+                <?php else:?>
+                    <a href="" class="btn btn-primary">Ver más</a>
+                <?php endif; ?>
+                </div>
             </div>
         </div>
-    </div>
     <?php }?>
 </div>
 

@@ -10,6 +10,7 @@ if(!isset($_SESSION['usuario_id'])){
     exit();
 }
 
+//print_r($_SESSION['usuario_tipo'])
 ?>
 
 <!doctype html>
@@ -43,6 +44,7 @@ if(!isset($_SESSION['usuario_id'])){
             
         <nav class="navbar navbar-expand navbar-light bg-light">
             <ul class="nav navbar-nav">
+                <?php if($_SESSION["usuario_tipo"]=="admin" || $_SESSION["usuario_tipo"]=="superadmin"):?>
                 <li class="nav-item">
                     <a class="nav-link" href="<?php echo $url_base;?>secciones/cuenta/">Mi cuenta</a>
                 </li>
@@ -56,6 +58,9 @@ if(!isset($_SESSION['usuario_id'])){
                     <a class="nav-link" href="<?php echo $url_base;?>secciones/cupones/">Cupones</a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link" href="<?php echo $url_base;?>secciones/mis_cupones/">Mis cupones</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" href="<?php echo $url_base;?>secciones/staff/">Staff</a>
                 </li>
                 <li class="nav-item">
@@ -65,9 +70,34 @@ if(!isset($_SESSION['usuario_id'])){
                     <a class="nav-link" href="<?php echo $url_base;?>secciones/reportes/">Reportes</a>
                 </li>
                 <li class="nav-item">
-                    <!--<a class="nav-link" href="../../cerrar.php">Cerrar</a>-->
-                    <a class="nav-link" href="<?php echo $url_base;?>cerrar.php">Cerrar</a
+                    <a class="nav-link" href="<?php echo $url_base;?>cerrar.php">Cerrar</a>
                 </li>
+                <?php elseif($_SESSION["usuario_tipo"]=="ventas"):?>
+                    <li class="nav-item">
+                    <a class="nav-link" href="<?php echo $url_base;?>secciones/cuenta/">Mi cuenta</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="<?php echo $url_base;?>secciones/tours/">Tours</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="<?php echo $url_base;?>secciones/mis_cupones/">Mis cupones</a>
+                    </li>
+                    <li class="nav-item">
+                        <!--<a class="nav-link" href="../../cerrar.php">Cerrar</a>-->
+                        <a class="nav-link" href="<?php echo $url_base;?>cerrar.php">Cerrar</a>
+                    </li>
+                    <?php elseif($_SESSION["usuario_tipo"]=="cliente"):?>
+                        <li class="nav-item">
+                        <a class="nav-link" href="<?php echo $url_base;?>secciones/cuenta/">Mi cuenta</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="<?php echo $url_base;?>secciones/tours/">Tours</a>
+                        </li>
+                        <li class="nav-item">
+                            <!--<a class="nav-link" href="../../cerrar.php">Cerrar</a>-->
+                            <a class="nav-link" href="<?php echo $url_base;?>cerrar.php">Cerrar</a>
+                        </li>
+                    <?php endif; ?>
             </ul>
         </nav>
         </header>       
