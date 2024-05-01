@@ -31,20 +31,31 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
    if (empty($tipo)){
     $errores['tipo']= "El tipo de usuario es obligatorio";
 }
-   //print_r($errores);
+    // Se remueven todos los caracteres ilegales de email antes de validar
+    $email = filter_var($email, FILTER_SANITIZE_EMAIL);
 
    //Validación de correo
    if (empty($email)) {
-    $errores['email'] = "El email es obligatorio";
+    $errores['email'] = "El correo es obligatorio";
 
     }elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)){
         //Verificar que el correo sea válido (formato) 
-        $errores['email'] = "El email no es válido";
+        $errores['email'] = "El correo no es válido";
     } 
     //validar que la contraseña no está vacía
     if (empty($password)) {
         $errores['password'] = "La contraseña es obligatoria";
     }
+
+       //Validar que la contraseña tenga;
+    /*(?=.*[A-Z]) - Al menos una mayuscula
+    (?=.*[0-9]) - Al menos un número
+    (?=.*[@$!%*?&]) - Al menos un caracter especial
+    [A-Za-z0-9@$!%*?&]{8,} - Al menos de 8 caracteres*/
+    if (!preg_match("/^(?=.*[A-Z])(?=.*[0-9])(?=.*[@$!%*?&])[A-Za-z0-9@$!%*?&]{8,}$/", $password)) {
+        $errores['password'] = "La contraseña debe tener al menos 8 caracteres, incluir al menos una letra mayúscula, un número y un carácter especial";
+    }
+    
     //validar que la confirmación de contraseña no está vacía o que la confirmación coincida con password
     if (empty($confirmarPassword)) { 
         $errores['confirmarPassword'] = "La confirmación de contraseña es obligatoria";
@@ -55,7 +66,7 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
 
     //Imprimir errores en pantalla si los hay
    foreach($errores as $error){
-    echo "<li>$error</li>";
+        $error;
    }
 
    //Si no hay errores (array de errores vacio)
@@ -87,7 +98,7 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
             //Mensaje de confirmación de creación que activa Sweet Alert 2
             //Llama a código de templates/header.php
             $mensaje="Registro creado";
-            //Redirecionar después de crear a la lista de puestos
+            //Redirecionar después de crear a la lista de usuarios
             header("Location:index.php?mensaje=".$mensaje);
             
     
@@ -95,7 +106,6 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
             echo "Error de conexión:".$ex->getMessage();
         }
    }else {
-    echo  "<a href='crear.php'>Regresar a formulario</>";
     //La variable para mensaje de exito se actualiza a false si no se pudo insertar
     $succes=false;
    }
@@ -137,6 +147,15 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
     <div class="card">
         <div class="card-header">Datos del usuario</div>
         <div class="card-body">
+            <!--Inicio envio de mensaje de error-->
+            <?php if(isset($error)) { ?>
+                <?php foreach($errores as $error){ ?>
+                    <div class="alert alert-danger" role="alert">
+                        <strong><?php echo $error;?></strong>
+                    </div>
+                <?php }?>
+            <?php }?>
+            <!--Fin envio de mensaje de error-->
             <form action="crear.php" id="formularioRegistro" method="post">
                 <div class="mb-3">
                     <label for="nombre" class="form-label">Nombre</label>
@@ -177,11 +196,6 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
         <div class="card-footer text-muted"></div>
     </div>
     <!--Nuevo look termina-->
-
-    <!--Script para mostrar un mensaje de éxito si se inserto el usuario correctamente-->
-    <?php
-        if (isset($succes)){ echo "<script>alert('Se ha creado el usuario exitosamente!');</script>";};
-    ?>
 
 <!-- Se llama el footer desde los templates-->
 <!-- ../../ sube 2 niveles para poder acceder al folder de templates desde la posición actual-->

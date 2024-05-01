@@ -7,8 +7,6 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
     $errores= array();
     //Variable para saber si se ha registrado correctamente
     $succes = false;
-    //Imprimir los datos del formulario en pantalla
-    //print_r($_POST);
 
     //Guardar los datos en variables
     //isset() -> verifica si existe una variable, se guardan los datos en variables. Sino se deja en null
@@ -23,22 +21,34 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
          $errores['nombre']= "El nombre es obligatorio";
     }
     if (empty($apellidos)){
-        $errores['apellidos']= "El apellido es obligatorio";
+        $errores['apellidos']= "Los apellidos son obligatorios";
    } 
-   //print_r($errores);
+  
+    // Se remueven todos los caracteres ilegales de email antes de validar
+    $email = filter_var($email, FILTER_SANITIZE_EMAIL);
 
    //Validación de correo
    if (empty($email)) {
-    $errores['email'] = "El email es obligatorio";
+    $errores['email'] = "El correo es obligatorio";
 
     }elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)){
         //Verificar que el correo sea válido (formato) 
-        $errores['email'] = "El email no es válido";
+        $errores['email'] = "El correo no es válido";
     } 
     //validar que la contraseña no está vacía
     if (empty($password)) {
         $errores['password'] = "La contraseña es obligatoria";
     }
+
+    //Validar que la contraseña tenga;
+    /*(?=.*[A-Z]) - Al menos una mayuscula
+    (?=.*[0-9]) - Al menos un número
+    (?=.*[@$!%*?&]) - Al menos un caracter especial
+    [A-Za-z0-9@$!%*?&]{8,} - Al menos de 8 caracteres*/
+    if (!preg_match("/^(?=.*[A-Z])(?=.*[0-9])(?=.*[@$!%*?&])[A-Za-z0-9@$!%*?&]{8,}$/", $password)) {
+        $errores['password'] = "La contraseña debe tener al menos 8 caracteres, incluir al menos una letra mayúscula, un número y un carácter especial";
+    }
+
     //validar que la confirmación de contraseña no está vacía o que la confirmación coincida con password
     if (empty($confirmarPassword)) { 
         $errores['confirmarPassword'] = "La confirmación de contraseña es obligatoria";
@@ -49,7 +59,8 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
 
     //Imprimir errores en pantalla si los hay
    foreach($errores as $error){
-    echo "<li>$error</li>";
+        //echo "<li>$error</li>";
+        $error;
    }
 
    //Si no hay errores (array de errores vacio)
@@ -76,16 +87,19 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
             ));
             //la variable para mensaje de éxito se actualiza a true después de insertar el usuario
             $succes = true;
+            //Mensaje de confirmación de creación que activa Sweet Alert 2
+            //Llama a código de templates/header.php
+            $mensaje="Se registro el usuario correctamente";
     
-            //Redireccionar al login después de 5 segundos de registrarse para ver errores
-            //header("Location:login.html");
-            header("Refresh: 2; url=login.html");
+            //Redireccionar al login
+            header("Location:login.php?mensaje=".$mensaje);
+            //header("Refresh: 2; url=login.php");
     
         }catch(Exception $ex){
             echo "Error de conexión:".$ex->getMessage();
         }
    }else {
-    echo  "<a href='registro.php'>Regresar a formulario</>";
+    //echo  "<a href='registro.php'>Regresar a formulario</>";
     //La variable para mensaje de exito se actualiza a false si no se pudo insertar
     $succes=false;
    }
@@ -125,6 +139,15 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
         </header>       
 
         <main class="container">
+                <!--Inicia código de mensaje de alerta cuando se borra o crea registro-->
+                <!--Si hay algo en el métod get-->
+                <?php if(isset($_GET['mensaje'])){ ?>
+                    <!--se corre el mensaje de eliminado en línea 19-->
+                    <script>
+                        Swal.fire({icon:"success", title:"<?php echo $_GET['mensaje'];?>"});
+                    </script>
+                <?php } ?>
+                <!--Termina código de mensaje de alerta cuando se borra registro-->
 
     <!--
     <form action="registro.php" id="formularioRegistro" method="post">
@@ -148,6 +171,15 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
     <div class="card">
         <div class="card-header">Datos del usuario</div>
         <div class="card-body">
+            <!--Inicio envio de mensaje de error-->
+            <?php if(isset($error)) { ?>
+                <?php foreach($errores as $error){ ?>
+                <div class="alert alert-danger" role="alert">
+                    <strong><?php echo $error;?></strong>
+                </div>
+                <?php }?>
+            <?php }?>
+            <!--Fin envio de mensaje de error-->
             <form action="registro.php" id="formularioRegistro" method="post">
                 <div class="mb-3">
                     <label for="nombre" class="form-label">Nombre</label>
@@ -179,13 +211,6 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
         <div class="card-footer text-muted"></div>
     </div>
     <!--Nuevo look termina-->
-
-
-
-    <!--Script para mostrar un mensaje de éxito si se inserto el usuario correctamente-->
-    <?php
-        if (isset($succes)){ echo "<script>alert('Se ha creado el usuario exitosamente!');</script>";};
-    ?>
 
     <script>
     //Script para verificar que las contraseñas sean iguales antes de mandar los datos por POST 
@@ -242,5 +267,6 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
     });
   });
 </script>
+
 </body>
 </html>

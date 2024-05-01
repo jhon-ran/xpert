@@ -114,7 +114,10 @@ if ($_SERVER["REQUEST_METHOD"]=="POST") {
             integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
             crossorigin="anonymous"
         />
+        <!-- cdn para el captcha-->
         <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+        <!-- cdn para Sweet Alert 2, alertas de acciones -->
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <title>Login</title>
     </head>
     <body>
@@ -124,6 +127,15 @@ if ($_SERVER["REQUEST_METHOD"]=="POST") {
         </header>
         <br>
         <main class="container">
+                <!--Inicia código de mensaje de alerta cuando se borra o crea registro-->
+                <!--Si hay algo en el métod get-->
+                <?php if(isset($_GET['mensaje'])){ ?>
+                    <!--se corre el mensaje de eliminado en línea 19-->
+                    <script>
+                        Swal.fire({icon:"success", title:"<?php echo $_GET['mensaje'];?>"});
+                    </script>
+                <?php } ?>
+                <!--Termina código de mensaje de alerta cuando se borra registro-->
 
             <div class="row">
                 <div class="col-md-4">
@@ -134,12 +146,15 @@ if ($_SERVER["REQUEST_METHOD"]=="POST") {
                         <div class="card-header">Login</div>
                         <!--Inicio envio de mensaje de error-->
                         <div class="card-body">
-                            <?php if(isset($error)) { ?>
+                        <!--Inicio envio de mensaje de error-->
+                        <?php if(isset($error)) { ?>
+                            <?php foreach($errores as $error){ ?>
                             <div class="alert alert-danger" role="alert">
                                 <strong><?php echo $error;?></strong>
                             </div>
                             <?php }?>
-                        <!--termina envio de mensaje de error-->
+                        <?php }?>
+                        <!--Fin envio de mensaje de error-->
                             <form action="login.php" method="post">
                                 <div class="mb-3">
                                     <label for="email" class="form-label">Correo</label>
