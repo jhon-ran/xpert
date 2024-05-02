@@ -18,6 +18,14 @@ if($_POST){
         if (empty($nombre)){
                 $errores['nombre']= "El nombre del cupón es obligatorio";
         }
+        //Validar si el nombre de cupón tiene más de 10 caracteres
+        if (strlen($nombre) > 10) {
+                $errores['nombre'] = "El nombre del cupón no puede tener más de 10 caracteres";
+        }
+        //Validar que nombre de cupón solo tenga letras y num
+        if (!preg_match("/^[a-zA-Z0-9]*$/", $nombre)) {
+        $errores['nombre'] = "El nombre del cupón solo puede contener letras y números";
+        }
 
         //******Inicia validación de nombre de cupón existente en bd*****
         try {
@@ -49,6 +57,10 @@ if($_POST){
         if (empty($descuento)){
                 $errores['descuento']= "El monto del descuento es obligatorio";
         }
+        //Validar que el monto del descuento no es mayor a 200
+        if ($descuento > 200){
+                $errores['descuento']= "El monto del descuento no puede ser mayor a $200";
+        }
         //Validar que inicio de validez no esté vacio
         if (empty($inicioValidez)){
                 $errores['inicioValidez']= "El inicio de validez es obligatorio";
@@ -57,8 +69,19 @@ if($_POST){
         if (empty($terminoValidez)){
                 $errores['terminoValidez']= "El termino de validez es obligatorio";
         }
-
-
+        //Validar que termino de validez no es igual o menor que inicio de validez
+        if ($terminoValidez <= $inicioValidez) {
+                $errores['terminoValidez'] = "El termino de validez no puede ser igual o menor que el inicio de validez.";
+        }
+        //Validar que restricciones solo contengan letras, números, espacios, guiones y apóstrofes
+        if (!preg_match("/^[a-zA-Z0-9 '-]*$/", $restricciones)) {
+                $errores['restricciones'] = "Las restricciones solo pueden contener letras, números, espacios, guiones y apóstrofes";
+         }
+        //Validar si el nombre de cupón tiene más de 10 caracteres
+        if (strlen($restricciones) > 50) {
+                $errores['restricciones'] = "Las restricciones no pueden tener más de 50 caracteres";
+        }
+        //Imprimir los errores
         foreach($errores as $error){
                 $error;
            }
@@ -77,6 +100,11 @@ if($_POST){
                 $sentencia->bindParam(":descuento",$descuento);
                 $sentencia->bindParam(":inicioValidez",$inicioValidez);
                 $sentencia->bindParam(":terminoValidez",$terminoValidez);
+                if($restricciones == null){
+                        //Si el campo de restricciones está vacío se le asigna un valor por defecto
+                        $restricciones = "Ninguna";
+                        $sentencia->bindParam(":restricciones",$restricciones);
+                }
                 $sentencia->bindParam(":restricciones",$restricciones);
                 //Se ejecuta la sentencia con los valores de param asignados
                 $sentencia->execute();

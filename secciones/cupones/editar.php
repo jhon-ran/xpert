@@ -49,6 +49,11 @@ if($_POST){
         $sentencia->bindParam(":descuento",$descuento);
         $sentencia->bindParam(":inicioValidez",$inicioValidez);
         $sentencia->bindParam(":terminoValidez",$terminoValidez);
+        if($restricciones == null){
+                //Si el campo de restricciones está vacío se le asigna un valor por defecto
+                $restricciones = "Ninguna";
+                $sentencia->bindParam(":restricciones",$restricciones);
+        }
         $sentencia->bindParam(":restricciones",$restricciones);
         //Se ejecuta la sentencia con los valores de param asignados
         $sentencia->execute();

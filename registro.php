@@ -20,13 +20,30 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
     if (empty($nombre)){
          $errores['nombre']= "El nombre es obligatorio";
     }
+    //Validar si el nombre tiene más de 25 caracteres
+    if (strlen($nombre) > 25) {
+        $errores['nombre'] = "El nombre no puede tener más de 25 caracteres";
+    }
+    //Validar si el nombre tiene menos de 2 caracteres
+    if (strlen($nombre) < 2) {
+        $errores['nombre'] = "El nombre no puede tener menos de 2 caracteres";
+    }
     //Validar si el nombre solo contener letras, espacios, guiones y apóstrofes
     if (!preg_match("/^[a-zA-Z-' ]*$/", $nombre)) {
         $errores['nombre'] = "El nombre solo puede contener letras, espacios, guiones y apóstrofes";
     }
+    //Validar que los apellidos no están vacios
     if (empty($apellidos)){
         $errores['apellidos']= "Los apellidos son obligatorios";
    }
+    //Validar si los apellidos tienen más de 40 caracteres
+    if (strlen($apellidos) > 40) {
+    $errores['apellidos'] = "Los apellidos no pueden tener más de 40 caracteres";
+    }
+    //Validar si los apellidos tienen menos de 2 caracteres
+    if (strlen($apellidos) < 2) {
+        $errores['apellidos'] = "Los apellidos no pueden tener menos de 2 caracteres";
+    }
     //Validar si apellidos solo contener letras, espacios, guiones y apóstrofes
     if (!preg_match("/^[a-zA-Z-' ]*$/", $apellidos)) {
     $errores['apellidos'] = "Los apellidos solo pueden contener letras, espacios, guiones y apóstrofes";
@@ -80,7 +97,7 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
     (?=.*[@$!%*?&]) - Al menos un caracter especial
     [A-Za-z0-9@$!%*?&]{8,} - Al menos de 8 caracteres*/
     if (!preg_match("/^(?=.*[A-Z])(?=.*[0-9])(?=.*[@$!%*?&])[A-Za-z0-9@$!%*?&]{8,}$/", $password)) {
-        $errores['password'] = "La contraseña debe tener al menos 8 caracteres, incluir al menos una letra mayúscula, un número y un carácter especial";
+        $errores['password'] = "La contraseña debe tener al menos 8 caracteres, una mayúscula, un número y un carácter especial";
     }
 
     //validar que la confirmación de contraseña no está vacía o que la confirmación coincida con password
