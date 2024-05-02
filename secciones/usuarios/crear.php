@@ -25,9 +25,17 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
     if (empty($nombre)){
          $errores['nombre']= "El nombre es obligatorio";
     }
+    //Validar si el nombre solo contener letras, espacios, guiones y apóstrofes
+    if (!preg_match("/^[a-zA-Z-' ]*$/", $nombre)) {
+        $errores['nombre'] = "El nombre solo puede contener letras, espacios, guiones y apóstrofes";
+    }
     if (empty($apellidos)){
         $errores['apellidos']= "El apellido es obligatorio";
    } 
+    //Validar si apellidos solo contener letras, espacios, guiones y apóstrofes
+    if (!preg_match("/^[a-zA-Z-' ]*$/", $apellidos)) {
+    $errores['apellidos'] = "Los apellidos solo pueden contener letras, espacios, guiones y apóstrofes";
+    }
    if (empty($tipo)){
     $errores['tipo']= "El tipo de usuario es obligatorio";
 }
