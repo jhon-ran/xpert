@@ -30,42 +30,160 @@ if(isset($_GET['txtID'])){
 if($_POST){
     //Descomentar la línea de abajo si se quiere verificar que los datos por POST están llegando
     //print_r($_POST);
+    //Array para guardar los errores
+    $errores= array();
 
-
-     //Recolecta datos de método POST: Validación: que exista la información enviada, lo vamos a igualar a ese valor,
-    //de lo contratrio lo deja en blanco
+    //Recolecta datos de método POST: Validación: que exista la información enviada, se iguala a ese valor,
+    //de lo contratrio se deja en blanco
     $txtID = (isset($_POST["txtID"])? $_POST["txtID"]:"");
     $nombre = (isset($_POST["nombre"])? $_POST["nombre"]:"");
     $apellidos = (isset($_POST["apellidos"])? $_POST["apellidos"]:"");
     $email = (isset($_POST["email"])? $_POST["email"]:"");
     $tipo = (isset($_POST["tipo"])? $_POST["tipo"]:"");
     $password = (isset($_POST["password"])? $_POST["password"]:"");
+    $confirmarPassword = (isset($_POST["confirmarPassword"])? $_POST["confirmarPassword"]:"");
+    //Si los datos están, se llena el array con los mensajes de errores
+    if (empty($nombre)){
+        $errores['nombre']= "El nombre es obligatorio";
+    }
+    //Validar si el nombre tiene más de 25 caracteres
+    if (strlen($nombre) > 25) {
+        $errores['nombre'] = "El nombre no puede tener más de 25 caracteres";
+    }
+    //Validar si el nombre tiene menos de 2 caracteres
+    if (strlen($nombre) < 2) {
+        $errores['nombre'] = "El nombre no puede tener menos de 2 caracteres";
+    }
+    //Validar si el nombre solo contener letras, espacios, guiones y apóstrofes
+    if (!preg_match("/^[a-zA-Z-' ]*$/", $nombre)) {
+        $errores['nombre'] = "El nombre solo puede contener letras, espacios, guiones y apóstrofes";
+    }
+    if (empty($apellidos)){
+        $errores['apellidos']= "Los apellidos son obligatorios";
+    } 
+    //Validar si los apellidos tienen más de 40 caracteres
+    if (strlen($apellidos) > 40) {
+    $errores['apellidos'] = "Los apellidos no pueden tener más de 40 caracteres";
+    }
+    //Validar si los apellidos tienen menos de 2 caracteres
+    if (strlen($apellidos) < 2) {
+        $errores['apellidos'] = "Los apellidos no pueden tener menos de 2 caracteres";
+    }
+    //Validar si apellidos solo contener letras, espacios, guiones y apóstrofes
+    if (!preg_match("/^[a-zA-Z-' ]*$/", $apellidos)) {
+    $errores['apellidos'] = "Los apellidos solo pueden contener letras, espacios, guiones y apóstrofes";
+    }
+    if (empty($tipo)){
+    $errores['tipo']= "El tipo de usuario es obligatorio";
+}
+    // Se remueven todos los caracteres ilegales de email antes de validar
+    $email = filter_var($email, FILTER_SANITIZE_EMAIL);
+
+    //Validación de correo
+    if (empty($email)) {
+    $errores['email'] = "El correo es obligatorio";
+
+    }elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)){
+        //Verificar que el correo sea válido (formato) 
+        $errores['email'] = "El formato del correo no es válido";
+    } 
+
+    //******Inicia validación de email existente en bd*****
+    try {
+        $conn = new PDO("mysql:host=$servidor;dbname=$baseDatos",$usuario,$contrasena);
+        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        
+        $email = $_POST['email'];
+        $id = $_POST['txtID'];
+        // Consulta para ver si otro usuario usa el mismo email en la base de datos
+        $sql = "SELECT * FROM usuarios WHERE email = :email AND id != :id";
+        $stmt = $conn->prepare($sql);
+        $stmt->bindParam(':email', $email);
+        $stmt->bindParam(':id', $id);
+        $stmt->execute();
     
+        $resultado = $stmt->fetch(PDO::FETCH_ASSOC);
+        // Si el resultado es verdadero, el usuario ya existe y se muestra un mensaje de error
+        if ($resultado) {
+            $errores['email'] = "Ya existe otro usuario con ese correo";
+        }
+    
+    } catch(PDOException $e) {
+        echo "Error de conexión: ". $e->getMessage();
+    }
 
-     //Preparar la inseción de los datos enviados por POST
-     $sentencia = $conexion->prepare("UPDATE usuarios SET nombre=:nombre,
-        apellidos=:apellidos,email=:email,
-        password=:password,tipo=:tipo WHERE id=:id");
+    //******Termina validación de email existente en bd*****
 
-    //Encriptar la contraseña y se guarda en nueva variable
-    $newPassword = password_hash($password, PASSWORD_DEFAULT);
 
-     //Asignar los valores que vienen del formulario (POST)
-    $sentencia->bindParam(":nombre",$nombre);
-    $sentencia->bindParam(":apellidos",$apellidos);
-    $sentencia->bindParam(":email",$email);
-    $sentencia->bindParam(":password",$newPassword);
-    $sentencia->bindParam(":tipo",$tipo);
-    $sentencia->bindParam(":id",$txtID);
-    $sentencia->execute();
-    //Mensaje de confirmación de edición que activa Sweet Alert 2
-    //Llama a código de templates/header.php
-    $mensaje="Registro editado";
-    //Redirecionar después de editar a la lista de puestos
-    header("Location:index.php?mensaje=".$mensaje);
+    //validar que la contraseña no está vacía
+    if (empty($password)) {
+        $errores['password'] = "La contraseña es obligatoria";
+    }
+
+       //Validar que la contraseña tenga;
+    /*(?=.*[A-Z]) - Al menos una mayuscula
+    (?=.*[0-9]) - Al menos un número
+    (?=.*[@$!%*?&]) - Al menos un caracter especial
+    [A-Za-z0-9@$!%*?&]{8,} - Al menos de 8 caracteres*/
+    if (!preg_match("/^(?=.*[A-Z])(?=.*[0-9])(?=.*[@$!%*?&])[A-Za-z0-9@$!%*?&]{8,}$/", $password)) {
+        $errores['password'] = "La contraseña debe tener al menos 8 caracteres, una mayúscula, un número y un carácter especial";
+    }
+    
+    //validar que la confirmación de contraseña no está vacía o que la confirmación coincida con password
+    if (empty($confirmarPassword)) { 
+        $errores['confirmarPassword'] = "La confirmación de contraseña es obligatoria";
+    }elseif ($password!=$confirmarPassword) {
+        $errores['confirmarPassword'] = "Las contraseñas no coinciden";
+    }
+
+    //validar que el tipo de usuario no está vacio (dropdown)
+    if (empty($tipo)) {
+        $errores['tipo'] = "Debe seleccionar un tipo de usuario";
+    }
+
+
+    //Imprimir errores en pantalla si los hay
+   foreach($errores as $error){
+        $error;
+   }
+
+
+       //Si no hay errores (array de errores vacio)
+   if(empty($errores)){
+    //Conexion a la base de datos
+        try{
+            //Preparar la inseción de los datos enviados por POST
+            $sentencia = $conexion->prepare("UPDATE usuarios SET nombre=:nombre,
+            apellidos=:apellidos,email=:email,
+            password=:password,tipo=:tipo WHERE id=:id");
+
+            //Encriptar la contraseña y se guarda en nueva variable
+            $newPassword = password_hash($password, PASSWORD_DEFAULT);
+
+            //Asignar los valores que vienen del formulario (POST)
+            $sentencia->bindParam(":nombre",$nombre);
+            $sentencia->bindParam(":apellidos",$apellidos);
+            $sentencia->bindParam(":email",$email);
+            $sentencia->bindParam(":password",$newPassword);
+            $sentencia->bindParam(":tipo",$tipo);
+            $sentencia->bindParam(":id",$txtID);
+            $sentencia->execute();
+            //Mensaje de confirmación de edición que activa Sweet Alert 2
+            //Llama a código de templates/header.php
+            $mensaje="Registro editado";
+            //Redirecionar después de editar a la lista de puestos
+            header("Location:index.php?mensaje=".$mensaje);
+            //******Termina código para modificar registro******
+    }catch(Exception $ex){
+        echo "Error de conexión:".$ex->getMessage();
+    }
+    }else {
+        //La variable para mensaje de exito se actualiza a false si no se pudo insertar
+        $succes=false;
+    }
+
 }
 
-//******Termina código para modificar registro******
 
 ?>
 <!-- Se llama el header desde los templates-->
@@ -76,6 +194,15 @@ if($_POST){
     <div class="card">
         <div class="card-header">Datos del usuario</div>
         <div class="card-body">
+            <!--Inicio envio de mensaje de error-->
+            <?php if(isset($error)) { ?>
+                <?php foreach($errores as $error){ ?>
+                        <div class="alert alert-danger" role="alert">
+                            <strong><?php echo $error;?></strong>
+                        </div>
+                    <?php }?>
+            <?php }?>
+            <!--Fin envio de mensaje de error-->
             <form action="editar.php" id="editarUsuarios" method="post">
             <div class="mb-3">
                     <label for="txtID" class="form-label">ID</label>
@@ -116,7 +243,7 @@ if($_POST){
                         <option value="ventas">Ventas</option>
                     </select>
                 </div>
-                <button type="submit" class="btn btn-success">Registrar</button>
+                <button type="submit" class="btn btn-success">Editar</button>
                 <a name="" id="" class="btn btn-primary" href="index.php" role="button">Cancelar</a>
             </form>
 

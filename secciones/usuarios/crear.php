@@ -67,7 +67,7 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
         $errores['email'] = "El correo no es válido";
     } 
 
-        //******Inicia validación de password existente en bd*****
+        //******Inicia validación de email existente en bd*****
         try {
             $conn = new PDO("mysql:host=$servidor;dbname=$baseDatos",$usuario,$contrasena);
             $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -89,7 +89,7 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
             echo "Error de conexión: ". $e->getMessage();
         }
     
-        //******Termina validación de password existente en bd*****
+        //******Termina validación de email existente en bd*****
 
 
     //validar que la contraseña no está vacía
