@@ -18,6 +18,10 @@ if($_POST){
         if (empty($nombre)){
                 $errores['nombre']= "El nombre del cupón es obligatorio";
         }
+        //Validar si el nombre de cupón no tiene menos de 4 caracteres
+        if (strlen($nombre) < 4) {
+                $errores['nombre'] = "El nombre del cupón debe ser de al menos 4 caracteres";
+        }
         //Validar si el nombre de cupón tiene más de 10 caracteres
         if (strlen($nombre) > 10) {
                 $errores['nombre'] = "El nombre del cupón no puede tener más de 10 caracteres";
@@ -64,6 +68,10 @@ if($_POST){
         //Validar que inicio de validez no esté vacio
         if (empty($inicioValidez)){
                 $errores['inicioValidez']= "El inicio de validez es obligatorio";
+        }
+        //Validar que inicio de validez no es anterior a la fecha actual
+        if (strtotime($inicioValidez) < time()) {
+                $errores['inicioValidez'] = "El inicio de validez debe ser posterior a la fecha actual";
         }
         //Validar que inicio de validez no esté vacio
         if (empty($terminoValidez)){
@@ -126,22 +134,7 @@ if($_POST){
 <!-- ../../ sube 2 niveles para poder acceder al folder de templates desde la posición actual-->
 <?php include("../../templates/header.php"); ?>
 
-<!--
-<form action="crear.php" id="crearCupones" method="post">
-        Nombre:
-        <input type="text" name="nombre" id="nombre"><br>
-        Descuento:
-        <input type="number" name="descuento" id="descuento"><br>
-        Inicio de validez:
-        <input type="datetime-local" name="inicioValidez" id="inicioValidez"><br>
-        Termino de validez:
-        <input type="datetime-local" name="terminoValidez" id="terminoValidez"><br>
-        <p>Restricciones:</p>
-        <textarea name="restricciones" id="restricciones" cols="40" rows="5"></textarea><br>
-        <button type="submit">Crear cupón</button>
-        <a href="index.php">Cancelar</a>
-</form>
--->
+
 <h2>Crear Cupones</h2>
 <!--Nuevo look empieza-->
 <div class="card">
@@ -177,7 +170,7 @@ if($_POST){
                                         <label for="restricciones">Restricciones</label>
                                         <textarea class="form-control" name="restricciones" id="restricciones" rows="3"></textarea>
                                 </div>
-                                <button type="submit" class="btn btn-success">Registrar</button>
+                                <button type="submit" class="btn btn-success">Crear</button>
                                 <a name="" id="" class="btn btn-primary" href="index.php" role="button">Cancelar</a>
                         </form>
                 </div>
