@@ -34,8 +34,8 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
         $errores['nombre'] = "El nombre no puede tener menos de 2 caracteres";
     }
     //Validar si el nombre solo contener letras, espacios, guiones y apóstrofes
-    if (!preg_match("/^[a-zA-Z-' ]*$/", $nombre)) {
-        $errores['nombre'] = "El nombre solo puede contener letras, espacios, guiones y apóstrofes";
+    if (!preg_match('/^[a-zA-ZáéíóúñÁÉÍÓÚÑ\s\'\-]+$/', $nombre)) {
+        $errores['nombre'] = "El nombre solo puede contener letras, espacios, guiones y apóstrofes.";
     }
     if (empty($apellidos)){
         $errores['apellidos']= "Los apellidos son obligatorios";
@@ -49,8 +49,8 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
         $errores['apellidos'] = "Los apellidos no pueden tener menos de 2 caracteres";
     }
     //Validar si apellidos solo contener letras, espacios, guiones y apóstrofes
-    if (!preg_match("/^[a-zA-Z-' ]*$/", $apellidos)) {
-    $errores['apellidos'] = "Los apellidos solo pueden contener letras, espacios, guiones y apóstrofes";
+    if (!preg_match('/^[a-zA-ZáéíóúñÁÉÍÓÚÑ\s\'\-]+$/', $apellidos)) {
+        $errores['nombre'] = "El nombre solo puede contener letras, espacios, guiones y apóstrofes.";
     }
    if (empty($tipo)){
     $errores['tipo']= "El tipo de usuario es obligatorio";

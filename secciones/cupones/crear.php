@@ -82,9 +82,9 @@ if($_POST){
                 $errores['terminoValidez'] = "El termino de validez no puede ser igual o menor que el inicio de validez.";
         }
         //Validar que restricciones solo contengan letras, números, espacios, guiones y apóstrofes
-        if (!preg_match("/^[a-zA-Z0-9 '-]*$/", $restricciones)) {
-                $errores['restricciones'] = "Las restricciones solo pueden contener letras, números, espacios, guiones y apóstrofes";
-         }
+        if (!preg_match('/^[a-zA-ZáéíóúñÁÉÍÓÚÑ\s\'\-]+$/', $restricciones)) {
+                $errores['nombre'] = "Las restricciones solo pueden tener letras, espacios, guiones y apóstrofes.";
+        }
         //Validar si el nombre de cupón tiene más de 10 caracteres
         if (strlen($restricciones) > 50) {
                 $errores['restricciones'] = "Las restricciones no pueden tener más de 50 caracteres";
