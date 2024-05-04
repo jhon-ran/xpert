@@ -3,7 +3,7 @@
 //se inicializa variable de sesión
 session_start();
 if($_POST){
-        print_r($_POST);
+        //print_r($_POST);
         //Array para guardar los errores
         $errores= array();
 
@@ -35,8 +35,42 @@ if($_POST){
         $redes = (isset($_POST["redes"])? $_POST["redes"]:"");
 
         //Si los datos están, se llena el array con los mensajes de errores
+        //Validar si el título está vacío
         if (empty($titulo)){
             $errores['titulo']= "El título del tour es obligatorio";
+        }
+        //Validar si el título no tiene menos de 4 caracteres
+        if (strlen($titulo) < 5) {
+            $errores['titulo'] = "El título debe ser de al menos 5 caracteres";
+        }
+        //Validar si el título no tiene más de 4 caracteres
+        if (strlen($titulo) > 50) {
+            $errores['titulo'] = "El título no puede tener más de 50 caracteres";
+        }
+
+
+        //Validar si la duración está vacía
+        if (empty($duracion)){
+            $errores['duracion']= "La duración del tour es obligatoria";
+        }
+        //Validar si la duración no es un número negativo
+        if ($duracion < 0) {
+            $errores['duracion'] = "La duración no puede ser un número negativo";
+        }
+        //Validar que la duración no sea mayor a 8hrs
+        if ($duracion > 8) {
+            $errores['duracion'] = "La duración no puede ser mayor a 8hrs";
+        }
+    
+
+
+        //Validar si el precio está vacío
+        if (empty($precioBase)){
+            $errores['precioBase']= "El precio del tour es obligatorio";
+        }
+        //Validar si el precio no es un número negativo
+        if ($duracion < 0) {
+            $errores['precioBase'] = "La precio no puede ser un número negativo";
         }
 
         //******Inicia validación de título existente en bd*****
