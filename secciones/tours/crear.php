@@ -4,7 +4,9 @@
 session_start();
 if($_POST){
         print_r($_POST);
-    
+        //Array para guardar los errores
+        $errores= array();
+
         //Validación: que exista la información enviada, lo vamos a igualar a ese valor,
         //de lo contratrio lo deja en blanco
         $titulo = (isset($_POST["titulo"])? $_POST["titulo"]:"");
@@ -32,56 +34,110 @@ if($_POST){
         $descuento = (isset($_POST["descuento"])? $_POST["descuento"]:"");
         $redes = (isset($_POST["redes"])? $_POST["redes"]:"");
 
-        //Preparar la inseción de los datos enviados por POST
-        $sentencia = $conexion->prepare("INSERT INTO tours(id,titulo,duracion,tipo,capacidad,idiomas,foto,vistaGeneral,destacado,itinerario,incluye,ubicacion,queTraer,infoAdicional,polCancel,actividades,incluyeTransporte,transporte,staff,precioBase,descuento,redes) 
-        VALUES (null, :titulo, :duracion, :tipo, :capacidad, :idiomas, :foto, :vistaGeneral, :destacado, :itinerario, :incluye, :ubicacion,:queTraer, :infoAdicional, :polCancel, :actividades, :incluyeTransporte, :transporte, :staff, :precioBase, :descuento, :redes)" );
-        //Asignar los valores que vienen del formulario (POST)
-        $sentencia->bindParam(":titulo",$titulo);
-        $sentencia->bindParam(":duracion",$duracion);
-        $sentencia->bindParam(":tipo",$tipo);
-        $sentencia->bindParam(":capacidad",$capacidad);
-        $sentencia->bindParam(":idiomas",$idiomas);
-
-
-        //******Inicia código para adjuntar foto******
-        //Obtenemos tiempo para ir cambiando el nombre y que no se sobre escriba
-        $fecha_foto = new DateTime();
-        //Crear nuevo nombre de archivo: Si $foto tiene un valor,se crea el nombre con time stamp y el valor de nombre de foto, si no queda vacio
-        //Se crea variable para guardar nombre de archivo
-        $nombreArchivo_foto = ($foto!='')?$fecha_foto->getTimestamp()."_".$_FILES["foto"]['name']:"";
-        //Variable temp para guardar nombre de foto con nombre de archivo binario
-        //Se obtiene el nombre temporal del archivo
-        $tmp_foto = $_FILES["foto"]['tmp_name'];
-        //Si el archivo tmp no está vacio
-        if($tmp_foto!=''){
-            //Movemos el archivo en direccion predeterminada
-            //Esta dirección corresponde a a la carpeta donde estamos ->./ "tours"
-            move_uploaded_file($tmp_foto,"./".$nombreArchivo_foto);
+        //Si los datos están, se llena el array con los mensajes de errores
+        if (empty($titulo)){
+            $errores['titulo']= "El título del tour es obligatorio";
         }
-        //Se actualiza en BD el nombre de archivo
-        $sentencia->bindParam(":foto",$nombreArchivo_foto);
-        //******Termina código para adjuntar foto******
 
-        //Se continuan los bindParam después de foto
-        $sentencia->bindParam(":vistaGeneral",$vistaGeneral);
-        $sentencia->bindParam(":destacado",$destacado);
-        $sentencia->bindParam(":itinerario",$itinerario); 
-        $sentencia->bindParam(":incluye",$incluye);
-        $sentencia->bindParam(":ubicacion",$ubicacion);
-        $sentencia->bindParam(":queTraer",$queTraer);
-        $sentencia->bindParam(":infoAdicional",$infoAdicional);
-        $sentencia->bindParam(":polCancel",$polCancel);
-        $sentencia->bindParam(":actividades",$actividades);
-        $sentencia->bindParam(":incluyeTransporte",$incluyeTransporte);
-        $sentencia->bindParam(":transporte",$transporte);
-        $sentencia->bindParam(":staff",$staff);
-        $sentencia->bindParam(":precioBase",$precioBase);
-        $sentencia->bindParam(":descuento",$descuento);
-        $sentencia->bindParam(":redes",$redes);
-        //Se ejecuta la sentencia con los valores de param asignados
-        $sentencia->execute();
-        //Redirecionar a la lista de puestos
-        header("Location:index.php");
+        //******Inicia validación de título existente en bd*****
+        try {
+            $conn = new PDO("mysql:host=$servidor;dbname=$baseDatos",$usuario,$contrasena);
+            $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            
+            $titulo = $_POST['titulo'];
+            /*Consulta para ver si título ya existe en la base de datos
+            se convierte el titulo a minusculas para poder compararlo
+            */
+            $sql = "SELECT * FROM tours WHERE LOWER(titulo) = :titulo";
+            $stmt = $conn->prepare($sql);
+            /*se crea variable para convertir el input a minuscula antes de bindParam
+            si se pone directo dispara un error por referencia*/
+            $lowerTitulo = strtolower($titulo);
+            $stmt->bindParam(':titulo', $lowerTitulo);
+            $stmt->execute();
+        
+            $resultado = $stmt->fetch(PDO::FETCH_ASSOC);
+            // Si el resultado es verdadero, el título ya existe y se muestra un mensaje de error
+            if ($resultado) {
+                $errores['titulo'] = "Ese título ya existe en otro tour";
+            }
+        
+        } catch(PDOException $e) {
+            echo "Error de conexión: ". $e->getMessage();
+        }
+    
+        //******Termina título de email existente en bd*****
+
+        //Imprimir errores en pantalla si los hay
+        foreach($errores as $error){
+            $error;
+        }
+
+        //Si no hay errores (array de errores vacio)
+        if(empty($errores)){
+            //Conexion a la base de datos
+            try{
+            //Preparar la inseción de los datos enviados por POST
+            $sentencia = $conexion->prepare("INSERT INTO tours(id,titulo,duracion,tipo,capacidad,idiomas,foto,vistaGeneral,destacado,itinerario,incluye,ubicacion,queTraer,infoAdicional,polCancel,actividades,incluyeTransporte,transporte,staff,precioBase,descuento,redes) 
+            VALUES (null, :titulo, :duracion, :tipo, :capacidad, :idiomas, :foto, :vistaGeneral, :destacado, :itinerario, :incluye, :ubicacion,:queTraer, :infoAdicional, :polCancel, :actividades, :incluyeTransporte, :transporte, :staff, :precioBase, :descuento, :redes)" );
+            //Asignar los valores que vienen del formulario (POST)
+            $sentencia->bindParam(":titulo",$titulo);
+            $sentencia->bindParam(":duracion",$duracion);
+            $sentencia->bindParam(":tipo",$tipo);
+            $sentencia->bindParam(":capacidad",$capacidad);
+            $sentencia->bindParam(":idiomas",$idiomas);
+
+
+            //******Inicia código para adjuntar foto******
+            //Obtenemos tiempo para ir cambiando el nombre y que no se sobre escriba
+            $fecha_foto = new DateTime();
+            //Crear nuevo nombre de archivo: Si $foto tiene un valor,se crea el nombre con time stamp y el valor de nombre de foto, si no queda vacio
+            //Se crea variable para guardar nombre de archivo
+            $nombreArchivo_foto = ($foto!='')?$fecha_foto->getTimestamp()."_".$_FILES["foto"]['name']:"";
+            //Variable temp para guardar nombre de foto con nombre de archivo binario
+            //Se obtiene el nombre temporal del archivo
+            $tmp_foto = $_FILES["foto"]['tmp_name'];
+            //Si el archivo tmp no está vacio
+            if($tmp_foto!=''){
+                //Movemos el archivo en direccion predeterminada
+                //Esta dirección corresponde a a la carpeta donde estamos ->./ "tours"
+                move_uploaded_file($tmp_foto,"./".$nombreArchivo_foto);
+            }
+            //Se actualiza en BD el nombre de archivo
+            $sentencia->bindParam(":foto",$nombreArchivo_foto);
+            //******Termina código para adjuntar foto******
+
+            //Se continuan los bindParam después de foto
+            $sentencia->bindParam(":vistaGeneral",$vistaGeneral);
+            $sentencia->bindParam(":destacado",$destacado);
+            $sentencia->bindParam(":itinerario",$itinerario); 
+            $sentencia->bindParam(":incluye",$incluye);
+            $sentencia->bindParam(":ubicacion",$ubicacion);
+            $sentencia->bindParam(":queTraer",$queTraer);
+            $sentencia->bindParam(":infoAdicional",$infoAdicional);
+            $sentencia->bindParam(":polCancel",$polCancel);
+            $sentencia->bindParam(":actividades",$actividades);
+            $sentencia->bindParam(":incluyeTransporte",$incluyeTransporte);
+            $sentencia->bindParam(":transporte",$transporte);
+            $sentencia->bindParam(":staff",$staff);
+            $sentencia->bindParam(":precioBase",$precioBase);
+            $sentencia->bindParam(":descuento",$descuento);
+            $sentencia->bindParam(":redes",$redes);
+            //Se ejecuta la sentencia con los valores de param asignados
+            $sentencia->execute();
+            //Mensaje de confirmación de creado que activa Sweet Alert 2
+            $mensaje="Tour creado";
+            //Redirecionar después de crear a la lista de tours con link de Sweet Alert 2
+            header("Location:index.php?mensaje=".$mensaje);
+
+        }catch(Exception $ex){
+            echo "Error de conexión:".$ex->getMessage();
+        }
+        }else {
+            //La variable para mensaje de exito se actualiza a false si no se pudo insertar
+            $succes=false;
+        }
+
     }
 ?>
 
@@ -148,6 +204,15 @@ if($_POST){
     <div class="card">
         <div class="card-header">Información del tour</div>
         <div class="card-body">
+                <!--Inicio envio de mensaje de error-->
+                <?php if(isset($error)) { ?>
+                    <?php foreach($errores as $error){ ?>
+                        <div class="alert alert-danger" role="alert">
+                            <strong><?php echo $error;?></strong>
+                        </div>
+                    <?php }?>
+                <?php }?>
+            <!--Fin envio de mensaje de error-->
             <form action="crear.php" id="crearTours" method="post" enctype="multipart/form-data">
                 <div class="mb-3">
                     <label for="titulo" class="form-label">Título</label>

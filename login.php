@@ -173,11 +173,22 @@ if ($_SERVER["REQUEST_METHOD"]=="POST") {
                     
                 </div>
             </div>
-
         </main>
-
-        <footer>
-            <p>Xpert Tours 2024</p>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <footer class="bg-body-tertiary text-center text-lg-start" class="">
+            <!-- Copyright -->
+            <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.05);">
+                © 2023 Copyright:
+                <a class="text-body" href="https://mvptest.me/xpert/">Xpert Tour</a>
+            </div>
+            <!-- Copyright -->
         </footer>
       <!-- Bootstrap JavaScript Libraries -->
       <script

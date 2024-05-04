@@ -19,6 +19,9 @@ if(isset($_GET['txtID'])){
     $sentencia = $conexion->prepare("SELECT foto FROM tours WHERE id=:id");
     $sentencia->bindParam(":id",$txtID);
     $sentencia->execute();
+    //Mensaje de confirmación de borrado que activa Sweet Alert 2
+    //Llama a código de templates/footer.php
+    $mensaje="Tour eliminado";
     //se recupera solo un registro asosiado al id
     $foto_tour = $sentencia->fetch(PDO::FETCH_LAZY);
 
@@ -122,7 +125,9 @@ $tours = $sentencia->fetchAll(PDO::FETCH_ASSOC);
                 </div>
                 <?php if($_SESSION["usuario_tipo"]=="admin"  || $_SESSION["usuario_tipo"]=="superadmin"):?>
                     <a href="editar.php?txtID=<?php echo $registro['id']?>" class="btn btn-primary">Editar</a>
-                    <a href="index.php?txtID=<?php echo $registro['id']?>" class="btn btn-danger">Eliminar</a>
+                    <!--Se sustituye el link del registro por la función SweatAlert para confirmar borrado-->
+                    
+                    <a name="" id="" class="btn btn-danger" href="javascript:borrar(<?php echo $registro['id']?>);">Eliminar</a>
                 <?php elseif($_SESSION["usuario_tipo"]=="ventas"):?>
                     <a href="editar.php?txtID=<?php echo $registro['id']?>" class="btn btn-primary">Editar</a>
                 <?php else:?>

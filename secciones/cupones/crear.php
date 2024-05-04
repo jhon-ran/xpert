@@ -118,7 +118,7 @@ if($_POST){
                 $sentencia->execute();
                 //Mensaje de confirmación de creado que activa Sweet Alert 2
                 $mensaje="Registro creado";
-                //Redirecionar después de crear a la lista de cupones
+                //Redirecionar después de crear a la lista de cupones con link de Sweet Alert 2
                 header("Location:index.php?mensaje=".$mensaje);
                 }catch(Exception $ex){
                 echo "Error de conexión:".$ex->getMessage();
