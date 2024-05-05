@@ -7,6 +7,7 @@ session_start();
 //******Inicia código para recibir registro******
 //Para verificar que se envía un id
 if(isset($_GET['txtID'])){
+
     //Si esta variable existe, se asigna ese valor, de lo contrario se queda
     $txtID = (isset($_GET['txtID']))?$_GET['txtID']:$_GET['txtID'];
     //Se prepara sentencia para editar dato seleccionado (id)
@@ -48,7 +49,8 @@ if(isset($_GET['txtID'])){
 
 //******Empieza código para actualizar registro******
 if($_POST){
-    //print_r($_POST);
+    //Array para guardar los errores
+    $errores= array();
     //Si esta variable existe, se asigna ese valor, de lo contrario se queda
     $txtID = (isset($_POST['txtID']))?$_POST['txtID']:"";
 
@@ -76,104 +78,154 @@ if($_POST){
     $descuento = (isset($_POST["descuento"])? $_POST["descuento"]:"");
     $redes = (isset($_POST["redes"])? $_POST["redes"]:"");
 
-    //Preparar la inseción de los datos enviados por POST
-    $sentencia = $conexion->prepare("UPDATE tours SET 
-    titulo=:titulo,
-    duracion=:duracion,
-    tipo=:tipo,
-    capacidad=:capacidad,
-    idiomas=:idiomas,
-    vistaGeneral=:vistaGeneral,
-    destacado=:destacado,
-    itinerario=:itinerario,
-    incluye=:incluye,
-    ubicacion=:ubicacion,
-    queTraer=:queTraer,
-    infoAdicional=:infoAdicional,
-    polCancel=:polCancel,
-    actividades=:actividades,
-    incluyeTransporte=:incluyeTransporte,
-    transporte=:transporte,
-    staff=:staff,
-    precioBase=:precioBase,
-    descuento=:descuento,
-    redes=:redes
-    WHERE id=:id");
-
-    //Asignar los valores que vienen del formulario (POST)
-    $sentencia->bindParam(":titulo",$titulo);
-    $sentencia->bindParam(":duracion",$duracion);
-    $sentencia->bindParam(":tipo",$tipo);
-    $sentencia->bindParam(":capacidad",$capacidad);
-    $sentencia->bindParam(":idiomas",$idiomas);
-
-    //Se continuan los bindParam después de foto
-    $sentencia->bindParam(":vistaGeneral",$vistaGeneral);
-    $sentencia->bindParam(":destacado",$destacado);
-    $sentencia->bindParam(":itinerario",$itinerario); 
-    $sentencia->bindParam(":incluye",$incluye);
-    $sentencia->bindParam(":ubicacion",$ubicacion);
-    $sentencia->bindParam(":queTraer",$queTraer);
-    $sentencia->bindParam(":infoAdicional",$infoAdicional);
-    $sentencia->bindParam(":polCancel",$polCancel);
-    $sentencia->bindParam(":actividades",$actividades);
-    $sentencia->bindParam(":incluyeTransporte",$incluyeTransporte);
-    $sentencia->bindParam(":transporte",$transporte);
-    $sentencia->bindParam(":staff",$staff);
-    $sentencia->bindParam(":precioBase",$precioBase);
-    $sentencia->bindParam(":descuento",$descuento);
-    $sentencia->bindParam(":redes",$redes);
-    $sentencia->bindParam(":id",$txtID);
-    //Se ejecuta la sentencia con los valores de param asignados
-    $sentencia->execute();
-
-    //Para las fotos y pdfs hay que darle el parametro 'name'
-    $foto = (isset($_FILES["foto"]['name'])? $_FILES["foto"]['name']:"");
-
-    //******Inicia código para adjuntar foto******
-    //Obtenemos tiempo para ir cambiando el nombre y que no se sobre escriba
-    $fecha_foto = new DateTime();
-    //Crear nuevo nombre de archivo: Si $foto tiene un valor,se crea el nombre con time stamp y el valor de nombre de foto, si no queda vacio
-    //Se crea variable para guardar nombre de archivo
-    $nombreArchivo_foto = ($foto!='')?$fecha_foto->getTimestamp()."_".$_FILES["foto"]['name']:"";
-    //Variable temp para guardar nombre de foto con nombre de archivo binario
-    //Se obtiene el nombre temporal del archivo
-    $tmp_foto = $_FILES["foto"]['tmp_name'];
-    //Si el archivo tmp no está vacio
-    if($tmp_foto!=''){
-        //Movemos el archivo en direccion predeterminada
-        //Esta dirección corresponde a a la carpeta donde estamos ->./ "tours"
-        move_uploaded_file($tmp_foto,"./".$nombreArchivo_foto);
-
-        //******Inicia código para eliminar foto de carpeta tours******
-        //buscar el archivo relacionado con la foto. Si existe se ejecuta la sentencia
-        $sentencia = $conexion->prepare("SELECT foto FROM tours WHERE id=:id");
-        $sentencia->bindParam(":id",$txtID);
-        $sentencia->execute();
-        //se recupera solo un registro asosiado al id
-        $foto_tour = $sentencia->fetch(PDO::FETCH_LAZY);
-
-        //Si existe ese archivo de la foto o diferente de vacío
-        if(isset($foto_tour["foto"]) && $foto_tour["foto"]!=""){
-            //Si el archivo existe dentro de la carpeta actual
-            if(file_exists("./".$foto_tour["foto"])){
-                //Se elimina el archivo
-                unlink("./".$foto_tour["foto"]);
-            }
-        }
-        //******Termina código para eliminar foto de carpeta tours******
-
-        //Sentencia para actualizar foto en BD
-        $sentencia = $conexion->prepare("UPDATE tours SET foto=:foto WHERE id=:id");
-        //Se actualiza en BD el nombre de archivo
-        $sentencia->bindParam(":foto",$nombreArchivo_foto);
-        $sentencia->bindParam(":id",$txtID);
-        $sentencia->execute();
+    //*******INICIAN VALIDACIONES CAMPO 1********
+    //Validar si el título está vacío
+    if (empty($titulo)){
+        $errores['titulo']= "El título del tour es obligatorio";
     }
-    //******Termina código para adjuntar foto******
 
-    //Redirecionar a la lista de tours
-    header("Location:index.php");
+        //******Inicia validación de título existente en bd*****
+        try {
+            $conn = new PDO("mysql:host=$servidor;dbname=$baseDatos",$usuario,$contrasena);
+            $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            
+            $titulo = $_POST['titulo'];
+            $id = $_POST['txtID'];
+            /*Consulta para ver si título ya existe en la base de datos
+            se convierte el titulo a minusculas para poder compararlo
+            */
+            $sql = "SELECT * FROM tours WHERE LOWER(titulo) = :titulo AND id != :id";
+            $stmt = $conn->prepare($sql);
+            /*se crea variable para convertir el input a minuscula antes de bindParam
+            si se pone directo dispara un error por referencia*/
+            $lowerTitulo = strtolower($titulo);
+            $stmt->bindParam(':titulo', $lowerTitulo);
+            $stmt->bindParam(':id', $id);
+            $stmt->execute();
+        
+            $resultado = $stmt->fetch(PDO::FETCH_ASSOC);
+            // Si el resultado es verdadero, el título ya existe y se muestra un mensaje de error
+            if ($resultado) {
+                $errores['titulo'] = "Ese título ya existe en otro tour";
+            }
+        
+        } catch(PDOException $e) {
+            echo "Error de conexión: ". $e->getMessage();
+        }
+        //******Termina validación detítulo existente en bd*****
+
+    //Imprimir errores en pantalla si los hay
+    foreach($errores as $error){
+        $error;
+    }
+
+    if(empty($errores)){
+        //Conexion a la base de datos
+            try{
+                //Preparar la inseción de los datos enviados por POST
+                $sentencia = $conexion->prepare("UPDATE tours SET 
+                titulo=:titulo,
+                duracion=:duracion,
+                tipo=:tipo,
+                capacidad=:capacidad,
+                idiomas=:idiomas,
+                vistaGeneral=:vistaGeneral,
+                destacado=:destacado,
+                itinerario=:itinerario,
+                incluye=:incluye,
+                ubicacion=:ubicacion,
+                queTraer=:queTraer,
+                infoAdicional=:infoAdicional,
+                polCancel=:polCancel,
+                actividades=:actividades,
+                incluyeTransporte=:incluyeTransporte,
+                transporte=:transporte,
+                staff=:staff,
+                precioBase=:precioBase,
+                descuento=:descuento,
+                redes=:redes
+                WHERE id=:id");
+
+                //Asignar los valores que vienen del formulario (POST)
+                $sentencia->bindParam(":titulo",$titulo);
+                $sentencia->bindParam(":duracion",$duracion);
+                $sentencia->bindParam(":tipo",$tipo);
+                $sentencia->bindParam(":capacidad",$capacidad);
+                $sentencia->bindParam(":idiomas",$idiomas);
+
+                //Se continuan los bindParam después de foto
+                $sentencia->bindParam(":vistaGeneral",$vistaGeneral);
+                $sentencia->bindParam(":destacado",$destacado);
+                $sentencia->bindParam(":itinerario",$itinerario); 
+                $sentencia->bindParam(":incluye",$incluye);
+                $sentencia->bindParam(":ubicacion",$ubicacion);
+                $sentencia->bindParam(":queTraer",$queTraer);
+                $sentencia->bindParam(":infoAdicional",$infoAdicional);
+                $sentencia->bindParam(":polCancel",$polCancel);
+                $sentencia->bindParam(":actividades",$actividades);
+                $sentencia->bindParam(":incluyeTransporte",$incluyeTransporte);
+                $sentencia->bindParam(":transporte",$transporte);
+                $sentencia->bindParam(":staff",$staff);
+                $sentencia->bindParam(":precioBase",$precioBase);
+                $sentencia->bindParam(":descuento",$descuento);
+                $sentencia->bindParam(":redes",$redes);
+                $sentencia->bindParam(":id",$txtID);
+                //Se ejecuta la sentencia con los valores de param asignados
+                $sentencia->execute();
+
+                //Para las fotos y pdfs hay que darle el parametro 'name'
+                $foto = (isset($_FILES["foto"]['name'])? $_FILES["foto"]['name']:"");
+
+                //******Inicia código para adjuntar foto******
+                //Obtenemos tiempo para ir cambiando el nombre y que no se sobre escriba
+                $fecha_foto = new DateTime();
+                //Crear nuevo nombre de archivo: Si $foto tiene un valor,se crea el nombre con time stamp y el valor de nombre de foto, si no queda vacio
+                //Se crea variable para guardar nombre de archivo
+                $nombreArchivo_foto = ($foto!='')?$fecha_foto->getTimestamp()."_".$_FILES["foto"]['name']:"";
+                //Variable temp para guardar nombre de foto con nombre de archivo binario
+                //Se obtiene el nombre temporal del archivo
+                $tmp_foto = $_FILES["foto"]['tmp_name'];
+                //Si el archivo tmp no está vacio
+                if($tmp_foto!=''){
+                    //Movemos el archivo en direccion predeterminada
+                    //Esta dirección corresponde a a la carpeta donde estamos ->./ "tours"
+                    move_uploaded_file($tmp_foto,"./".$nombreArchivo_foto);
+
+                    //******Inicia código para eliminar foto de carpeta tours******
+                    //buscar el archivo relacionado con la foto. Si existe se ejecuta la sentencia
+                    $sentencia = $conexion->prepare("SELECT foto FROM tours WHERE id=:id");
+                    $sentencia->bindParam(":id",$txtID);
+                    $sentencia->execute();
+                    //se recupera solo un registro asosiado al id
+                    $foto_tour = $sentencia->fetch(PDO::FETCH_LAZY);
+
+                    //Si existe ese archivo de la foto o diferente de vacío
+                    if(isset($foto_tour["foto"]) && $foto_tour["foto"]!=""){
+                        //Si el archivo existe dentro de la carpeta actual
+                        if(file_exists("./".$foto_tour["foto"])){
+                            //Se elimina el archivo
+                            unlink("./".$foto_tour["foto"]);
+                        }
+                    }
+                    //******Termina código para eliminar foto de carpeta tours******
+
+                    //Sentencia para actualizar foto en BD
+                    $sentencia = $conexion->prepare("UPDATE tours SET foto=:foto WHERE id=:id");
+                    //Se actualiza en BD el nombre de archivo
+                    $sentencia->bindParam(":foto",$nombreArchivo_foto);
+                    $sentencia->bindParam(":id",$txtID);
+                    $sentencia->execute();
+                }
+                //******Termina código para adjuntar foto******
+                //Redirecionar a la lista de tours
+                header("Location:index.php");
+            }catch(Exception $ex){
+                echo "Error de conexión:".$ex->getMessage();
+            }
+            }else {
+                //La variable para mensaje de exito se actualiza a false si no se pudo insertar
+                $succes=false;
+            }
 }
 //******Termina código para actualizar registro******
 ?>
@@ -248,6 +300,15 @@ ID:
     <div class="card">
         <div class="card-header">Información del tour</div>
         <div class="card-body">
+            <!--Inicio envio de mensaje de error-->
+            <?php if(isset($error)) { ?>
+                <?php foreach($errores as $error){ ?>
+                        <div class="alert alert-danger" role="alert">
+                            <strong><?php echo $error;?></strong>
+                        </div>
+                <?php }?>
+            <?php }?>
+            <!--Fin envio de mensaje de error-->
             <form action="editar.php" id="editarTours" method="post" enctype="multipart/form-data">
             <div class="mb-3">
                     <label for="txtID" class="form-label">ID</label>

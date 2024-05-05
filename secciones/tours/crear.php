@@ -3,7 +3,6 @@
 //se inicializa variable de sesión
 session_start();
 if($_POST){
-        //print_r($_POST);
         //Array para guardar los errores
         $errores= array();
 
@@ -54,7 +53,7 @@ if($_POST){
         $redes = (isset($_POST["redes"])? $_POST["redes"]:"");
 
         //Si los datos están, se llena el array con los mensajes de errores
-        //*******Inician validaciones campo 1********
+        //*******INICIAN VALIDACIONES CAMPO 1********
         //Validar si el título está vacío
         if (empty($titulo)){
             $errores['titulo']= "El título del tour es obligatorio";
@@ -95,9 +94,9 @@ if($_POST){
             echo "Error de conexión: ". $e->getMessage();
         }
         //******Termina validación detítulo existente en bd*****
-        //*******Terminan validaciones campo 1********
+        //*******TERMINAN VALIDACIONES CAMPO  1********
         
-        //*******Inician validaciones campo 2********
+        //*******INICIAN VALIDACIONES CAMPO  2********
         //Validar si la duración está vacía
         if (empty($duracion)){
             $errores['duracion']= "La duración del tour es obligatoria";
@@ -110,7 +109,18 @@ if($_POST){
         if ($duracion > 8) {
             $errores['duracion'] = "La duración no puede ser mayor a 8hrs";
         }
-        //*******Terminan validaciones campo 2********
+        //*******TERMINAN VALIDACIONES CAMPO 2********
+
+        //*******INICIAN VALIDACIONES CAMPO 4********
+        //Validar que la capacidad no sea un número negativo
+        if ($capacidad < 0) {
+            $errores['capacidad'] = "La capacidad no puede ser negativa";
+        }
+        //Validar que la capacidad no sea mayor a 50
+        if ($capacidad > 50) {
+            $errores['capacidad'] = "La capacidad no puede ser mayor a 50";
+        }
+
 
         //*******Inicia validaciones campo 16********
         //Validar que no esté vacio el campo de si incliye transportación
