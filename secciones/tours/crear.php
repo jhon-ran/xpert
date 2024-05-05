@@ -9,32 +9,52 @@ if($_POST){
 
         //Validación: que exista la información enviada, lo vamos a igualar a ese valor,
         //de lo contratrio lo deja en blanco
+        //Campo 1
         $titulo = (isset($_POST["titulo"])? $_POST["titulo"]:"");
+        //Campo 2
         $duracion = (isset($_POST["duracion"])? $_POST["duracion"]:"");
+        //Campo 3
         $tipo = (isset($_POST["tipo"])? $_POST["tipo"]:"");
+        //Campo 4
         $capacidad = (isset($_POST["capacidad"])? $_POST["capacidad"]:"");
+        //Campo 5
         $idiomas = (isset($_POST["idiomas"])? $_POST["idiomas"]:"");
-
+        //Campo 6
         //Para las fotos y pdfs hay que darle el parametro 'name'
         $foto = (isset($_FILES["foto"]['name'])? $_FILES["foto"]['name']:"");
-
+        //Campo 7
         $vistaGeneral = (isset($_POST["vistaGeneral"])? $_POST["vistaGeneral"]:"");
+        //Campo 8
         $destacado = (isset($_POST["destacado"])? $_POST["destacado"]:"");
+        //Campo 9
         $itinerario = (isset($_POST["itinerario"])? $_POST["itinerario"]:"");
+        //Campo 10
         $incluye = (isset($_POST["incluye"])? $_POST["incluye"]:"");
+        //Campo 11
         $ubicacion = (isset($_POST["ubicacion"])? $_POST["ubicacion"]:"");
+        //Campo 12
         $queTraer = (isset($_POST["queTraer"])? $_POST["queTraer"]:"");
+        //Campo 13
         $infoAdicional = (isset($_POST["infoAdicional"])? $_POST["infoAdicional"]:"");
+        //Campo 14
         $polCancel = (isset($_POST["polCancel"])? $_POST["polCancel"]:"");
+        //Campo 15
         $actividades = (isset($_POST["actividades"])? $_POST["actividades"]:"");
+        //Campo 16
         $incluyeTransporte = (isset($_POST["incluyeTransporte"])? $_POST["incluyeTransporte"]:"");
+        //Campo 17
         $transporte = (isset($_POST["transporte"])? $_POST["transporte"]:"");
+        //Campo 18
         $staff = (isset($_POST["staff"])? $_POST["staff"]:"");
+        //Campo 19
         $precioBase = (isset($_POST["precioBase"])? $_POST["precioBase"]:"");
+        //Campo 20
         $descuento = (isset($_POST["descuento"])? $_POST["descuento"]:"");
+        //Campo 21
         $redes = (isset($_POST["redes"])? $_POST["redes"]:"");
 
         //Si los datos están, se llena el array con los mensajes de errores
+        //*******Inician validaciones campo 1********
         //Validar si el título está vacío
         if (empty($titulo)){
             $errores['titulo']= "El título del tour es obligatorio";
@@ -46,31 +66,6 @@ if($_POST){
         //Validar si el título no tiene más de 4 caracteres
         if (strlen($titulo) > 50) {
             $errores['titulo'] = "El título no puede tener más de 50 caracteres";
-        }
-
-
-        //Validar si la duración está vacía
-        if (empty($duracion)){
-            $errores['duracion']= "La duración del tour es obligatoria";
-        }
-        //Validar si la duración no es un número negativo
-        if ($duracion < 0) {
-            $errores['duracion'] = "La duración no puede ser un número negativo";
-        }
-        //Validar que la duración no sea mayor a 8hrs
-        if ($duracion > 8) {
-            $errores['duracion'] = "La duración no puede ser mayor a 8hrs";
-        }
-    
-
-
-        //Validar si el precio está vacío
-        if (empty($precioBase)){
-            $errores['precioBase']= "El precio del tour es obligatorio";
-        }
-        //Validar si el precio no es un número negativo
-        if ($duracion < 0) {
-            $errores['precioBase'] = "La precio no puede ser un número negativo";
         }
 
         //******Inicia validación de título existente en bd*****
@@ -99,8 +94,41 @@ if($_POST){
         } catch(PDOException $e) {
             echo "Error de conexión: ". $e->getMessage();
         }
-    
-        //******Termina título de email existente en bd*****
+        //******Termina validación detítulo existente en bd*****
+        //*******Terminan validaciones campo 1********
+        
+        //*******Inician validaciones campo 2********
+        //Validar si la duración está vacía
+        if (empty($duracion)){
+            $errores['duracion']= "La duración del tour es obligatoria";
+        }
+        //Validar si la duración no es un número negativo
+        if ($duracion < 0) {
+            $errores['duracion'] = "La duración no puede ser negativa";
+        }
+        //Validar que la duración no sea mayor a 8hrs
+        if ($duracion > 8) {
+            $errores['duracion'] = "La duración no puede ser mayor a 8hrs";
+        }
+        //*******Terminan validaciones campo 2********
+
+        //*******Inicia validaciones campo 16********
+        //Validar que no esté vacio el campo de si incliye transportación
+        if (empty($incluyeTransporte)){
+            $errores['incluyeTransporte']= "El campo incluye transportación no debe estar vacío";
+        }
+        //*******ITermina validaciones campo 16********
+
+        //*******Inicia validaciones campo 19********
+        //Validar si el precio está vacío
+        if (empty($precioBase)){
+            $errores['precioBase']= "El precio del tour es obligatorio";
+        }
+        //Validar si el precio no es un número negativo
+        if ($duracion < 0) {
+            $errores['precioBase'] = "El precio no puede ser negativo";
+        }
+        //*******Terminan validaciones campo 19********
 
         //Imprimir errores en pantalla si los hay
         foreach($errores as $error){

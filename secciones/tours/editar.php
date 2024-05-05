@@ -327,8 +327,8 @@ ID:
                     <label for="incluyeTransporte" class="form-label">¿La transportación está incuída?</label>
                     <select class="form-select form-select-sm" name="incluyeTransporte" id="incluyeTransporte">
                         <option value="<?php echo $incluyeTransporte;?>"><?php echo $incluyeTransporte;?></option>
-                        <option value="sí">Sí</option>
-                        <option value="no">No</option>
+                        <option value="Sí">Sí</option>
+                        <option value="No">No</option>
                     </select>
                 </div>
                 <div class="mb-3">

@@ -120,7 +120,15 @@ $tours = $sentencia->fetchAll(PDO::FETCH_ASSOC);
                 <p class="card-text"><small class="text-muted"><?php echo $registro['ubicacion']?></small></p>
                 <h5 class="card-title"><?php echo $registro['titulo']?></h5>
                 <div class="row justify-content-between">
-                    <div class="col-4"><p class="card-text"><small class="text-muted"><?php echo $registro['duracion']?>hrs.</small></p></div>
+                    <div class="col-7">
+                        <p class="card-text">
+                            <small class="text-muted"><?php echo $registro['duracion']?>hrs
+                            <!--Se evalua si incluye transporte y de ser el caso se muestra en la tarjeta -->
+                            <?php if($registro['incluyeTransporte'] == "Sí"){ ?>
+                                <?php echo "+ Transportación"?> 
+                                <?php } ?>
+                            </small></p>
+                    </div>
                     <div class="col-4"><p class="card-text"><small class="text-muted">desde $<?php echo $registro['precioBase']?></small></p></div>
                 </div>
                 <?php if($_SESSION["usuario_tipo"]=="admin"  || $_SESSION["usuario_tipo"]=="superadmin"):?>
