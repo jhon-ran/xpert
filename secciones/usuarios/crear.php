@@ -198,8 +198,11 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
     -->
 
     <!--Nuevo look inicia-->
-    <h2>Registrar usuarios</h2>
-    <div class="card">
+    <header class="text-center">
+            <h1>Registrar usuarios</h1>
+    </header>
+    <br>
+    <div class="card mx-auto" style="width:40%;">
         <div class="card-header">Datos del usuario</div>
         <div class="card-body">
             <!--Inicio envio de mensaje de error-->

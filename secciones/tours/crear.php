@@ -106,8 +106,8 @@ if($_POST){
             $errores['duracion'] = "La duración no puede ser negativa";
         }
         //Validar que la duración no sea mayor a 8hrs
-        if ($duracion > 8) {
-            $errores['duracion'] = "La duración no puede ser mayor a 8hrs";
+        if ($duracion > 14) {
+            $errores['duracion'] = "La duración no puede ser mayor a 14hrs";
         }
         //*******TERMINAN VALIDACIONES CAMPO 2********
 

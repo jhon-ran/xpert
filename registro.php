@@ -218,8 +218,10 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
     -->
 
         <!--Nuevo look inicia-->
-    <h2>Registrarse</h2>
-    <div class="card">
+    <header class="text-center">
+            <h1>Registrarse</h1>
+    </header>
+    <div class="card mx-auto" style="width:40%;">
         <div class="card-header">Datos del usuario</div>
         <div class="card-body">
             <!--Inicio envio de mensaje de error-->
@@ -291,7 +293,7 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
     <!-- Copyright -->
     <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.05);">
         © 2023 Copyright:
-        <a class="text-body" href="https://mvptest.me/xpert/">Xpert Tour</a>
+        <a class="text-body" href="https://mvptest.me/xpert/">Tours Xpert</a>
     </div>
     <!-- Copyright -->
 </footer>
