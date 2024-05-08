@@ -190,8 +190,11 @@ if($_POST){
 <!-- ../../ sube 2 niveles para poder acceder al folder de templates desde la posición actual-->
 <?php include("../../templates/header.php"); ?>
     <!--Nuevo look inicia-->
-    <h2>Editar usuario</h2>
-    <div class="card">
+    <header class="text-center">
+            <h1>Editar usuario</h1>
+    </header>
+    <br>
+    <div class="card mx-auto" style="width:40%;">
         <div class="card-header">Datos del usuario</div>
         <div class="card-body">
             <!--Inicio envio de mensaje de error-->

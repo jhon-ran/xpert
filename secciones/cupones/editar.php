@@ -163,9 +163,11 @@ if($_POST){
 <!-- ../../ sube 2 niveles para poder acceder al folder de templates desde la posición actual-->
 <?php include("../../templates/header.php"); ?>
 
-<h2>Editar Cupones</h2>
 <!--Nuevo look empieza-->
-<div class="card">
+<header class="text-center">
+            <h1>Editar cupón</h1>
+</header>
+<div class="card mx-auto" style="width:40%;">
         <div class="card-header">Datos del cupón</div>
                 <div class="card-body">
                 <!--Inicio envio de mensaje de error-->

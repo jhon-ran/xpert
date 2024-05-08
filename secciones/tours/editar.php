@@ -296,8 +296,10 @@ ID:
 -->
 
     <!--Nuevo look inicia-->
-    <h2>Editar tour</h2>
-    <div class="card">
+    <header class="text-center">
+        <h1>Editar tour</h1>
+    </header>
+    <div class="card mx-auto" style="width:50%;">
         <div class="card-header">Información del tour</div>
         <div class="card-body">
             <!--Inicio envio de mensaje de error-->
@@ -310,7 +312,7 @@ ID:
             <?php }?>
             <!--Fin envio de mensaje de error-->
             <form action="editar.php" id="editarTours" method="post" enctype="multipart/form-data">
-            <div class="mb-3">
+                <div class="mb-3">
                     <label for="txtID" class="form-label">ID</label>
                     <input type="text" class="form-control" value="<?php echo $txtID;?>" name="txtID" id="txtID" aria-describedby="helpId" readonly placeholder=""/>
                 </div>
@@ -318,24 +320,31 @@ ID:
                     <label for="titulo" class="form-label">Título</label>
                     <input type="text" class="form-control" value="<?php echo $titulo;?>" name="titulo" id="titulo" aria-describedby="helpId" placeholder=""/>
                 </div>
-                <div class="mb-3">
-                    <label for="duracion" class="form-label">Duración en horas</label>
-                    <input type="number" class="form-control" name="duracion" id="duracion" value="<?php echo $duracion;?>" aria-describedby="helpId" placeholder=""/>
+                <!--Inicia input group para agrupar campos en una misma línea-->
+                <div class="input-group">
+                    <div class="mb-3 mx-auto" style="width:48%;">
+                        <label for="duracion" class="form-label">Duración en horas</label>
+                        <input type="number" class="form-control" name="duracion" id="duracion" value="<?php echo $duracion;?>" aria-describedby="helpId" placeholder=""/>
+                    </div>
+                    <div class="mb-3 mx-auto" style="width:48%;">
+                        <label for="tipo" class="form-label">Tipo</label>
+                        <input type="text" class="form-control" name="tipo" id="tipo" value="<?php echo $tipo;?>" aria-describedby="helpId" placeholder=""/>
+                    </div>
                 </div>
-                <div class="mb-3">
-                    <label for="tipo" class="form-label">Tipo</label>
-                    <input type="text" class="form-control" name="tipo" id="tipo" value="<?php echo $tipo;?>" aria-describedby="helpId" placeholder=""/>
+                <!--Inicia input group para agrupar campos en una misma línea-->
+                <div class="input-group">
+                    <div class="mb-3 mx-auto" style="width:48%;">
+                        <label for="capacidad" class="form-label">Capacidad máxima</label>
+                        <input
+                            type="number" class="form-control" name="capacidad" id="capacidad" value="<?php echo $capacidad;?>"aria-describedby="helpId" placeholder=""/>
+                    </div>
+                    <div class="mb-3 mx-auto" style="width:48%;">
+                        <label for="idiomas" class="form-label">Idiomas</label>
+                        <input
+                            type="text" class="form-control" name="idiomas" id="idiomas" value="<?php echo $idiomas;?>" aria-describedby="helpId" placeholder=""/>
+                    </div>
                 </div>
-                <div class="mb-3">
-                    <label for="capacidad" class="form-label">Capacidad máxima</label>
-                    <input
-                        type="number" class="form-control" name="capacidad" id="capacidad" value="<?php echo $capacidad;?>"aria-describedby="helpId" placeholder=""/>
-                </div>
-                <div class="mb-3">
-                    <label for="idiomas" class="form-label">Idiomas</label>
-                    <input
-                        type="text" class="form-control" name="idiomas" id="idiomas" value="<?php echo $idiomas;?>" aria-describedby="helpId" placeholder=""/>
-                </div>
+                <!--Termina input group para agrupar campos en una misma línea-->
                 <div class="mb-3">
                     <img src="<?php echo $foto;?>" class="img-fluid rounded-top" alt="Foto tour"/>
                 </div>
@@ -384,36 +393,45 @@ ID:
                 <div class="mb-3">
                     <label for="" class="form-label">Actualmente <b><?php echo $incluyeTransporte;?></b> incluye transporte</label>
                 </div>
-                <div class="mb-3">
-                    <label for="incluyeTransporte" class="form-label">¿La transportación está incuída?</label>
-                    <select class="form-select form-select-sm" name="incluyeTransporte" id="incluyeTransporte">
-                        <option value="<?php echo $incluyeTransporte;?>"><?php echo $incluyeTransporte;?></option>
-                        <option value="Sí">Sí</option>
-                        <option value="No">No</option>
-                    </select>
+                <!--Inicia input group para agrupar campos en una misma línea-->
+                <div class="input-group">
+                    <div class="mb-3 mx-auto" style="width:48%;">
+                        <label for="incluyeTransporte" class="form-label">¿La transportación está incuída?</label>
+                        <select class="form-select form-select" name="incluyeTransporte" id="incluyeTransporte">
+                            <option value="<?php echo $incluyeTransporte;?>"><?php echo $incluyeTransporte;?></option>
+                            <option value="Sí">Sí</option>
+                            <option value="No">No</option>
+                        </select>
+                    </div>
+                    <div class="mb-3 mx-auto" style="width:48%;">
+                        <label for="transporte" class="form-label">Tipo de transporte</label>
+                        <input
+                            type="text" class="form-control" name="transporte" id="transporte" value="<?php echo $transporte;?>" aria-describedby="helpId" placeholder=""/>
+                    </div>
                 </div>
-                <div class="mb-3">
-                    <label for="transporte" class="form-label">Tipo de transporte</label>
-                    <input
-                        type="text" class="form-control" name="transporte" id="transporte" value="<?php echo $transporte;?>" aria-describedby="helpId" placeholder=""/>
+                <!--Inicia input group para agrupar campos en una misma línea-->
+                <div class="input-group">
+                    <div class="mb-3 mx-auto" style="width:48%;">
+                        <label for="staff" class="form-label">Staff a cargo</label>
+                        <input
+                            type="text" class="form-control" name="staff" id="staff" value="<?php echo $staff;?>" aria-describedby="helpId" placeholder=""/>
+                    </div>
+                    <div class="mb-3 mx-auto" style="width:48%;">
+                        <label for="precioBase" class="form-label">Precio desde</label>
+                        <input type="number" class="form-control" name="precioBase" id="precioBase" value="<?php echo $precioBase;?>" aria-describedby="helpId" placeholder=""/>
+                    </div>
                 </div>
-                <div class="mb-3">
-                    <label for="staff" class="form-label">Staff a cargo</label>
-                    <input
-                        type="text" class="form-control" name="staff" id="staff" value="<?php echo $staff;?>" aria-describedby="helpId" placeholder=""/>
-                </div>
-                <div class="mb-3">
-                    <label for="precioBase" class="form-label">Precio desde</label>
-                    <input type="number" class="form-control" name="precioBase" id="precioBase" value="<?php echo $precioBase;?>" aria-describedby="helpId" placeholder=""/>
-                </div>
-                <div class="mb-3">
-                    <label for="descuento" class="form-label">Descuento</label>
-                    <input type="number" class="form-control" name="descuento" id="descuento" value="<?php echo $descuento;?>" aria-describedby="helpId" placeholder=""/>
-                </div>
-                <div class="mb-3">
-                    <label for="redes" class="form-label">Redes sociales</label>
-                    <input
-                        type="text" class="form-control" name="redes" id="redes" value="<?php echo $redes;?>" aria-describedby="helpId" placeholder=""/>
+                <!--Inicia input group para agrupar campos en una misma línea-->
+                <div class="input-group">
+                    <div class="mb-3 mx-auto" style="width:48%;">
+                        <label for="descuento" class="form-label">Descuento</label>
+                        <input type="number" class="form-control" name="descuento" id="descuento" value="<?php echo $descuento;?>" aria-describedby="helpId" placeholder=""/>
+                    </div>
+                    <div class="mb-3 mx-auto" style="width:48%;">
+                        <label for="redes" class="form-label">Redes sociales</label>
+                        <input
+                            type="text" class="form-control" name="redes" id="redes" value="<?php echo $redes;?>" aria-describedby="helpId" placeholder=""/>
+                    </div>
                 </div>
                 <button type="submit" class="btn btn-success">Actualizar</button>
                 <a name="" id="" class="btn btn-primary" href="index.php" role="button">Cancelar</a>

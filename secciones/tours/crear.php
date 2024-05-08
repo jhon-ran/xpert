@@ -272,8 +272,10 @@ if($_POST){
 -->
 
     <!--Nuevo look inicia-->
-    <h2>Crear tour</h2>
-    <div class="card">
+    <header class="text-center">
+            <h1>Crear tour</h1>
+    </header>
+    <div class="card mx-auto" style="width:50%;">
         <div class="card-header">Información del tour</div>
         <div class="card-body">
                 <!--Inicio envio de mensaje de error-->
@@ -290,23 +292,30 @@ if($_POST){
                     <label for="titulo" class="form-label">Título</label>
                     <input type="text" class="form-control" name="titulo" id="titulo" aria-describedby="helpId" placeholder=""/>
                 </div>
-                <div class="mb-3">
-                    <label for="duracion" class="form-label">Duración en horas</label>
-                    <input type="number" class="form-control" name="duracion" id="duracion" aria-describedby="helpId" placeholder=""/>
+                <!--Inicia input group para agrupar campos en una misma línea-->
+                <div class="input-group">
+                    <div class="mb-3 mx-auto" style="width:48%;">
+                        <label for="duracion" class="form-label">Duración en horas</label>
+                        <input type="number" class="form-control" name="duracion" id="duracion" aria-describedby="helpId" placeholder=""/>
+                    </div>
+                    <div class="mb-3 mx-auto" style="width:48%;">
+                        <label for="tipo" class="form-label">Tipo</label>
+                        <input type="text" class="form-control" name="tipo" id="tipo" aria-describedby="helpId" placeholder=""/>
+                    </div>
                 </div>
-                <div class="mb-3">
-                    <label for="tipo" class="form-label">Tipo</label>
-                    <input type="text" class="form-control" name="tipo" id="tipo" aria-describedby="helpId" placeholder=""/>
-                </div>
-                <div class="mb-3">
-                    <label for="capacidad" class="form-label">Capacidad máxima</label>
-                    <input
-                        type="number" class="form-control" name="capacidad" id="capacidad" aria-describedby="helpId" placeholder=""/>
-                </div>
-                <div class="mb-3">
-                    <label for="idiomas" class="form-label">Idiomas</label>
-                    <input
-                        type="text" class="form-control" name="idiomas" id="idiomas" aria-describedby="helpId" placeholder=""/>
+                
+                <!--Inicia input group para agrupar campos en una misma línea-->
+                <div class="input-group">
+                    <div class="mb-3 mx-auto" style="width:48%;">
+                        <label for="capacidad" class="form-label">Capacidad máxima</label>
+                        <input
+                            type="number" class="form-control" name="capacidad" id="capacidad" aria-describedby="helpId" placeholder=""/>
+                    </div>
+                    <div class="mb-3 mx-auto" style="width:48%;">
+                        <label for="idiomas" class="form-label">Idiomas</label>
+                        <input
+                            type="text" class="form-control" name="idiomas" id="idiomas" aria-describedby="helpId" placeholder=""/>
+                    </div>
                 </div>
                 <div class="mb-3">
                     <label for="foto" class="form-label">Foto</label>
@@ -350,36 +359,45 @@ if($_POST){
                     <label for="actividades">Actividades para hacer</label>
                     <textarea class="form-control" name="actividades" id="actividades" rows="3"></textarea>
                 </div>
-                <div class="mb-3">
-                    <label for="incluyeTransporte" class="form-label">Incluye transportación</label>
-                    <select class="form-select form-select-sm" name="incluyeTransporte" id="incluyeTransporte">
-                        <option value="" selected>Seleccione una opción</option>
-                        <option value="sí">Sí</option>
-                        <option value="no">No</option>
-                    </select>
+                <!--Inicia input group para agrupar campos en una misma línea-->
+                <div class="input-group">
+                    <div class="mb-3 mx-auto" style="width:48%;">
+                        <label for="incluyeTransporte" class="form-label">Incluye transportación</label>
+                        <select class="form-select form-select" name="incluyeTransporte" id="incluyeTransporte">
+                            <option value="" selected>Seleccione una opción</option>
+                            <option value="sí">Sí</option>
+                            <option value="no">No</option>
+                        </select>
+                    </div>
+                    <div class="mb-3 mx-auto" style="width:48%;">
+                        <label for="transporte" class="form-label">Tipo de transporte</label>
+                        <input
+                            type="text" class="form-control" name="transporte" id="transporte" aria-describedby="helpId" placeholder=""/>
+                    </div>
                 </div>
-                <div class="mb-3">
-                    <label for="transporte" class="form-label">Tipo de transporte</label>
-                    <input
-                        type="text" class="form-control" name="transporte" id="transporte" aria-describedby="helpId" placeholder=""/>
+                <!--Inicia input group para agrupar campos en una misma línea-->
+                <div class="input-group">
+                    <div class="mb-3 mx-auto" style="width:48%;">
+                        <label for="staff" class="form-label">Staff a cargo</label>
+                        <input
+                            type="text" class="form-control" name="staff" id="staff" aria-describedby="helpId" placeholder=""/>
+                    </div>
+                    <div class="mb-3 mx-auto" style="width:48%;">
+                        <label for="precioBase" class="form-label">Precio desde</label>
+                        <input type="number" class="form-control" name="precioBase" id="precioBase" aria-describedby="helpId" placeholder=""/>
+                    </div>
                 </div>
-                <div class="mb-3">
-                    <label for="staff" class="form-label">Staff a cargo</label>
-                    <input
-                        type="text" class="form-control" name="staff" id="staff" aria-describedby="helpId" placeholder=""/>
-                </div>
-                <div class="mb-3">
-                    <label for="precioBase" class="form-label">Precio desde</label>
-                    <input type="number" class="form-control" name="precioBase" id="precioBase" aria-describedby="helpId" placeholder=""/>
-                </div>
-                <div class="mb-3">
-                    <label for="descuento" class="form-label">Descuento</label>
-                    <input type="number" class="form-control" name="descuento" id="descuento" aria-describedby="helpId" placeholder=""/>
-                </div>
-                <div class="mb-3">
-                    <label for="redes" class="form-label">Redes sociales</label>
-                    <input
-                        type="text" class="form-control" name="redes" id="redes" aria-describedby="helpId" placeholder=""/>
+                <!--Inicia input group para agrupar campos en una misma línea-->
+                <div class="input-group">
+                    <div class="mb-3 mx-auto" style="width:48%;">
+                        <label for="descuento" class="form-label">Descuento</label>
+                        <input type="number" class="form-control" name="descuento" id="descuento" aria-describedby="helpId" placeholder=""/>
+                    </div>
+                    <div class="mb-3 mx-auto" style="width:48%;">
+                        <label for="redes" class="form-label">Redes sociales</label>
+                        <input
+                            type="text" class="form-control" name="redes" id="redes" aria-describedby="helpId" placeholder=""/>
+                    </div>
                 </div>
                 <button type="submit" class="btn btn-success">Crear</button>
                 <a name="" id="" class="btn btn-primary" href="index.php" role="button">Cancelar</a>
