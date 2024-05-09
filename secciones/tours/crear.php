@@ -63,8 +63,8 @@ if($_POST){
             $errores['titulo'] = "El título debe ser de al menos 5 caracteres";
         }
         //Validar si el título no tiene más de 4 caracteres
-        if (strlen($titulo) > 50) {
-            $errores['titulo'] = "El título no puede tener más de 50 caracteres";
+        if (strlen($titulo) > 60) {
+            $errores['titulo'] = "El título no puede tener más de 60 caracteres";
         }
 
         //******Inicia validación de título existente en bd*****
@@ -110,6 +110,11 @@ if($_POST){
             $errores['duracion'] = "La duración no puede ser mayor a 14hrs";
         }
      
+        //*******INICIAN VALIDACIONES CAMPO  3********
+        if (strlen($tipo) > 20) {
+            $errores['tipo'] = "El tipo no puede ser mayor a 20 caracteres";
+        }
+        
 
         //*******INICIAN VALIDACIONES CAMPO 4********
         //Validar que la capacidad no sea un número negativo
@@ -124,6 +129,58 @@ if($_POST){
         //*******INICIAN VALIDACIONES CAMPO 5********
         if (strlen($idiomas) > 20) {
             $errores['idiomas'] = "Idiomas no puede tener más de 20 caracteres";
+        }
+
+        //*******INICIAN VALIDACIONES CAMPO 6********
+        if ($foto != null){
+            if (!in_array(pathinfo($foto, PATHINFO_EXTENSION), ['jpeg', 'jpg', 'png'])) {
+                $errores['foto'] = "La foto solo puede ser un archivo JPEG o PNG.";
+        }    
+        }
+
+        //*******INICIAN VALIDACIONES CAMPO 7********
+        if (strlen($vistaGeneral) > 1100) {
+            $errores['vistaGeneral'] = "La vista general no puede tener más de 1100 caracteres";
+        }
+        
+        //*******INICIAN VALIDACIONES CAMPO 8********
+        if (strlen($destacado) > 1100) {
+            $errores['destacado'] = "Destacado no puede tener más de 1100 caracteres";
+        }
+        
+        //*******INICIAN VALIDACIONES CAMPO 9********
+        if (strlen($itinerario) > 1100) {
+            $errores['itinerario'] = "El itinerario no puede tener más de 1100 caracteres";
+        }
+
+        //*******INICIAN VALIDACIONES CAMPO 10********
+        if (strlen($incluye) > 1100) {
+            $errores['incluye'] = "Lo que incluye no puede tener más de 1100 caracteres";
+        }
+
+        //*******INICIAN VALIDACIONES CAMPO 11********
+        if (strlen($ubicacion) > 25) {
+            $errores['ubicacion'] = "La ubicación no puede tener más de 25 caracteres";
+        }
+
+        //*******INICIAN VALIDACIONES CAMPO 12********
+        if (strlen($queTraer) > 1100) {
+            $errores['queTraer'] = "Qué traer no puede tener más de 1100 caracteres";
+        }
+
+        //*******INICIAN VALIDACIONES CAMPO 13********
+        if (strlen($infoAdicional) > 1100) {
+            $errores['infoAdicional'] = "La información adicional no puede tener más de 1100 caracteres";
+        }
+
+        //*******INICIAN VALIDACIONES CAMPO 14********
+        if (strlen($polCancel) > 1100) {
+            $errores['polCancel'] = "Las políticas de cancelación no puede tener más de 1100 caracteres";
+        }
+
+        //*******INICIAN VALIDACIONES CAMPO 15********
+        if (strlen($actividades) > 1100) {
+            $errores['actividades'] = "Las actividades no puede tener más de 1100 caracteres";
         }
 
         //*******Inicia validaciones campo 16********

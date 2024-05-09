@@ -30,6 +30,8 @@ if(!isset($_SESSION['usuario_id'])){
             integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
             crossorigin="anonymous"
         />
+        <!-- estilo para personalizar -->
+        <link rel="stylesheet" href="../style.css">
         <!-- cdn JQuery v.3.7.1-->
         <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
         <!-- cdn DataTables v.1.12.1 -->
