@@ -94,7 +94,7 @@ if($_POST){
             echo "Error de conexión: ". $e->getMessage();
         }
         //******Termina validación detítulo existente en bd*****
-        //*******TERMINAN VALIDACIONES CAMPO  1********
+
         
         //*******INICIAN VALIDACIONES CAMPO  2********
         //Validar si la duración está vacía
@@ -109,7 +109,7 @@ if($_POST){
         if ($duracion > 14) {
             $errores['duracion'] = "La duración no puede ser mayor a 14hrs";
         }
-        //*******TERMINAN VALIDACIONES CAMPO 2********
+     
 
         //*******INICIAN VALIDACIONES CAMPO 4********
         //Validar que la capacidad no sea un número negativo
@@ -121,15 +121,18 @@ if($_POST){
             $errores['capacidad'] = "La capacidad no puede ser mayor a 50";
         }
 
+        //*******INICIAN VALIDACIONES CAMPO 5********
+        if (strlen($idiomas) > 20) {
+            $errores['idiomas'] = "Idiomas no puede tener más de 20 caracteres";
+        }
 
         //*******Inicia validaciones campo 16********
         //Validar que no esté vacio el campo de si incliye transportación
         if (empty($incluyeTransporte)){
             $errores['incluyeTransporte']= "El campo incluye transportación no debe estar vacío";
         }
-        //*******ITermina validaciones campo 16********
 
-        //*******Inicia validaciones campo 19********
+        //*******INICIAN VALIDACIONES CAMPO 19********
         //Validar si el precio está vacío
         if (empty($precioBase)){
             $errores['precioBase']= "El precio del tour es obligatorio";
@@ -138,7 +141,7 @@ if($_POST){
         if ($duracion < 0) {
             $errores['precioBase'] = "El precio no puede ser negativo";
         }
-        //*******Terminan validaciones campo 19********
+   
 
         //Imprimir errores en pantalla si los hay
         foreach($errores as $error){

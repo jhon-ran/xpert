@@ -1,4 +1,6 @@
 <?php 
+include("../../bd.php"); 
+//se inicializa variable de sesión
 //se inicializa variable de sesión
 session_start();
 ?>
@@ -12,6 +14,7 @@ session_start();
             <h1 class="display-5 fw-bold">Bienvenid@ a la administración de reportes</h1>
         </div>
     </div>
+
 
 <!-- Se llama el footer desde los templates-->
 <!-- ../../ sube 2 niveles para poder acceder al folder de templates desde la posición actual-->

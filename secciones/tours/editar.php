@@ -83,6 +83,14 @@ if($_POST){
     if (empty($titulo)){
         $errores['titulo']= "El título del tour es obligatorio";
     }
+    //Validar si el título no tiene menos de 4 caracteres
+    if (strlen($titulo) < 5) {
+        $errores['titulo'] = "El título debe ser de al menos 5 caracteres";
+    }
+    //Validar si el título no tiene más de 4 caracteres
+    if (strlen($titulo) > 50) {
+        $errores['titulo'] = "El título no puede tener más de 50 caracteres";
+    }
 
         //******Inicia validación de título existente en bd*****
         try {
@@ -113,6 +121,52 @@ if($_POST){
             echo "Error de conexión: ". $e->getMessage();
         }
         //******Termina validación detítulo existente en bd*****
+
+                //*******INICIAN VALIDACIONES CAMPO  2********
+        //Validar si la duración está vacía
+        if (empty($duracion)){
+            $errores['duracion']= "La duración del tour es obligatoria";
+        }
+        //Validar si la duración no es un número negativo
+        if ($duracion < 0) {
+            $errores['duracion'] = "La duración no puede ser negativa";
+        }
+        //Validar que la duración no sea mayor a 8hrs
+        if ($duracion > 14) {
+            $errores['duracion'] = "La duración no puede ser mayor a 14hrs";
+        }
+                //*******INICIAN VALIDACIONES CAMPO 4********
+        //Validar que la capacidad no sea un número negativo
+        if ($capacidad < 0) {
+            $errores['capacidad'] = "La capacidad no puede ser negativa";
+        }
+        //Validar que la capacidad no sea mayor a 50
+        if ($capacidad > 50) {
+            $errores['capacidad'] = "La capacidad no puede ser mayor a 50";
+        }
+
+        //*******INICIAN VALIDACIONES CAMPO 5********
+        if (strlen($idiomas) > 20) {
+            $errores['idiomas'] = "Idiomas no puede tener más de 20 caracteres";
+        }
+
+                //*******INICIAN VALIDACIONES CAMPO 16********
+        //Validar que no esté vacio el campo de si incliye transportación
+        if (empty($incluyeTransporte)){
+            $errores['incluyeTransporte']= "El campo incluye transportación no debe estar vacío";
+        }
+       
+
+        //*******INICIAN VALIDACIONES CAMPO 19********
+        //Validar si el precio está vacío
+        if (empty($precioBase)){
+            $errores['precioBase']= "El precio del tour es obligatorio";
+        }
+        //Validar si el precio no es un número negativo
+        if ($duracion < 0) {
+            $errores['precioBase'] = "El precio no puede ser negativo";
+        }
+        
 
     //Imprimir errores en pantalla si los hay
     foreach($errores as $error){
@@ -398,6 +452,7 @@ ID:
                     <div class="mb-3 mx-auto" style="width:48%;">
                         <label for="incluyeTransporte" class="form-label">¿La transportación está incuída?</label>
                         <select class="form-select form-select" name="incluyeTransporte" id="incluyeTransporte">
+                            <!--<option value="" selected>Seleccione una opción</option>-->
                             <option value="<?php echo $incluyeTransporte;?>"><?php echo $incluyeTransporte;?></option>
                             <option value="Sí">Sí</option>
                             <option value="No">No</option>
