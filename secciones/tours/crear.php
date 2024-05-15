@@ -142,20 +142,32 @@ if($_POST){
         if (strlen($vistaGeneral) > 1100) {
             $errores['vistaGeneral'] = "La vista general no puede tener más de 1100 caracteres";
         }
+        if (preg_match('/[=<>|]/', $vistaGeneral)) {
+            $errores['vistaGeneral'] = "La vista general no puede contener los caracteres especiales = - | < >";
+        }
         
         //*******INICIAN VALIDACIONES CAMPO 8********
         if (strlen($destacado) > 1100) {
             $errores['destacado'] = "Destacado no puede tener más de 1100 caracteres";
+        }
+        if (preg_match('/[=<>|]/', $destacado)) {
+            $errores['destacado'] = "Destacado no puede contener los caracteres especiales = - | < >";
         }
         
         //*******INICIAN VALIDACIONES CAMPO 9********
         if (strlen($itinerario) > 1100) {
             $errores['itinerario'] = "El itinerario no puede tener más de 1100 caracteres";
         }
+        if (preg_match('/[=<>|]/', $itinerario)) {
+            $errores['itinerario'] = "El itinerario no puede contener los caracteres especiales = - | < >";
+        }
 
         //*******INICIAN VALIDACIONES CAMPO 10********
         if (strlen($incluye) > 1100) {
             $errores['incluye'] = "Lo que incluye no puede tener más de 1100 caracteres";
+        }
+        if (preg_match('/[=<>|]/', $incluye)) {
+            $errores['incluye'] = "Lo que incluye no puede contener los caracteres especiales = - | < >";
         }
 
         //*******INICIAN VALIDACIONES CAMPO 11********
@@ -167,20 +179,32 @@ if($_POST){
         if (strlen($queTraer) > 1100) {
             $errores['queTraer'] = "Qué traer no puede tener más de 1100 caracteres";
         }
+        if (preg_match('/[=<>|]/', $queTraer)) {
+            $errores['queTraer'] = "Qué traer no puede contener los caracteres especiales = - | < >";
+        }
 
         //*******INICIAN VALIDACIONES CAMPO 13********
         if (strlen($infoAdicional) > 1100) {
             $errores['infoAdicional'] = "La información adicional no puede tener más de 1100 caracteres";
+        }
+        if (preg_match('/[=<>|]/', $infoAdicional)) {
+            $errores['infoAdicional'] = "La información adicional no puede contener los caracteres especiales = - | < >";
         }
 
         //*******INICIAN VALIDACIONES CAMPO 14********
         if (strlen($polCancel) > 1100) {
             $errores['polCancel'] = "Las políticas de cancelación no puede tener más de 1100 caracteres";
         }
+        if (preg_match('/[=<>|]/', $polCancel)) {
+            $errores['polCancel'] = "Las políticas de cancelación no pueden contener los caracteres especiales = - | < >";
+        }
 
         //*******INICIAN VALIDACIONES CAMPO 15********
         if (strlen($actividades) > 1100) {
             $errores['actividades'] = "Las actividades no puede tener más de 1100 caracteres";
+        }
+        if (preg_match('/[=<>|]/', $actividades)) {
+            $errores['actividades'] = "actividades no pueden contener los caracteres especiales = - | < >";
         }
 
         //*******Inicia validaciones campo 16********
@@ -429,7 +453,7 @@ if($_POST){
                             <option value="no">No</option>
                         </select>
                     </div>
-                    <div class="mb-3 mx-auto" style="width:48%;">
+                    <div class="mb-3 mx-auto" style="width:48%;" id="transporte">
                         <label for="transporte" class="form-label">Tipo de transporte</label>
                         <input
                             type="text" class="form-control" name="transporte" id="transporte" aria-describedby="helpId" placeholder=""/>
@@ -467,6 +491,7 @@ if($_POST){
         <div class="card-footer text-muted"></div>
     </div>
     <!--Nuevo look termina-->
+
 
 <!-- Se llama el footer desde los templates-->
 <!-- ../../ sube 2 niveles para poder acceder al folder de templates desde la posición actual-->
