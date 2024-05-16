@@ -82,12 +82,18 @@ if($_POST){
                 $errores['terminoValidez'] = "El termino de validez no puede ser igual o menor que el inicio de validez.";
         }
         //Validar que restricciones solo contengan letras, números, espacios, guiones y apóstrofes
+        /*
         if (!preg_match('/^[a-zA-ZáéíóúñÁÉÍÓÚÑ\s\'\-]+$/', $restricciones)) {
-                $errores['nombre'] = "Las restricciones solo pueden tener letras, espacios, guiones y apóstrofes.";
+                $errores['restricciones'] = "Las restricciones solo pueden tener letras, espacios, guiones y apóstrofes.";
         }
-        //Validar si el nombre de cupón tiene más de 10 caracteres
+        */
+        //Validar si las restricciones no tienen más de 50 caracteres
         if (strlen($restricciones) > 50) {
                 $errores['restricciones'] = "Las restricciones no pueden tener más de 50 caracteres";
+        }
+        //Validar que las restricciones no contengan = - | < >
+        if (preg_match('/[=<>|]/', $restricciones)) {
+                $errores['restricciones'] = "Las restricciones no pueden contener los caracteres especiales = - | < >";
         }
         //Imprimir los errores
         foreach($errores as $error){
@@ -142,35 +148,51 @@ if($_POST){
 <div class="card mx-auto" style="width:40%;">
         <div class="card-header">Datos del cupón</div>
                 <div class="card-body">
-                <!--Inicio envio de mensaje de error-->
-                <?php if(isset($error)) { ?>
-                        <?php foreach($errores as $error){ ?>
-                        <div class="alert alert-danger" role="alert">
-                                <strong><?php echo $error;?></strong>
-                        </div>
-                        <?php }?>
-                <?php }?>
-                <!--Fin envio de mensaje de error-->
                         <form action="crear.php" id="crearCupones" method="post">
                                 <div class="mb-3">
                                         <label for="nombre" class="form-label">Nombre</label>
                                         <input type="text" class="form-control" name="nombre" id="nombre" aria-describedby="helpId" placeholder=""/>
+                                        <!--Inicio envio de mensaje de error-->
+                                        <?php if (isset($errores['nombre'])): ?>
+                                                <div class="alert alert-danger mt-1"><?php echo $errores['nombre']; ?></div>
+                                        <?php endif; ?>
+                                        <!--Fin envio de mensaje de error-->
                                 </div>
                                 <div class="mb-3">
                                         <label for="descuento" class="form-label">Descuento</label>
                                         <input type="number" class="form-control" name="descuento" id="descuento" aria-describedby="helpId" placeholder=""/>
+                                        <!--Inicio envio de mensaje de error-->
+                                        <?php if (isset($errores['descuento'])): ?>
+                                                <div class="alert alert-danger mt-1"><?php echo $errores['descuento']; ?></div>
+                                        <?php endif; ?>
+                                        <!--Fin envio de mensaje de error-->
                                 </div>
                                 <div class="mb-3">
                                         <label for="inicioValidez" class="form-label">Inicio de validez</label>
                                         <input type="datetime-local" class="form-control" name="inicioValidez" id="inicioValidez"aria-describedby="helpId" placeholder=""/>
+                                        <!--Inicio envio de mensaje de error-->
+                                        <?php if (isset($errores['inicioValidez'])): ?>
+                                                <div class="alert alert-danger mt-1"><?php echo $errores['inicioValidez']; ?></div>
+                                        <?php endif; ?>
+                                        <!--Fin envio de mensaje de error-->
                                 </div>
                                 <div class="mb-3">
                                         <label for="terminoValidez" class="form-label">Termino de validez</label>
                                         <input type="datetime-local" class="form-control" name="terminoValidez" id="terminoValidez"aria-describedby="helpId" placeholder=""/>
+                                        <!--Inicio envio de mensaje de error-->
+                                        <?php if (isset($errores['terminoValidez'])): ?>
+                                                <div class="alert alert-danger mt-1"><?php echo $errores['terminoValidez']; ?></div>
+                                        <?php endif; ?>
+                                        <!--Fin envio de mensaje de error-->
                                 </div>
                                 <div class="mb-3">
                                         <label for="restricciones">Restricciones</label>
                                         <textarea class="form-control" name="restricciones" id="restricciones" rows="3"></textarea>
+                                        <!--Inicio envio de mensaje de error-->
+                                        <?php if (isset($errores['restricciones'])): ?>
+                                                <div class="alert alert-danger mt-1"><?php echo $errores['restricciones']; ?></div>
+                                        <?php endif; ?>
+                                        <!--Fin envio de mensaje de error-->
                                 </div>
                                 <button type="submit" class="btn btn-success">Crear</button>
                                 <a name="" id="" class="btn btn-primary" href="index.php" role="button">Cancelar</a>
