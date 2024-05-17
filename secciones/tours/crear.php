@@ -66,6 +66,10 @@ if($_POST){
         if (strlen($titulo) > 60) {
             $errores['titulo'] = "El título no puede tener más de 60 caracteres";
         }
+        //Validar que no tenga caracteres especiales
+        if (preg_match('/[=<>|]/', $titulo)) {
+            $errores['titulo'] = "El título no puede contener los caracteres especiales = - | < >";
+        }
 
         //******Inicia validación de título existente en bd*****
         try {
@@ -114,6 +118,9 @@ if($_POST){
         if (strlen($tipo) > 20) {
             $errores['tipo'] = "El tipo no puede ser mayor a 20 caracteres";
         }
+        if (preg_match('/[=<>|]/', $tipo)) {
+            $errores['tipo'] = "El tipo no puede contener los caracteres especiales = - | < >";
+        }
         
 
         //*******INICIAN VALIDACIONES CAMPO 4********
@@ -130,8 +137,16 @@ if($_POST){
         if (strlen($idiomas) > 20) {
             $errores['idiomas'] = "Idiomas no puede tener más de 20 caracteres";
         }
+        if (preg_match('/[=<>|]/', $idiomas)) {
+            $errores['idiomas'] = "Idiomas no pueden contener los caracteres especiales = - | < >";
+        }
 
         //*******INICIAN VALIDACIONES CAMPO 6********
+        //La foto no puede estar vacía
+        if (empty($foto)) {
+            $errores['foto'] = "La foto no puede estar vacía";
+        }
+        //Validación de formato de archivo aceptado
         if ($foto != null){
             if (!in_array(pathinfo($foto, PATHINFO_EXTENSION), ['jpeg', 'jpg', 'png'])) {
                 $errores['foto'] = "La foto solo puede ser un archivo JPEG o PNG.";
@@ -210,7 +225,21 @@ if($_POST){
         //*******Inicia validaciones campo 16********
         //Validar que no esté vacio el campo de si incliye transportación
         if (empty($incluyeTransporte)){
-            $errores['incluyeTransporte']= "El campo incluye transportación no debe estar vacío";
+            $errores['incluyeTransporte']= "El campo incluye transportación es obligatorio";
+        }
+        //*******INICIAN VALIDACIONES CAMPO 17********
+        if (strlen($transporte) > 25) {
+            $errores['transporte'] = "El tipo de transporte no puede tener más de 25 caracteres";
+        }
+        if (preg_match('/[=<>|]/', $transporte)) {
+            $errores['transporte'] = "El tipo de transporte no pueden contener los caracteres especiales = - | < >";
+        }
+        //*******INICIAN VALIDACIONES CAMPO 18********
+        if (strlen($staff) > 25) {
+            $errores['staff'] = "El staff no puede tener más de 25 caracteres";
+        }
+        if (preg_match('/[=<>|]/', $staff)) {
+            $errores['staff'] = "El staff no pueden contener los caracteres especiales = - | < >";
         }
 
         //*******INICIAN VALIDACIONES CAMPO 19********
@@ -219,10 +248,17 @@ if($_POST){
             $errores['precioBase']= "El precio del tour es obligatorio";
         }
         //Validar si el precio no es un número negativo
-        if ($duracion < 0) {
+        if ($precioBase < 0) {
             $errores['precioBase'] = "El precio no puede ser negativo";
         }
-   
+        //*******INICIAN VALIDACIONES CAMPO 20********
+        if ($descuento >= $precioBase) {
+            $errores['descuento'] = "El descuento no puede ser igual o mayor al precio del tour";
+        }
+        /*******INICIAN VALIDACIONES CAMPO 21********/
+        if (strlen($redes) > 25) {
+            $errores['redes'] = "Las redes no pueden tener más de 25 caracteres";
+        }
 
         //Imprimir errores en pantalla si los hay
         foreach($errores as $error){
@@ -301,60 +337,6 @@ if($_POST){
 <!-- ../../ sube 2 niveles para poder acceder al folder de templates desde la posición actual-->
 <?php include("../../templates/header.php"); ?>
 
-    
-<!--
-<form action="crear.php" id="crearTours" method="post" enctype="multipart/form-data">
-        Título:
-        <input type="text" name="titulo" id="titulo"><br>
-        Duración:
-        <input type="number" name="duracion" id="duracion"><br>
-        Tipo:
-        <input type="text" name="tipo" id="tipo"><br>
-        Capacidad:
-        <input type="number" name="capacidad" id="capacidad"><br>
-        Idiomas:
-        <input type="text" name="idiomas" id="idiomas"><br>
-        Foto:
-        <input type="file" name="foto" id="foto"><br>
-        <p>Vista general:</p>
-        <textarea name="vistaGeneral" id="vistaGeneral" cols="50" rows="5"></textarea><br>
-        <p>Destacado:</p>
-        <textarea name="destacado" id="destacado" cols="50" rows="5"></textarea><br>
-        <p>Itinerario:</p>
-        <textarea name="itinerario" id="itinerario" cols="50" rows="5"></textarea><br>
-        <p>Incluye:</p>
-        <textarea name="incluye" id="incluye" cols="50" rows="5"></textarea><br>
-        Ubicación del tour:
-        <input type="text" name="ubicacion" id="ubicacion"><br>
-        <p>Qué traer:</p>
-        <textarea name="queTraer" id="queTraer" cols="50" rows="5"></textarea><br>
-        <p>Información adicional:</p>
-        <textarea name="infoAdicional" id="infoAdicional" cols="50" rows="5"></textarea><br>
-        <p>Política de cancelación:</p>
-        <textarea name="polCancel" id="polCancel" cols="50" rows="5"></textarea><br>
-        <p>Actividades para hacer:</p>
-        <textarea name="actividades" id="actividades" cols="50" rows="5"></textarea><br>
-        Transportación incluida:
-        <select name="incluyeTransporte" id="incluyeTransporte">
-            <option value="Sí">Sí</option>
-            <option value="No">No</option>
-        </select>
-        Tipo de transporte:
-        <input type="text" name="transporte" id="transporte"><br>
-        Staff encargado:
-        <input type="text" name="staff" id="staff"><br>
-        Precio desde:
-        <input type="number" name="precioBase" id="precioBase"><br>
-        Descuento:
-        <input type="number" name="descuento" id="descuento"><br>
-        Redes sociales:
-        <input type="text" name="redes" id="redes"><br>
-
-        <button type="submit">Crear tour</button>
-        <a href="index.php">Cancelar</a>
-</form>
--->
-
     <!--Nuevo look inicia-->
     <header class="text-center">
             <h1>Crear tour</h1>
@@ -363,28 +345,37 @@ if($_POST){
         <div class="card-header">Información del tour</div>
         <div class="card-body">
                 <!--Inicio envio de mensaje de error-->
-                <?php if(isset($error)) { ?>
-                    <?php foreach($errores as $error){ ?>
-                        <div class="alert alert-danger" role="alert">
-                            <strong><?php echo $error;?></strong>
-                        </div>
-                    <?php }?>
-                <?php }?>
+
             <!--Fin envio de mensaje de error-->
             <form action="crear.php" id="crearTours" method="post" enctype="multipart/form-data">
                 <div class="mb-3">
                     <label for="titulo" class="form-label">Título</label>
                     <input type="text" class="form-control" name="titulo" id="titulo" aria-describedby="helpId" placeholder=""/>
+                    <!--Inicio envio de mensaje de error-->
+                    <?php if (isset($errores['titulo'])): ?>
+                        <div class="alert alert-danger mt-1"><?php echo $errores['titulo']; ?></div>
+                    <?php endif; ?>
+                    <!--Fin envio de mensaje de error-->
                 </div>
                 <!--Inicia input group para agrupar campos en una misma línea-->
                 <div class="input-group">
                     <div class="mb-3 mx-auto" style="width:48%;">
                         <label for="duracion" class="form-label">Duración en horas</label>
                         <input type="number" class="form-control" name="duracion" id="duracion" aria-describedby="helpId" placeholder=""/>
+                        <!--Inicio envio de mensaje de error-->
+                        <?php if (isset($errores['duracion'])): ?>
+                            <div class="alert alert-danger mt-1"><?php echo $errores['duracion']; ?></div>
+                        <?php endif; ?>
+                        <!--Fin envio de mensaje de error-->
                     </div>
                     <div class="mb-3 mx-auto" style="width:48%;">
                         <label for="tipo" class="form-label">Tipo</label>
                         <input type="text" class="form-control" name="tipo" id="tipo" aria-describedby="helpId" placeholder=""/>
+                        <!--Inicio envio de mensaje de error-->
+                        <?php if (isset($errores['tipo'])): ?>
+                            <div class="alert alert-danger mt-1"><?php echo $errores['tipo']; ?></div>
+                        <?php endif; ?>
+                        <!--Fin envio de mensaje de error-->
                     </div>
                 </div>
                 
@@ -392,56 +383,112 @@ if($_POST){
                 <div class="input-group">
                     <div class="mb-3 mx-auto" style="width:48%;">
                         <label for="capacidad" class="form-label">Capacidad máxima</label>
-                        <input
-                            type="number" class="form-control" name="capacidad" id="capacidad" aria-describedby="helpId" placeholder=""/>
+                        <input type="number" class="form-control" name="capacidad" id="capacidad" aria-describedby="helpId" placeholder=""/>
+                        <!--Inicio envio de mensaje de error-->
+                        <?php if (isset($errores['capacidad'])): ?>
+                            <div class="alert alert-danger mt-1"><?php echo $errores['capacidad']; ?></div>
+                        <?php endif; ?>
+                        <!--Fin envio de mensaje de error-->
                     </div>
                     <div class="mb-3 mx-auto" style="width:48%;">
                         <label for="idiomas" class="form-label">Idiomas</label>
-                        <input
-                            type="text" class="form-control" name="idiomas" id="idiomas" aria-describedby="helpId" placeholder=""/>
+                        <input type="text" class="form-control" name="idiomas" id="idiomas" aria-describedby="helpId" placeholder=""/>
+                        <!--Inicio envio de mensaje de error-->
+                        <?php if (isset($errores['idiomas'])): ?>
+                            <div class="alert alert-danger mt-1"><?php echo $errores['idiomas']; ?></div>
+                        <?php endif; ?>
+                        <!--Fin envio de mensaje de error-->
                     </div>
                 </div>
                 <div class="mb-3">
                     <label for="foto" class="form-label">Foto</label>
-                    <input
-                        type="file" class="form-control" name="foto" id="foto" aria-describedby="helpId" placeholder=""/>
+                    <input type="file" class="form-control" name="foto" id="foto" aria-describedby="helpId" placeholder=""/>
+                        <!--Inicio envio de mensaje de error-->
+                        <?php if (isset($errores['foto'])): ?>
+                            <div class="alert alert-danger mt-1"><?php echo $errores['foto']; ?></div>
+                        <?php endif; ?>
+                        <!--Fin envio de mensaje de error-->
                 </div>
                 <div class="mb-3">
                     <label for="vistaGenera">Vista general</label>
                     <textarea class="form-control" name="vistaGeneral" id="vistaGeneral" rows="3"></textarea>
+                    <!--Inicio envio de mensaje de error-->
+                    <?php if (isset($errores['vistaGeneral'])): ?>
+                        <div class="alert alert-danger mt-1"><?php echo $errores['vistaGeneral']; ?></div>
+                    <?php endif; ?>
+                    <!--Fin envio de mensaje de error-->
                 </div>
                 <div class="mb-3">
                     <label for="destacado">Destacado</label>
                     <textarea class="form-control" name="destacado" id="destacado" rows="3"></textarea>
+                    <!--Inicio envio de mensaje de error-->
+                    <?php if (isset($errores['destacado'])): ?>
+                        <div class="alert alert-danger mt-1"><?php echo $errores['destacado']; ?></div>
+                    <?php endif; ?>
+                    <!--Fin envio de mensaje de error-->
                 </div>
                 <div class="mb-3">
                     <label for="itinerario">Itinerario</label>
                     <textarea class="form-control" name="itinerario" id="itinerario" rows="3"></textarea>
+                    <!--Inicio envio de mensaje de error-->
+                    <?php if (isset($errores['itinerario'])): ?>
+                        <div class="alert alert-danger mt-1"><?php echo $errores['itinerario']; ?></div>
+                    <?php endif; ?>
+                    <!--Fin envio de mensaje de error-->
                 </div>
                 <div class="mb-3">
                     <label for="incluye">Incluye</label>
                     <textarea class="form-control" name="incluye" id="incluye" rows="3"></textarea>
+                    <!--Inicio envio de mensaje de error-->
+                    <?php if (isset($errores['incluye'])): ?>
+                        <div class="alert alert-danger mt-1"><?php echo $errores['incluye']; ?></div>
+                    <?php endif; ?>
+                    <!--Fin envio de mensaje de error-->
                 </div>
                 <div class="mb-3">
                     <label for="ubicacion" class="form-label">Ubicación</label>
-                    <input
-                        type="text" class="form-control" name="ubicacion" id="ubicacion" aria-describedby="helpId" placeholder=""/>
+                    <input type="text" class="form-control" name="ubicacion" id="ubicacion" aria-describedby="helpId" placeholder=""/>
+                    <!--Inicio envio de mensaje de error-->
+                    <?php if (isset($errores['ubicacion'])): ?>
+                        <div class="alert alert-danger mt-1"><?php echo $errores['ubicacion']; ?></div>
+                    <?php endif; ?>
+                    <!--Fin envio de mensaje de error-->
                 </div>
                 <div class="mb-3">
                     <label for="queTraer">Qué traer</label>
                     <textarea class="form-control" name="queTraer" id="queTraer" rows="3"></textarea>
+                    <!--Inicio envio de mensaje de error-->
+                    <?php if (isset($errores['queTraer'])): ?>
+                        <div class="alert alert-danger mt-1"><?php echo $errores['queTraer']; ?></div>
+                    <?php endif; ?>
+                    <!--Fin envio de mensaje de error-->
                 </div>
                 <div class="mb-3">
                     <label for="infoAdicional">Información adicional</label>
                     <textarea class="form-control" name="infoAdicional" id="infoAdicional" rows="3"></textarea>
+                    <!--Inicio envio de mensaje de error-->
+                    <?php if (isset($errores['infoAdicional'])): ?>
+                        <div class="alert alert-danger mt-1"><?php echo $errores['infoAdicional']; ?></div>
+                    <?php endif; ?>
+                    <!--Fin envio de mensaje de error-->
                 </div>
                 <div class="mb-3">
                     <label for="polCancel">Política de cancelación</label>
                     <textarea class="form-control" name="polCancel" id="polCancel" rows="3"></textarea>
+                    <!--Inicio envio de mensaje de error-->
+                    <?php if (isset($errores['polCancel'])): ?>
+                        <div class="alert alert-danger mt-1"><?php echo $errores['polCancel']; ?></div>
+                    <?php endif; ?>
+                    <!--Fin envio de mensaje de error-->
                 </div>
                 <div class="mb-3">
                     <label for="actividades">Actividades para hacer</label>
                     <textarea class="form-control" name="actividades" id="actividades" rows="3"></textarea>
+                    <!--Inicio envio de mensaje de error-->
+                    <?php if (isset($errores['actividades'])): ?>
+                        <div class="alert alert-danger mt-1"><?php echo $errores['actividades']; ?></div>
+                    <?php endif; ?>
+                    <!--Fin envio de mensaje de error-->
                 </div>
                 <!--Inicia input group para agrupar campos en una misma línea-->
                 <div class="input-group">
@@ -452,23 +499,41 @@ if($_POST){
                             <option value="sí">Sí</option>
                             <option value="no">No</option>
                         </select>
+                    <!--Inicio envio de mensaje de error-->
+                    <?php if (isset($errores['incluyeTransporte'])): ?>
+                        <div class="alert alert-danger mt-1"><?php echo $errores['incluyeTransporte']; ?></div>
+                    <?php endif; ?>
+                    <!--Fin envio de mensaje de error-->
                     </div>
                     <div class="mb-3 mx-auto" style="width:48%;" id="transporte">
                         <label for="transporte" class="form-label">Tipo de transporte</label>
-                        <input
-                            type="text" class="form-control" name="transporte" id="transporte" aria-describedby="helpId" placeholder=""/>
+                        <input type="text" class="form-control" name="transporte" id="transporte" aria-describedby="helpId" placeholder=""/>
+                    <!--Inicio envio de mensaje de error-->
+                    <?php if (isset($errores['transporte'])): ?>
+                        <div class="alert alert-danger mt-1"><?php echo $errores['transporte']; ?></div>
+                    <?php endif; ?>
+                    <!--Fin envio de mensaje de error-->
                     </div>
                 </div>
                 <!--Inicia input group para agrupar campos en una misma línea-->
                 <div class="input-group">
                     <div class="mb-3 mx-auto" style="width:48%;">
                         <label for="staff" class="form-label">Staff a cargo</label>
-                        <input
-                            type="text" class="form-control" name="staff" id="staff" aria-describedby="helpId" placeholder=""/>
+                        <input type="text" class="form-control" name="staff" id="staff" aria-describedby="helpId" placeholder=""/>
+                    <!--Inicio envio de mensaje de error-->
+                    <?php if (isset($errores['staff'])): ?>
+                        <div class="alert alert-danger mt-1"><?php echo $errores['staff']; ?></div>
+                    <?php endif; ?>
+                    <!--Fin envio de mensaje de error-->
                     </div>
                     <div class="mb-3 mx-auto" style="width:48%;">
                         <label for="precioBase" class="form-label">Precio desde</label>
                         <input type="number" class="form-control" name="precioBase" id="precioBase" aria-describedby="helpId" placeholder=""/>
+                    <!--Inicio envio de mensaje de error-->
+                    <?php if (isset($errores['precioBase'])): ?>
+                        <div class="alert alert-danger mt-1"><?php echo $errores['precioBase']; ?></div>
+                    <?php endif; ?>
+                    <!--Fin envio de mensaje de error-->
                     </div>
                 </div>
                 <!--Inicia input group para agrupar campos en una misma línea-->
@@ -476,11 +541,20 @@ if($_POST){
                     <div class="mb-3 mx-auto" style="width:48%;">
                         <label for="descuento" class="form-label">Descuento</label>
                         <input type="number" class="form-control" name="descuento" id="descuento" aria-describedby="helpId" placeholder=""/>
+                    <!--Inicio envio de mensaje de error-->
+                    <?php if (isset($errores['descuento'])): ?>
+                        <div class="alert alert-danger mt-1"><?php echo $errores['descuento']; ?></div>
+                    <?php endif; ?>
+                    <!--Fin envio de mensaje de error-->
                     </div>
                     <div class="mb-3 mx-auto" style="width:48%;">
                         <label for="redes" class="form-label">Redes sociales</label>
-                        <input
-                            type="text" class="form-control" name="redes" id="redes" aria-describedby="helpId" placeholder=""/>
+                        <input type="text" class="form-control" name="redes" id="redes" aria-describedby="helpId" placeholder=""/>
+                    <!--Inicio envio de mensaje de error-->
+                    <?php if (isset($errores['redes'])): ?>
+                        <div class="alert alert-danger mt-1"><?php echo $errores['redes']; ?></div>
+                    <?php endif; ?>
+                    <!--Fin envio de mensaje de error-->
                     </div>
                 </div>
                 <button type="submit" class="btn btn-success">Crear</button>

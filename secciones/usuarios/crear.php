@@ -35,7 +35,7 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
     }
     //Validar si el nombre solo contener letras, espacios, guiones y apóstrofes
     if (!preg_match('/^[a-zA-ZáéíóúñÁÉÍÓÚÑ\s\'\-]+$/', $nombre)) {
-        $errores['nombre'] = "El nombre solo puede contener letras, espacios, guiones y apóstrofes.";
+        $errores['nombre'] = "El nombre solo puede contener letras, espacios, guiones y apóstrofes";
     }
     if (empty($apellidos)){
         $errores['apellidos']= "Los apellidos son obligatorios";
@@ -50,11 +50,11 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
     }
     //Validar si apellidos solo contener letras, espacios, guiones y apóstrofes
     if (!preg_match('/^[a-zA-ZáéíóúñÁÉÍÓÚÑ\s\'\-]+$/', $apellidos)) {
-        $errores['nombre'] = "El nombre solo puede contener letras, espacios, guiones y apóstrofes.";
+        $errores['apellidos'] = "Los apellidos solo pueden contener letras, espacios, guiones y apóstrofes";
     }
-   if (empty($tipo)){
+   /*if (empty($tipo)){
     $errores['tipo']= "El tipo de usuario es obligatorio";
-}
+    }*/
     // Se remueven todos los caracteres ilegales de email antes de validar
     $email = filter_var($email, FILTER_SANITIZE_EMAIL);
 
@@ -171,31 +171,6 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
 <!-- Se llama el header desde los templates-->
 <!-- ../../ sube 2 niveles para poder acceder al folder de templates desde la posición actual-->
 <?php include("../../templates/header.php"); ?>
-    <!--
-    <h2>Registro</h2>
-    <form action="crear.php" id="formularioRegistro" method="post">
-        Nombre:
-        <input type="text" name="nombre" id="nombre" required><br>
-        Apellido: 
-        <input type="text" name="apellidos" id="apellidos" required><br>
-        Correo:
-        <input type="email" name="email" id="email"><br>
-        Contraseña: 
-        <input type="password" name="password" id="password" required><br>
-        Repetir contraseña: 
-        <input type="password" name="confirmarPassword" id="confirmarPassword" required><br>
-        <label for="tipo">Tipo de usuario:</label>
-        <select name="tipo" id="tipo">
-            <option value="admin">Administrador</option>
-            <option value="cliente">Cliente</option>
-            <option value="ventas">Ventas</option>
-        </select>
-        <br>
-        <br>
-        <button type="submit">Registrar</button>
-        <a href="index.php">Cancelar</a>
-    </form>
-    -->
 
     <!--Nuevo look inicia-->
     <header class="text-center">
@@ -206,36 +181,55 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
         <div class="card-header">Datos del usuario</div>
         <div class="card-body">
             <!--Inicio envio de mensaje de error-->
-            <?php if(isset($error)) { ?>
-                <?php foreach($errores as $error){ ?>
-                    <div class="alert alert-danger" role="alert">
-                        <strong><?php echo $error;?></strong>
-                    </div>
-                <?php }?>
-            <?php }?>
+
             <!--Fin envio de mensaje de error-->
             <form action="crear.php" id="formularioRegistro" method="post">
                 <div class="mb-3">
                     <label for="nombre" class="form-label">Nombre</label>
                     <input type="text" class="form-control" name="nombre" id="nombre" aria-describedby="helpId" placeholder=""/>
+                    <!--Inicio envio de mensaje de error-->
+                    <?php if (isset($errores['nombre'])): ?>
+                            <div class="alert alert-danger mt-1"><?php echo $errores['nombre']; ?></div>
+                    <?php endif; ?>
+                    <!--Fin envio de mensaje de error-->
                 </div>
                 <div class="mb-3">
                     <label for="apellidos" class="form-label">Apellidos</label>
                     <input type="text" class="form-control" name="apellidos" id="apellidos" aria-describedby="helpId" placeholder=""/>
+                    <!--Inicio envio de mensaje de error-->
+                    <?php if (isset($errores['apellidos'])): ?>
+                            <div class="alert alert-danger mt-1"><?php echo $errores['apellidos']; ?></div>
+                    <?php endif; ?>
+                    <!--Fin envio de mensaje de error-->
                 </div>
                 <div class="mb-3">
                     <label for="email" class="form-label">Correo</label>
                     <input type="email" class="form-control" name="email" id="email"aria-describedby="helpId" placeholder=""/>
+                    <!--Inicio envio de mensaje de error-->
+                    <?php if (isset($errores['email'])): ?>
+                            <div class="alert alert-danger mt-1"><?php echo $errores['email']; ?></div>
+                    <?php endif; ?>
+                    <!--Fin envio de mensaje de error-->
                 </div>
                 <div class="mb-3">
                     <label for="password" class="form-label">Contraseña</label>
                     <input
                         type="password" class="form-control" name="password" id="password" aria-describedby="helpId" placeholder=""/>
+                    <!--Inicio envio de mensaje de error-->
+                    <?php if (isset($errores['password'])): ?>
+                            <div class="alert alert-danger mt-1"><?php echo $errores['password']; ?></div>
+                    <?php endif; ?>
+                    <!--Fin envio de mensaje de error-->
                 </div>
                 <div class="mb-3">
                     <label for="confirmarPassword" class="form-label">Confirmar contraseña</label>
                     <input
                         type="password" class="form-control" name="confirmarPassword" id="confirmarPassword" aria-describedby="helpId" placeholder="Repita la contraseña"/>
+                    <!--Inicio envio de mensaje de error-->
+                    <?php if (isset($errores['confirmarPassword'])): ?>
+                            <div class="alert alert-danger mt-1"><?php echo $errores['confirmarPassword']; ?></div>
+                    <?php endif; ?>
+                    <!--Fin envio de mensaje de error-->
                 </div>
                 <div class="mb-3">
                     <label for="tipo" class="form-label">Tipo de usuario</label>
@@ -245,6 +239,11 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
                         <option value="cliente">Cliente</option>
                         <option value="ventas">Ventas</option>
                     </select>
+                    <!--Inicio envio de mensaje de error-->
+                    <?php if (isset($errores['tipo'])): ?>
+                        <div class="alert alert-danger mt-1"><?php echo $errores['tipo']; ?></div>
+                    <?php endif; ?>
+                    <!--Fin envio de mensaje de error-->
                 </div>
                 <button type="submit" class="btn btn-success">Registrar</button>
                 <a name="" id="" class="btn btn-primary" href="index.php" role="button">Cancelar</a>

@@ -56,7 +56,7 @@ if($_POST){
     }
     //Validar si el nombre solo contener letras, espacios, guiones y apóstrofes
     if (!preg_match('/^[a-zA-ZáéíóúñÁÉÍÓÚÑ\s\'\-]+$/', $nombre)) {
-        $errores['nombre'] = "El nombre solo puede contener letras, espacios, guiones y apóstrofes.";
+        $errores['nombre'] = "El nombre solo puede contener letras, espacios, guiones y apóstrofes";
     }
     if (empty($apellidos)){
         $errores['apellidos']= "Los apellidos son obligatorios";
@@ -71,7 +71,7 @@ if($_POST){
     }
     //Validar si apellidos solo contener letras, espacios, guiones y apóstrofes
     if (!preg_match('/^[a-zA-ZáéíóúñÁÉÍÓÚÑ\s\'\-]+$/', $apellidos)) {
-        $errores['nombre'] = "El nombre solo puede contener letras, espacios, guiones y apóstrofes.";
+        $errores['apellidos'] = "Los apellidos solo puede contener letras, espacios, guiones y apóstrofes";
     }
     if (empty($tipo)){
     $errores['tipo']= "El tipo de usuario es obligatorio";
@@ -82,7 +82,6 @@ if($_POST){
     //Validación de correo
     if (empty($email)) {
     $errores['email'] = "El correo es obligatorio";
-
     }elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)){
         //Verificar que el correo sea válido (formato) 
         $errores['email'] = "El formato del correo no es válido";
@@ -137,10 +136,10 @@ if($_POST){
     }
 
     //validar que el tipo de usuario no está vacio (dropdown)
-    if (empty($tipo)) {
+    /*if (empty($tipo)) {
         $errores['tipo'] = "Debe seleccionar un tipo de usuario";
     }
-
+    */
 
     //Imprimir errores en pantalla si los hay
    foreach($errores as $error){
@@ -198,13 +197,7 @@ if($_POST){
         <div class="card-header">Datos del usuario</div>
         <div class="card-body">
             <!--Inicio envio de mensaje de error-->
-            <?php if(isset($error)) { ?>
-                <?php foreach($errores as $error){ ?>
-                        <div class="alert alert-danger" role="alert">
-                            <strong><?php echo $error;?></strong>
-                        </div>
-                    <?php }?>
-            <?php }?>
+
             <!--Fin envio de mensaje de error-->
             <form action="editar.php" id="editarUsuarios" method="post">
             <div class="mb-3">
@@ -214,24 +207,49 @@ if($_POST){
                 <div class="mb-3">
                     <label for="nombre" class="form-label">Nombre</label>
                     <input type="text" class="form-control" value="<?php echo $nombre;?>" name="nombre" id="nombre" aria-describedby="helpId" placeholder=""/>
+                    <!--Inicio envio de mensaje de error-->
+                    <?php if (isset($errores['nombre'])): ?>
+                        <div class="alert alert-danger mt-1"><?php echo $errores['nombre']; ?></div>
+                    <?php endif; ?>
+                    <!--Fin envio de mensaje de error-->
                 </div>
                 <div class="mb-3">
                     <label for="apellidos" class="form-label">Apellidos</label>
                     <input type="text" class="form-control" name="apellidos" id="apellidos" value = "<?php echo $apellidos;?>" aria-describedby="helpId" placeholder=""/>
+                    <!--Inicio envio de mensaje de error-->
+                    <?php if (isset($errores['apellidos'])): ?>
+                        <div class="alert alert-danger mt-1"><?php echo $errores['apellidos']; ?></div>
+                    <?php endif; ?>
+                    <!--Fin envio de mensaje de error-->
                 </div>
                 <div class="mb-3">
                     <label for="email" class="form-label">Correo</label>
                     <input type="email" class="form-control" name="email" id="email" value = "<?php echo $email;?>" aria-describedby="helpId" placeholder=""/>
+                    <!--Inicio envio de mensaje de error-->
+                    <?php if (isset($errores['email'])): ?>
+                        <div class="alert alert-danger mt-1"><?php echo $errores['email']; ?></div>
+                    <?php endif; ?>
+                    <!--Fin envio de mensaje de error-->
                 </div>
                 <div class="mb-3">
                     <label for="password" class="form-label">Contraseña</label>
                     <input
                         type="password" class="form-control" name="password" id="password" aria-describedby="helpId" placeholder=""/>
+                    <!--Inicio envio de mensaje de error-->
+                    <?php if (isset($errores['password'])): ?>
+                        <div class="alert alert-danger mt-1"><?php echo $errores['password']; ?></div>
+                    <?php endif; ?>
+                    <!--Fin envio de mensaje de error-->
                 </div>
                 <div class="mb-3">
                     <label for="confirmarPassword" class="form-label">Confirmar contraseña</label>
                     <input
                         type="password" class="form-control" name="confirmarPassword" id="confirmarPassword" aria-describedby="helpId" placeholder="Repita la contraseña"/>
+                    <!--Inicio envio de mensaje de error-->
+                    <?php if (isset($errores['confirmarPassword'])): ?>
+                        <div class="alert alert-danger mt-1"><?php echo $errores['confirmarPassword']; ?></div>
+                    <?php endif; ?>
+                    <!--Fin envio de mensaje de error-->
                 </div>
                 <div class="mb-3">
                     <label for="nombre" class="form-label">Tipo de usuario actual</label>
@@ -240,7 +258,7 @@ if($_POST){
                 <div class="mb-3">
                     <label for="tipo" class="form-label">Tipo de usuario</label>
                     <select class="form-select form-select-sm" name="tipo" id="tipo">
-                        <option value="" selected>Seleccione una opción</option>
+                        <option value="" selected>Seleccione una opción si quiere cambiarlo</option>
                         <option value="admin">Administrador</option>
                         <option value="cliente">Cliente</option>
                         <option value="ventas">Ventas</option>
