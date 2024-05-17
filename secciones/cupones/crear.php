@@ -20,7 +20,7 @@ if($_POST){
         }
         //Validar si el nombre de cupón no tiene menos de 4 caracteres
         if (strlen($nombre) < 4) {
-                $errores['nombre'] = "El nombre del cupón debe ser de al menos 4 caracteres";
+                $errores['nombre'] = "El nombre del cupón debe tener al menos 4 caracteres";
         }
         //Validar si el nombre de cupón tiene más de 10 caracteres
         if (strlen($nombre) > 10) {
@@ -72,6 +72,11 @@ if($_POST){
         //Validar que inicio de validez no es anterior a la fecha actual
         if (strtotime($inicioValidez) < time()) {
                 $errores['inicioValidez'] = "El inicio de validez debe ser posterior a la fecha actual";
+        }
+        //Validar que inicio de cupón no sea + de 1 año en el futuro
+        $futureDate=date('Y-m-d', strtotime('+1 year'));
+        if ($inicioValidez > $futureDate) {
+            $errores['inicioValidez'] = "El inicio de validez no puede ser más de un año desde la fecha actual";
         }
         //Validar que inicio de validez no esté vacio
         if (empty($terminoValidez)){

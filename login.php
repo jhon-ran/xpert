@@ -32,10 +32,10 @@ if ($_SERVER["REQUEST_METHOD"]=="POST") {
 
     //Validación que el correo no esté vacío y que tenga el formato requerido
    if (empty($email)) {
-        $errores['email'] = "El email es obligatorio";
+        $errores['email'] = "El correo es obligatorio";
     }elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)){
         //Verificar que el correo sea válido (formato) 
-        $errores['email'] = "El email no es válido";
+        $errores['email'] = "El correo no es válido";
     } 
     //validar que la contraseña no está vacía
     if (empty($password)) {

@@ -99,6 +99,11 @@ if($_POST){
         if (strtotime($inicioValidez) < time()) {
                 $errores['inicioValidez'] = "El inicio de validez debe ser posterior a la fecha actual";
         }
+        //Validar que inicio de cupón no sea + de 1 año en el futuro
+        $futureDate=date('Y-m-d', strtotime('+1 year'));
+        if ($inicioValidez > $futureDate) {
+                $errores['inicioValidez'] = "El inicio de validez no puede ser más de un año desde la fecha actual";
+        }
         //Validar que termino de validez no esté vacio
         if (empty($terminoValidez)){
                 $errores['terminoValidez']= "El termino de validez es obligatorio";
