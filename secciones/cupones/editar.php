@@ -185,7 +185,7 @@ if($_POST){
                                 </div>
                                 <div class="mb-3">
                                         <label for="nombre" class="form-label">Nombre</label>
-                                        <input type="text" class="form-control" value = "<?php echo $nombre;?>" name="nombre" id="nombre" aria-describedby="helpId" placeholder=""/>
+                                        <input type="text" class="form-control" value = "<?php echo $nombre;?>" name="nombre" id="nombre" aria-describedby="helpId" placeholder="" required/>
                                         <!--Inicio envio de mensaje de error-->
                                         <?php if (isset($errores['nombre'])): ?>
                                                 <div class="alert alert-danger mt-1"><?php echo $errores['nombre']; ?></div>
@@ -194,7 +194,7 @@ if($_POST){
                                 </div>
                                 <div class="mb-3">
                                         <label for="descuento" class="form-label">Descuento</label>
-                                        <input type="number" class="form-control" value = "<?php echo $descuento;?>" name="descuento" id="descuento" aria-describedby="helpId" placeholder=""/>
+                                        <input type="number" class="form-control" value = "<?php echo $descuento;?>" name="descuento" id="descuento" aria-describedby="helpId" placeholder="" required/>
                                         <!--Inicio envio de mensaje de error-->
                                         <?php if (isset($errores['descuento'])): ?>
                                                 <div class="alert alert-danger mt-1"><?php echo $errores['descuento']; ?></div>
@@ -203,7 +203,7 @@ if($_POST){
                                 </div>
                                 <div class="mb-3">
                                         <label for="inicioValidez" class="form-label">Inicio de validez</label>
-                                        <input type="datetime-local" class="form-control" name="inicioValidez" id="inicioValidez" value = "<?php echo $inicioValidez;?>" aria-describedby="helpId" placeholder=""/>
+                                        <input type="datetime-local" class="form-control" name="inicioValidez" id="inicioValidez" value = "<?php echo $inicioValidez;?>" aria-describedby="helpId" placeholder="" required/>
                                         <!--Inicio envio de mensaje de error-->
                                         <?php if (isset($errores['inicioValidez'])): ?>
                                                 <div class="alert alert-danger mt-1"><?php echo $errores['inicioValidez']; ?></div>
@@ -212,7 +212,7 @@ if($_POST){
                                 </div>
                                 <div class="mb-3">
                                         <label for="terminoValidez" class="form-label">Termino de validez</label>
-                                        <input type="datetime-local" class="form-control" name="terminoValidez" id="terminoValidez" value = "<?php echo $terminoValidez;?>" aria-describedby="helpId" placeholder=""/>
+                                        <input type="datetime-local" class="form-control" name="terminoValidez" id="terminoValidez" value = "<?php echo $terminoValidez;?>" aria-describedby="helpId" placeholder="" required/>
                                         <!--Inicio envio de mensaje de error-->
                                         <?php if (isset($errores['terminoValidez'])): ?>
                                                 <div class="alert alert-danger mt-1"><?php echo $errores['terminoValidez']; ?></div>

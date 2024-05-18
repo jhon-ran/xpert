@@ -206,7 +206,7 @@ if($_POST){
                 </div>
                 <div class="mb-3">
                     <label for="nombre" class="form-label">Nombre</label>
-                    <input type="text" class="form-control" value="<?php echo $nombre;?>" name="nombre" id="nombre" aria-describedby="helpId" placeholder=""/>
+                    <input type="text" class="form-control" value="<?php echo $nombre;?>" name="nombre" id="nombre" aria-describedby="helpId" placeholder="" required/>
                     <!--Inicio envio de mensaje de error-->
                     <?php if (isset($errores['nombre'])): ?>
                         <div class="alert alert-danger mt-1"><?php echo $errores['nombre']; ?></div>
@@ -215,7 +215,7 @@ if($_POST){
                 </div>
                 <div class="mb-3">
                     <label for="apellidos" class="form-label">Apellidos</label>
-                    <input type="text" class="form-control" name="apellidos" id="apellidos" value = "<?php echo $apellidos;?>" aria-describedby="helpId" placeholder=""/>
+                    <input type="text" class="form-control" name="apellidos" id="apellidos" value = "<?php echo $apellidos;?>" aria-describedby="helpId" placeholder="" required/>
                     <!--Inicio envio de mensaje de error-->
                     <?php if (isset($errores['apellidos'])): ?>
                         <div class="alert alert-danger mt-1"><?php echo $errores['apellidos']; ?></div>
@@ -224,7 +224,7 @@ if($_POST){
                 </div>
                 <div class="mb-3">
                     <label for="email" class="form-label">Correo</label>
-                    <input type="email" class="form-control" name="email" id="email" value = "<?php echo $email;?>" aria-describedby="helpId" placeholder=""/>
+                    <input type="email" class="form-control" name="email" id="email" value = "<?php echo $email;?>" aria-describedby="helpId" placeholder="" required/>
                     <!--Inicio envio de mensaje de error-->
                     <?php if (isset($errores['email'])): ?>
                         <div class="alert alert-danger mt-1"><?php echo $errores['email']; ?></div>
@@ -234,7 +234,7 @@ if($_POST){
                 <div class="mb-3">
                     <label for="password" class="form-label">Contraseña</label>
                     <input
-                        type="password" class="form-control" name="password" id="password" aria-describedby="helpId" placeholder=""/>
+                        type="password" class="form-control" name="password" id="password" aria-describedby="helpId" placeholder="Ingrese su contraseña o una nueva" required/>
                     <!--Inicio envio de mensaje de error-->
                     <?php if (isset($errores['password'])): ?>
                         <div class="alert alert-danger mt-1"><?php echo $errores['password']; ?></div>

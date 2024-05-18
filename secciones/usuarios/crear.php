@@ -186,7 +186,7 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
             <form action="crear.php" id="formularioRegistro" method="post">
                 <div class="mb-3">
                     <label for="nombre" class="form-label">Nombre</label>
-                    <input type="text" class="form-control" name="nombre" id="nombre" aria-describedby="helpId" placeholder=""/>
+                    <input type="text" class="form-control" name="nombre" id="nombre" aria-describedby="helpId" placeholder="Ingrese nombre(s)" required/>
                     <!--Inicio envio de mensaje de error-->
                     <?php if (isset($errores['nombre'])): ?>
                             <div class="alert alert-danger mt-1"><?php echo $errores['nombre']; ?></div>
@@ -195,7 +195,7 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
                 </div>
                 <div class="mb-3">
                     <label for="apellidos" class="form-label">Apellidos</label>
-                    <input type="text" class="form-control" name="apellidos" id="apellidos" aria-describedby="helpId" placeholder=""/>
+                    <input type="text" class="form-control" name="apellidos" id="apellidos" aria-describedby="helpId" placeholder="Ingrese apellido(s)" required/>
                     <!--Inicio envio de mensaje de error-->
                     <?php if (isset($errores['apellidos'])): ?>
                             <div class="alert alert-danger mt-1"><?php echo $errores['apellidos']; ?></div>
@@ -204,7 +204,7 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
                 </div>
                 <div class="mb-3">
                     <label for="email" class="form-label">Correo</label>
-                    <input type="email" class="form-control" name="email" id="email"aria-describedby="helpId" placeholder=""/>
+                    <input type="email" class="form-control" name="email" id="email"aria-describedby="helpId" placeholder="Ingrese correo" required/>
                     <!--Inicio envio de mensaje de error-->
                     <?php if (isset($errores['email'])): ?>
                             <div class="alert alert-danger mt-1"><?php echo $errores['email']; ?></div>
@@ -214,7 +214,7 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
                 <div class="mb-3">
                     <label for="password" class="form-label">Contraseña</label>
                     <input
-                        type="password" class="form-control" name="password" id="password" aria-describedby="helpId" placeholder=""/>
+                        type="password" class="form-control" name="password" id="password" aria-describedby="helpId" placeholder="Ingrese contraseña" required/>
                     <!--Inicio envio de mensaje de error-->
                     <?php if (isset($errores['password'])): ?>
                             <div class="alert alert-danger mt-1"><?php echo $errores['password']; ?></div>
@@ -224,7 +224,7 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
                 <div class="mb-3">
                     <label for="confirmarPassword" class="form-label">Confirmar contraseña</label>
                     <input
-                        type="password" class="form-control" name="confirmarPassword" id="confirmarPassword" aria-describedby="helpId" placeholder="Repita la contraseña"/>
+                        type="password" class="form-control" name="confirmarPassword" id="confirmarPassword" aria-describedby="helpId" placeholder="Repita la contraseña" required/>
                     <!--Inicio envio de mensaje de error-->
                     <?php if (isset($errores['confirmarPassword'])): ?>
                             <div class="alert alert-danger mt-1"><?php echo $errores['confirmarPassword']; ?></div>
@@ -233,7 +233,7 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
                 </div>
                 <div class="mb-3">
                     <label for="tipo" class="form-label">Tipo de usuario</label>
-                    <select class="form-select form-select-sm" name="tipo" id="tipo">
+                    <select class="form-select form-select-sm" name="tipo" id="tipo" required>
                         <option value="" selected>Seleccione una opción</option>
                         <option value="admin">Administrador</option>
                         <option value="cliente">Cliente</option>

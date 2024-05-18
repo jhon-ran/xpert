@@ -402,67 +402,6 @@ if($_POST){
 <!-- ../../ sube 2 niveles para poder acceder al folder de templates desde la posición actual-->
 <?php include("../../templates/header.php"); ?>
 
-<!--
-<form action="editar.php" id="editarTours" method="post" enctype="multipart/form-data">
-ID:
-        <input type="text" value ="<?php echo $txtID;?>" readonly name="txtID" id="txtID" placeholder="ID"/><br>
-        Título:
-        <input type="text" name="titulo" id="titulo" value = "<?php echo $titulo;?>"><br>
-        Duración:
-        <input type="number" name="duracion" id="duracion" value = "<?php echo $duracion;?>"><br>
-        Tipo:
-        <input type="text" name="tipo" id="tipo" value = "<?php echo $tipo;?>"><br>
-        Capacidad:
-        <input type="number" name="capacidad" id="capacidad" value = "<?php echo $capacidad;?>"><br>
-        Idiomas:
-        <input type="text" name="idiomas" id="idiomas" value = "<?php echo $idiomas;?>"><br>
-        <label for="foto">Foto:</label>
-        <br/>
-        <img width="300" src="<?php echo $foto;?>" alt="foto"/>
-        
-        <input type="file" name="foto" id="foto"><br>
-        <p>Vista general:</p>
-        <textarea name="vistaGeneral" id="vistaGeneral" cols="50" rows="5"><?php echo $vistaGeneral;?></textarea><br>
-        <p>Destacado:</p>
-        <textarea name="destacado" id="destacado" cols="50" rows="5"><?php echo $destacado;?></textarea><br>
-        <p>Itinerario:</p>
-        <textarea name="itinerario" id="itinerario" cols="50" rows="5"><?php echo $itinerario;?></textarea><br>
-        <p>Incluye:</p>
-        <textarea name="incluye" id="incluye" cols="50" rows="5"><?php echo $incluye;?></textarea><br>
-        Ubicación del tour:
-        <input type="text" name="ubicacion" id="ubicacion" value ="<?php echo $ubicacion;?>"><br>
-        <p>Qué traer:</p>
-        <textarea name="queTraer" id="queTraer" cols="50" rows="5"><?php echo $queTraer;?></textarea><br>
-        <p>Información adicional:</p>
-        <textarea name="infoAdicional" id="infoAdicional" cols="50" rows="5"><?php echo $infoAdicional;?></textarea><br>
-        <p>Política de cancelación:</p>
-        <textarea name="polCancel" id="polCancel" cols="50" rows="5"><?php echo $polCancel;?></textarea><br>
-        <p>Actividades para hacer:</p>
-        <textarea name="actividades" id="actividades" cols="50" rows="5"><?php echo $actividades;?></textarea><br>
-        <label for="incluyeTransporte">Actualmente incluye transporte?</label>
-        <?php echo $incluyeTransporte;?>
-        <br>
-        Transportación incluida:
-        <select name="incluyeTransporte" id="incluyeTransporte">
-            <option value="Sí">Sí</option>
-            <option value="No">No</option>
-        </select>
-        Tipo de transporte:
-        <input type="text" name="transporte" id="transporte" value ="<?php echo $transporte;?>"><br>
-        Staff encargado:
-        <input type="text" name="staff" id="staff" value ="<?php echo $staff;?>"><br>
-        Precio desde:
-        <input type="number" name="precioBase" id="precioBase" value ="<?php echo $precioBase;?>"><br>
-        Descuento:
-        <input type="number" name="descuento" id="descuento" value ="<?php echo $descuento;?>"><br>
-        Redes sociales:
-        <input type="text" name="redes" id="redes" value ="<?php echo $redes;?>"><br>
-
-        <button type="submit">Editar tour</button>
-        <a href="index.php">Cancelar</a>
-</form>
--->
-
     <!--Nuevo look inicia-->
     <header class="text-center">
         <h1>Editar tour</h1>
@@ -480,7 +419,7 @@ ID:
                 </div>
                 <div class="mb-3">
                     <label for="titulo" class="form-label">Título</label>
-                    <input type="text" class="form-control" value="<?php echo $titulo;?>" name="titulo" id="titulo" aria-describedby="helpId" placeholder=""/>
+                    <input type="text" class="form-control" value="<?php echo $titulo;?>" name="titulo" id="titulo" aria-describedby="helpId" placeholder="Campo obligatorio" required/>
                     <!--Inicio envio de mensaje de error-->
                     <?php if (isset($errores['titulo'])): ?>
                         <div class="alert alert-danger mt-1"><?php echo $errores['titulo']; ?></div>
@@ -491,7 +430,7 @@ ID:
                 <div class="input-group">
                     <div class="mb-3 mx-auto" style="width:48%;">
                         <label for="duracion" class="form-label">Duración en horas</label>
-                        <input type="number" class="form-control" name="duracion" id="duracion" value="<?php echo $duracion;?>" aria-describedby="helpId" placeholder=""/>
+                        <input type="number" class="form-control" name="duracion" id="duracion" value="<?php echo $duracion;?>" aria-describedby="helpId" placeholder="" required/>
                     <!--Inicio envio de mensaje de error-->
                     <?php if (isset($errores['duracion'])): ?>
                         <div class="alert alert-danger mt-1"><?php echo $errores['duracion']; ?></div>
@@ -512,7 +451,7 @@ ID:
                 <div class="input-group">
                     <div class="mb-3 mx-auto" style="width:48%;">
                         <label for="capacidad" class="form-label">Capacidad máxima</label>
-                        <input type="number" class="form-control" name="capacidad" id="capacidad" value="<?php echo $capacidad;?>"aria-describedby="helpId" placeholder=""/>
+                        <input type="number" class="form-control" name="capacidad" id="capacidad" value="<?php echo $capacidad;?>"aria-describedby="helpId" placeholder="" required/>
                     <!--Inicio envio de mensaje de error-->
                     <?php if (isset($errores['capacidad'])): ?>
                         <div class="alert alert-danger mt-1"><?php echo $errores['capacidad']; ?></div>
@@ -662,7 +601,7 @@ ID:
                     </div>
                     <div class="mb-3 mx-auto" style="width:48%;">
                         <label for="precioBase" class="form-label">Precio desde</label>
-                        <input type="number" class="form-control" name="precioBase" id="precioBase" value="<?php echo $precioBase;?>" aria-describedby="helpId" placeholder=""/>
+                        <input type="number" class="form-control" name="precioBase" id="precioBase" value="<?php echo $precioBase;?>" aria-describedby="helpId" placeholder="" required/>
                     <!--Inicio envio de mensaje de error-->
                     <?php if (isset($errores['precioBase'])): ?>
                         <div class="alert alert-danger mt-1"><?php echo $errores['precioBase']; ?></div>
@@ -674,7 +613,7 @@ ID:
                 <div class="input-group">
                     <div class="mb-3 mx-auto" style="width:48%;">
                         <label for="descuento" class="form-label">Descuento</label>
-                        <input type="number" class="form-control" name="descuento" id="descuento" value="<?php echo $descuento;?>" aria-describedby="helpId" placeholder=""/>
+                        <input type="number" class="form-control" name="descuento" id="descuento" value="<?php echo $descuento;?>" aria-describedby="helpId" placeholder="" required/>
                     <!--Inicio envio de mensaje de error-->
                     <?php if (isset($errores['descuento'])): ?>
                         <div class="alert alert-danger mt-1"><?php echo $errores['descuento']; ?></div>
