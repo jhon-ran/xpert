@@ -87,6 +87,10 @@ if($_POST){
         if (empty($descuento)){
                 $errores['descuento']= "El monto del descuento es obligatorio";
         }
+        //Validar que el monto del descuento es positivo
+        if ($descuento < 0){
+                $errores['descuento']= "El descuento debe ser mayor a cero";
+        }
         //Validar que el monto del descuento no es mayor a 200
         if ($descuento > 200){
                 $errores['descuento']= "El monto del descuento no puede ser mayor a $200";

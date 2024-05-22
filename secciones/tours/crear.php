@@ -350,7 +350,7 @@ if($_POST){
             <form action="crear.php" id="crearTours" method="post" enctype="multipart/form-data">
                 <div class="mb-3">
                     <label for="titulo" class="form-label">Título</label>
-                    <input type="text" class="form-control" name="titulo" id="titulo" aria-describedby="helpId" placeholder="Introduzca título de tour" required/>
+                    <input type="text" class="form-control" name="titulo" id="titulo" aria-describedby="helpId" placeholder="Introduzca título de tour" value="<?php echo isset($titulo) ? $titulo : ''; ?>" required/>
                     <!--Inicio envio de mensaje de error-->
                     <?php if (isset($errores['titulo'])): ?>
                         <div class="alert alert-danger mt-1"><?php echo $errores['titulo']; ?></div>
@@ -361,7 +361,7 @@ if($_POST){
                 <div class="input-group">
                     <div class="mb-3 mx-auto" style="width:48%;">
                         <label for="duracion" class="form-label">Duración en horas</label>
-                        <input type="number" class="form-control" name="duracion" id="duracion" aria-describedby="helpId" placeholder="Introduzca la duración estimada" required/>
+                        <input type="number" class="form-control" name="duracion" id="duracion" aria-describedby="helpId" placeholder="Introduzca la duración estimada" value="<?php echo isset($duracion) ? $duracion : ''; ?>" required/>
                         <!--Inicio envio de mensaje de error-->
                         <?php if (isset($errores['duracion'])): ?>
                             <div class="alert alert-danger mt-1"><?php echo $errores['duracion']; ?></div>
@@ -370,7 +370,7 @@ if($_POST){
                     </div>
                     <div class="mb-3 mx-auto" style="width:48%;">
                         <label for="tipo" class="form-label">Tipo</label>
-                        <input type="text" class="form-control" name="tipo" id="tipo" aria-describedby="helpId" placeholder=""/>
+                        <input type="text" class="form-control" name="tipo" id="tipo" aria-describedby="helpId" placeholder="" value="<?php echo isset($tipo) ? $tipo : ''; ?>"/>
                         <!--Inicio envio de mensaje de error-->
                         <?php if (isset($errores['tipo'])): ?>
                             <div class="alert alert-danger mt-1"><?php echo $errores['tipo']; ?></div>
@@ -383,7 +383,7 @@ if($_POST){
                 <div class="input-group">
                     <div class="mb-3 mx-auto" style="width:48%;">
                         <label for="capacidad" class="form-label">Capacidad máxima</label>
-                        <input type="number" class="form-control" name="capacidad" id="capacidad" aria-describedby="helpId" placeholder="" required/>
+                        <input type="number" class="form-control" name="capacidad" id="capacidad" aria-describedby="helpId" placeholder="" value="<?php echo isset($capacidad) ? $capacidad : ''; ?>" required/>
                         <!--Inicio envio de mensaje de error-->
                         <?php if (isset($errores['capacidad'])): ?>
                             <div class="alert alert-danger mt-1"><?php echo $errores['capacidad']; ?></div>
@@ -392,7 +392,7 @@ if($_POST){
                     </div>
                     <div class="mb-3 mx-auto" style="width:48%;">
                         <label for="idiomas" class="form-label">Idiomas</label>
-                        <input type="text" class="form-control" name="idiomas" id="idiomas" aria-describedby="helpId" placeholder=""/>
+                        <input type="text" class="form-control" name="idiomas" id="idiomas" aria-describedby="helpId" placeholder="" value="<?php echo isset($idiomas) ? $idiomas : ''; ?>"/>
                         <!--Inicio envio de mensaje de error-->
                         <?php if (isset($errores['idiomas'])): ?>
                             <div class="alert alert-danger mt-1"><?php echo $errores['idiomas']; ?></div>
@@ -411,7 +411,7 @@ if($_POST){
                 </div>
                 <div class="mb-3">
                     <label for="vistaGenera">Vista general</label>
-                    <textarea class="form-control" name="vistaGeneral" id="vistaGeneral" rows="3"></textarea>
+                    <textarea class="form-control" name="vistaGeneral" id="vistaGeneral" rows="3"><?php echo isset($vistaGeneral) ? $vistaGeneral : ''; ?></textarea>
                     <!--Inicio envio de mensaje de error-->
                     <?php if (isset($errores['vistaGeneral'])): ?>
                         <div class="alert alert-danger mt-1"><?php echo $errores['vistaGeneral']; ?></div>
@@ -420,7 +420,7 @@ if($_POST){
                 </div>
                 <div class="mb-3">
                     <label for="destacado">Destacado</label>
-                    <textarea class="form-control" name="destacado" id="destacado" rows="3"></textarea>
+                    <textarea class="form-control" name="destacado" id="destacado" rows="3"><?php echo isset($destacado) ? $destacado : ''; ?></textarea>
                     <!--Inicio envio de mensaje de error-->
                     <?php if (isset($errores['destacado'])): ?>
                         <div class="alert alert-danger mt-1"><?php echo $errores['destacado']; ?></div>
@@ -429,7 +429,7 @@ if($_POST){
                 </div>
                 <div class="mb-3">
                     <label for="itinerario">Itinerario</label>
-                    <textarea class="form-control" name="itinerario" id="itinerario" rows="3"></textarea>
+                    <textarea class="form-control" name="itinerario" id="itinerario" rows="3"><?php echo isset($itinerario) ? $itinerario : ''; ?></textarea>
                     <!--Inicio envio de mensaje de error-->
                     <?php if (isset($errores['itinerario'])): ?>
                         <div class="alert alert-danger mt-1"><?php echo $errores['itinerario']; ?></div>
@@ -438,7 +438,7 @@ if($_POST){
                 </div>
                 <div class="mb-3">
                     <label for="incluye">Incluye</label>
-                    <textarea class="form-control" name="incluye" id="incluye" rows="3"></textarea>
+                    <textarea class="form-control" name="incluye" id="incluye" rows="3"><?php echo isset($incluye) ? $incluye : ''; ?></textarea>
                     <!--Inicio envio de mensaje de error-->
                     <?php if (isset($errores['incluye'])): ?>
                         <div class="alert alert-danger mt-1"><?php echo $errores['incluye']; ?></div>
@@ -447,7 +447,7 @@ if($_POST){
                 </div>
                 <div class="mb-3">
                     <label for="ubicacion" class="form-label">Ubicación</label>
-                    <input type="text" class="form-control" name="ubicacion" id="ubicacion" aria-describedby="helpId" placeholder=""/>
+                    <input type="text" class="form-control" name="ubicacion" id="ubicacion" aria-describedby="helpId" placeholder="" value="<?php echo isset($ubicacion) ? $ubicacion : ''; ?>"/>
                     <!--Inicio envio de mensaje de error-->
                     <?php if (isset($errores['ubicacion'])): ?>
                         <div class="alert alert-danger mt-1"><?php echo $errores['ubicacion']; ?></div>
@@ -456,7 +456,7 @@ if($_POST){
                 </div>
                 <div class="mb-3">
                     <label for="queTraer">Qué traer</label>
-                    <textarea class="form-control" name="queTraer" id="queTraer" rows="3"></textarea>
+                    <textarea class="form-control" name="queTraer" id="queTraer" rows="3"><?php echo isset($queTraer) ? $queTraer : ''; ?></textarea>
                     <!--Inicio envio de mensaje de error-->
                     <?php if (isset($errores['queTraer'])): ?>
                         <div class="alert alert-danger mt-1"><?php echo $errores['queTraer']; ?></div>
@@ -465,7 +465,7 @@ if($_POST){
                 </div>
                 <div class="mb-3">
                     <label for="infoAdicional">Información adicional</label>
-                    <textarea class="form-control" name="infoAdicional" id="infoAdicional" rows="3"></textarea>
+                    <textarea class="form-control" name="infoAdicional" id="infoAdicional" rows="3"><?php echo isset($infoAdicional) ? $infoAdicional : ''; ?></textarea>
                     <!--Inicio envio de mensaje de error-->
                     <?php if (isset($errores['infoAdicional'])): ?>
                         <div class="alert alert-danger mt-1"><?php echo $errores['infoAdicional']; ?></div>
@@ -474,7 +474,7 @@ if($_POST){
                 </div>
                 <div class="mb-3">
                     <label for="polCancel">Política de cancelación</label>
-                    <textarea class="form-control" name="polCancel" id="polCancel" rows="3"></textarea>
+                    <textarea class="form-control" name="polCancel" id="polCancel" rows="3"><?php echo isset($polCancel) ? $polCancel : ''; ?></textarea>
                     <!--Inicio envio de mensaje de error-->
                     <?php if (isset($errores['polCancel'])): ?>
                         <div class="alert alert-danger mt-1"><?php echo $errores['polCancel']; ?></div>
@@ -483,7 +483,7 @@ if($_POST){
                 </div>
                 <div class="mb-3">
                     <label for="actividades">Actividades para hacer</label>
-                    <textarea class="form-control" name="actividades" id="actividades" rows="3"></textarea>
+                    <textarea class="form-control" name="actividades" id="actividades" rows="3"><?php echo isset($actividades) ? $actividades : ''; ?></textarea>
                     <!--Inicio envio de mensaje de error-->
                     <?php if (isset($errores['actividades'])): ?>
                         <div class="alert alert-danger mt-1"><?php echo $errores['actividades']; ?></div>
@@ -507,7 +507,7 @@ if($_POST){
                     </div>
                     <div class="mb-3 mx-auto" style="width:48%;" id="transporte">
                         <label for="transporte" class="form-label">Tipo de transporte</label>
-                        <input type="text" class="form-control" name="transporte" id="transporte" aria-describedby="helpId" placeholder=""/>
+                        <input type="text" class="form-control" name="transporte" id="transporte" aria-describedby="helpId" placeholder="" value="<?php echo isset($transporte) ? $transporte : ''; ?>"/>
                     <!--Inicio envio de mensaje de error-->
                     <?php if (isset($errores['transporte'])): ?>
                         <div class="alert alert-danger mt-1"><?php echo $errores['transporte']; ?></div>
@@ -519,7 +519,7 @@ if($_POST){
                 <div class="input-group">
                     <div class="mb-3 mx-auto" style="width:48%;">
                         <label for="staff" class="form-label">Staff a cargo</label>
-                        <input type="text" class="form-control" name="staff" id="staff" aria-describedby="helpId" placeholder=""/>
+                        <input type="text" class="form-control" name="staff" id="staff" aria-describedby="helpId" placeholder="" value="<?php echo isset($staff) ? $staff : ''; ?>"/>
                     <!--Inicio envio de mensaje de error-->
                     <?php if (isset($errores['staff'])): ?>
                         <div class="alert alert-danger mt-1"><?php echo $errores['staff']; ?></div>
@@ -528,7 +528,7 @@ if($_POST){
                     </div>
                     <div class="mb-3 mx-auto" style="width:48%;">
                         <label for="precioBase" class="form-label">Precio desde</label>
-                        <input type="number" class="form-control" name="precioBase" id="precioBase" aria-describedby="helpId" placeholder="" required/>
+                        <input type="number" class="form-control" name="precioBase" id="precioBase" aria-describedby="helpId" placeholder="" value="<?php echo isset($precioBase) ? $precioBase : ''; ?>" required/>
                     <!--Inicio envio de mensaje de error-->
                     <?php if (isset($errores['precioBase'])): ?>
                         <div class="alert alert-danger mt-1"><?php echo $errores['precioBase']; ?></div>
@@ -540,7 +540,7 @@ if($_POST){
                 <div class="input-group">
                     <div class="mb-3 mx-auto" style="width:48%;">
                         <label for="descuento" class="form-label">Descuento</label>
-                        <input type="number" class="form-control" name="descuento" id="descuento" aria-describedby="helpId" placeholder="Introduzca cero si no hay descuento" required/>
+                        <input type="number" class="form-control" name="descuento" id="descuento" aria-describedby="helpId" placeholder="Introduzca cero si no hay descuento" value="<?php echo isset($descuento) ? $descuento : ''; ?>" required/>
                     <!--Inicio envio de mensaje de error-->
                     <?php if (isset($errores['descuento'])): ?>
                         <div class="alert alert-danger mt-1"><?php echo $errores['descuento']; ?></div>
@@ -549,7 +549,7 @@ if($_POST){
                     </div>
                     <div class="mb-3 mx-auto" style="width:48%;">
                         <label for="redes" class="form-label">Redes sociales</label>
-                        <input type="text" class="form-control" name="redes" id="redes" aria-describedby="helpId" placeholder=""/>
+                        <input type="text" class="form-control" name="redes" id="redes" aria-describedby="helpId" placeholder="" value="<?php echo isset($redes) ? $redes : ''; ?>"/>
                     <!--Inicio envio de mensaje de error-->
                     <?php if (isset($errores['redes'])): ?>
                         <div class="alert alert-danger mt-1"><?php echo $errores['redes']; ?></div>

@@ -63,7 +63,11 @@ if($_POST){
         }
         //Validar que el monto del descuento no es mayor a 200
         if ($descuento > 200){
-                $errores['descuento']= "El monto del descuento no puede ser mayor a $200";
+                $errores['descuento']= "El descuento no puede ser mayor a $200";
+        }
+        //Validar que el monto del descuento es positivo
+        if ($descuento < 0){
+                $errores['descuento']= "El descuento debe ser mayor a cero";
         }
         //Validar que inicio de validez no esté vacio
         if (empty($inicioValidez)){
@@ -156,7 +160,7 @@ if($_POST){
                         <form action="crear.php" id="crearCupones" method="post">
                                 <div class="mb-3">
                                         <label for="nombre" class="form-label">Nombre</label>
-                                        <input type="text" class="form-control" name="nombre" id="nombre" aria-describedby="helpId" placeholder="Ingrese nombre de cupón" required/>
+                                        <input type="text" class="form-control" name="nombre" id="nombre" aria-describedby="helpId" placeholder="Ingrese nombre de cupón" value="<?php echo isset($nombre) ? $nombre : ''; ?>" required/>
                                         <!--Inicio envio de mensaje de error-->
                                         <?php if (isset($errores['nombre'])): ?>
                                                 <div class="alert alert-danger mt-1"><?php echo $errores['nombre']; ?></div>
@@ -165,7 +169,7 @@ if($_POST){
                                 </div>
                                 <div class="mb-3">
                                         <label for="descuento" class="form-label">Descuento</label>
-                                        <input type="number" class="form-control" name="descuento" id="descuento" aria-describedby="helpId" placeholder="Ingrese monto de descuento" required/>
+                                        <input type="number" class="form-control" name="descuento" id="descuento" aria-describedby="helpId" placeholder="Ingrese monto de descuento" value="<?php echo isset($descuento) ? $descuento : ''; ?>" required/>
                                         <!--Inicio envio de mensaje de error-->
                                         <?php if (isset($errores['descuento'])): ?>
                                                 <div class="alert alert-danger mt-1"><?php echo $errores['descuento']; ?></div>
@@ -174,7 +178,7 @@ if($_POST){
                                 </div>
                                 <div class="mb-3">
                                         <label for="inicioValidez" class="form-label">Inicio de validez</label>
-                                        <input type="datetime-local" class="form-control" name="inicioValidez" id="inicioValidez"aria-describedby="helpId" placeholder="" required/>
+                                        <input type="datetime-local" class="form-control" name="inicioValidez" id="inicioValidez"aria-describedby="helpId" placeholder="" value="<?php echo isset($inicioValidez) ? $inicioValidez : ''; ?>" required/>
                                         <!--Inicio envio de mensaje de error-->
                                         <?php if (isset($errores['inicioValidez'])): ?>
                                                 <div class="alert alert-danger mt-1"><?php echo $errores['inicioValidez']; ?></div>
@@ -183,7 +187,7 @@ if($_POST){
                                 </div>
                                 <div class="mb-3">
                                         <label for="terminoValidez" class="form-label">Termino de validez</label>
-                                        <input type="datetime-local" class="form-control" name="terminoValidez" id="terminoValidez"aria-describedby="helpId" placeholder="" required/>
+                                        <input type="datetime-local" class="form-control" name="terminoValidez" id="terminoValidez"aria-describedby="helpId" placeholder="" value="<?php echo isset($terminoValidez) ? $terminoValidez : ''; ?>" required/>
                                         <!--Inicio envio de mensaje de error-->
                                         <?php if (isset($errores['terminoValidez'])): ?>
                                                 <div class="alert alert-danger mt-1"><?php echo $errores['terminoValidez']; ?></div>
@@ -192,7 +196,7 @@ if($_POST){
                                 </div>
                                 <div class="mb-3">
                                         <label for="restricciones">Restricciones</label>
-                                        <textarea class="form-control" name="restricciones" id="restricciones" rows="3"></textarea>
+                                        <textarea class="form-control" name="restricciones" id="restricciones" rows="3"><?php echo isset($restricciones) ? $restricciones : ''; ?></textarea>
                                         <!--Inicio envio de mensaje de error-->
                                         <?php if (isset($errores['restricciones'])): ?>
                                                 <div class="alert alert-danger mt-1"><?php echo $errores['restricciones']; ?></div>
