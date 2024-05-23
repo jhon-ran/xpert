@@ -124,7 +124,7 @@ $tours = $sentencia->fetchAll(PDO::FETCH_ASSOC);
                         <p class="card-text">
                             <small class="text-muted"><?php echo $registro['duracion']?>hrs
                             <!--Se evalua si incluye transporte y de ser el caso se muestra en la tarjeta -->
-                            <?php if($registro['incluyeTransporte'] == "Sí"){ ?>
+                            <?php if($registro['incluyeTransporte'] == "sí"){ ?>
                                 <?php echo "+ Transportación"?> 
                                 <?php } ?>
                             </small></p>

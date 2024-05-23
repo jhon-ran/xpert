@@ -163,6 +163,8 @@ if ($_SERVER["REQUEST_METHOD"]=="POST") {
                                 <div class="mb-3">
                                     <label for="password" class="form-label">Contraseña</label>
                                     <input type="password" class="form-control" name="password" id="password" aria-describedby="helpId" placeholder="Ingrese contraseña"/>
+                                    <!--se llama a función para que el usuario pueda ver la contraseña que escribió-->
+                                    <input type="checkbox" onclick="mostrarPassword()"> <small>Mostrar</small>
                                 </div>
                                 <div class="g-recaptcha" data-sitekey="6LeYc74pAAAAAAvREuXjkM4inSyqJPTb5xxTr3Gk"></div>
                                 <button type="submit" class="btn btn-primary">Iniciar sesión</button>
@@ -202,5 +204,17 @@ if ($_SERVER["REQUEST_METHOD"]=="POST") {
           integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
           crossorigin="anonymous"
       ></script>
+
+      <!--función para mostrar password-->
+    <script>
+        function mostrarPassword() {
+        var x = document.getElementById("password");
+        if (x.type === "password") {
+            x.type = "text";
+        } else {
+            x.type = "password";
+        }
+        }
+    </script>
       </body>
 </html>

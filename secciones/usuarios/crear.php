@@ -220,6 +220,8 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
                             <div class="alert alert-danger mt-1"><?php echo $errores['password']; ?></div>
                     <?php endif; ?>
                     <!--Fin envio de mensaje de error-->
+                    <!--se llama a función para que el usuario pueda ver la contraseña que escribió-->
+                    <input type="checkbox" onclick="mostrarPassword()"> <small>Mostrar</small>
                 </div>
                 <div class="mb-3">
                     <label for="confirmarPassword" class="form-label">Confirmar contraseña</label>
@@ -230,6 +232,8 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
                             <div class="alert alert-danger mt-1"><?php echo $errores['confirmarPassword']; ?></div>
                     <?php endif; ?>
                     <!--Fin envio de mensaje de error-->
+                    <!--se llama a función para que el usuario pueda ver la contraseña que escribió-->
+                    <input type="checkbox" onclick="mostrarConfirmarPassword()"> <small>Mostrar</small>
                 </div>
                 <div class="mb-3">
                     <label for="tipo" class="form-label">Tipo de usuario</label>
@@ -278,4 +282,26 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
 
         // Se llama la función cuando se intente enviar el POST
         document.getElementById("confirmarPassword").addEventListener("input", comparaPasswords);
+    </script>
+    <!--función para mostrar password-->
+    <script>
+        function mostrarPassword() {
+        var x = document.getElementById("password");
+        if (x.type === "password") {
+            x.type = "text";
+        } else {
+            x.type = "password";
+        }
+        }
+    </script>
+    <!--función para mostrar confirmación de password-->
+    <script>
+        function mostrarConfirmarPassword() {
+        var x = document.getElementById("confirmarPassword");
+        if (x.type === "password") {
+            x.type = "text";
+        } else {
+            x.type = "password";
+        }
+        }
     </script>
