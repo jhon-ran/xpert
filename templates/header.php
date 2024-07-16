@@ -32,6 +32,8 @@ if(!isset($_SESSION['usuario_id'])){
         />
         <!-- estilo para personalizar -->
         <link rel="stylesheet" href="../style.css">
+        <!-- font awesome -->
+        <script src="https://kit.fontawesome.com/07ff07af43.js" crossorigin="anonymous"></script>
         <!-- cdn JQuery v.3.7.1-->
         <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
         <!-- cdn DataTables v.1.12.1 -->

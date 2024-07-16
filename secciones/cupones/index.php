@@ -57,7 +57,7 @@ $cupones = $sentencia->fetchAll(PDO::FETCH_ASSOC);
             <th scope="col">Termino de validez</th>
             <th scope="col">Restricciones</th>
             <th scope="col">Fecha de creación</th>
-            <th scope="col">Acciones</th>
+            <th scope="col"></th>
           </tr>
         </thead>
         <tbody>
@@ -71,9 +71,22 @@ $cupones = $sentencia->fetchAll(PDO::FETCH_ASSOC);
             <td><?php echo $registro['restricciones']?></td>
             <td><?php echo $registro['fechaCreacion']?></td>
             <td>
+              <!--antigua vista con botones
               <a name="" id="" class="btn btn-info" href="editar.php?txtID=<?php echo $registro['id']?>" role="button">Editar</a>
-              <!--Se sustituye el link del registro por la función SweatAlert para confirmar borrado-->
               <a name="" id="" class="btn btn-danger" href="javascript:borrar(<?php echo $registro['id']?>);">Eliminar</a>
+              -->
+
+              <div class="text-center" class="dropdown">
+                <a href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="fa fa-ellipsis-h" aria-hidden="true"></i>
+                </a>
+
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                  <li><a class="dropdown-item" href="editar.php?txtID=<?php echo $registro['id']?>">Editar</a></li>
+                  <!--Se sustituye el link del registro por la función SweatAlert para confirmar borrado-->
+                  <li><a class="dropdown-item" href="javascript:borrar(<?php echo $registro['id']?>);">Eliminar</a></li>
+                </ul>
+              </div>
             </td>
           </tr>
           <?php }?>

@@ -132,12 +132,31 @@ $tours = $sentencia->fetchAll(PDO::FETCH_ASSOC);
                     <div class="col-4"><p class="card-text"><small class="text-muted">desde $<?php echo $registro['precioBase']?></small></p></div>
                 </div>
                 <?php if($_SESSION["usuario_tipo"]=="admin"  || $_SESSION["usuario_tipo"]=="superadmin"):?>
+                    <!-- vieja vista con botones
                     <a href="editar.php?txtID=<?php echo $registro['id']?>" class="btn btn-primary">Editar</a>
-                    <!--Se sustituye el link del registro por la función SweatAlert para confirmar borrado-->
-                    
                     <a name="" id="" class="btn btn-danger" href="javascript:borrar(<?php echo $registro['id']?>);">Eliminar</a>
+                    -->
+                    <div class="dropdown">
+                        <a href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fa fa-ellipsis-h" aria-hidden="true"></i>
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                        <li><a class="dropdown-item" href="editar.php?txtID=<?php echo $registro['id']?>">Editar</a></li>
+                        <!--Se sustituye el link del registro por la función SweatAlert para confirmar borrado-->
+                        <li><a class="dropdown-item" href="javascript:borrar(<?php echo $registro['id']?>);">Eliminar</a></li>
+                        </ul>
+                    </div>
+
                 <?php elseif($_SESSION["usuario_tipo"]=="ventas"):?>
-                    <a href="editar.php?txtID=<?php echo $registro['id']?>" class="btn btn-primary">Editar</a>
+                    <!--<a href="editar.php?txtID=<?php echo $registro['id']?>" class="btn btn-primary">Editar</a>-->
+                    <div class="dropdown">
+                        <a href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fa fa-ellipsis-h" aria-hidden="true"></i>
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                        <li><a class="dropdown-item" href="editar.php?txtID=<?php echo $registro['id']?>">Editar</a></li>
+                        </ul>
+                    </div>
                 <?php else:?>
                     <a href="" class="btn btn-primary">Ver más</a>
                 <?php endif; ?>
