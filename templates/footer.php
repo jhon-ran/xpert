@@ -26,6 +26,10 @@
   $(document).ready(function(){
     $("#tabla_id").DataTable({
       "pageLength":10,
+       //para que sea responsivo
+       responsive: true,
+      //para que columnas se reduzcan con pantalla chica
+      autoWidth: false,
       lengthMenu:[
         [3,5,10,25,50],
         [3,5,10,25,50]
