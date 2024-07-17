@@ -49,7 +49,7 @@ $usuarios = $sentencia->fetchAll(PDO::FETCH_ASSOC);
   </div>
   <div class="card-body">
     <div
-      class="table-responsive-sm"
+      class="table-responsive-md"
     >
       <table class="table" id="tabla_id">
         <thead>

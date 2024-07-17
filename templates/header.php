@@ -31,7 +31,7 @@ if(!isset($_SESSION['usuario_id'])){
             crossorigin="anonymous"
         />
         <!-- estilo para personalizar -->
-        <link rel="stylesheet" href="../style.css">
+        <link rel="stylesheet" href="../../style.css">
         <!-- font awesome -->
         <script src="https://kit.fontawesome.com/07ff07af43.js" crossorigin="anonymous"></script>
         <!-- cdn JQuery v.3.7.1-->

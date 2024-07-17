@@ -23,11 +23,21 @@
 
 <!--Función para llamar Data Tables-->
 <script>
+
+  
   $(document).ready(function(){
     $("#tabla_id").DataTable({
       "pageLength":10,
        //para que sea responsivo
-       responsive: true,
+       //responsive: true,
+       responsive: {
+        breakpoints: [
+            { name: 'desktop', width: Infinity },
+            { name: 'tablet', width: 1024 },
+            { name: 'fablet', width: 768 },
+            { name: 'phone', width: 480 }
+        ]
+    },
       //para que columnas se reduzcan con pantalla chica
       autoWidth: false,
       lengthMenu:[
@@ -39,7 +49,8 @@
             "url":"https://cdn.datatables.net/plug-ins/2.0.5/i18n/es-MX.json"
         }
     });
-  });
+  }); 
+
 </script>
 
 <script>

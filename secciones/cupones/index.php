@@ -46,7 +46,7 @@ $cupones = $sentencia->fetchAll(PDO::FETCH_ASSOC);
     <a name="" id="" class="btn btn-primary" href="crear.php" role="button" >Crear cupones</a>
   </div>
   <div class="card-body">
-    <div class="table-responsive-sm">
+    <div class="table-responsive-lg">
       <table class="table" id="tabla_id">
         <thead>
           <tr>
