@@ -3,3 +3,9 @@
     color: red;
 }
 */
+
+/* Estilo para errores de formularios en Javascript*/
+.error {
+    color: red;
+    display: none;
+}

@@ -160,7 +160,9 @@ if($_POST){
                         <form action="crear.php" id="crearCupones" method="post">
                                 <div class="mb-3">
                                         <label for="nombre" class="form-label">Nombre</label>
-                                        <input type="text" class="form-control" name="nombre" id="nombre" aria-describedby="helpId" placeholder="Ingrese nombre de cupón" value="<?php echo isset($nombre) ? $nombre : ''; ?>" required/>
+                                        <input type="text" class="form-control" name="nombre" id="nombre" oninput="validateNombre()" aria-describedby="helpId" placeholder="Ingrese nombre de cupón" value="<?php echo isset($nombre) ? $nombre : ''; ?>" required/>
+                                        <!--Se llama mensaje de error de validacion de ../../js/validarNombre.js -->
+                                        <span id="error" class="error"></span>
                                         <!--Inicio envio de mensaje de error-->
                                         <?php if (isset($errores['nombre'])): ?>
                                                 <div class="alert alert-danger mt-1"><?php echo $errores['nombre']; ?></div>
@@ -203,7 +205,8 @@ if($_POST){
                                         <?php endif; ?>
                                         <!--Fin envio de mensaje de error-->
                                 </div>
-                                <button type="submit" class="btn btn-success">Crear</button>
+                                        <!--Botón de crear inicia inhabilitado para validaciones-->
+                                <button type="submit" id="submitBtn" class="btn btn-success" disabled>Crear</button>
                                 <a name="" id="" class="btn btn-primary" href="index.php" role="button">Cancelar</a>
                         </form>
                 </div>
@@ -214,3 +217,6 @@ if($_POST){
 <!-- Se llama el footer desde los templates-->
 <!-- ../../ sube 2 niveles para poder acceder al folder de templates desde la posición actual-->
 <?php include("../../templates/footer.php"); ?>
+
+<!-- Llama funcion para validar nombre de cupon-->
+<script src="../../js/validarNombre.js"> </script>
