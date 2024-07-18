@@ -162,7 +162,7 @@ if($_POST){
                                         <label for="nombre" class="form-label">Nombre</label>
                                         <input type="text" class="form-control" name="nombre" id="nombre" oninput="validateNombre()" aria-describedby="helpId" placeholder="Ingrese nombre de cupón" value="<?php echo isset($nombre) ? $nombre : ''; ?>" required/>
                                         <!--Se llama mensaje de error de validacion de ../../js/validarNombre.js -->
-                                        <span id="error" class="error"></span>
+                                        <span id="errorNombre" class="error"></span>
                                         <!--Inicio envio de mensaje de error-->
                                         <?php if (isset($errores['nombre'])): ?>
                                                 <div class="alert alert-danger mt-1"><?php echo $errores['nombre']; ?></div>
@@ -171,7 +171,9 @@ if($_POST){
                                 </div>
                                 <div class="mb-3">
                                         <label for="descuento" class="form-label">Descuento</label>
-                                        <input type="number" class="form-control" name="descuento" id="descuento" aria-describedby="helpId" placeholder="Ingrese monto de descuento" value="<?php echo isset($descuento) ? $descuento : ''; ?>" required/>
+                                        <input type="number" class="form-control" name="descuento" id="descuento" oninput="validateDescuento()" aria-describedby="helpId" placeholder="Ingrese monto de descuento" value="<?php echo isset($descuento) ? $descuento : ''; ?>" required/>
+                                        <!--Se llama mensaje de error de validacion de ../../js/validarDescuento.js -->
+                                        <span id="errorDescuento" class="error"></span>
                                         <!--Inicio envio de mensaje de error-->
                                         <?php if (isset($errores['descuento'])): ?>
                                                 <div class="alert alert-danger mt-1"><?php echo $errores['descuento']; ?></div>
@@ -198,7 +200,9 @@ if($_POST){
                                 </div>
                                 <div class="mb-3">
                                         <label for="restricciones">Restricciones</label>
-                                        <textarea class="form-control" name="restricciones" id="restricciones" rows="3"><?php echo isset($restricciones) ? $restricciones : ''; ?></textarea>
+                                        <textarea class="form-control" name="restricciones" id="restricciones" oninput="validateRestricciones()" rows="3"><?php echo isset($restricciones) ? $restricciones : ''; ?></textarea>
+                                        <!--Se llama mensaje de error de validacion de ../../js/validarRestricciones.js -->
+                                        <span id="errorRestricciones" class="error"></span>
                                         <!--Inicio envio de mensaje de error-->
                                         <?php if (isset($errores['restricciones'])): ?>
                                                 <div class="alert alert-danger mt-1"><?php echo $errores['restricciones']; ?></div>
@@ -218,5 +222,7 @@ if($_POST){
 <!-- ../../ sube 2 niveles para poder acceder al folder de templates desde la posición actual-->
 <?php include("../../templates/footer.php"); ?>
 
-<!-- Llama funcion para validar nombre de cupon-->
+<!-- Llama funcion para validar cupones-->
 <script src="../../js/validarNombre.js"> </script>
+<script src="../../js/validarDescuento.js"> </script>
+<script src="../../js/validarRestricciones.js"> </script>
