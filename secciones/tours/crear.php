@@ -341,7 +341,10 @@ if($_POST){
     <header class="text-center">
             <h1>Crear tour</h1>
     </header>
-    <div class="card mx-auto" style="width:50%;">
+    <div class="row">
+    <div class="col-md-4"><br><br></div>
+        <div class="col-md-4">
+        <div class="card">
         <div class="card-header">Información del tour</div>
         <div class="card-body">
                 <!--Inicio envio de mensaje de error-->
@@ -493,7 +496,7 @@ if($_POST){
                 <!--Inicia input group para agrupar campos en una misma línea-->
                 <div class="input-group">
                     <div class="mb-3 mx-auto" style="width:48%;">
-                        <label for="incluyeTransporte" class="form-label">Incluye transportación</label>
+                        <label for="incluyeTransporte" class="form-label">¿Transportación?</label>
                         <select class="form-select form-select" name="incluyeTransporte" id="incluyeTransporte" required>
                             <option value="" selected>Seleccione una opción</option>
                             <option value="sí">Sí</option>
@@ -560,10 +563,11 @@ if($_POST){
                 <button type="submit" class="btn btn-success">Crear</button>
                 <a name="" id="" class="btn btn-primary" href="index.php" role="button">Cancelar</a>
             </form>
-
+            </div>
         </div>
-        <div class="card-footer text-muted"></div>
+        <!--<div class="card-footer text-muted"></div>-->
     </div>
+</div>
     <!--Nuevo look termina-->
 
 
