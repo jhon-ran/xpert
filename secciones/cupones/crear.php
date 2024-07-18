@@ -182,7 +182,9 @@ if($_POST){
                                 </div>
                                 <div class="mb-3">
                                         <label for="inicioValidez" class="form-label">Inicio de validez</label>
-                                        <input type="datetime-local" class="form-control" name="inicioValidez" id="inicioValidez"aria-describedby="helpId" placeholder="" value="<?php echo isset($inicioValidez) ? $inicioValidez : ''; ?>" required/>
+                                        <input type="datetime-local" class="form-control" name="inicioValidez" id="inicioValidez" oninput="validateFechas()" aria-describedby="helpId" placeholder="" value="<?php echo isset($inicioValidez) ? $inicioValidez : ''; ?>" required/>
+                                        <!--Se llama mensaje de error de validacion de ../../js/validarFechas.js -->
+                                        <span id="errorInicio" class="error"></span>
                                         <!--Inicio envio de mensaje de error-->
                                         <?php if (isset($errores['inicioValidez'])): ?>
                                                 <div class="alert alert-danger mt-1"><?php echo $errores['inicioValidez']; ?></div>
@@ -191,7 +193,9 @@ if($_POST){
                                 </div>
                                 <div class="mb-3">
                                         <label for="terminoValidez" class="form-label">Termino de validez</label>
-                                        <input type="datetime-local" class="form-control" name="terminoValidez" id="terminoValidez"aria-describedby="helpId" placeholder="" value="<?php echo isset($terminoValidez) ? $terminoValidez : ''; ?>" required/>
+                                        <input type="datetime-local" class="form-control" name="terminoValidez" id="terminoValidez" oninput="validateFechas()" aria-describedby="helpId" placeholder="" value="<?php echo isset($terminoValidez) ? $terminoValidez : ''; ?>" required/>
+                                        <!--Se llama mensaje de error de validacion de ../../js/validarFechas.js -->
+                                        <span id="errorTermino" class="error"></span>
                                         <!--Inicio envio de mensaje de error-->
                                         <?php if (isset($errores['terminoValidez'])): ?>
                                                 <div class="alert alert-danger mt-1"><?php echo $errores['terminoValidez']; ?></div>
@@ -226,3 +230,4 @@ if($_POST){
 <script src="../../js/validarNombre.js"> </script>
 <script src="../../js/validarDescuento.js"> </script>
 <script src="../../js/validarRestricciones.js"> </script>
+<script src="../../js/validarFechas.js"> </script>

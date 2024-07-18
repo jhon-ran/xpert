@@ -13,6 +13,7 @@ function validateDescuento() {
     if (value === '') {
         errorMessage.textContent = 'El monto es obligatorio';
         errorMessage.style.display = 'inline';
+        submitBtn.disabled = true;
     } else if (value <= 0) {
         errorMessage.textContent = 'Debe ser mayor a cero.';
         errorMessage.style.display = 'inline';
