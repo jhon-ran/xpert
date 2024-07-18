@@ -176,8 +176,13 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
     <header class="text-center">
             <h1>Registrar usuarios</h1>
     </header>
-    <br>
-    <div class="card mx-auto" style="width:40%;">
+    
+
+<div class="row">
+        <div class="col-md-4">
+        <br><br>
+        </div>
+        <div class="col-md-4">
         <div class="card-header">Datos del usuario</div>
         <div class="card-body">
             <!--Inicio envio de mensaje de error-->
@@ -252,10 +257,10 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
                 <button type="submit" class="btn btn-success">Registrar</button>
                 <a name="" id="" class="btn btn-primary" href="index.php" role="button">Cancelar</a>
             </form>
-
+            </div>
         </div>
-        <div class="card-footer text-muted"></div>
     </div>
+</div>
     <!--Nuevo look termina-->
 
 <!-- Se llama el footer desde los templates-->
