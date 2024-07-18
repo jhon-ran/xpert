@@ -353,7 +353,9 @@ if($_POST){
             <form action="crear.php" id="crearTours" method="post" enctype="multipart/form-data">
                 <div class="mb-3">
                     <label for="titulo" class="form-label">Título</label>
-                    <input type="text" class="form-control" name="titulo" id="titulo" aria-describedby="helpId" placeholder="Introduzca título de tour" value="<?php echo isset($titulo) ? $titulo : ''; ?>" required/>
+                    <input type="text" class="form-control" name="titulo" id="titulo" oninput="validateTitulo()" aria-describedby="helpId" placeholder="Introduzca título de tour" value="<?php echo isset($titulo) ? $titulo : ''; ?>" required/>
+                    <!--Se llama mensaje de error de validacion de ../../js/validarNombre.js -->
+                    <span id="errorTitulo" class="error"></span>
                     <!--Inicio envio de mensaje de error-->
                     <?php if (isset($errores['titulo'])): ?>
                         <div class="alert alert-danger mt-1"><?php echo $errores['titulo']; ?></div>
@@ -560,7 +562,7 @@ if($_POST){
                     <!--Fin envio de mensaje de error-->
                     </div>
                 </div>
-                <button type="submit" class="btn btn-success">Crear</button>
+                <button type="submit" id="submitBtn" class="btn btn-success">Crear</button>
                 <a name="" id="" class="btn btn-primary" href="index.php" role="button">Cancelar</a>
             </form>
             </div>
@@ -574,3 +576,5 @@ if($_POST){
 <!-- Se llama el footer desde los templates-->
 <!-- ../../ sube 2 niveles para poder acceder al folder de templates desde la posición actual-->
 <?php include("../../templates/footer.php"); ?>
+
+<script src="../../js/validarTitulo.js"> </script>

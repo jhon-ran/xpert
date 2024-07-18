@@ -155,9 +155,7 @@ if($_POST){
 </header>
 
 <div class="row">
-        <div class="col-md-4">
-                <br><br>
-        </div>
+        <div class="col-md-4"><br><br></div>
         <div class="col-md-4">
                 <div class="card">
                 <div class="card-header">Datos del cupón</div>
@@ -219,7 +217,7 @@ if($_POST){
                                                 <!--Fin envio de mensaje de error-->
                                         </div>
                                                 <!--Botón de crear inicia inhabilitado para validaciones-->
-                                        <button type="submit" id="submitBtn" class="btn btn-success" disabled>Crear</button>
+                                        <button type="submit" id="submitBtn" class="btn btn-success">Crear</button>
                                         <a name="" id="" class="btn btn-primary" href="index.php" role="button">Cancelar</a>
                                 </form>
                         </div>
@@ -235,5 +233,5 @@ if($_POST){
 <!-- Llama funcion para validar cupones-->
 <script src="../../js/validarNombre.js"> </script>
 <script src="../../js/validarDescuento.js"> </script>
-<script src="../../js/validarRestricciones.js"> </script>
 <script src="../../js/validarFechas.js"> </script>
+<script src="../../js/validarRestricciones.js"> </script>

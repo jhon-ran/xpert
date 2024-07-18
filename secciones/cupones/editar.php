@@ -174,75 +174,84 @@ if($_POST){
 <!-- Se llama el header desde los templates-->
 <!-- ../../ sube 2 niveles para poder acceder al folder de templates desde la posición actual-->
 <?php include("../../templates/header.php"); ?>
+<script src="../../js/validarFechas.js"> </script>
 
 <!--Nuevo look empieza-->
 <header class="text-center">
             <h1>Editar cupón</h1>
 </header>
 <div class="row">
-        <div class="col-md-4">
-                <br><br>
-        </div>
-        <div class="col-md-4">
-                <div class="card">
-        <div class="card-header">Datos del cupón</div>
-                <div class="card-body">
-                        <form action="editar.php" id="editarCupones" method="post">
-                                <div class="mb-3">
-                                        <label for="nombre" class="form-label">ID</label>
-                                        <input type="text" class="form-control" value ="<?php echo $txtID;?>" readonly name="txtID" id="txtID" aria-describedby="helpId" placeholder=""/>
-                                </div>
-                                <div class="mb-3">
-                                        <label for="nombre" class="form-label">Nombre</label>
-                                        <input type="text" class="form-control" value = "<?php echo $nombre;?>" name="nombre" id="nombre" aria-describedby="helpId" placeholder="" required/>
-                                        <!--Inicio envio de mensaje de error-->
-                                        <?php if (isset($errores['nombre'])): ?>
-                                                <div class="alert alert-danger mt-1"><?php echo $errores['nombre']; ?></div>
-                                        <?php endif; ?>
-                                        <!--Fin envio de mensaje de error-->
-                                </div>
-                                <div class="mb-3">
-                                        <label for="descuento" class="form-label">Descuento</label>
-                                        <input type="number" class="form-control" value = "<?php echo $descuento;?>" name="descuento" id="descuento" aria-describedby="helpId" placeholder="" required/>
-                                        <!--Inicio envio de mensaje de error-->
-                                        <?php if (isset($errores['descuento'])): ?>
-                                                <div class="alert alert-danger mt-1"><?php echo $errores['descuento']; ?></div>
-                                        <?php endif; ?>
-                                        <!--Fin envio de mensaje de error-->
-                                </div>
-                                <div class="mb-3">
-                                        <label for="inicioValidez" class="form-label">Inicio de validez</label>
-                                        <input type="datetime-local" class="form-control" name="inicioValidez" id="inicioValidez" value = "<?php echo $inicioValidez;?>" aria-describedby="helpId" placeholder="" required/>
-                                        <!--Inicio envio de mensaje de error-->
-                                        <?php if (isset($errores['inicioValidez'])): ?>
-                                                <div class="alert alert-danger mt-1"><?php echo $errores['inicioValidez']; ?></div>
-                                        <?php endif; ?>
-                                        <!--Fin envio de mensaje de error-->
-                                </div>
-                                <div class="mb-3">
-                                        <label for="terminoValidez" class="form-label">Termino de validez</label>
-                                        <input type="datetime-local" class="form-control" name="terminoValidez" id="terminoValidez" value = "<?php echo $terminoValidez;?>" aria-describedby="helpId" placeholder="" required/>
-                                        <!--Inicio envio de mensaje de error-->
-                                        <?php if (isset($errores['terminoValidez'])): ?>
-                                                <div class="alert alert-danger mt-1"><?php echo $errores['terminoValidez']; ?></div>
-                                        <?php endif; ?>
-                                        <!--Fin envio de mensaje de error-->
-                                </div>
-                                <div class="mb-3">
-                                        <label for="restricciones">Restricciones</label>
-                                        <textarea class="form-control" name="restricciones" id="restricciones" rows="3"><?php echo $restricciones;?></textarea>
-                                        <!--Inicio envio de mensaje de error-->
-                                        <?php if (isset($errores['restricciones'])): ?>
-                                                <div class="alert alert-danger mt-1"><?php echo $errores['restricciones']; ?></div>
-                                        <?php endif; ?>
-                                        <!--Fin envio de mensaje de error-->
-                                </div>
-                                <button type="submit" class="btn btn-success">Editar</button>
-                                <a name="" id="" class="btn btn-primary" href="index.php" role="button">Cancelar</a>
-                        </form>
+<div class="col-md-4"><br><br></div>
+<div class="col-md-4">
+        <div class="card">
+                <div class="card-header">Datos del cupón</div>
+                        <div class="card-body">
+                                <form action="editar.php" id="editarCupones" method="post">
+                                        <div class="mb-3">
+                                                <label for="nombre" class="form-label">ID</label>
+                                                <input type="text" class="form-control" value ="<?php echo $txtID;?>" readonly name="txtID" id="txtID" aria-describedby="helpId" placeholder=""/>
+                                        </div>
+                                        <div class="mb-3">
+                                                <label for="nombre" class="form-label">Nombre</label>
+                                                <input type="text" class="form-control" value = "<?php echo $nombre;?>" name="nombre" id="nombre" oninput="validateNombre()" aria-describedby="helpId" placeholder="" required/>
+                                                <!--Se llama mensaje de error de validacion de ../../js/validarNombre.js -->
+                                                <span id="errorNombre" class="error"></span>
+                                                <!--Inicio envio de mensaje de error-->
+                                                <?php if (isset($errores['nombre'])): ?>
+                                                        <div class="alert alert-danger mt-1"><?php echo $errores['nombre']; ?></div>
+                                                <?php endif; ?>
+                                                <!--Fin envio de mensaje de error-->
+                                        </div>
+                                        <div class="mb-3">
+                                                <label for="descuento" class="form-label">Descuento</label>
+                                                <input type="number" class="form-control" value = "<?php echo $descuento;?>" name="descuento" id="descuento" oninput="validateDescuento()" aria-describedby="helpId" placeholder="" required/>
+                                                <!--Se llama mensaje de error de validacion de ../../js/validarDescuento.js -->
+                                                <span id="errorDescuento" class="error"></span>
+                                                <!--Inicio envio de mensaje de error-->
+                                                <?php if (isset($errores['descuento'])): ?>
+                                                        <div class="alert alert-danger mt-1"><?php echo $errores['descuento']; ?></div>
+                                                <?php endif; ?>
+                                                <!--Fin envio de mensaje de error-->
+                                        </div>
+                                        <div class="mb-3">
+                                                <label for="inicioValidez" class="form-label">Inicio de validez</label>
+                                                <input type="datetime-local" class="form-control" name="inicioValidez" id="inicioValidez" value = "<?php echo $inicioValidez;?>" aria-describedby="helpId" placeholder="" required/>
+                                                <!--Se llama mensaje de error de validacion de ../../js/validarFechas.js -->
+                                            
+                                                <!--Inicio envio de mensaje de error-->
+                                                <?php if (isset($errores['inicioValidez'])): ?>
+                                                        <div class="alert alert-danger mt-1"><?php echo $errores['inicioValidez']; ?></div>
+                                                <?php endif; ?>
+                                                <!--Fin envio de mensaje de error-->
+                                        </div>
+                                        <div class="mb-3">
+                                                <label for="terminoValidez" class="form-label">Termino de validez</label>
+                                                <input type="datetime-local" class="form-control" name="terminoValidez" id="terminoValidez" oninput="validateFechas()" value ="<?php echo $terminoValidez;?>" aria-describedby="helpId" placeholder="" required/>
+                                                <!--Se llama mensaje de error de validacion de ../../js/validarFechas.js -->
+                                        
+                                                <!--Inicio envio de mensaje de error-->
+                                                <?php if (isset($errores['terminoValidez'])): ?>
+                                                        <div class="alert alert-danger mt-1"><?php echo $errores['terminoValidez']; ?></div>
+                                                <?php endif; ?>
+                                                <!--Fin envio de mensaje de error-->
+                                        </div>
+                                        <div class="mb-3">
+                                                <label for="restricciones">Restricciones</label>
+                                                <textarea class="form-control" name="restricciones" id="restricciones" oninput="validateRestricciones()" rows="3"><?php echo $restricciones;?></textarea>
+                                                <!--Se llama mensaje de error de validacion de ../../js/validarRestricciones.js -->
+                                                <span id="errorRestricciones" class="error"></span>
+                                                <!--Inicio envio de mensaje de error-->
+                                                <?php if (isset($errores['restricciones'])): ?>
+                                                        <div class="alert alert-danger mt-1"><?php echo $errores['restricciones']; ?></div>
+                                                <?php endif; ?>
+                                                <!--Fin envio de mensaje de error-->
+                                        </div>
+                                        <button type="submit" id="submitBtn" class="btn btn-success">Editar</button>
+                                        <a name="" id="" class="btn btn-primary" href="index.php" role="button">Cancelar</a>
+                                </form>
+                        </div>
+                <!--<div class="card-footer text-muted"></div>-->
                 </div>
-        <!--<div class="card-footer text-muted"></div>-->
-        </div>
         </div>
 </div>
     <!--Nuevo look termina-->
@@ -250,3 +259,8 @@ if($_POST){
 <!-- Se llama el footer desde los templates-->
 <!-- ../../ sube 2 niveles para poder acceder al folder de templates desde la posición actual-->
 <?php include("../../templates/footer.php"); ?>
+
+<!-- Llama funcion para validar cupones-->
+<script src="../../js/validarNombre.js"> </script>
+<script src="../../js/validarDescuento.js"> </script>
+<script src="../../js/validarRestricciones.js"> </script>
