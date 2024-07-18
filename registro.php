@@ -204,69 +204,75 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
     <header class="text-center">
             <h1>Registrarse</h1>
     </header>
-    <div class="card mx-auto" style="width:24rem;">
-        <div class="card-header">Datos del usuario</div>
-        <div class="card-body">
-            <!--Inicio envio de mensaje de error-->
 
-            <!--Fin envio de mensaje de error-->
-            <form action="registro.php" id="formularioRegistro" method="post">
-                <div class="mb-3">
-                    <label for="nombre" class="form-label">Nombre</label>
-                    <input type="text" class="form-control" name="nombre" id="nombre" aria-describedby="helpId" placeholder="Ingrese nombre(s)" value="<?php echo isset($nombre) ? $nombre : ''; ?>" required/>
-                    <!--Inicio envio de mensaje de error-->
-                    <?php if (isset($errores['nombre'])): ?>
-                        <div class="alert alert-danger mt-1"><?php echo $errores['nombre']; ?></div>
-                    <?php endif; ?>
-                    <!--Fin envio de mensaje de error-->
+    <div class="row">
+                <div class="col-md-4">
+                <br><br>
                 </div>
-                <div class="mb-3">
-                    <label for="apellidos" class="form-label">Apellidos</label>
-                    <input type="text" class="form-control" name="apellidos" id="apellidos" aria-describedby="helpId" placeholder="Ingrese apellido(s)" value="<?php echo isset($apellidos) ? $apellidos : ''; ?>" required/>
-                    <!--Inicio envio de mensaje de error-->
-                    <?php if (isset($errores['apellidos'])): ?>
-                        <div class="alert alert-danger mt-1"><?php echo $errores['apellidos']; ?></div>
-                    <?php endif; ?>
-                    <!--Fin envio de mensaje de error-->
-                </div>
-                <div class="mb-3">
-                    <label for="email" class="form-label">Correo</label>
-                    <input type="email" class="form-control" name="email" id="email"aria-describedby="helpId" placeholder="Ingrese correo" value="<?php echo isset($email) ? $email : ''; ?>" required/>
-                    <!--Inicio envio de mensaje de error-->
-                    <?php if (isset($errores['email'])): ?>
-                        <div class="alert alert-danger mt-1"><?php echo $errores['email']; ?></div>
-                    <?php endif; ?>
-                    <!--Fin envio de mensaje de error-->
-                </div>
-                <div class="mb-3">
-                    <label for="password" class="form-label">Contraseña</label>
-                    <input type="password" class="form-control" name="password" id="password" aria-describedby="helpId" placeholder="Ingrese contraseña" value="<?php echo isset($password) ? $password : ''; ?>" required/>
-                    <!--Inicio envio de mensaje de error-->
-                    <?php if (isset($errores['password'])): ?>
-                        <div class="alert alert-danger mt-1"><?php echo $errores['password']; ?></div>
-                    <?php endif; ?>
-                    <!--Fin envio de mensaje de error-->
-                    <!--se llama a función para que el usuario pueda ver la contraseña que escribió-->
-                    <input type="checkbox" onclick="mostrarPassword()"> <small>Mostrar</small>
-                </div>
-                <div class="mb-3">
-                    <label for="confirmarPassword" class="form-label">Confirmar contraseña</label>
-                    <input type="password" class="form-control" name="confirmarPassword" id="confirmarPassword" aria-describedby="helpId" placeholder="Repita la contraseña" value="<?php echo isset($confirmarPassword) ? $confirmarPassword : ''; ?>" required/>
-                    <!--Inicio envio de mensaje de error-->
-                    <?php if (isset($errores['confirmarPassword'])): ?>
-                        <div class="alert alert-danger mt-1"><?php echo $errores['confirmarPassword']; ?></div>
-                    <?php endif; ?>
-                    <!--Fin envio de mensaje de error-->
-                    <!--se llama a función para que el usuario pueda ver la contraseña que escribió-->
-                    <input type="checkbox" onclick="mostrarConfirmarPassword()"> <small>Mostrar</small>
-                </div>
-                <button type="submit" class="btn btn-success">Registrar</button>
-                <a name="" id="" class="btn btn-primary" href="login.php" role="button">Login</a>
-            </form>
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-header">Datos del usuario</div>
+                        <!--Inicio envio de mensaje de error-->
+                        <div class="card-body">
 
-        </div>
-        <div class="card-footer text-muted"></div>
-    </div>
+                            <form action="registro.php" id="formularioRegistro" method="post">
+                                <div class="mb-3">
+                                    <label for="nombre" class="form-label">Nombre</label>
+                                    <input type="text" class="form-control" name="nombre" id="nombre" aria-describedby="helpId" placeholder="Ingrese nombre(s)" value="<?php echo isset($nombre) ? $nombre : ''; ?>" required/>
+                                    <!--Inicio envio de mensaje de error-->
+                                    <?php if (isset($errores['nombre'])): ?>
+                                        <div class="alert alert-danger mt-1"><?php echo $errores['nombre']; ?></div>
+                                    <?php endif; ?>
+                                    <!--Fin envio de mensaje de error-->
+                                </div>
+                                <div class="mb-3">
+                                    <label for="apellidos" class="form-label">Apellidos</label>
+                                    <input type="text" class="form-control" name="apellidos" id="apellidos" aria-describedby="helpId" placeholder="Ingrese apellido(s)" value="<?php echo isset($apellidos) ? $apellidos : ''; ?>" required/>
+                                    <!--Inicio envio de mensaje de error-->
+                                    <?php if (isset($errores['apellidos'])): ?>
+                                        <div class="alert alert-danger mt-1"><?php echo $errores['apellidos']; ?></div>
+                                    <?php endif; ?>
+                                    <!--Fin envio de mensaje de error-->
+                                </div>
+                                <div class="mb-3">
+                                    <label for="email" class="form-label">Correo</label>
+                                    <input type="email" class="form-control" name="email" id="email"aria-describedby="helpId" placeholder="Ingrese correo" value="<?php echo isset($email) ? $email : ''; ?>" required/>
+                                    <!--Inicio envio de mensaje de error-->
+                                    <?php if (isset($errores['email'])): ?>
+                                        <div class="alert alert-danger mt-1"><?php echo $errores['email']; ?></div>
+                                    <?php endif; ?>
+                                    <!--Fin envio de mensaje de error-->
+                                </div>
+                                <div class="mb-3">
+                                    <label for="password" class="form-label">Contraseña</label>
+                                    <input type="password" class="form-control" name="password" id="password" aria-describedby="helpId" placeholder="Ingrese contraseña" value="<?php echo isset($password) ? $password : ''; ?>" required/>
+                                    <!--Inicio envio de mensaje de error-->
+                                    <?php if (isset($errores['password'])): ?>
+                                        <div class="alert alert-danger mt-1"><?php echo $errores['password']; ?></div>
+                                    <?php endif; ?>
+                                    <!--Fin envio de mensaje de error-->
+                                    <!--se llama a función para que el usuario pueda ver la contraseña que escribió-->
+                                    <input type="checkbox" onclick="mostrarPassword()"> <small>Mostrar</small>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="confirmarPassword" class="form-label">Confirmar contraseña</label>
+                                    <input type="password" class="form-control" name="confirmarPassword" id="confirmarPassword" aria-describedby="helpId" placeholder="Repita la contraseña" value="<?php echo isset($confirmarPassword) ? $confirmarPassword : ''; ?>" required/>
+                                    <!--Inicio envio de mensaje de error-->
+                                    <?php if (isset($errores['confirmarPassword'])): ?>
+                                        <div class="alert alert-danger mt-1"><?php echo $errores['confirmarPassword']; ?></div>
+                                    <?php endif; ?>
+                                    <!--Fin envio de mensaje de error-->
+                                    <!--se llama a función para que el usuario pueda ver la contraseña que escribió-->
+                                    <input type="checkbox" onclick="mostrarConfirmarPassword()"> <small>Mostrar</small>
+                                </div>
+                                <button type="submit" class="btn btn-success">Registrar</button>
+                                <a name="" id="" class="btn btn-primary" href="login.php" role="button">Login</a>
+                        </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    
     <!--Nuevo look termina-->
 
     <script>
