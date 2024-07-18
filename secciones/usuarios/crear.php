@@ -179,10 +179,9 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
     
 
 <div class="row">
+    <div class="col-md-4"><br><br></div>
         <div class="col-md-4">
-        <br><br>
-        </div>
-        <div class="col-md-4">
+        <div class="card">
         <div class="card-header">Datos del usuario</div>
         <div class="card-body">
             <!--Inicio envio de mensaje de error-->

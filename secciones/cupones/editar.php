@@ -179,7 +179,12 @@ if($_POST){
 <header class="text-center">
             <h1>Editar cupón</h1>
 </header>
-<div class="card mx-auto" style="width:40%;">
+<div class="row">
+        <div class="col-md-4">
+                <br><br>
+        </div>
+        <div class="col-md-4">
+                <div class="card">
         <div class="card-header">Datos del cupón</div>
                 <div class="card-body">
                         <form action="editar.php" id="editarCupones" method="post">
@@ -236,7 +241,9 @@ if($_POST){
                                 <a name="" id="" class="btn btn-primary" href="index.php" role="button">Cancelar</a>
                         </form>
                 </div>
-        <div class="card-footer text-muted"></div>
+        <!--<div class="card-footer text-muted"></div>-->
+        </div>
+        </div>
 </div>
     <!--Nuevo look termina-->
 
