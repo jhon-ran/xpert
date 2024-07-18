@@ -153,7 +153,6 @@ if($_POST){
 <header class="text-center">
             <h1>Crear cupón</h1>
 </header>
-<br>
 
 <div class="row">
         <div class="col-md-4">
