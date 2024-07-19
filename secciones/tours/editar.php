@@ -436,7 +436,9 @@ if($_POST){
                 <div class="input-group">
                     <div class="mb-3 mx-auto" style="width:48%;">
                         <label for="duracion" class="form-label">Duración en horas</label>
-                        <input type="number" class="form-control" name="duracion" id="duracion" value="<?php echo $duracion;?>" aria-describedby="helpId" placeholder="" required/>
+                        <input type="number" class="form-control" name="duracion" id="duracion" oninput="validateDuracion()" value="<?php echo $duracion;?>" aria-describedby="helpId" placeholder="" required/>
+                        <!--Se llama mensaje de error de validacion de ../../js/validarDuracion.js -->
+                        <span id="errorDuracion" class="error"></span>
                     <!--Inicio envio de mensaje de error-->
                     <?php if (isset($errores['duracion'])): ?>
                         <div class="alert alert-danger mt-1"><?php echo $errores['duracion']; ?></div>
@@ -457,7 +459,9 @@ if($_POST){
                 <div class="input-group">
                     <div class="mb-3 mx-auto" style="width:48%;">
                         <label for="capacidad" class="form-label">Capacidad máxima</label>
-                        <input type="number" class="form-control" name="capacidad" id="capacidad" value="<?php echo $capacidad;?>"aria-describedby="helpId" placeholder="" required/>
+                        <input type="number" class="form-control" name="capacidad" id="capacidad" oninput="validateCapacidad()" value="<?php echo $capacidad;?>"aria-describedby="helpId" placeholder="" required/>
+                        <!--Se llama mensaje de error de validacion de ../../js/validarCapacidad.js -->
+                        <span id="errorCapacidad" class="error"></span>
                     <!--Inicio envio de mensaje de error-->
                     <?php if (isset($errores['capacidad'])): ?>
                         <div class="alert alert-danger mt-1"><?php echo $errores['capacidad']; ?></div>
@@ -637,7 +641,7 @@ if($_POST){
                     <!--Fin envio de mensaje de error-->
                     </div>
                 </div>
-                <button type="submit" class="btn btn-success">Actualizar</button>
+                <button type="submit" id='submitBtn' class="btn btn-success">Actualizar</button>
                 <a name="" id="" class="btn btn-primary" href="index.php" role="button">Cancelar</a>
             </form>
             </div>
@@ -652,5 +656,7 @@ if($_POST){
 <!-- Se llama el footer desde los templates-->
 <!-- ../../ sube 2 niveles para poder acceder al folder de templates desde la posición actual-->
 <?php include("../../templates/footer.php"); ?>
-
+<!-- Se llaman validaciones desde carpeta js/-->
 <script src="../../js/validarTitulo.js"> </script>
+<script src="../../js/validarDuracion.js"> </script>
+<script src="../../js/validarCapacidad.js"> </script>
