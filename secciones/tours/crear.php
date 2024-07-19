@@ -420,7 +420,9 @@ if($_POST){
                 </div>
                 <div class="mb-3">
                     <label for="vistaGenera">Vista general</label>
-                    <textarea class="form-control" name="vistaGeneral" id="vistaGeneral" rows="3"><?php echo isset($vistaGeneral) ? $vistaGeneral : ''; ?></textarea>
+                    <textarea class="form-control" name="vistaGeneral" id="vistaGeneral" oninput="validateVistaGeneral()" rows="3"><?php echo isset($vistaGeneral) ? $vistaGeneral : ''; ?></textarea>
+                    <!--Se llama mensaje de error de validacion de ../../js/validarVistaGeneraljs -->
+                    <span id="errorVistaGeneral" class="error"></span>
                     <!--Inicio envio de mensaje de error-->
                     <?php if (isset($errores['vistaGeneral'])): ?>
                         <div class="alert alert-danger mt-1"><?php echo $errores['vistaGeneral']; ?></div>
@@ -429,7 +431,9 @@ if($_POST){
                 </div>
                 <div class="mb-3">
                     <label for="destacado">Destacado</label>
-                    <textarea class="form-control" name="destacado" id="destacado" rows="3"><?php echo isset($destacado) ? $destacado : ''; ?></textarea>
+                    <textarea class="form-control" name="destacado" id="destacado" oninput="validateDestacado()" rows="3"><?php echo isset($destacado) ? $destacado : ''; ?></textarea>
+                    <!--Se llama mensaje de error de validacion de ../../js/validarDestacadojs -->
+                    <span id="errorDestacado" class="error"></span>
                     <!--Inicio envio de mensaje de error-->
                     <?php if (isset($errores['destacado'])): ?>
                         <div class="alert alert-danger mt-1"><?php echo $errores['destacado']; ?></div>
@@ -438,7 +442,9 @@ if($_POST){
                 </div>
                 <div class="mb-3">
                     <label for="itinerario">Itinerario</label>
-                    <textarea class="form-control" name="itinerario" id="itinerario" rows="3"><?php echo isset($itinerario) ? $itinerario : ''; ?></textarea>
+                    <textarea class="form-control" name="itinerario" id="itinerario" oninput="validateItinerario()" rows="3"><?php echo isset($itinerario) ? $itinerario : ''; ?></textarea>
+                    <!--Se llama mensaje de error de validacion de ../../js/validarItinerario.js -->
+                    <span id="errorItinerario" class="error"></span>
                     <!--Inicio envio de mensaje de error-->
                     <?php if (isset($errores['itinerario'])): ?>
                         <div class="alert alert-danger mt-1"><?php echo $errores['itinerario']; ?></div>
@@ -584,3 +590,6 @@ if($_POST){
 <script src="../../js/validarTitulo.js"> </script>
 <script src="../../js/validarDuracion.js"> </script>
 <script src="../../js/validarCapacidad.js"> </script>
+<script src="../../js/validarVistaGeneral.js"> </script>
+<script src="../../js/validarDestacado.js"> </script>
+<script src="../../js/validarItinerario.js"> </script>
