@@ -18,7 +18,7 @@ function validateDuracion() {
         // se dishabilita el botón
         submitBtn.disabled = true;
     } else if (value > 14) {
-        errorMessage.textContent = 'No puede no puede ser mayor a 14hrs';
+        errorMessage.textContent = 'No puede ser mayor a 14hrs';
         errorMessage.style.display = 'inline';
         // se dishabilita el botón
         submitBtn.disabled = true;

@@ -1,6 +1,7 @@
-function validateDestacado() {
-    const inputField = document.getElementById('destacado');
-    const errorMessage = document.getElementById('errorDestacado');
+//validar campo aue traer de tour
+function validateQueTraer() {
+    const inputField = document.getElementById('queTraer');
+    const errorMessage = document.getElementById('errorQueTraer');
     //para habilitar y deshabilitar el botón de crear
     const submitBtn = document.getElementById('submitBtn');
 

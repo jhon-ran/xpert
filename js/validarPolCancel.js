@@ -1,6 +1,7 @@
-function validateDestacado() {
-    const inputField = document.getElementById('destacado');
-    const errorMessage = document.getElementById('errorDestacado');
+//validar campo pol cancel de tour
+function validatePolCancel() {
+    const inputField = document.getElementById('polCancel');
+    const errorMessage = document.getElementById('errorPolCancel');
     //para habilitar y deshabilitar el botón de crear
     const submitBtn = document.getElementById('submitBtn');
 

@@ -523,7 +523,9 @@ if($_POST){
                 </div>
                 <div class="mb-3">
                     <label for="incluye">Incluye</label>
-                    <textarea class="form-control" name="incluye" id="incluye" rows="3"><?php echo $incluye;?></textarea>
+                    <textarea class="form-control" name="incluye" id="incluye" oninput="validateIncluye()" rows="3"><?php echo $incluye;?></textarea>
+                    <!--Se llama mensaje de error de validacion de ../../js/validarIncluye.js -->
+                    <span id="errorIncluye" class="error"></span>
                     <!--Inicio envio de mensaje de error-->
                     <?php if (isset($errores['incluye'])): ?>
                         <div class="alert alert-danger mt-1"><?php echo $errores['incluye']; ?></div>
@@ -544,7 +546,9 @@ if($_POST){
                 </div>
                 <div class="mb-3">
                     <label for="queTraer">Qué traer</label>
-                    <textarea class="form-control" name="queTraer" id="queTraer" rows="3"><?php echo $queTraer;?></textarea>
+                    <textarea class="form-control" name="queTraer" id="queTraer" oninput="validateQueTraer()" rows="3"><?php echo $queTraer;?></textarea>
+                    <!--Se llama mensaje de error de validacion de ../../js/validarQueTraer.js -->
+                    <span id="errorQueTraer" class="error"></span>
                     <!--Inicio envio de mensaje de error-->
                     <?php if (isset($errores['queTraer'])): ?>
                         <div class="alert alert-danger mt-1"><?php echo $errores['queTraer']; ?></div>
@@ -553,7 +557,9 @@ if($_POST){
                 </div>
                 <div class="mb-3">
                     <label for="infoAdicional">Información adicional</label>
-                    <textarea class="form-control" name="infoAdicional" id="infoAdicional" rows="3"><?php echo $infoAdicional;?></textarea>
+                    <textarea class="form-control" name="infoAdicional" id="infoAdicional" oninput="validateInfoAdicional()" rows="3"><?php echo $infoAdicional;?></textarea>
+                    <!--Se llama mensaje de error de validacion de ../../js/validarInfoAdicional.js -->
+                    <span id="errorInfoAdicional" class="error"></span>
                     <!--Inicio envio de mensaje de error-->
                     <?php if (isset($errores['infoAdicional'])): ?>
                         <div class="alert alert-danger mt-1"><?php echo $errores['infoAdicional']; ?></div>
@@ -562,7 +568,9 @@ if($_POST){
                 </div>
                 <div class="mb-3">
                     <label for="polCancel">Política de cancelación</label>
-                    <textarea class="form-control" name="polCancel" id="polCancel" rows="3"><?php echo $polCancel;?></textarea>
+                    <textarea class="form-control" name="polCancel" id="polCancel" oninput="validatePolCancel()" rows="3"><?php echo $polCancel;?></textarea>
+                    <!--Se llama mensaje de error de validacion de ../../js/validarPolCancel.js -->
+                    <span id="errorPolCancel" class="error"></span>
                     <!--Inicio envio de mensaje de error-->
                     <?php if (isset($errores['polCancel'])): ?>
                         <div class="alert alert-danger mt-1"><?php echo $errores['polCancel']; ?></div>
@@ -571,7 +579,9 @@ if($_POST){
                 </div>
                 <div class="mb-3">
                     <label for="actividades">Actividades para hacer</label>
-                    <textarea class="form-control" name="actividades" id="actividades" rows="3"><?php echo $actividades;?></textarea>
+                    <textarea class="form-control" name="actividades" id="actividades" oninput="validateActividades()" rows="3"><?php echo $actividades;?></textarea>
+                    <!--Se llama mensaje de error de validacion de ../../js/validarInfoAdicional.js -->
+                    <span id="errorActividades" class="error"></span>
                     <!--Inicio envio de mensaje de error-->
                     <?php if (isset($errores['actividades'])): ?>
                         <div class="alert alert-danger mt-1"><?php echo $errores['actividades']; ?></div>
@@ -669,3 +679,8 @@ if($_POST){
 <script src="../../js/validarVistaGeneral.js"> </script>
 <script src="../../js/validarDestacado.js"> </script>
 <script src="../../js/validarItinerario.js"> </script>
+<script src="../../js/validarIncluye.js"> </script>
+<script src="../../js/validarQueTraer.js"> </script>
+<script src="../../js/validarInfoAdicional.js"> </script>
+<script src="../../js/validarPolCancel.js"> </script>
+<script src="../../js/validarActividades.js"> </script>

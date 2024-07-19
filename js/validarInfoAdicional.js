@@ -1,6 +1,7 @@
-function validateDestacado() {
-    const inputField = document.getElementById('destacado');
-    const errorMessage = document.getElementById('errorDestacado');
+//validar campo info qdiconal de tour
+function validateInfoAdicional() {
+    const inputField = document.getElementById('infoAdicional');
+    const errorMessage = document.getElementById('errorInfoAdicional');
     //para habilitar y deshabilitar el botón de crear
     const submitBtn = document.getElementById('submitBtn');
 

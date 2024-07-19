@@ -24,7 +24,7 @@ function validateTitulo() {
         // se dishabilita el botón
         submitBtn.disabled = true;
     } else if (forbiddenChars.test(value)) {
-        errorMessage.textContent = 'No puede contener no pueden contener = - | < >';
+        errorMessage.textContent = 'No puede contener = - | < >';
         errorMessage.style.display = 'inline';
         // se dishabilita el botón
         submitBtn.disabled = true;

@@ -1,6 +1,7 @@
-function validateDestacado() {
-    const inputField = document.getElementById('destacado');
-    const errorMessage = document.getElementById('errorDestacado');
+//validar campo avtividades de tour
+function validateActividades() {
+    const inputField = document.getElementById('actividades');
+    const errorMessage = document.getElementById('errorActividades');
     //para habilitar y deshabilitar el botón de crear
     const submitBtn = document.getElementById('submitBtn');
 
