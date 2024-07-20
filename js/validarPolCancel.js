@@ -1,4 +1,4 @@
-//validar campo pol cancel de tour
+//validar campo pol cancel de tour: campo 14
 function validatePolCancel() {
     const inputField = document.getElementById('polCancel');
     const errorMessage = document.getElementById('errorPolCancel');

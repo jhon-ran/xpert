@@ -1,4 +1,4 @@
-//validar campo incluye de tour
+//validar campo incluye de tour: campo 10
 function validateIncluye() {
     const inputField = document.getElementById('incluye');
     const errorMessage = document.getElementById('errorIncluye');

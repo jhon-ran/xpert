@@ -1,4 +1,4 @@
-//Validar que nombre de tour
+//Validar nombre de tour: campo 1 
 function validateTitulo() {
     const inputField = document.getElementById('titulo');
     const errorMessage = document.getElementById('errorTitulo');

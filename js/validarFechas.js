@@ -1,3 +1,4 @@
+//Validación de fechas para cupones
 function validateFechas() {
     const errorMessageInicio = document.getElementById('errorInicio');
     const errorMessageTermino = document.getElementById('errorTermino');

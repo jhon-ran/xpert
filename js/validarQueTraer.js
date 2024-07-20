@@ -1,4 +1,4 @@
-//validar campo aue traer de tour
+//validar campo aue traer de tour: campo 12
 function validateQueTraer() {
     const inputField = document.getElementById('queTraer');
     const errorMessage = document.getElementById('errorQueTraer');

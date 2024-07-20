@@ -1,4 +1,4 @@
-//validar duración de tour
+//validar duración de tour: campo 2
 function validateDuracion() {
     const inputField = document.getElementById('duracion');
     const errorMessage = document.getElementById('errorDuracion');

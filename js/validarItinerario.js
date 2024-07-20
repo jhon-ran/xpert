@@ -1,3 +1,4 @@
+//Validar campo itinerario de tour: campo 9
 function validateItinerario() {
     const inputField = document.getElementById('itinerario');
     const errorMessage = document.getElementById('errorItinerario');

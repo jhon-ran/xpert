@@ -553,7 +553,9 @@ if($_POST){
                     </div>
                     <div class="mb-3 mx-auto" style="width:48%;">
                         <label for="precioBase" class="form-label">Precio desde</label>
-                        <input type="number" class="form-control" name="precioBase" id="precioBase" aria-describedby="helpId" placeholder="" value="<?php echo isset($precioBase) ? $precioBase : ''; ?>" required/>
+                        <input type="number" class="form-control" name="precioBase" id="precioBase" oninput="validatePrecioBase()" aria-describedby="helpId" placeholder="" value="<?php echo isset($precioBase) ? $precioBase : ''; ?>" required/>
+                        <!--Se llama mensaje de error de validacion de ../../js/validarPrecioBase.js -->
+                        <span id="errorPrecioBase" class="error"></span>
                     <!--Inicio envio de mensaje de error-->
                     <?php if (isset($errores['precioBase'])): ?>
                         <div class="alert alert-danger mt-1"><?php echo $errores['precioBase']; ?></div>
@@ -596,15 +598,28 @@ if($_POST){
 <!-- Se llama el footer desde los templates-->
 <!-- ../../ sube 2 niveles para poder acceder al folder de templates desde la posición actual-->
 <?php include("../../templates/footer.php"); ?>
-<!-- Se llaman validaciones desde carpeta js/-->
+<!-- Se llaman validaciones de campos desde carpeta js/-->
+<!-- Campo 1-->
 <script src="../../js/validarTitulo.js"> </script>
+<!-- Campo 2-->
 <script src="../../js/validarDuracion.js"> </script>
+<!-- Campo 4-->
 <script src="../../js/validarCapacidad.js"> </script>
+<!-- Campo 7-->
 <script src="../../js/validarVistaGeneral.js"> </script>
+<!-- Campo 8-->
 <script src="../../js/validarDestacado.js"> </script>
+<!-- Campo 9-->
 <script src="../../js/validarItinerario.js"> </script>
+<!-- Campo 10-->
 <script src="../../js/validarIncluye.js"> </script>
+<!-- Campo 12-->
 <script src="../../js/validarQueTraer.js"> </script>
+<!-- Campo 13-->
 <script src="../../js/validarInfoAdicional.js"> </script>
+<!-- Campo 14-->
 <script src="../../js/validarPolCancel.js"> </script>
+<!-- Campo 15-->
 <script src="../../js/validarActividades.js"> </script>
+<!-- Campo 19-->
+<script src="../../js/validarPrecioBase.js"> </script>

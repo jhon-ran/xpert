@@ -1,4 +1,4 @@
-//validar capacidad de tour
+//validar capacidad de tour: campo 4
 function validateCapacidad() {
     const inputField = document.getElementById('capacidad');
     const errorMessage = document.getElementById('errorCapacidad');

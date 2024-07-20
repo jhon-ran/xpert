@@ -1,4 +1,4 @@
-//Validar vista general de tour
+//Validar vista general de tour: campo 7
 function validateVistaGeneral() {
     const inputField = document.getElementById('vistaGeneral');
     const errorMessage = document.getElementById('errorVistaGeneral');

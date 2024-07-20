@@ -1,4 +1,4 @@
-//validar campo info qdiconal de tour
+//validar campo info adiconal de tour: campo 13
 function validateInfoAdicional() {
     const inputField = document.getElementById('infoAdicional');
     const errorMessage = document.getElementById('errorInfoAdicional');

@@ -1,3 +1,4 @@
+//Validación campo destacado: campo8
 function validateDestacado() {
     const inputField = document.getElementById('destacado');
     const errorMessage = document.getElementById('errorDestacado');
