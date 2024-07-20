@@ -240,7 +240,8 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
                     <input
                         type="password" class="form-control" name="confirmarPassword" id="confirmarPassword" oninput="validateConfirmarPassword()" aria-describedby="helpId" placeholder="Repita la contraseña" value="<?php echo isset($confirmarPassword) ? $confirmarPassword : ''; ?>" required/>
                     <!--Se llama mensaje de error de validacion de ../../js/validarPassword.js -->
-                    <span id="errorConfirmarPassword" class="error"></span>    
+                    <span id="errorConfirmarPassword" class="error"></span>
+                    <span id="errorComparar" class="error"></span>     
                     <!--Inicio envio de mensaje de error-->
                     <?php if (isset($errores['confirmarPassword'])): ?>
                             <div class="alert alert-danger mt-1"><?php echo $errores['confirmarPassword']; ?></div>
@@ -251,12 +252,14 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
                 </div>
                 <div class="mb-3">
                     <label for="tipo" class="form-label">Tipo de usuario</label>
-                    <select class="form-select form-select-sm" name="tipo" id="tipo" required>
+                    <select class="form-select form-select-sm" name="tipo" id="tipo" onclick="validateTipoUsuario()" required>
                         <option value="" selected>Seleccione una opción</option>
                         <option value="admin">Administrador</option>
                         <option value="cliente">Cliente</option>
                         <option value="ventas">Ventas</option>
                     </select>
+                    <!--Se llama mensaje de error de validacion de ../../js/validartipoUsuario.js -->
+                    <span id="errorTipo" class="error"></span>   
                     <!--Inicio envio de mensaje de error-->
                     <?php if (isset($errores['tipo'])): ?>
                         <div class="alert alert-danger mt-1"><?php echo $errores['tipo']; ?></div>
@@ -281,6 +284,8 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
 <script src="../../js/validarEmail.js"> </script>
 <script src="../../js/validarPassword.js"> </script>
 <script src="../../js/validarConfirmarPassword.js"> </script>
+<script src="../../js/validarTipoUsuario.js"> </script>
+<script src="../../js/compararPasswords.js"> </script>
 
 <script>
     //Script para verificar que las contraseñas sean iguales antes de mandar los datos por POST 

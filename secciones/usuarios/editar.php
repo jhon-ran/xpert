@@ -266,7 +266,7 @@ if($_POST){
                 </div>
                 <div class="mb-3">
                     <label for="nombre" class="form-label">Tipo de usuario actual</label>
-                    <input type="text" class="form-control" name="tipoUsuario" id="tipoUsuario" value = "<?php echo $tipo;?>" readonly aria-describedby="helpId" placeholder=""/>
+                    <input type="text" class="form-control" name="tipoUsuario" id="tipoUsuario" onclick="validateTipoUsuario()" value = "<?php echo $tipo;?>" readonly aria-describedby="helpId" placeholder=""/>
                 </div>
                 <div class="mb-3">
                     <label for="tipo" class="form-label">Tipo de usuario</label>
@@ -276,6 +276,8 @@ if($_POST){
                         <option value="cliente">Cliente</option>
                         <option value="ventas">Ventas</option>
                     </select>
+                    <!--Se llama mensaje de error de validacion de ../../js/validartipoUsuario.js -->
+                    <span id="errorTipo" class="error"></span>   
                 </div>
                 <button type="submit" id="submitBtn" class="btn btn-success">Editar</button>
                 <a name="" id="" class="btn btn-primary" href="index.php" role="button">Cancelar</a>
@@ -292,6 +294,7 @@ if($_POST){
     <script src="../../js/validarEmail.js"> </script>
     <script src="../../js/validarPassword.js"> </script>
     <script src="../../js/validarConfirmarPassword.js"> </script>
+    <script src="../../js/validarTipoUsuario.js"> </script>
 
     <script>
     //Script para verificar que las contraseñas sean iguales antes de mandar los datos por POST 

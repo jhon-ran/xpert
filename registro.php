@@ -218,7 +218,9 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
                             <form action="registro.php" id="formularioRegistro" method="post">
                                 <div class="mb-3">
                                     <label for="nombre" class="form-label">Nombre</label>
-                                    <input type="text" class="form-control" name="nombre" id="nombre" aria-describedby="helpId" placeholder="Ingrese nombre(s)" value="<?php echo isset($nombre) ? $nombre : ''; ?>" required/>
+                                    <input type="text" class="form-control" name="nombre" id="nombre" oninput="validateNombreUsuario()" aria-describedby="helpId" placeholder="Ingrese nombre(s)" value="<?php echo isset($nombre) ? $nombre : ''; ?>" required/>
+                                    <!--Se llama mensaje de error de validacion de ../../js/validarNombreUsuario.js -->
+                                    <span id="errorNombreUsuario" class="error"></span>
                                     <!--Inicio envio de mensaje de error-->
                                     <?php if (isset($errores['nombre'])): ?>
                                         <div class="alert alert-danger mt-1"><?php echo $errores['nombre']; ?></div>
@@ -227,7 +229,9 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
                                 </div>
                                 <div class="mb-3">
                                     <label for="apellidos" class="form-label">Apellidos</label>
-                                    <input type="text" class="form-control" name="apellidos" id="apellidos" aria-describedby="helpId" placeholder="Ingrese apellido(s)" value="<?php echo isset($apellidos) ? $apellidos : ''; ?>" required/>
+                                    <input type="text" class="form-control" name="apellidos" id="apellidos" oninput="validateApellidosUsuario()" aria-describedby="helpId" placeholder="Ingrese apellido(s)" value="<?php echo isset($apellidos) ? $apellidos : ''; ?>" required/>
+                                    <!--Se llama mensaje de error de validacion de ../../js/validarNombreUsuario.js -->
+                                    <span id="errorApellidosUsuario" class="error"></span>
                                     <!--Inicio envio de mensaje de error-->
                                     <?php if (isset($errores['apellidos'])): ?>
                                         <div class="alert alert-danger mt-1"><?php echo $errores['apellidos']; ?></div>
@@ -236,7 +240,9 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
                                 </div>
                                 <div class="mb-3">
                                     <label for="email" class="form-label">Correo</label>
-                                    <input type="email" class="form-control" name="email" id="email"aria-describedby="helpId" placeholder="Ingrese correo" value="<?php echo isset($email) ? $email : ''; ?>" required/>
+                                    <input type="email" class="form-control" name="email" id="email" oninput="validateEmail()" aria-describedby="helpId" placeholder="Ingrese correo" value="<?php echo isset($email) ? $email : ''; ?>" required/>
+                                    <!--Se llama mensaje de error de validacion de ../../js/validarEmail.js -->
+                                    <span id="errorEmail" class="error"></span>
                                     <!--Inicio envio de mensaje de error-->
                                     <?php if (isset($errores['email'])): ?>
                                         <div class="alert alert-danger mt-1"><?php echo $errores['email']; ?></div>
@@ -245,7 +251,9 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
                                 </div>
                                 <div class="mb-3">
                                     <label for="password" class="form-label">Contraseña</label>
-                                    <input type="password" class="form-control" name="password" id="password" aria-describedby="helpId" placeholder="Ingrese contraseña" value="<?php echo isset($password) ? $password : ''; ?>" required/>
+                                    <input type="password" class="form-control" name="password" id="password" oninput="validatePassword()"  aria-describedby="helpId" placeholder="Ingrese contraseña" value="<?php echo isset($password) ? $password : ''; ?>" required/>
+                                    <!--Se llama mensaje de error de validacion de ../../js/validarPassword.js -->
+                                    <span id="errorPassword" class="error"></span>
                                     <!--Inicio envio de mensaje de error-->
                                     <?php if (isset($errores['password'])): ?>
                                         <div class="alert alert-danger mt-1"><?php echo $errores['password']; ?></div>
@@ -256,7 +264,9 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
                                 </div>
                                 <div class="mb-3">
                                     <label for="confirmarPassword" class="form-label">Confirmar contraseña</label>
-                                    <input type="password" class="form-control" name="confirmarPassword" id="confirmarPassword" aria-describedby="helpId" placeholder="Repita la contraseña" value="<?php echo isset($confirmarPassword) ? $confirmarPassword : ''; ?>" required/>
+                                    <input type="password" class="form-control" name="confirmarPassword" id="confirmarPassword" oninput="validateConfirmarPassword()" aria-describedby="helpId" placeholder="Repita la contraseña" value="<?php echo isset($confirmarPassword) ? $confirmarPassword : ''; ?>" required/>
+                                    <!--Se llama mensaje de error de validacion de ../../js/validarPassword.js -->
+                                    <span id="errorConfirmarPassword" class="error"></span>
                                     <!--Inicio envio de mensaje de error-->
                                     <?php if (isset($errores['confirmarPassword'])): ?>
                                         <div class="alert alert-danger mt-1"><?php echo $errores['confirmarPassword']; ?></div>
@@ -265,7 +275,7 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
                                     <!--se llama a función para que el usuario pueda ver la contraseña que escribió-->
                                     <input type="checkbox" onclick="mostrarConfirmarPassword()"> <small>Mostrar</small>
                                 </div>
-                                <button type="submit" class="btn btn-success">Registrar</button>
+                                <button type="submit" id="submitBtn" class="btn btn-success">Registrar</button>
                                 <a name="" id="" class="btn btn-primary" href="login.php" role="button">Login</a>
                         </form>
                         </div>
@@ -274,6 +284,15 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
             </div>
     
     <!--Nuevo look termina-->
+
+
+
+    <script src="js/validarNombreUsuario.js"> </script>
+    <script src="js/validarApellidosUsuario.js"> </script>
+    <script src="js/validarEmail.js"> </script>
+    <script src="js/validarPassword.js"> </script>
+    <script src="js/validarConfirmarPassword.js"> </script>
+    <script src="js/validarTipoUsuario.js"> </script>
 
     <script>
     //Script para verificar que las contraseñas sean iguales antes de mandar los datos por POST 
