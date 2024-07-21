@@ -7,7 +7,7 @@ function validateConfirmarPassword() {
     //error de confirmar password
     const errorMessage = document.getElementById('errorConfirmarPassword');
     //error de comparación de inputs
-    const errorMessageComparar = document.getElementById('errorComparar');
+    //const errorMessageComparar = document.getElementById('errorComparar');
     //para habilitar y deshabilitar el botón de crear
     const submitBtn = document.getElementById('submitBtn');
 
@@ -20,8 +20,8 @@ function validateConfirmarPassword() {
         submitBtn.disabled = true;
     } else if (value2 !== value) {
         // Mostrar el error
-        errorMessageComparar.textContent = 'La contraseña y confirmación no coinciden';
-        errorMessageComparar.style.display = 'inline';
+        errorMessage.textContent = 'La contraseña y confirmación no coinciden';
+        errorMessage.style.display = 'inline';
         // se dishabilita el botón
         submitBtn.disabled = true;
     } else {

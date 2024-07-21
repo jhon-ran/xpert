@@ -176,6 +176,8 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
             integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
             crossorigin="anonymous"
         />
+        <!-- estilo para personalizar -->
+        <link rel="stylesheet" href="style.css">
         <!-- cdn JQuery v.3.7.1-->
         <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
         <!-- cdn DataTables v.1.12.1 -->
@@ -285,37 +287,6 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
     
     <!--Nuevo look termina-->
 
-
-
-    <script src="js/validarNombreUsuario.js"> </script>
-    <script src="js/validarApellidosUsuario.js"> </script>
-    <script src="js/validarEmail.js"> </script>
-    <script src="js/validarPassword.js"> </script>
-    <script src="js/validarConfirmarPassword.js"> </script>
-    <script src="js/validarTipoUsuario.js"> </script>
-
-    <script>
-    //Script para verificar que las contraseñas sean iguales antes de mandar los datos por POST 
-        // Función para comparar las contraseñas
-        
-        function comparaPasswords() {
-            var password = document.getElementById("password");
-            var confirmarPassword = document.getElementById("confirmarPassword");    
-
-            // Verificar que el password y la confirmación sean iguales
-            if (password.value!== confirmarPassword.value) {
-                // Mostrar el error
-                    confirmarPassword.setCustomValidity("Las contraseñas no coinciden");
-            } else {
-                // Limpiar el mensaje de error
-                confirmarPassword.setCustomValidity("");
-            }
-        }
-
-        // Se llama la función cuando se intente enviar el POST
-        document.getElementById("confirmarPassword").addEventListener("input", comparaPasswords);
-    </script>
-
 </main>
 <br>
 <footer class="bg-body-tertiary text-center text-lg-start" class="">
@@ -326,6 +297,14 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
     </div>
     <!-- Copyright -->
 </footer>
+
+<!-- Validaciones para campos de input de carpeta js-->
+<script src="js/validarNombreUsuario.js"> </script>
+<script src="js/validarApellidosUsuario.js"> </script>
+<script src="js/validarEmail.js"> </script>
+<script src="js/validarPassword.js"> </script>
+<script src="js/validarConfirmarPassword.js"> </script>
+<script src="js/validarTipoUsuario.js"> </script>
 
 <!-- Bootstrap JavaScript Libraries -->
 <script

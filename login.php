@@ -18,7 +18,7 @@ if ($_SERVER["REQUEST_METHOD"]=="POST") {
     $ip = $_SERVER['REMOTE_ADDR'];
     //variable para almacenar la respuesta del captcha
     $captcha = $_POST['g-recaptcha-response'];
-    $secretKey = "";
+    $secretKey = "6LeYc74pAAAAANrxRylLXEucAqZAXsqhNr3DrMse";
     //Validar captcha
     $respuesta =file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=$secretKey&response=$captcha&remoteip=$ip");
     //Decodificar la respuesta en un array
@@ -114,6 +114,8 @@ if ($_SERVER["REQUEST_METHOD"]=="POST") {
             integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
             crossorigin="anonymous"
         />
+         <!-- estilo para personalizar -->
+        <link rel="stylesheet" href="style.css">
         <!-- cdn para el captcha-->
         <script src="https://www.google.com/recaptcha/api.js" async defer></script>
         <!-- cdn para Sweet Alert 2, alertas de acciones -->
@@ -158,7 +160,9 @@ if ($_SERVER["REQUEST_METHOD"]=="POST") {
                             <form action="login.php" method="post">
                                 <div class="mb-3">
                                     <label for="email" class="form-label">Correo</label>
-                                    <input type="email" class="form-control" name="email" id="email" aria-describedby="helpId" placeholder="Ingrese correo"/>
+                                    <input type="email" class="form-control" name="email" id="email" oninput="validateEmail()" aria-describedby="helpId" placeholder="Ingrese correo"/>
+                                    <!--Se llama mensaje de error de validacion de ../../js/validarEmail.js -->
+                                    <span id="errorEmail" class="error"></span>
                                 </div>
                                 <div class="mb-3">
                                     <label for="password" class="form-label">Contraseña</label>
@@ -167,7 +171,7 @@ if ($_SERVER["REQUEST_METHOD"]=="POST") {
                                     <input type="checkbox" onclick="mostrarPassword()"> <small>Mostrar</small>
                                 </div>
                                 <div class="g-recaptcha" data-sitekey="6LeYc74pAAAAAAvREuXjkM4inSyqJPTb5xxTr3Gk"></div>
-                                <button type="submit" class="btn btn-primary">Iniciar sesión</button>
+                                <button type="submit" class="btn btn-primary" id="submitBtn">Iniciar sesión</button>
                                 <a name="" id="" class="btn btn-success" href="registro.php" role="button" >Registrarse</a>
                             </form>
                         </div>
@@ -190,7 +194,7 @@ if ($_SERVER["REQUEST_METHOD"]=="POST") {
         <footer class="bg-body-tertiary text-center text-lg-start" class="">
             <!-- Copyright -->
             <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.05);">
-                © 2023 Copyright:
+                © 2024 Copyright:
                 <a class="text-body" href="https://mvptest.me/xpert/">Tours Xpert</a>
             </div>
             <!-- Copyright -->
@@ -207,6 +211,10 @@ if ($_SERVER["REQUEST_METHOD"]=="POST") {
           integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
           crossorigin="anonymous"
       ></script>
+
+<!-- Validaciones para campos de input de carpeta js-->
+<script src="js/validarEmail.js"> </script>
+<script src="js/validarPassword.js"> </script>
 
       <!--función para mostrar password-->
     <script>
