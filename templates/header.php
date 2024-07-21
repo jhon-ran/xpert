@@ -16,7 +16,7 @@ if(!isset($_SESSION['usuario_id'])){
 <!doctype html>
 <html lang="en">
     <head>
-        <title>Title</title>
+        <title>Tours Xpert</title>
         <!-- Required meta tags -->
         <meta charset="utf-8" />
         <meta
@@ -64,8 +64,14 @@ if(!isset($_SESSION['usuario_id'])){
                 <li class="nav-item">
                     <a class="nav-link" href="<?php echo $url_base;?>secciones/mis_cupones/">Mis cupones</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="<?php echo $url_base;?>secciones/staff/">Staff</a>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Staff
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <li><a class="dropdown-item" href="<?php echo $url_base;?>secciones/staff/">Administrar</a></li>
+                        <li><a class="dropdown-item" href="<?php echo $url_base;?>secciones/tipo_staff/index.php">Tipo</a></li>
+                    </ul>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="<?php echo $url_base;?>secciones/notificaciones/">Notificaciones</a>
