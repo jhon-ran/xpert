@@ -18,7 +18,7 @@ if ($_SERVER["REQUEST_METHOD"]=="POST") {
     $ip = $_SERVER['REMOTE_ADDR'];
     //variable para almacenar la respuesta del captcha
     $captcha = $_POST['g-recaptcha-response'];
-    $secretKey = "6LeYc74pAAAAANrxRylLXEucAqZAXsqhNr3DrMse";
+    $secretKey = "";
     //Validar captcha
     $respuesta =file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=$secretKey&response=$captcha&remoteip=$ip");
     //Decodificar la respuesta en un array
