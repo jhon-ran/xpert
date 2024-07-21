@@ -2,7 +2,7 @@
 //url para conexión en hosting
 $url_base = "/xpert/";
 //url de base en localhost para concatenar en la navbar y evitar errores de redirección (dinámica)
-$url_base = "http://localhost/xpert/";
+//$url_base = "http://localhost/xpert/";
 
 //si no existe la variable de sesión usuario_id, se redirige al login
 if(!isset($_SESSION['usuario_id'])){
