@@ -1,0 +1,125 @@
+<!--
+<form action="editar.php" id="editarTours" method="post" enctype="multipart/form-data">
+ID:
+        <input type="text" value ="<?php echo $txtID;?>" readonly name="txtID" id="txtID" placeholder="ID"/><br>
+        Título:
+        <input type="text" name="titulo" id="titulo" value = "<?php echo $titulo;?>"><br>
+        Duración:
+        <input type="number" name="duracion" id="duracion" value = "<?php echo $duracion;?>"><br>
+        Tipo:
+        <input type="text" name="tipo" id="tipo" value = "<?php echo $tipo;?>"><br>
+        Capacidad:
+        <input type="number" name="capacidad" id="capacidad" value = "<?php echo $capacidad;?>"><br>
+        Idiomas:
+        <input type="text" name="idiomas" id="idiomas" value = "<?php echo $idiomas;?>"><br>
+        <label for="foto">Foto:</label>
+        <br/>
+        <img width="300" src="<?php echo $foto;?>" alt="foto"/>
+        
+        <input type="file" name="foto" id="foto"><br>
+        <p>Vista general:</p>
+        <textarea name="vistaGeneral" id="vistaGeneral" cols="50" rows="5"><?php echo $vistaGeneral;?></textarea><br>
+        <p>Destacado:</p>
+        <textarea name="destacado" id="destacado" cols="50" rows="5"><?php echo $destacado;?></textarea><br>
+        <p>Itinerario:</p>
+        <textarea name="itinerario" id="itinerario" cols="50" rows="5"><?php echo $itinerario;?></textarea><br>
+        <p>Incluye:</p>
+        <textarea name="incluye" id="incluye" cols="50" rows="5"><?php echo $incluye;?></textarea><br>
+        Ubicación del tour:
+        <input type="text" name="ubicacion" id="ubicacion" value ="<?php echo $ubicacion;?>"><br>
+        <p>Qué traer:</p>
+        <textarea name="queTraer" id="queTraer" cols="50" rows="5"><?php echo $queTraer;?></textarea><br>
+        <p>Información adicional:</p>
+        <textarea name="infoAdicional" id="infoAdicional" cols="50" rows="5"><?php echo $infoAdicional;?></textarea><br>
+        <p>Política de cancelación:</p>
+        <textarea name="polCancel" id="polCancel" cols="50" rows="5"><?php echo $polCancel;?></textarea><br>
+        <p>Actividades para hacer:</p>
+        <textarea name="actividades" id="actividades" cols="50" rows="5"><?php echo $actividades;?></textarea><br>
+        <label for="incluyeTransporte">Actualmente incluye transporte?</label>
+        <?php echo $incluyeTransporte;?>
+        <br>
+        Transportación incluida:
+        <select name="incluyeTransporte" id="incluyeTransporte">
+            <option value="Sí">Sí</option>
+            <option value="No">No</option>
+        </select>
+        Tipo de transporte:
+        <input type="text" name="transporte" id="transporte" value ="<?php echo $transporte;?>"><br>
+        Staff encargado:
+        <input type="text" name="staff" id="staff" value ="<?php echo $staff;?>"><br>
+        Precio desde:
+        <input type="number" name="precioBase" id="precioBase" value ="<?php echo $precioBase;?>"><br>
+        Descuento:
+        <input type="number" name="descuento" id="descuento" value ="<?php echo $descuento;?>"><br>
+        Redes sociales:
+        <input type="text" name="redes" id="redes" value ="<?php echo $redes;?>"><br>
+
+        <button type="submit">Editar tour</button>
+        <a href="index.php">Cancelar</a>
+</form>
+-->
+
+<!--Formato antiguo de registro-->
+<div class="card mx-auto" style="width:24rem;">
+    <div class="card-header">Datos del usuario</div>
+    <div class="card-body">
+        <!--Inicio envio de mensaje de error-->
+
+        <!--Fin envio de mensaje de error-->
+        <form action="registro.php" id="formularioRegistro" method="post">
+            <div class="mb-3">
+                <label for="nombre" class="form-label">Nombre</label>
+                <input type="text" class="form-control" name="nombre" id="nombre" aria-describedby="helpId" placeholder="Ingrese nombre(s)" value="<?php echo isset($nombre) ? $nombre : ''; ?>" required/>
+                <!--Inicio envio de mensaje de error-->
+                <?php if (isset($errores['nombre'])): ?>
+                    <div class="alert alert-danger mt-1"><?php echo $errores['nombre']; ?></div>
+                <?php endif; ?>
+                <!--Fin envio de mensaje de error-->
+            </div>
+            <div class="mb-3">
+                <label for="apellidos" class="form-label">Apellidos</label>
+                <input type="text" class="form-control" name="apellidos" id="apellidos" aria-describedby="helpId" placeholder="Ingrese apellido(s)" value="<?php echo isset($apellidos) ? $apellidos : ''; ?>" required/>
+                <!--Inicio envio de mensaje de error-->
+                <?php if (isset($errores['apellidos'])): ?>
+                    <div class="alert alert-danger mt-1"><?php echo $errores['apellidos']; ?></div>
+                <?php endif; ?>
+                <!--Fin envio de mensaje de error-->
+            </div>
+            <div class="mb-3">
+                <label for="email" class="form-label">Correo</label>
+                <input type="email" class="form-control" name="email" id="email"aria-describedby="helpId" placeholder="Ingrese correo" value="<?php echo isset($email) ? $email : ''; ?>" required/>
+                <!--Inicio envio de mensaje de error-->
+                <?php if (isset($errores['email'])): ?>
+                    <div class="alert alert-danger mt-1"><?php echo $errores['email']; ?></div>
+                <?php endif; ?>
+                <!--Fin envio de mensaje de error-->
+            </div>
+            <div class="mb-3">
+                <label for="password" class="form-label">Contraseña</label>
+                <input type="password" class="form-control" name="password" id="password" aria-describedby="helpId" placeholder="Ingrese contraseña" value="<?php echo isset($password) ? $password : ''; ?>" required/>
+                <!--Inicio envio de mensaje de error-->
+                <?php if (isset($errores['password'])): ?>
+                    <div class="alert alert-danger mt-1"><?php echo $errores['password']; ?></div>
+                <?php endif; ?>
+                <!--Fin envio de mensaje de error-->
+                <!--se llama a función para que el usuario pueda ver la contraseña que escribió-->
+                <input type="checkbox" onclick="mostrarPassword()"> <small>Mostrar</small>
+            </div>
+            <div class="mb-3">
+                <label for="confirmarPassword" class="form-label">Confirmar contraseña</label>
+                <input type="password" class="form-control" name="confirmarPassword" id="confirmarPassword" aria-describedby="helpId" placeholder="Repita la contraseña" value="<?php echo isset($confirmarPassword) ? $confirmarPassword : ''; ?>" required/>
+                <!--Inicio envio de mensaje de error-->
+                <?php if (isset($errores['confirmarPassword'])): ?>
+                    <div class="alert alert-danger mt-1"><?php echo $errores['confirmarPassword']; ?></div>
+                <?php endif; ?>
+                <!--Fin envio de mensaje de error-->
+                <!--se llama a función para que el usuario pueda ver la contraseña que escribió-->
+                <input type="checkbox" onclick="mostrarConfirmarPassword()"> <small>Mostrar</small>
+            </div>
+            <button type="submit" class="btn btn-success">Registrar</button>
+            <a name="" id="" class="btn btn-primary" href="login.php" role="button">Login</a>
+        </form>
+
+    </div>
+    <div class="card-footer text-muted"></div>
+</div>

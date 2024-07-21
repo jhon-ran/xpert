@@ -29,7 +29,7 @@ if ($_SERVER["REQUEST_METHOD"]=="POST") {
     }
     //*********TERMINA CODIGO PARA VALIDAR CAPTCHA ANTES DE ENVIAR DATOS DE FORMULARIO
 
-
+//
     //Validación que el correo no esté vacío y que tenga el formato requerido
    if (empty($email)) {
         $errores['email'] = "El correo es obligatorio";
