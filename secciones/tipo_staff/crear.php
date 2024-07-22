@@ -10,20 +10,20 @@ if($_POST){
         //de lo contratrio lo deja en blanco
         $tipo = (isset($_POST["tipo"])? $_POST["tipo"]:"");
 
-        //Validar que nombre de cupón no esté vacio
+        //Validar que el tipo de staff no esté vacio
         if (empty($tipo)){
                 $errores['tipo']= "El tipo de staff es obligatorio";
         }
-        //Validar si el nombre de cupón no tiene menos de 4 caracteres
+        //Validar si el tipo de staff no tiene menos de 4 caracteres
         if (strlen($tipo) < 4) {
                 $errores['tipo'] = "El tipo de staff debe tener al menos 4 caracteres";
         }
-        //Validar si el nombre de cupón tiene más de 10 caracteres
+        //Validar si el nel tipo de staff tiene más de 10 caracteres
         if (strlen($tipo) > 10) {
                 $errores['tipo'] = "El tipo de staff no puede tener más de 10 caracteres";
         }
-        //Validar que nombre de cupón solo tenga letras y num
-        if (!preg_match("/^[a-zA-Z0-9]*$/", $tipo)) {
+        //Validar que el tipo de staff solo tenga letras y num
+        if (!preg_match("/^[a-zA-ZáéíóúñÁÉÍÓÚÑ0-9\s\'\-]+$/", $tipo)) {
         $errores['tipo'] = "El tipo solo puede contener letras y números";
         }
 
@@ -102,7 +102,7 @@ if($_POST){
                                 <form action="crear.php" id="crearTipo" method="post">
                                         <div class="mb-3">
                                                 <label for="nombre" class="form-label">Tipo</label>
-                                                <input type="text" class="form-control" name="tipo" id="tipo" oninput="validateNombre()" aria-describedby="helpId" placeholder="Ingrese nombre de cupón" value="<?php echo isset($tipo) ? $tipo : ''; ?>" required/>
+                                                <input type="text" class="form-control" name="tipo" id="tipo" oninput="validateNombre()" aria-describedby="helpId" placeholder="Ingrese tipo" value="<?php echo isset($tipo) ? $tipo : ''; ?>" required/>
                                                 <!--Se llama mensaje de error de validacion de ../../js/validarNombre.js -->
                                                 <span id="errorNombre" class="error"></span>
                                                 <!--Inicio envio de mensaje de error-->

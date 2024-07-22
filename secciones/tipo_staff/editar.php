@@ -45,7 +45,7 @@ if($_POST){
                 $errores['tipo'] = "El tipo de staff no puede tener más de 10 caracteres";
         }
         //Validar que nombre de cupón solo tenga letras y num
-        if (!preg_match("/^[a-zA-Z0-9]*$/", $tipo)) {
+        if (!preg_match("/^[a-zA-ZáéíóúñÁÉÍÓÚÑ0-9\s\'\-]+$/", $tipo)) {
         $errores['tipo'] = "Solo puede contener letras y números";
         }
       
