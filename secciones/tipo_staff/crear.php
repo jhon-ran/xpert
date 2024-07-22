@@ -19,21 +19,21 @@ if($_POST){
                 $errores['tipo'] = "El tipo de staff debe tener al menos 4 caracteres";
         }
         //Validar si el nel tipo de staff tiene más de 10 caracteres
-        if (strlen($tipo) > 10) {
-                $errores['tipo'] = "El tipo de staff no puede tener más de 10 caracteres";
+        if (strlen($tipo) > 15) {
+                $errores['tipo'] = "El tipo de staff no puede tener más de 15 caracteres";
         }
         //Validar que el tipo de staff solo tenga letras y num
         if (!preg_match("/^[a-zA-ZáéíóúñÁÉÍÓÚÑ0-9\s\'\-]+$/", $tipo)) {
         $errores['tipo'] = "El tipo solo puede contener letras y números";
         }
 
-        //******Inicia validación de nombre de cupón existente en bd*****
+        //******Inicia validación tipo de staff existente en bd*****
         try {
                 $conn = new PDO("mysql:host=$servidor;dbname=$baseDatos",$usuario,$contrasena);
                 $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
                 
                 //$email = $_POST['nombre'];
-                // Consulta para ver si nombre de cupón ya existe en la base de datos
+                // Consulta para ver si nombre tipo de staff ya existe en la base de datos
                 $sql = "SELECT * FROM tipo_staff WHERE tipo = :tipo";
                 $stmt = $conn->prepare($sql);
                 $stmt->bindParam(':tipo', $tipo);
@@ -72,7 +72,7 @@ if($_POST){
                 $sentencia->execute();
                 //Mensaje de confirmación de creado que activa Sweet Alert 2
                 $mensaje="Tipo creado";
-                //Redirecionar después de crear a la lista de cupones con link de Sweet Alert 2
+                //Redirecionar después de crear a la lista de tipo de staff con link de Sweet Alert 2
                 header("Location:index.php?mensaje=".$mensaje);
                 }catch(Exception $ex){
                 echo "Error de conexión:".$ex->getMessage();

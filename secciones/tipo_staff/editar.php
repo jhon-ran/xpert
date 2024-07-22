@@ -32,32 +32,32 @@ if($_POST){
         //de lo contratrio lo deja en blanco
         $tipo = (isset($_POST["tipo"])? $_POST["tipo"]:"");
 
-        //Validar que nombre de cupón no esté vacio
+        //Validar que el tipo de staff no esté vacio
         if (empty($tipo)){
                 $errores['tipo']= "El tipo de staff es obligatorio";
         }
-        //Validar si el nombre de cupón no tiene menos de 4 caracteres
+        //Validar si el tipo de staff no tiene menos de 4 caracteres
         if (strlen($tipo) < 4) {
                 $errores['tipo'] = "El tipo de staff debe ser de al menos 4 caracteres";
         }
-        //Validar si el nombre de cupón tiene más de 10 caracteres
-        if (strlen($tipo) > 10) {
-                $errores['tipo'] = "El tipo de staff no puede tener más de 10 caracteres";
+        //Validar si el el tipo de staff tiene más de 10 caracteres
+        if (strlen($tipo) > 15) {
+                $errores['tipo'] = "El tipo de staff no puede tener más de 15 caracteres";
         }
-        //Validar que nombre de cupón solo tenga letras y num
+        //Validar que el tipo de staff solo tenga letras y num
         if (!preg_match("/^[a-zA-ZáéíóúñÁÉÍÓÚÑ0-9\s\'\-]+$/", $tipo)) {
         $errores['tipo'] = "Solo puede contener letras y números";
         }
       
  
-        //******Inicia validación de nombre de cupón existente en bd*****\
+        //******Inicia validación del tipo de staff existente en bd*****\
         try {
                 $conn = new PDO("mysql:host=$servidor;dbname=$baseDatos",$usuario,$contrasena);
                 $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
                 $tipo = $_POST['tipo'];
                 $id = $_POST['txtID'];
-                // Consulta para ver si nombre de cupón ya existe en la base de datos y que es diferente id que el propio (que llega en $_GET)
+                // Consulta para ver si nombre del tipo de staff ya existe en la base de datos y que es diferente id que el propio (que llega en $_GET)
                 $sql = "SELECT * FROM tipo_staff WHERE tipo = :tipo AND id != :id";
                 $stmt = $conn->prepare($sql);
                 $stmt->bindParam(':tipo', $tipo);
@@ -65,7 +65,7 @@ if($_POST){
                 $stmt->execute();
 
                 $resultado = $stmt->fetch(PDO::FETCH_ASSOC);
-                // Si el resultado es verdadero, el nombre ya existe y se muestra un mensaje de error
+                // Si el resultado es verdadero, el tipo de staff ya existe y se muestra un mensaje de error
                 if ($resultado) {
                         $errores['tipo'] = "Ya existe ese tipo";
                 }
@@ -73,7 +73,7 @@ if($_POST){
                 } catch(PDOException $e) {
                 echo "Error de conexión: ". $e->getMessage();
                 }
-        //******Termina validación de nombre de cupón existente en bd*****\
+        //******Termina validación el tipo de staff existente en bd*****\
 
         //Imprimir los errores
         foreach($errores as $error){
