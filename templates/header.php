@@ -74,6 +74,9 @@ if(!isset($_SESSION['usuario_id'])){
                     </ul>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link" href="<?php echo $url_base;?>secciones/vehiculos/">Vehiculos</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" href="<?php echo $url_base;?>secciones/notificaciones/">Notificaciones</a>
                 </li>
                 <li class="nav-item">
