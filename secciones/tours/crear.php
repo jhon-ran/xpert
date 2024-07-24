@@ -2,6 +2,12 @@
 <?php include("../../bd.php"); 
 //se inicializa variable de sesión
 session_start();
+//si no existe la variable de sesión usuario_id, se redirige al index
+if($_SESSION["usuario_tipo"]=="cliente" || $_SESSION["usuario_tipo"]=="ventas"){
+    header('Location:../../index.php');
+    exit();
+}
+
 if($_POST){
         //Array para guardar los errores
         $errores= array();
