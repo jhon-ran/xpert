@@ -17,24 +17,60 @@ if($_POST){
         $anio = (isset($_POST["anio"])? $_POST["anio"]:"");
         $placas = (isset($_POST["placas"])? $_POST["placas"]:"");
 
-        //Validar que el tipo de staff no esté vacio
+        //Validar que el modelo no esté vacio
+        if (empty($modelo)){
+                $errores['modelo']= "El modelo es obligatorio";
+        }
+        //Validar si el modelo no tiene menos de 4 caracteres
+        if (strlen($modelo) < 5) {
+                $errores['modelo'] = "Debe tener al menos 5 caracteres";
+        }
+        //Validar si el modelo tiene más de 10 caracteres
+        if (strlen($modelo) > 10) {
+                $errores['modelo'] = "No puede tener más de 10 caracteres";
+        }
+        //Validar que el modelo solo tenga letras y num
+        if (!preg_match("/^[a-zA-ZáéíóúñÁÉÍÓÚÑ0-9\s\'\-]+$/", $modelo)) {
+        $errores['modelo'] = "Solo puede contener letras y números";
+        }
+
+        //Validar si el año está vacío
+        if (empty($anio)){
+            $errores['anio']= "El año es obligatorio";
+        }
+        //Validar si el año no es un número negativo
+        if ($anio < 0) {
+            $errores['anio'] = "El año no puede ser negativo";
+        }
+        //Validar que no sea menor de 2014
+        if ($anio < 2014) {
+                $errores['anio'] = "El año no puede ser menor a 2014";
+        }
+        //Va
+        //Validar que la duración no sea mayor a 8hrs
+        if ($anio > 2024) {
+            $errores['anio'] = "La duración no puede ser mayor a 2024";
+        }
+     
+
+        //Validar que las placas no esté vacio
         if (empty($placas)){
                 $errores['placas']= "Las placas son obligatorias";
         }
-        //Validar si el tipo de staff no tiene menos de 4 caracteres
+        //Validar si las placas no tiene menos de 4 caracteres
         if (strlen($placas) < 5) {
                 $errores['placas'] = "Debe tener al menos 5 caracteres";
         }
-        //Validar si el nel tipo de staff tiene más de 10 caracteres
+        //Validar si las placas tiene más de 10 caracteres
         if (strlen($placas) > 10) {
                 $errores['placas'] = "No puede tener más de 10 caracteres";
         }
-        //Validar que el tipo de staff solo tenga letras y num
+        //Validar que el las placas solo tenga letras y num
         if (!preg_match("/^[a-zA-ZáéíóúñÁÉÍÓÚÑ0-9\s\'\-]+$/", $placas)) {
         $errores['placas'] = "Solo puede contener letras y números";
         }
 
-        //******Inicia validación tipo de staff existente en bd*****
+        //******Inicia validación tipo de las placas existente en bd*****
         try {
                 $conn = new PDO("mysql:host=$servidor;dbname=$baseDatos",$usuario,$contrasena);
                 $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -116,8 +152,8 @@ if($_POST){
                                                 <!--Se llama mensaje de error de validacion de ../../js/validarNombre.js -->
                                                 <span id="errorNombre" class="error"></span>
                                                 <!--Inicio envio de mensaje de error-->
-                                                <?php if (isset($errores['placas'])): ?>
-                                                        <div class="alert alert-danger mt-1"><?php echo $errores['placas']; ?></div>
+                                                <?php if (isset($errores['modelo'])): ?>
+                                                        <div class="alert alert-danger mt-1"><?php echo $errores['modelo']; ?></div>
                                                 <?php endif; ?>
                                                 <!--Fin envio de mensaje de error-->
                                         </div>
@@ -127,8 +163,8 @@ if($_POST){
                                                 <!--Se llama mensaje de error de validacion de ../../js/validarNombre.js -->
                                                 <span id="errorNombre" class="error"></span>
                                                 <!--Inicio envio de mensaje de error-->
-                                                <?php if (isset($errores['tipo'])): ?>
-                                                        <div class="alert alert-danger mt-1"><?php echo $errores['tipo']; ?></div>
+                                                <?php if (isset($errores['anio'])): ?>
+                                                        <div class="alert alert-danger mt-1"><?php echo $errores['anio']; ?></div>
                                                 <?php endif; ?>
                                                 <!--Fin envio de mensaje de error-->
                                         </div>
@@ -138,8 +174,8 @@ if($_POST){
                                                 <!--Se llama mensaje de error de validacion de ../../js/validarNombre.js -->
                                                 <span id="errorNombre" class="error"></span>
                                                 <!--Inicio envio de mensaje de error-->
-                                                <?php if (isset($errores['tipo'])): ?>
-                                                        <div class="alert alert-danger mt-1"><?php echo $errores['tipo']; ?></div>
+                                                <?php if (isset($errores['placas'])): ?>
+                                                        <div class="alert alert-danger mt-1"><?php echo $errores['placas']; ?></div>
                                                 <?php endif; ?>
                                                 <!--Fin envio de mensaje de error-->
                                         </div>
