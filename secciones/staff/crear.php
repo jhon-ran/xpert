@@ -11,14 +11,14 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
     //Variable para saber si se ha registrado correctamente
     $succes = false;
     //Imprimir los datos del formulario en pantalla
-    //print_r($_POST);
+    
 
     //Guardar los datos en variables
     //isset() -> verifica si existe una variable, se guardan los datos en variables. Sino se deja en null
     $nombre =(isset($_POST["nombre"]))? $_POST["nombre"]:null;
     $apellidos =(isset($_POST["apellidos"]))? $_POST["apellidos"]:null;
     $telefono =(isset($_POST["telefono"]))? $_POST["telefono"]:null;
-    $id_tipo_staff  =(isset($_POST["id_tipo_staff "]))? $_POST["id_tipo_staff "]:null;
+    $id_tipo_staff =(isset($_POST["id_tipo_staff"]))? $_POST["id_tipo_staff"]:null;
 
     //Si los datos están, se llena el array con los mensajes de errores
     if (empty($nombre)){
@@ -51,6 +51,13 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
     if (!preg_match('/^[a-zA-ZáéíóúñÁÉÍÓÚÑ\s\'\-]+$/', $apellidos)) {
         $errores['apellidos'] = "Los apellidos solo pueden contener letras, espacios, guiones y apóstrofes";
     }
+    //vqlidqr aue tipo de stqff no está vacio
+    if (empty($id_tipo_staff)){
+         $errores['id_tipo_staff']= "El tipo de staff es obligatorio";
+    }
+  
+
+    //Vali
 
         //******Inicia validación si id_tipo_staff existente en bd**
         /*
@@ -102,7 +109,7 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
             $sentencia->bindParam(":telefono",$telefono);
             $sentencia->bindParam(":id_tipo_staff",$id_tipo_staff);
 
-            //print_r($id_categoria);
+            print_r($id_tipo_staff);
             //Se ejecuta la sentencia con los valores de param asignados
             $sentencia->execute();
     
@@ -139,7 +146,6 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
             <h1>Registrar staff</h1>
     </header>
     
-
 <div class="row">
     <div class="col-md-4"><br><br></div>
         <div class="col-md-4">
@@ -185,7 +191,7 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
                 </div>
                 <div class="mb-3">
                     <label for="id_tipo_staff" class="form-label">Tipo de staff</label>
-                    <select class="form-select form-select-sm" name="id_tipo_staff" id="id_tipo_staff" onclick="validateTipoUsuario()" required>
+                    <select class="form-select form-select-sm" name="id_tipo_staff" id="id_tipo_staff" required>
                         <option value="" selected>Seleccione una opción</option>
                             <?php foreach($tipos as $tipo){ ?>
                                     <option value="<?php echo $tipo['id']?>"><?php echo $tipo["tipo"]?></option>
@@ -194,8 +200,8 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
                     <!--Se llama mensaje de error de validacion de ../../js/validartipoUsuario.js -->
                     <span id="errorTipo" class="error"></span>   
                     <!--Inicio envio de mensaje de error-->
-                    <?php if (isset($errores['tipo'])): ?>
-                        <div class="alert alert-danger mt-1"><?php echo $errores['tipo']; ?></div>
+                    <?php if (isset($errores['id_tipo_staff'])): ?>
+                        <div class="alert alert-danger mt-1"><?php echo $errores['id_tipo_staff']; ?></div>
                     <?php endif; ?>
                     <!--Fin envio de mensaje de error-->
                 </div>
