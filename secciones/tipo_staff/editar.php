@@ -111,7 +111,6 @@ if($_POST){
 <!-- Se llama el header desde los templates-->
 <!-- ../../ sube 2 niveles para poder acceder al folder de templates desde la posición actual-->
 <?php include("../../templates/header.php"); ?>
-<script src="../../js/validarFechas.js"> </script>
 
 <!--Nuevo look empieza-->
 <header class="text-center">
@@ -130,9 +129,9 @@ if($_POST){
                                         </div>
                                         <div class="mb-3">
                                                 <label for="tipo" class="form-label">Tipo</label>
-                                                <input type="text" class="form-control" value = "<?php echo $tipo;?>" name="tipo" id="tipo" oninput="validateNombre()" aria-describedby="helpId" placeholder="" required/>
+                                                <input type="text" class="form-control" value = "<?php echo $tipo;?>" name="tipo" id="tipo" oninput="validateTipoStaff()" aria-describedby="helpId" placeholder="" required/>
                                                 <!--Se llama mensaje de error de validacion de ../../js/validarNombre.js -->
-                                                <span id="errorNombre" class="error"></span>
+                                                <span id="errorTipo" class="error"></span>
                                                 <!--Inicio envio de mensaje de error-->
                                                 <?php if (isset($errores['tipo'])): ?>
                                                         <div class="alert alert-danger mt-1"><?php echo $errores['tipo']; ?></div>
@@ -152,3 +151,6 @@ if($_POST){
 <!-- Se llama el footer desde los templates-->
 <!-- ../../ sube 2 niveles para poder acceder al folder de templates desde la posición actual-->
 <?php include("../../templates/footer.php"); ?>
+
+<!-- Llama funcion para validar cupones-->
+<script src="../../js/validarTipoStaff.js"> </script>

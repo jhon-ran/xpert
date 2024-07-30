@@ -51,6 +51,17 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
     if (!preg_match('/^[a-zA-ZáéíóúñÁÉÍÓÚÑ\s\'\-]+$/', $apellidos)) {
         $errores['apellidos'] = "Los apellidos solo pueden contener letras, espacios, guiones y apóstrofes";
     }
+    if (empty($telefono)){
+        $errores['telefono']= "El telefono es obligatorio";
+    }
+    //Validar si el tel no tiene más de 10 caracteres
+    if (strlen($telefono) < 10 or strlen($telefono) > 10) {
+    $errores['telefono'] = "El teléfono debe tener 10 digitos";
+    }
+        //Validar si solo contine digitos
+    if (!preg_match('/^[0-9]+$/', $telefono)) {
+        $errores['telefono'] = "Solo puede contener digitos";
+    }
     //vqlidqr aue tipo de stqff no está vacio
     if (empty($id_tipo_staff)){
          $errores['id_tipo_staff']= "El tipo de staff es obligatorio";
@@ -180,25 +191,25 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
                 </div>
                 <div class="mb-3">
                     <label for="telefono" class="form-label">Teléfono</label>
-                    <input type="text" class="form-control" name="telefono" id="telefono" oninput="validateEmail()" aria-describedby="helpId" placeholder="Ingrese teléfono" value="<?php echo isset($telefono) ? $telefono : ''; ?>" required/>
+                    <input type="text" class="form-control" name="telefono" id="telefono" oninput="validateTelefonoStaff()" aria-describedby="helpId" placeholder="Ingrese teléfono" value="<?php echo isset($telefono) ? $telefono : ''; ?>" required/>
                     <!--Se llama mensaje de error de validacion de ../../js/validarEmail.js -->
-                    <span id="errorEmail" class="error"></span>
+                    <span id="errorTelefono" class="error"></span>
                     <!--Inicio envio de mensaje de error-->
-                    <?php if (isset($errores['email'])): ?>
-                            <div class="alert alert-danger mt-1"><?php echo $errores['email']; ?></div>
+                    <?php if (isset($errores['telefono'])): ?>
+                            <div class="alert alert-danger mt-1"><?php echo $errores['telefono']; ?></div>
                     <?php endif; ?>
                     <!--Fin envio de mensaje de error-->
                 </div>
                 <div class="mb-3">
                     <label for="id_tipo_staff" class="form-label">Tipo de staff</label>
-                    <select class="form-select form-select-sm" name="id_tipo_staff" id="id_tipo_staff" required>
+                    <select class="form-select form-select-sm" name="id_tipo_staff" id="id_tipo_staff" onclick="validateTipoStaff()"required>
                         <option value="" selected>Seleccione una opción</option>
                             <?php foreach($tipos as $tipo){ ?>
                                     <option value="<?php echo $tipo['id']?>"><?php echo $tipo["tipo"]?></option>
                             <?php }?>
                     </select>
                     <!--Se llama mensaje de error de validacion de ../../js/validartipoUsuario.js -->
-                    <span id="errorTipo" class="error"></span>   
+                    <span id="errorIdTipoStaff" class="error"></span>   
                     <!--Inicio envio de mensaje de error-->
                     <?php if (isset($errores['id_tipo_staff'])): ?>
                         <div class="alert alert-danger mt-1"><?php echo $errores['id_tipo_staff']; ?></div>
@@ -217,3 +228,10 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
 <!-- Se llama el footer desde los templates-->
 <!-- ../../ sube 2 niveles para poder acceder al folder de templates desde la posición actual-->
 <?php include("../../templates/footer.php"); ?>
+
+<!-- Llama funcion para validar cupones-->
+<!-- Se usa la misma validación que para nombre de usuario-->
+<script src="../../js/validarNombreUsuario.js"> </script>
+<!-- Se usa la misma validación que para apellidos de usuario-->
+<script src="../../js/validarApellidosUsuario.js"> </script>
+<script src="../../js/validarTelefono.js"> </script>
