@@ -243,7 +243,7 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
                     <?php endif; ?>
                     <!--Fin envio de mensaje de error-->
                 </div>
-                <button type="submit" id="submitBtn" class="btn btn-success">Registrar</button>
+                <button type="submit" id="submitBtn" class="btn btn-success">Editar</button>
                 <a name="" id="" class="btn btn-primary" href="index.php" role="button">Cancelar</a>
             </form>
             </div>
