@@ -97,7 +97,7 @@ $staff = $sentencia->fetchAll(PDO::FETCH_ASSOC);
 
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                 <!--Descomentr cuando qrchivo este creado-->
-                  <!--<li><a class="dropdown-item" href="editar.php?txtID=<?php echo $registro['id']?>">Editar</a></li>-->
+                  <li><a class="dropdown-item" href="editar.php?txtID=<?php echo $registro['id']?>">Editar</a></li>
                   <!--Se sustituye el link del registro por la función SweatAlert para confirmar borrado-->
                   <li><a class="dropdown-item" href="javascript:borrar(<?php echo $registro['id']?>);">Eliminar</a></li>
                 </ul>
