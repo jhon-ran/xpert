@@ -384,6 +384,7 @@ if($_POST){
                     $sentencia->bindParam(":id",$txtID);
                     $sentencia->execute();
                 }
+                $mensaje="Tour modificado";
                 //******Termina código para adjuntar foto******
                 //Redirecionar a la lista de tours
                 header("Location:index.php");
@@ -395,6 +396,11 @@ if($_POST){
                 $succes=false;
             }
 }
+    //query para obtener los nombres del staff
+    $sentencia = $conexion->prepare("SELECT * FROM staff");
+    $sentencia->execute();
+    //se guarda la setencia ejecutada en otra variable para llamarla con loop en selector
+    $nombres = $sentencia->fetchAll(PDO::FETCH_ASSOC);
 //******Termina código para actualizar registro******
 ?>
 
@@ -617,8 +623,16 @@ if($_POST){
                 <div class="input-group">
                     <div class="mb-3 mx-auto" style="width:48%;">
                         <label for="staff" class="form-label">Staff a cargo</label>
-                        <input
-                            type="text" class="form-control" name="staff" id="staff" value="<?php echo $staff;?>" aria-describedby="helpId" placeholder=""/>
+
+                        <!--<input type="text" class="form-control" name="staff" id="staff" value="<?php echo $staff;?>" aria-describedby="helpId" placeholder=""/>-->
+
+                        <select class="form-select form-select-sm" name="staff" id="staff" onclick="validateTipoStaff()"required>
+                            <option value="" selected>Seleccione una opción</option>
+                                <?php foreach($nombres as $nombre){ ?>
+                                    <option <?php echo ($staff == $nombre['id'])?"selected":"";?> value="<?php echo $nombre['id']; ?>"><?php echo $nombre["nombre"], ' ', $nombre["apellidos"]; ?></option>
+                                <?php }?>
+                    </select>
+
                     <!--Inicio envio de mensaje de error-->
                     <?php if (isset($errores['staff'])): ?>
                         <div class="alert alert-danger mt-1"><?php echo $errores['staff']; ?></div>
