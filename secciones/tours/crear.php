@@ -241,12 +241,14 @@ if($_POST){
             $errores['transporte'] = "El tipo de transporte no pueden contener los caracteres especiales = - | < >";
         }
         //*******INICIAN VALIDACIONES CAMPO 18********
+        /*
         if (strlen($staff) > 25) {
             $errores['staff'] = "El staff no puede tener más de 25 caracteres";
         }
         if (preg_match('/[=<>|]/', $staff)) {
             $errores['staff'] = "El staff no pueden contener los caracteres especiales = - | < >";
         }
+        */
 
         //*******INICIAN VALIDACIONES CAMPO 19********
         //Validar si el precio está vacío
@@ -337,6 +339,12 @@ if($_POST){
         }
 
     }
+
+    //query para obtener los nombres del staff
+    $sentencia = $conexion->prepare("SELECT * FROM staff");
+    $sentencia->execute();
+    //se guarda la setencia ejecutada en otra variable para llamarla con loop en selector
+    $nombres = $sentencia->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
 <!-- Se llama el header desde los templates-->
@@ -550,7 +558,17 @@ if($_POST){
                 <div class="input-group">
                     <div class="mb-3 mx-auto" style="width:48%;">
                         <label for="staff" class="form-label">Staff a cargo</label>
-                        <input type="text" class="form-control" name="staff" id="staff" aria-describedby="helpId" placeholder="" value="<?php echo isset($staff) ? $staff : ''; ?>"/>
+
+                        <!--<input type="text" class="form-control" name="staff" id="staff" aria-describedby="helpId" placeholder="" value="<?php echo isset($staff) ? $staff : ''; ?>"/>-->
+    
+                        <select class="form-select form-select-sm" name="staff" id="staff" onclick="validateTipoStaff()"required>
+                            <option value="" selected>Seleccione una opción</option>
+                                <?php foreach($nombres as $nombre){ ?>
+                                        <option value="<?php echo $nombre['id']?>"><?php echo $nombre["nombre"], ' ', $nombre["apellidos"]?></option>
+                                <?php }?>
+                        </select>
+
+
                     <!--Inicio envio de mensaje de error-->
                     <?php if (isset($errores['staff'])): ?>
                         <div class="alert alert-danger mt-1"><?php echo $errores['staff']; ?></div>
