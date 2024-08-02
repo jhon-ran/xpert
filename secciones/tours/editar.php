@@ -386,8 +386,8 @@ if($_POST){
                 }
                 $mensaje="Tour modificado";
                 //******Termina código para adjuntar foto******
-                //Redirecionar a la lista de tours
-                header("Location:index.php");
+                //Redirecionar después de crear a la lista de tours con link de Sweet Alert 2
+                header("Location:index.php?mensaje=".$mensaje);
             }catch(Exception $ex){
                 echo "Error de conexión:".$ex->getMessage();
             }

@@ -24,6 +24,7 @@ if(isset($_GET['txtID'])){
         $modelo = $registro["modelo"];
         $anio = $registro["anio"];
         $placas = $registro["placas"];
+        $conductor = $registro["conductor"];
 }
 //******Termina código para recibir registro******
 
@@ -38,6 +39,7 @@ if($_POST){
         $modelo = (isset($_POST["modelo"])? $_POST["modelo"]:"");
         $anio = (isset($_POST["anio"])? $_POST["anio"]:"");
         $placas = (isset($_POST["placas"])? $_POST["placas"]:"");
+        $conductor = (isset($_POST["conductor"])? $_POST["conductor"]:"");
 
         //Validar que el modelo no esté vacio
         if (empty($modelo)){
@@ -130,7 +132,7 @@ if($_POST){
                 try{
                 //Preparar la inseción de los datos enviados por POST
                 $sentencia = $conexion->prepare("UPDATE vehiculo SET modelo=:modelo, 
-                anio=:anio, placas=:placas WHERE id=:id");
+                anio=:anio, placas=:placas, conductor=:conductor WHERE id=:id");
                 
                 //Asignar los valores que vienen del formulario (POST)
                 
@@ -140,6 +142,7 @@ if($_POST){
                 $sentencia->bindParam(":anio",$anio);
                 //Se convierte el tipo a mayusculas antes de enviarlo a la BD con strtolower()
                 $sentencia->bindParam(":placas",strtoupper($placas));
+                $sentencia->bindParam(":conductor",$conductor);
                 //Se ejecuta la sentencia con los valores de param asignados
                 $sentencia->execute();
                 //Mensaje de confirmación de creado que activa Sweet Alert 2
@@ -153,8 +156,17 @@ if($_POST){
         //La variable para mensaje de exito se actualiza a false si no se pudo insertar
         $succes=false;
         }
-
     }
+        //query para obtener los miembros de staff que son conductores. Explicación:
+        /*SELECT s.*: Selecciona todas las columnas de la tabla staff. Se utiliza el alias s para abreviar.
+        FROM staff s: Especifica la tabla staff como la tabla principal y le da el alias s.
+        JOIN tipo_staff ts ON s.id_tipo_staff = ts.id: Une la tabla tipo_staff con la tabla staff utilizando la relación de clave foránea. Se usa el alias ts para tipo_staff.
+        WHERE ts.tipo = 'conductor': Filtra los resultados para incluir solo aquellos registros donde el tipo en tipo_staff es "conductor".
+        */
+        $sentencia = $conexion->prepare("SELECT s.*FROM staff s JOIN tipo_staff ts ON s.id_tipo_staff = ts.id WHERE ts.tipo = 'conductor';");
+        $sentencia->execute();
+        //se guarda la setencia ejecutada en otra variable para llamarla con loop en selector
+        $conductores = $sentencia->fetchAll(PDO::FETCH_ASSOC);
 ?>
 <!-- Se llama el header desde los templates-->
 <!-- ../../ sube 2 niveles para poder acceder al folder de templates desde la posición actual-->
@@ -206,6 +218,20 @@ if($_POST){
                                                 <!--Inicio envio de mensaje de error-->
                                                 <?php if (isset($errores['placas'])): ?>
                                                         <div class="alert alert-danger mt-1"><?php echo $errores['placas']; ?></div>
+                                                <?php endif; ?>
+                                                <!--Fin envio de mensaje de error-->
+                                        </div>
+                                        <div class="mb-3">
+                                                <label for="conductor" class="form-label">Conductor</label>
+                                                <select class="form-select form-select" name="conductor" id="conductor" required>
+                                                <?php foreach($conductores as $conduc){ ?>
+                                                        <option <?php echo ($conductor == $conduc['id'])?"selected":"";?> value="<?php echo $conduc['id']; ?>"><?php echo $conduc["nombre"], ' ', $conduc["apellidos"]; ?></option>
+                                                </option>
+                                                <?php }?>
+                                                </select>
+                                                <!--Inicio envio de mensaje de error-->
+                                                <?php if (isset($errores['id_categoria'])): ?>
+                                                        <div class="alert alert-danger mt-1"><?php echo $errores['id_categoria']; ?></div>
                                                 <?php endif; ?>
                                                 <!--Fin envio de mensaje de error-->
                                         </div>

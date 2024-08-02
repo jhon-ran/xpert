@@ -16,6 +16,7 @@ if($_POST){
         $modelo = (isset($_POST["modelo"])? $_POST["modelo"]:"");
         $anio = (isset($_POST["anio"])? $_POST["anio"]:"");
         $placas = (isset($_POST["placas"])? $_POST["placas"]:"");
+        $conductor = (isset($_POST["conductor"])? $_POST["conductor"]:"");
 
         //Validar que el modelo no esté vacio
         if (empty($modelo)){
@@ -105,8 +106,8 @@ if($_POST){
 
                 try{
                 //Preparar la inseción de los datos enviados por POST
-                $sentencia = $conexion->prepare("INSERT INTO vehiculo(id,modelo,anio,placas) 
-                VALUES (null,:modelo,:anio,:placas)" );
+                $sentencia = $conexion->prepare("INSERT INTO vehiculo(id,modelo,anio,placas,conductor) 
+                VALUES (null,:modelo,:anio,:placas,:conductor)" );
                 
                 //Asignar los valores que vienen del formulario (POST)
                 //Se convierte el tipo a mayusculas antes de enviarlo a la BD con strtolower()
@@ -114,6 +115,7 @@ if($_POST){
                 $sentencia->bindParam(":modelo",$modelo);
                 $sentencia->bindParam(":anio",$anio);
                 $sentencia->bindParam(":placas",strtoupper($placas));
+                $sentencia->bindParam(":conductor",$conductor);
                 //Se ejecuta la sentencia con los valores de param asignados
                 $sentencia->execute();
                 //Mensaje de confirmación de creado que activa Sweet Alert 2
@@ -129,6 +131,17 @@ if($_POST){
         }
 
     }
+        //query para obtener los miembros de staff que son conductores. Explicación:
+        /*SELECT s.*: Selecciona todas las columnas de la tabla staff. Se utiliza el alias s para abreviar.
+        FROM staff s: Especifica la tabla staff como la tabla principal y le da el alias s.
+        JOIN tipo_staff ts ON s.id_tipo_staff = ts.id: Une la tabla tipo_staff con la tabla staff utilizando la relación de clave foránea. Se usa el alias ts para tipo_staff.
+        WHERE ts.tipo = 'conductor': Filtra los resultados para incluir solo aquellos registros donde el tipo en tipo_staff es "conductor".
+        */
+        $sentencia = $conexion->prepare("SELECT s.*FROM staff s JOIN tipo_staff ts ON s.id_tipo_staff = ts.id WHERE ts.tipo = 'conductor';");
+
+        $sentencia->execute();
+        //se guarda la setencia ejecutada en otra variable para llamarla con loop en selector
+        $conductores = $sentencia->fetchAll(PDO::FETCH_ASSOC);
 ?>
 <!-- Se llama el header desde los templates-->
 <!-- ../../ sube 2 niveles para poder acceder al folder de templates desde la posición actual-->
@@ -176,6 +189,22 @@ if($_POST){
                                                 <!--Inicio envio de mensaje de error-->
                                                 <?php if (isset($errores['placas'])): ?>
                                                         <div class="alert alert-danger mt-1"><?php echo $errores['placas']; ?></div>
+                                                <?php endif; ?>
+                                                <!--Fin envio de mensaje de error-->
+                                        </div>
+                                        <div class="mb-3">
+                                                <label for="conductor" class="form-label">Conductor</label>
+                                                <select class="form-select form-select-sm" name="conductor" id="conductor" onclick="validateTipoStaff()"required>
+                                                        <option value="" selected>Seleccione una opción</option>
+                                                        <?php foreach($conductores as $conductor){ ?>
+                                                                <option value="<?php echo $conductor['id']?>"><?php echo $conductor["nombre"], ' ', $conductor["apellidos"]?></option>
+                                                        <?php }?>
+                                                </select>
+                                                <!--Se llama mensaje de error de validacion de ../../js/validartipoUsuario.js -->
+                                                <span id="errorIdTipoStaff" class="error"></span>   
+                                                <!--Inicio envio de mensaje de error-->
+                                                <?php if (isset($errores['id_tipo_staff'])): ?>
+                                                        <div class="alert alert-danger mt-1"><?php echo $errores['id_tipo_staff']; ?></div>
                                                 <?php endif; ?>
                                                 <!--Fin envio de mensaje de error-->
                                         </div>

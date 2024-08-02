@@ -32,12 +32,27 @@ if(isset($_GET['txtID'])){
 //******Termina código para eliminar registro******
 
 //******Inicia código para mostrar todos los registros******
-//Se prepara sentencia para seleccionar todos los datos 
-$sentencia = $conexion->prepare("SELECT * FROM vehiculo");
+//Se prepara sentencia para seleccionar todos los datos de tabla vehiculo
+/*
+SELECT v.id, v.modelo, v.anio, v.placas, s.nombre, s.apellidos:
+Selecciona todas las columnas relevantes de la tabla vehiculo: id, modelo, anio, y placas.
+También selecciona nombre y apellidos de la tabla staff.
+FROM vehiculo v:
+Especifica la tabla vehiculo como la tabla principal en la consulta, usando el alias v.
+LEFT JOIN staff s ON v.conductor = s.id:
+Realiza un LEFT JOIN, para recuperar todos los registros de vehiculo.
+Las filas de staff se incluyen solo cuando hay un conductor ID coincidente.
+Si v.conductor es NULL o no coincide con ningún s.id, los campos nombre y apellidos serán NULL.
+Con LEFT JOIN se incluyen todos los registros de la tabla vehiculo aunque no haya un conductor asociado en la tabla staff.
+*/
+$sentencia = $conexion->prepare("SELECT v.id, v.modelo, v.anio, v.placas, s.nombre, s.apellidos
+FROM vehiculo v
+LEFT JOIN staff s ON v.conductor = s.id;
+");
+
 $sentencia->execute();
-$tipo = $sentencia->fetchAll(PDO::FETCH_ASSOC);
-//Para probar que se esté leyendo todos los datos de la tabla, descomentar
-//print_r($cupones);
+$vehiculos = $sentencia->fetchAll(PDO::FETCH_ASSOC);
+
 //******Termina código para mostrar todos los registros******
 ?>
 <!-- Se llama el header desde los templates-->
@@ -60,16 +75,18 @@ $tipo = $sentencia->fetchAll(PDO::FETCH_ASSOC);
             <th scope="col">Modelo</th>
             <th scope="col">Año</th>
             <th scope="col">Placas</th>
+            <th scope="col">Conductor</th>
             <th scope="col"></th>
           </tr>
         </thead>
         <tbody>
-        <?php foreach($tipo as $registro){ ?>
+        <?php foreach($vehiculos as $registro){ ?>
           <tr class="">
             <td scope="row"><?php echo $registro['id']?></td>
             <td><?php echo $registro['modelo']?></td>
             <td><?php echo $registro['anio']?></td>
             <td><?php echo $registro['placas']?></td>
+            <td><?php echo $registro["nombre"], ' ', $registro["apellidos"]?></td>
             <td>
               <div class="text-center" class="dropdown">
                 <a href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
