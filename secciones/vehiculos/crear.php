@@ -115,6 +115,13 @@ if($_POST){
                 $sentencia->bindParam(":modelo",$modelo);
                 $sentencia->bindParam(":anio",$anio);
                 $sentencia->bindParam(":placas",strtoupper($placas));
+
+                //Si campo vacío, se conviertr a Null para evitar error: Integrity constraint violation: 1452
+                if($conductor==''){
+                        $conductor = null;
+                        $sentencia->bindParam(":conductor",$conductor);
+                }
+
                 $sentencia->bindParam(":conductor",$conductor);
                 //Se ejecuta la sentencia con los valores de param asignados
                 $sentencia->execute();
@@ -194,7 +201,7 @@ if($_POST){
                                         </div>
                                         <div class="mb-3">
                                                 <label for="conductor" class="form-label">Conductor</label>
-                                                <select class="form-select form-select-sm" name="conductor" id="conductor" onclick="validateTipoStaff()"required>
+                                                <select class="form-select form-select-sm" name="conductor" id="conductor" onclick="validateTipoStaff()">
                                                         <option value="" selected>Seleccione una opción</option>
                                                         <?php foreach($conductores as $conductor){ ?>
                                                                 <option value="<?php echo $conductor['id']?>"><?php echo $conductor["nombre"], ' ', $conductor["apellidos"]?></option>

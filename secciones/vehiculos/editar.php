@@ -142,6 +142,11 @@ if($_POST){
                 $sentencia->bindParam(":anio",$anio);
                 //Se convierte el tipo a mayusculas antes de enviarlo a la BD con strtolower()
                 $sentencia->bindParam(":placas",strtoupper($placas));
+                //Si campo vacío, se conviertr a Null para evitar error: Integrity constraint violation: 1452
+                if($conductor==''){
+                        $conductor = null;
+                        $sentencia->bindParam(":conductor",$conductor);
+                }
                 $sentencia->bindParam(":conductor",$conductor);
                 //Se ejecuta la sentencia con los valores de param asignados
                 $sentencia->execute();
@@ -223,7 +228,8 @@ if($_POST){
                                         </div>
                                         <div class="mb-3">
                                                 <label for="conductor" class="form-label">Conductor</label>
-                                                <select class="form-select form-select" name="conductor" id="conductor" required>
+                                                <select class="form-select form-select" name="conductor" id="conductor">
+                                                <option value="" selected>Seleccione una opción</option>
                                                 <?php foreach($conductores as $conduc){ ?>
                                                         <option <?php echo ($conductor == $conduc['id'])?"selected":"";?> value="<?php echo $conduc['id']; ?>"><?php echo $conduc["nombre"], ' ', $conduc["apellidos"]; ?></option>
                                                 </option>
