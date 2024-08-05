@@ -45,12 +45,12 @@ if($_POST){
         }
         //Validar que no sea menor de 2014
         if ($anio < 2014) {
-                $errores['anio'] = "El año no puede ser menor a 2014";
+                $errores['anio'] = "No puede ser menor a 2014";
         }
         //Va
         //Validar que la duración no sea mayor a 8hrs
         if ($anio > 2024) {
-            $errores['anio'] = "La duración no puede ser mayor a 2024";
+            $errores['anio'] = "No puede ser mayor a 2024";
         }
      
 
@@ -168,9 +168,9 @@ if($_POST){
                                 <form action="crear.php" id="crearVehiculo" method="post">
                                         <div class="mb-3">
                                                 <label for="modelo" class="form-label">Modelo</label>
-                                                <input type="text" class="form-control" name="modelo" id="modelo" oninput="validateNombre()" aria-describedby="helpId" placeholder="Ingrese modelo" value="<?php echo isset($tipo) ? $tipo : ''; ?>" required/>
+                                                <input type="text" class="form-control" name="modelo" id="modelo" oninput="validateModelo()" aria-describedby="helpId" placeholder="Ingrese modelo" value="<?php echo isset($tipo) ? $tipo : ''; ?>" required/>
                                                 <!--Se llama mensaje de error de validacion de ../../js/validarNombre.js -->
-                                                <span id="errorNombre" class="error"></span>
+                                                <span id="errorModelo" class="error"></span>
                                                 <!--Inicio envio de mensaje de error-->
                                                 <?php if (isset($errores['modelo'])): ?>
                                                         <div class="alert alert-danger mt-1"><?php echo $errores['modelo']; ?></div>
@@ -179,9 +179,9 @@ if($_POST){
                                         </div>
                                         <div class="mb-3">
                                                 <label for="anio" class="form-label">Año</label>
-                                                <input type="number" class="form-control" name="anio" id="anio" oninput="validateNombre()" aria-describedby="helpId" placeholder="Ingrese año" value="<?php echo isset($tipo) ? $tipo : ''; ?>" required/>
+                                                <input type="number" class="form-control" name="anio" id="anio" oninput="validateAnio()" aria-describedby="helpId" placeholder="Ingrese año" value="<?php echo isset($tipo) ? $tipo : ''; ?>" required/>
                                                 <!--Se llama mensaje de error de validacion de ../../js/validarNombre.js -->
-                                                <span id="errorNombre" class="error"></span>
+                                                <span id="errorAnio" class="error"></span>
                                                 <!--Inicio envio de mensaje de error-->
                                                 <?php if (isset($errores['anio'])): ?>
                                                         <div class="alert alert-danger mt-1"><?php echo $errores['anio']; ?></div>
@@ -190,9 +190,9 @@ if($_POST){
                                         </div>
                                         <div class="mb-3">
                                                 <label for="placas" class="form-label">Placas</label>
-                                                <input type="text" class="form-control" name="placas" id="placas" oninput="validateNombre()" aria-describedby="helpId" placeholder="Ingrese placas" value="<?php echo isset($tipo) ? $tipo : ''; ?>" required/>
+                                                <input type="text" class="form-control" name="placas" id="placas" oninput="validatePlacas()" aria-describedby="helpId" placeholder="Ingrese placas" value="<?php echo isset($tipo) ? $tipo : ''; ?>" required/>
                                                 <!--Se llama mensaje de error de validacion de ../../js/validarNombre.js -->
-                                                <span id="errorNombre" class="error"></span>
+                                                <span id="errorPlacas" class="error"></span>
                                                 <!--Inicio envio de mensaje de error-->
                                                 <?php if (isset($errores['placas'])): ?>
                                                         <div class="alert alert-danger mt-1"><?php echo $errores['placas']; ?></div>
@@ -228,3 +228,7 @@ if($_POST){
 <!-- Se llama el footer desde los templates-->
 <!-- ../../ sube 2 niveles para poder acceder al folder de templates desde la posición actual-->
 <?php include("../../templates/footer.php"); ?>
+<!-- Validadciones JS -->
+<script src="../../js/validarModeloVehiculo.js"> </script>
+<script src="../../js/validarAnioVehiculo.js"> </script>
+<script src="../../js/validarPlacasVehiculo.js"> </script>
