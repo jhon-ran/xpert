@@ -340,8 +340,18 @@ if($_POST){
 
     }
 
-    //query para obtener los nombres del staff
-    $sentencia = $conexion->prepare("SELECT * FROM staff");
+    //query para obtener los nombres del staff y excluir a los que sean de tipo conductor. Explicación:
+    /*SELECT s.*: Selecciona todas las columnas de la tabla staff. Se utiliza el alias s para abreviar.
+    FROM staff s: Especifica la tabla staff como la tabla principal y le da el alias s.
+    JOIN tipo_staff ts ON s.id_tipo_staff = ts.id: Une la tabla tipo_staff con la tabla staff utilizando la relación de clave foránea. Se usa el alias ts para tipo_staff.
+    WHERE ts.tipo != 'conductor': Filtra los resultados para excluir los registros donde el valor de la columna tipo en tipo_staff sea 'conductor'.
+    */
+    $sentencia = $conexion->prepare("SELECT s.*
+    FROM staff s
+    JOIN tipo_staff ts ON s.id_tipo_staff = ts.id
+    WHERE ts.tipo != 'conductor';
+    ");
+
     $sentencia->execute();
     //se guarda la setencia ejecutada en otra variable para llamarla con loop en selector
     $nombres = $sentencia->fetchAll(PDO::FETCH_ASSOC);
