@@ -334,6 +334,13 @@ if($_POST){
                 $sentencia->bindParam(":polCancel",$polCancel);
                 $sentencia->bindParam(":actividades",$actividades);
                 $sentencia->bindParam(":incluyeTransporte",$incluyeTransporte);
+                
+                //Si campo vacío, se conviertr a Null para evitar error: Integrity constraint violation: 1452
+                if($transporte==""){
+                    $transporte = null;
+                    $sentencia->bindParam(":transporte",$transporte);
+                }
+
                 $sentencia->bindParam(":transporte",$transporte);
                 $sentencia->bindParam(":staff",$staff);
                 $sentencia->bindParam(":precioBase",$precioBase);
@@ -410,8 +417,14 @@ if($_POST){
     WHERE ts.tipo != 'conductor';
     ");
     $sentencia->execute();
-    //se guarda la setencia ejecutada en otra variable para llamarla con loop en selector
     $nombres = $sentencia->fetchAll(PDO::FETCH_ASSOC);
+    //query para obtener los vehiculos registrados de tabla vehiculo
+    $sentencia = $conexion->prepare("SELECT * FROM vehiculo");
+    $sentencia->execute();
+        //se guarda la setencia ejecutada en otra variable para llamarla con loop en selector
+    $vehiculos = $sentencia->fetchAll(PDO::FETCH_ASSOC);
+    //se guarda la setencia ejecutada en otra variable para llamarla con loop en selector
+
 //******Termina código para actualizar registro******
 ?>
 
@@ -611,18 +624,22 @@ if($_POST){
                 <!--Inicia input group para agrupar campos en una misma línea-->
                 <div class="input-group">
                     <div class="mb-3 mx-auto" style="width:48%;">
-                        <label for="incluyeTransporte" class="form-label">¿Transportación?</label>
+                        <label for="incluyeTransporte" class="form-label">¿Incluye transporte?</label>
                         <select class="form-select form-select" name="incluyeTransporte" id="incluyeTransporte">
                             <!--<option value="" selected>Seleccione una opción</option>-->
                             <option value="<?php echo $incluyeTransporte;?>"><?php echo $incluyeTransporte;?></option>
-                            <option value="Sí">Sí</option>
+                            <option value="sí">Sí</option>
                             <option value="No">No</option>
                         </select>
                     </div>
                     <div class="mb-3 mx-auto" style="width:48%;">
-                        <label for="transporte" class="form-label">Tipo de transporte</label>
-                        <input
-                            type="text" class="form-control" name="transporte" id="transporte" value="<?php echo $transporte;?>" aria-describedby="helpId" placeholder=""/>
+                        <label for="transporte" class="form-label">Vehículo</label>
+                        <select class="form-select form-select-sm" name="transporte" id="transporte" onclick="validateTipoStaff()">
+                            <option value="" selected>Seleccione una opción</option>
+                                <?php foreach($vehiculos as $vehiculo){ ?>
+                                        <option <?php echo ($transporte == $vehiculo['id'])?"selected":"";?> value="<?php echo $vehiculo['id']; ?>"><?php echo $vehiculo['modelo']; ?></option>
+                                <?php }?>
+                        </select>
                     <!--Inicio envio de mensaje de error-->
                     <?php if (isset($errores['transporte'])): ?>
                         <div class="alert alert-danger mt-1"><?php echo $errores['transporte']; ?></div>
