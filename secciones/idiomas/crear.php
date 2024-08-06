@@ -108,7 +108,7 @@ if($_POST){
                                 <form action="crear.php" id="crearIdioma" method="post">
                                         <div class="mb-3">
                                                 <label for="lengua" class="form-label">Idioma</label>
-                                                <input type="text" class="form-control" name="lengua" id="lengua" oninput="validateTipoStaff()" aria-describedby="helpId" placeholder="Ingrese idioma" value="<?php echo isset($lengua) ? $lengua : ''; ?>" required/>
+                                                <input type="text" class="form-control" name="lengua" id="lengua" oninput="validateIdioma()" aria-describedby="helpId" placeholder="Ingrese idioma" value="<?php echo isset($lengua) ? $lengua : ''; ?>" required/>
                                                 <!--Se llama mensaje de error de validacion de ../../js/validarNombre.js -->
                                                 <span id="errorLengua" class="error"></span>
                                                 <!--Inicio envio de mensaje de error-->
@@ -132,4 +132,4 @@ if($_POST){
 <?php include("../../templates/footer.php"); ?>
 
 <!-- Llama funcion para validar cupones-->
-<script src="../../js/validarTipoStaff.js"> </script>
+<script src="../../js/validarIdioma.js"> </script>
