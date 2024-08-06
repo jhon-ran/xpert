@@ -75,7 +75,7 @@ session_start();
 
                   <div class="row">
                     <div class="col-sm-12">
-                      <a class="btn btn-info " target="__blank" href="https://www.bootdey.com/snippets/view/profile-edit-data-and-skills">Editar</a>
+                      <a class="btn btn-info " target="__blank" href="">Editar</a>
                     </div>
                   </div>
                 </div>
