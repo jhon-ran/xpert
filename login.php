@@ -67,8 +67,11 @@ if ($_SERVER["REQUEST_METHOD"]=="POST") {
             if (password_verify($password, $usuario['password'])) {
                 //Guardar el id y nombre del usuario de la BD en las variables de sesión
                 $_SESSION['usuario_id']= $usuario['id'];
+                //para guardar nombre y appellidos en una sola variable de session
                 $_SESSION['usuario_nombre']= $usuario['nombre']." ".$usuario['apellidos'];
                 $_SESSION['usuario_tipo']= $usuario['tipo'];
+                $_SESSION['nombre']= $usuario['nombre'];
+                $_SESSION['apellidos']= $usuario['apellidos'];
 
                 $login = true;
             }
