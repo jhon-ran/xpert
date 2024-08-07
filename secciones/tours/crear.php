@@ -140,12 +140,14 @@ if($_POST){
         }
 
         //*******INICIAN VALIDACIONES CAMPO 5********
+        /*
         if (strlen($idiomas) > 20) {
             $errores['idiomas'] = "Idiomas no puede tener más de 20 caracteres";
         }
         if (preg_match('/[=<>|]/', $idiomas)) {
             $errores['idiomas'] = "Idiomas no pueden contener los caracteres especiales = - | < >";
         }
+        */
 
         //*******INICIAN VALIDACIONES CAMPO 6********
         //La foto no puede estar vacía
@@ -369,6 +371,12 @@ if($_POST){
     $sentencia->execute();
     //se guarda la setencia ejecutada en otra variable para llamarla con loop en selector
     $vehiculos = $sentencia->fetchAll(PDO::FETCH_ASSOC);
+
+    //query para obtener los idiomas registrados de tabla idiomas
+    $sentencia = $conexion->prepare("SELECT * FROM idiomas");
+    $sentencia->execute();
+    //se guarda la setencia ejecutada en otra variable para llamarla con loop en selector
+    $idiomas = $sentencia->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
 <!-- Se llama el header desde los templates-->
@@ -439,7 +447,12 @@ if($_POST){
                     </div>
                     <div class="mb-3 mx-auto" style="width:48%;">
                         <label for="idiomas" class="form-label">Idiomas</label>
-                        <input type="text" class="form-control" name="idiomas" id="idiomas" aria-describedby="helpId" placeholder="" value="<?php echo isset($idiomas) ? $idiomas : ''; ?>"/>
+                        <select class="form-select form-select" name="idiomas" id="idiomas">
+                            <option value="" selected>Seleccione una opción</option>
+                                <?php foreach($idiomas as $idioma){ ?>
+                                        <option value="<?php echo $idioma['id']?>"><?php echo $idioma["lengua"]?></option>
+                                <?php }?>
+                        </select>
                         <!--Inicio envio de mensaje de error-->
                         <?php if (isset($errores['idiomas'])): ?>
                             <div class="alert alert-danger mt-1"><?php echo $errores['idiomas']; ?></div>
@@ -570,7 +583,7 @@ if($_POST){
                     </div>
                     <div class="mb-3 mx-auto" style="width:48%;" id="transporte">
                         <label for="transporte" class="form-label">Vehículo</label>
-                        <select class="form-select form-select-sm" name="transporte" id="transporte" onclick="validateTipoStaff()">
+                        <select class="form-select form-select" name="transporte" id="transporte" onclick="validateTipoStaff()">
                             <option value="" selected>Seleccione una opción</option>
                                 <?php foreach($vehiculos as $vehiculo){ ?>
                                         <option value="<?php echo $vehiculo['id']?>"><?php echo $vehiculo["modelo"]?></option>

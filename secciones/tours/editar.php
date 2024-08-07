@@ -161,13 +161,15 @@ if($_POST){
         }
 
         //*******INICIAN VALIDACIONES CAMPO 5********
+        /*
         if (strlen($idiomas) > 20) {
             $errores['idiomas'] = "Idiomas no puede tener más de 20 caracteres";
         }
         if (preg_match('/[=<>|]/', $idiomas)) {
             $errores['idiomas'] = "Idiomas no pueden contener los caracteres especiales = - | < >";
         }
-
+        */
+        
         //*******INICIAN VALIDACIONES CAMPO 6********
         /*if (!in_array(pathinfo($foto, PATHINFO_EXTENSION), ['jpeg', 'jpg', 'png'])) {
             $errores['foto'] = "La foto solo puede ser un archivo JPEG o PNG.";
@@ -425,6 +427,12 @@ if($_POST){
     $vehiculos = $sentencia->fetchAll(PDO::FETCH_ASSOC);
     //se guarda la setencia ejecutada en otra variable para llamarla con loop en selector
 
+    //query para obtener los idiomas registrados de tabla idiomas
+    $sentencia = $conexion->prepare("SELECT * FROM idiomas");
+    $sentencia->execute();
+    //se guarda la setencia ejecutada en otra variable para llamarla con loop en selector
+    $lenguas = $sentencia->fetchAll(PDO::FETCH_ASSOC);
+
 //******Termina código para actualizar registro******
 ?>
 
@@ -500,8 +508,12 @@ if($_POST){
                     </div>
                     <div class="mb-3 mx-auto" style="width:48%;">
                         <label for="idiomas" class="form-label">Idiomas</label>
-                        <input
-                            type="text" class="form-control" name="idiomas" id="idiomas" value="<?php echo $idiomas;?>" aria-describedby="helpId" placeholder=""/>
+                        <select class="form-select form-select" name="idiomas" id="idiomas" onclick="validateTipoStaff()">
+                            <option value="" selected>Seleccione una opción</option>
+                            <?php foreach($lenguas as $idioma){ ?>
+                                    <option <?php echo ($idiomas == $idioma['id'])?"selected":"";?> value="<?php echo $idioma['id']; ?>"><?php echo $idioma['lengua']; ?></option>
+                            <?php }?>
+                        </select>
                     <!--Inicio envio de mensaje de error-->
                     <?php if (isset($errores['idiomas'])): ?>
                         <div class="alert alert-danger mt-1"><?php echo $errores['idiomas']; ?></div>
