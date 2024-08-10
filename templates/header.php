@@ -79,6 +79,15 @@ if(!isset($_SESSION['usuario_id'])){
                 <li class="nav-item">
                     <a class="nav-link" href="<?php echo $url_base;?>secciones/idiomas/">Idiomas</a>
                 </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Redes sociales
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <li><a class="dropdown-item" href="<?php echo $url_base;?>secciones/redes/">Administrar</a></li>
+                        <li><a class="dropdown-item" href="<?php echo $url_base;?>secciones/logo_redes/index.php">Logos</a></li>
+                    </ul>
+                </li>
                 <li class="nav-item">
                     <a class="nav-link" href="<?php echo $url_base;?>secciones/notificaciones/">Notificaciones</a>
                 </li>
