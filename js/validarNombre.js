@@ -12,7 +12,7 @@ function validateNombre() {
     const regex = /^[a-zA-Z0-9]+$/; 
 
     if (value === '') {
-        errorMessage.textContent = 'El nombre es obligatorio';
+        errorMessage.textContent = 'Campo obligatorio';
         errorMessage.style.display = 'inline';
     } else if (value.length < 4) {
         errorMessage.textContent = 'Debe tener al menos 4 caracteres';
