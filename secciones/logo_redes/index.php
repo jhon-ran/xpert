@@ -67,7 +67,7 @@ $lista_logos = $sentencia->fetchAll(PDO::FETCH_ASSOC);
 <h2>Logos de redes</h2>
 
 <!--Nuevo look inicia-->
-<div class="card">
+<div class="card mb-3">
   <div class="card-header">
     <a name="" id="" class="btn btn-primary" href="crear.php" role="button">Añadir logo</a>
   </div>

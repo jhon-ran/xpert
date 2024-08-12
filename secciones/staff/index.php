@@ -58,7 +58,7 @@ $staff = $sentencia->fetchAll(PDO::FETCH_ASSOC);
 
 <h2>Staff</h2>
 <!--Nuevo look inicia-->
-<div class="card">
+<div class="card mb-3">
   <div class="card-header">
     <a name="" id="" class="btn btn-primary" href="crear.php" role="button">Registrar</a>
   </div>

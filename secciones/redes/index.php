@@ -78,7 +78,9 @@ $redes = $sentencia->fetchAll(PDO::FETCH_ASSOC);
 
 <h2>Tours con redes asignadas</h2>
 <!--Nuevo look inicia-->
-<div class="card">
+
+
+<div class="card mb-3">
   <div class="card-header">
     <a name="" id="" class="btn btn-primary" href="crear.php" role="button">Asignar red a tour</a>
   </div>
@@ -115,7 +117,7 @@ $redes = $sentencia->fetchAll(PDO::FETCH_ASSOC);
 
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                 <!--Descomentr cuando qrchivo este creado-->
-                  <!-- <li><a class="dropdown-item" href="editar.php?txtID=<?php echo $red['association_id']?>">Editar</a></li>-->
+                  <li><a class="dropdown-item" href="editar.php?txtID=<?php echo $red['association_id']?>">Editar</a></li>
                   <!--Se sustituye el link del registro por la función SweatAlert para confirmar borrado-->
                   <li><a class="dropdown-item" href="javascript:borrar(<?php echo $red['association_id']?>);">Eliminar</a></li>
                 </ul>
@@ -128,6 +130,7 @@ $redes = $sentencia->fetchAll(PDO::FETCH_ASSOC);
     </div>
   </div>
 </div>
+
   <!--Nuevo look termina-->
 
 
