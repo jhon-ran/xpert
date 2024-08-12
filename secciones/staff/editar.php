@@ -179,7 +179,7 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
             <h1>Editar staff</h1>
     </header>
     
-<div class="row">
+<div class="row my-2">
     <div class="col-md-4"><br><br></div>
         <div class="col-md-4">
         <div class="card">

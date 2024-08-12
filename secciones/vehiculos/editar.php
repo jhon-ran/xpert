@@ -182,7 +182,7 @@ if($_POST){
             <h1>Editar vehículo</h1>
 </header>
 
-<div class="row">
+<div class="row my-2">
         <div class="col-md-4"><br><br></div>
         <div class="col-md-4">
                 <div class="card">

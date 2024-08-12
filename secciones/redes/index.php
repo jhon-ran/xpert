@@ -80,7 +80,7 @@ $redes = $sentencia->fetchAll(PDO::FETCH_ASSOC);
 <!--Nuevo look inicia-->
 
 
-<div class="card mb-3">
+<div class="card my-2">
   <div class="card-header">
     <a name="" id="" class="btn btn-primary" href="crear.php" role="button">Asignar red a tour</a>
   </div>

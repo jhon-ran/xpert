@@ -47,7 +47,7 @@ $tipo = $sentencia->fetchAll(PDO::FETCH_ASSOC);
 <h2>Tipos de staff</h2>
 
 <!--Nuevo look inicia-->
-<div class="card">
+<div class="card my-2">
   <div class="card-header">
     <a name="" id="" class="btn btn-primary" href="crear.php" role="button">Añadir tipo</a>
   </div>

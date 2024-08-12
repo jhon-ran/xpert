@@ -159,7 +159,7 @@ if($_POST){
             <h1>Alta de vehículo</h1>
 </header>
 
-<div class="row">
+<div class="row my-2">
         <div class="col-md-4"><br><br></div>
         <div class="col-md-4">
                 <div class="card">

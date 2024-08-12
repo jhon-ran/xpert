@@ -127,7 +127,7 @@ $lista_logos = $sentencia->fetchAll(PDO::FETCH_ASSOC);
             <h1>Asignar red social a tour</h1>
     </header>
     
-<div class="row">
+<div class="row my-2">
     <div class="col-md-4"><br><br></div>
         <div class="col-md-4">
         <div class="card">

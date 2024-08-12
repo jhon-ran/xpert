@@ -77,7 +77,7 @@ $tours = $sentencia->fetchAll(PDO::FETCH_ASSOC);
     </div>
 
     <!--Nuevo look inicia-->
-<div class="row row-cols-1 row-cols-md-4 g-3 mb-3">
+<div class="row row-cols-1 row-cols-md-4 g-3 my-2">
     <?php foreach($tours as $registro){ ?>
     <div class="col">
         <div class="card mx-auto" style="width: 100%;">

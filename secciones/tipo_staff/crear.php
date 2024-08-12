@@ -98,7 +98,7 @@ if($_POST){
             <h1>Añadir tipo</h1>
 </header>
 
-<div class="row">
+<div class="row my-2">
         <div class="col-md-4"><br><br></div>
         <div class="col-md-4">
                 <div class="card">
@@ -124,7 +124,7 @@ if($_POST){
                 </div>
         </div>
 </div>
-    <!--Nuevo look termina-->
+<!--Nuevo look termina-->
 
 <!-- Se llama el footer desde los templates-->
 <!-- ../../ sube 2 niveles para poder acceder al folder de templates desde la posición actual-->
