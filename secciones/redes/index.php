@@ -92,7 +92,7 @@ $redes = $sentencia->fetchAll(PDO::FETCH_ASSOC);
             <th scope="col">ID</th>
             <th scope="col">Tour</th>
             <th scope="col">Red</th>
-            <th scope="col">Id publicación</th>
+            <th scope="col">ID asignación</th>
             <th scope="col"></th>
           </tr>
         </thead>
@@ -102,7 +102,7 @@ $redes = $sentencia->fetchAll(PDO::FETCH_ASSOC);
             <td scope="row"><?php echo $red['tour_id']?></td>
             <td><?php echo $red['tour_title']?></td>
             <td><?php echo $red['logo_name']?></td>
-            <td><?php echo $red['logo_id']?></td>
+            <td><?php echo $red['association_id']?></td>
             <td>
               <!--
               <a name="" id="" class="btn btn-info" href="editar.php?txtID=<?php echo $registro['id']?>" role="button">Editar</a>
