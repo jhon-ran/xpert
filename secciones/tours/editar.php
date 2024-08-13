@@ -41,7 +41,7 @@ if(isset($_GET['txtID'])){
     $staff = $registro["staff"];
     $precioBase = $registro["precioBase"];
     $descuento = $registro["descuento"];
-    $redes = $registro["redes"];
+
 
     //print_r($restricciones);
 }
@@ -78,7 +78,7 @@ if($_POST){
     $staff = (isset($_POST["staff"])? $_POST["staff"]:"");
     $precioBase = (isset($_POST["precioBase"])? $_POST["precioBase"]:"");
     $descuento = (isset($_POST["descuento"])? $_POST["descuento"]:"");
-    $redes = (isset($_POST["redes"])? $_POST["redes"]:"");
+ 
 
     //*******INICIAN VALIDACIONES CAMPO 1********
     //Validar si el título está vacío
@@ -281,9 +281,7 @@ if($_POST){
             $errores['descuento'] = "El descuento no puede ser igual o mayor al precio del tour";
         }
         /*******INICIAN VALIDACIONES CAMPO 21********/
-        if (strlen($redes) > 25) {
-            $errores['redes'] = "Las redes no pueden tener más de 25 caracteres";
-        }
+
         
 
     //Imprimir errores en pantalla si los hay
@@ -314,8 +312,7 @@ if($_POST){
                 transporte=:transporte,
                 staff=:staff,
                 precioBase=:precioBase,
-                descuento=:descuento,
-                redes=:redes
+                descuento=:descuento
                 WHERE id=:id");
 
                 //Asignar los valores que vienen del formulario (POST)
@@ -347,7 +344,7 @@ if($_POST){
                 $sentencia->bindParam(":staff",$staff);
                 $sentencia->bindParam(":precioBase",$precioBase);
                 $sentencia->bindParam(":descuento",$descuento);
-                $sentencia->bindParam(":redes",$redes);
+
                 $sentencia->bindParam(":id",$txtID);
                 //Se ejecuta la sentencia con los valores de param asignados
                 $sentencia->execute();
@@ -432,8 +429,45 @@ if($_POST){
     $sentencia->execute();
     //se guarda la setencia ejecutada en otra variable para llamarla con loop en selector
     $lenguas = $sentencia->fetchAll(PDO::FETCH_ASSOC);
+    //******Termina código para actualizar registro******
 
-//******Termina código para actualizar registro******
+    //query para obtener las redes del tour. Explicación:
+    /*
+SELECT redes_tour.id AS association_id, tours.id AS tour_id, tours.titulo AS tour_title, logos.nombre AS logo_name, logos.id AS logo_id: Selecciona columnas específicas de varias tablas. Las columnas seleccionadas son:
+
+redes_tour.id, que se etiqueta como association_id en el resultado.
+tours.id, que se etiqueta como tour_id.
+tours.titulo, que se etiqueta como tour_title.
+logos.nombre, que se etiqueta como logo_name.
+logos.id, que se etiqueta como logo_id.
+FROM redes_tour: Esta línea indica que la consulta comenzará seleccionando datos de la tabla redes_tour.
+
+LEFT JOIN tours ON tours.id = redes_tour.id_tour: Realiza una unión izquierda (LEFT JOIN) entre la tabla redes_tour y la tabla tours. Todos los registros de redes_tour se incluirán en el resultado, y si hay coincidencias en la tabla tours según la condición tours.id = redes_tour.id_tour, esos datos se agregarán. Si no hay coincidencias, los campos de tours aparecerán como NULL.
+
+LEFT JOIN logos ON logos.id = redes_tour.id_logo: Realiza otra unión izquierda (LEFT JOIN), esta vez entre la tabla redes_tour y la tabla logos, utilizando la condición logos.id = redes_tour.id_logo.
+
+WHERE redes_tour.id = :id: Filtra los resultados para que solo se incluyan las filas donde el valor de redes_tour.id sea igual al parámetro :id. Este parámetro :id es el id del tour actual
+    */
+    $sentencia = $conexion->prepare("SELECT 
+    redes_tour.id AS association_id,
+    tours.id AS tour_id,
+    tours.titulo AS tour_title,
+    logos.nombre AS logo_name,
+    logos.id AS logo_id
+FROM 
+    redes_tour
+LEFT JOIN 
+    tours ON tours.id = redes_tour.id_tour
+LEFT JOIN 
+    logos ON logos.id = redes_tour.id_logo
+WHERE 
+    redes_tour.id_tour = :id;");
+    $sentencia->bindParam(':id', $txtID);
+
+    $sentencia->execute();
+    //se guarda la setencia ejecutada en otra variable para llamarla con loop en selector
+    $redes = $sentencia->fetchAll(PDO::FETCH_ASSOC);
+
 ?>
 
 <!-- Se llama el header desde los templates-->
@@ -635,8 +669,8 @@ if($_POST){
                 </div>
                 <!--Inicia input group para agrupar campos en una misma línea-->
                 <div class="input-group">
-                    <div class="mb-3 mx-auto" style="width:48%;">
-                        <label for="incluyeTransporte" class="form-label">¿Incluye transporte?</label>
+                    <div class="mb-3 mx-auto" style="width:30%;">
+                        <label for="incluyeTransporte" class="form-label">¿Transporte?</label>
                         <select class="form-select form-select" name="incluyeTransporte" id="incluyeTransporte">
                             <!--<option value="" selected>Seleccione una opción</option>-->
                             <option value="<?php echo $incluyeTransporte;?>"><?php echo $incluyeTransporte;?></option>
@@ -644,9 +678,9 @@ if($_POST){
                             <option value="No">No</option>
                         </select>
                     </div>
-                    <div class="mb-3 mx-auto" style="width:48%;">
+                    <div class="mb-3 mx-auto" style="width:65%;">
                         <label for="transporte" class="form-label">Vehículo</label>
-                        <select class="form-select form-select-sm" name="transporte" id="transporte" onclick="validateTipoStaff()">
+                        <select class="form-select form-select" name="transporte" id="transporte" onclick="validateTipoStaff()">
                             <option value="" selected>Seleccione una opción</option>
                                 <?php foreach($vehiculos as $vehiculo){ ?>
                                         <option <?php echo ($transporte == $vehiculo['id'])?"selected":"";?> value="<?php echo $vehiculo['id']; ?>"><?php echo $vehiculo['modelo']; ?></option>
@@ -660,25 +694,24 @@ if($_POST){
                     </div>
                 </div>
                 <!--Inicia input group para agrupar campos en una misma línea-->
-                <div class="input-group">
-                    <div class="mb-3 mx-auto" style="width:48%;">
+                <div class="mb-3">
                         <label for="staff" class="form-label">Staff a cargo</label>
-
-                        <!--<input type="text" class="form-control" name="staff" id="staff" value="<?php echo $staff;?>" aria-describedby="helpId" placeholder=""/>-->
 
                         <select class="form-select form-select-sm" name="staff" id="staff" onclick="validateTipoStaff()"required>
                             <option value="" selected>Seleccione una opción</option>
                                 <?php foreach($nombres as $nombre){ ?>
                                     <option <?php echo ($staff == $nombre['id'])?"selected":"";?> value="<?php echo $nombre['id']; ?>"><?php echo $nombre["nombre"], ' ', $nombre["apellidos"]; ?></option>
                                 <?php }?>
-                    </select>
+                        </select>
 
                     <!--Inicio envio de mensaje de error-->
                     <?php if (isset($errores['staff'])): ?>
                         <div class="alert alert-danger mt-1"><?php echo $errores['staff']; ?></div>
                     <?php endif; ?>
                     <!--Fin envio de mensaje de error-->
-                    </div>
+                </div>
+                <!--Inicia input group para agrupar campos en una misma línea-->
+                <div class="input-group">
                     <div class="mb-3 mx-auto" style="width:48%;">
                         <label for="precioBase" class="form-label">Precio desde</label>
                         <input type="number" class="form-control" name="precioBase" id="precioBase" oninput="validatePrecioBase()" value="<?php echo $precioBase;?>" aria-describedby="helpId" placeholder="" required/>
@@ -690,9 +723,6 @@ if($_POST){
                     <?php endif; ?>
                     <!--Fin envio de mensaje de error-->
                     </div>
-                </div>
-                <!--Inicia input group para agrupar campos en una misma línea-->
-                <div class="input-group">
                     <div class="mb-3 mx-auto" style="width:48%;">
                         <label for="descuento" class="form-label">Descuento</label>
                         <input type="number" class="form-control" name="descuento" id="descuento" value="<?php echo $descuento;?>" aria-describedby="helpId" placeholder="" required/>
@@ -702,17 +732,14 @@ if($_POST){
                     <?php endif; ?>
                     <!--Fin envio de mensaje de error-->
                     </div>
-                    <div class="mb-3 mx-auto" style="width:48%;">
-                        <label for="redes" class="form-label">Redes sociales</label>
-                        <input
-                            type="text" class="form-control" name="redes" id="redes" value="<?php echo $redes;?>" aria-describedby="helpId" placeholder=""/>
-                    <!--Inicio envio de mensaje de error-->
-                    <?php if (isset($errores['redes'])): ?>
-                        <div class="alert alert-danger mt-1"><?php echo $errores['redes']; ?></div>
-                    <?php endif; ?>
-                    <!--Fin envio de mensaje de error-->
-                    </div>
+
                 </div>
+                    <div class="mb-3">
+                        <label for="redes" class="form-label">Redes sociales asociadas:</label>
+                        <?php foreach($redes as $red){ ?>
+                            <input type="text" class="form-control" value="<?php echo $red["logo_name"];?>" name="" id="" aria-describedby="helpId" readonly placeholder=""/>
+                        <?php }?>
+                    </div>
                 <button type="submit" id='submitBtn' class="btn btn-success">Actualizar</button>
                 <a name="" id="" class="btn btn-primary" href="index.php" role="button">Cancelar</a>
             </form>
@@ -753,3 +780,5 @@ if($_POST){
 <script src="../../js/validarActividades.js"> </script>
 <!-- Campo 19-->
 <script src="../../js/validarPrecioBase.js"> </script>
+
+<script src="../../js/advertirRedes.js"> </script>

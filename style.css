@@ -9,3 +9,10 @@
     color: red;
     display: none;
 }
+
+/* Estilo para mensajes de advertencia*/
+.warning-message {
+    color: blue;
+    font-size: 14px;
+    margin-top: 5px;
+}

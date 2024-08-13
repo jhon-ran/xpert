@@ -56,7 +56,7 @@ if($_POST){
         //Campo 20
         $descuento = (isset($_POST["descuento"])? $_POST["descuento"]:"");
         //Campo 21
-        $redes = (isset($_POST["redes"])? $_POST["redes"]:"");
+        //$redes = (isset($_POST["redes"])? $_POST["redes"]:"");
 
         //Si los datos están, se llena el array con los mensajes de errores
         //*******INICIAN VALIDACIONES CAMPO 1********
@@ -266,9 +266,11 @@ if($_POST){
             $errores['descuento'] = "El descuento no puede ser igual o mayor al precio del tour";
         }
         /*******INICIAN VALIDACIONES CAMPO 21********/
+        /*
         if (strlen($redes) > 25) {
             $errores['redes'] = "Las redes no pueden tener más de 25 caracteres";
         }
+        */
 
         //Imprimir errores en pantalla si los hay
         foreach($errores as $error){
@@ -280,8 +282,8 @@ if($_POST){
             //Conexion a la base de datos
             try{
             //Preparar la inseción de los datos enviados por POST
-            $sentencia = $conexion->prepare("INSERT INTO tours(id,titulo,duracion,tipo,capacidad,idiomas,foto,vistaGeneral,destacado,itinerario,incluye,ubicacion,queTraer,infoAdicional,polCancel,actividades,incluyeTransporte,transporte,staff,precioBase,descuento,redes) 
-            VALUES (null, :titulo, :duracion, :tipo, :capacidad, :idiomas, :foto, :vistaGeneral, :destacado, :itinerario, :incluye, :ubicacion,:queTraer, :infoAdicional, :polCancel, :actividades, :incluyeTransporte, :transporte, :staff, :precioBase, :descuento, :redes)" );
+            $sentencia = $conexion->prepare("INSERT INTO tours(id,titulo,duracion,tipo,capacidad,idiomas,foto,vistaGeneral,destacado,itinerario,incluye,ubicacion,queTraer,infoAdicional,polCancel,actividades,incluyeTransporte,transporte,staff,precioBase,descuento) 
+            VALUES (null, :titulo, :duracion, :tipo, :capacidad, :idiomas, :foto, :vistaGeneral, :destacado, :itinerario, :incluye, :ubicacion,:queTraer, :infoAdicional, :polCancel, :actividades, :incluyeTransporte, :transporte, :staff, :precioBase, :descuento)" );
             //Asignar los valores que vienen del formulario (POST)
             $sentencia->bindParam(":titulo",$titulo);
             $sentencia->bindParam(":duracion",$duracion);
@@ -332,7 +334,7 @@ if($_POST){
             $sentencia->bindParam(":staff",$staff);
             $sentencia->bindParam(":precioBase",$precioBase);
             $sentencia->bindParam(":descuento",$descuento);
-            $sentencia->bindParam(":redes",$redes);
+            //$sentencia->bindParam(":redes",$redes);
             //Se ejecuta la sentencia con los valores de param asignados
             $sentencia->execute();
             //Mensaje de confirmación de creado que activa Sweet Alert 2
@@ -351,15 +353,21 @@ if($_POST){
     }
 
     //query para obtener los nombres del staff y excluir a los que sean de tipo conductor. Explicación:
-    /*SELECT s.*: Selecciona todas las columnas de la tabla staff. Se utiliza el alias s para abreviar.
-    FROM staff s: Especifica la tabla staff como la tabla principal y le da el alias s.
-    JOIN tipo_staff ts ON s.id_tipo_staff = ts.id: Une la tabla tipo_staff con la tabla staff utilizando la relación de clave foránea. Se usa el alias ts para tipo_staff.
-    WHERE ts.tipo != 'conductor': Filtra los resultados para excluir los registros donde el valor de la columna tipo en tipo_staff sea 'conductor'.
+    /*SELECT s.*, ts.tipo: Esta parte de la consulta selecciona todas las columnas de la tabla staff (usando s.*) 
+    y la columna tipo de la tabla tipo_staff.
+    JOIN tipo_staff ts ON s.id_tipo_staff = ts.id: Realiza una unión interna entre la tabla staff y la tabla tipo_staff 
+    con la condición de que s.id_tipo_staff coincida con ts.id.
+    WHERE ts.tipo != 'conductor': Esta condición filtra las filas en las que el campo tipo no es 'conductor'
     */
-    $sentencia = $conexion->prepare("SELECT s.*
-    FROM staff s
-    JOIN tipo_staff ts ON s.id_tipo_staff = ts.id
-    WHERE ts.tipo != 'conductor';
+    $sentencia = $conexion->prepare("SELECT 
+    s.*, 
+    ts.tipo
+FROM 
+    staff s
+JOIN 
+    tipo_staff ts ON s.id_tipo_staff = ts.id
+WHERE 
+    ts.tipo != 'conductor';
     ");
 
     $sentencia->execute();
@@ -596,27 +604,22 @@ if($_POST){
                     <!--Fin envio de mensaje de error-->
                     </div>
                 </div>
-                <!--Inicia input group para agrupar campos en una misma línea-->
-                <div class="input-group">
-                    <div class="mb-3 mx-auto" style="width:48%;">
+                <div class="mb-3">
                         <label for="staff" class="form-label">Staff a cargo</label>
-
-                        <!--<input type="text" class="form-control" name="staff" id="staff" aria-describedby="helpId" placeholder="" value="<?php echo isset($staff) ? $staff : ''; ?>"/>-->
-    
-                        <select class="form-select form-select-sm" name="staff" id="staff" onclick="validateTipoStaff()"required>
+                        <select class="form-select form-select" name="staff" id="staff" onclick="validateTipoStaff()"required>
                             <option value="" selected>Seleccione una opción</option>
                                 <?php foreach($nombres as $nombre){ ?>
-                                        <option value="<?php echo $nombre['id']?>"><?php echo $nombre["nombre"], ' ', $nombre["apellidos"]?></option>
+                                        <option value="<?php echo $nombre['id']?>"><?php echo $nombre["nombre"], ' ', $nombre["apellidos"], ' - ', $nombre["tipo"]?></option>
                                 <?php }?>
                         </select>
-
-
                     <!--Inicio envio de mensaje de error-->
                     <?php if (isset($errores['staff'])): ?>
                         <div class="alert alert-danger mt-1"><?php echo $errores['staff']; ?></div>
                     <?php endif; ?>
                     <!--Fin envio de mensaje de error-->
-                    </div>
+                </div>
+                <!--Inicia input group para agrupar campos en una misma línea-->
+                <div class="input-group">
                     <div class="mb-3 mx-auto" style="width:48%;">
                         <label for="precioBase" class="form-label">Precio desde</label>
                         <input type="number" class="form-control" name="precioBase" id="precioBase" oninput="validatePrecioBase()" aria-describedby="helpId" placeholder="" value="<?php echo isset($precioBase) ? $precioBase : ''; ?>" required/>
@@ -628,9 +631,6 @@ if($_POST){
                     <?php endif; ?>
                     <!--Fin envio de mensaje de error-->
                     </div>
-                </div>
-                <!--Inicia input group para agrupar campos en una misma línea-->
-                <div class="input-group">
                     <div class="mb-3 mx-auto" style="width:48%;">
                         <label for="descuento" class="form-label">Descuento</label>
                         <input type="number" class="form-control" name="descuento" id="descuento" aria-describedby="helpId" placeholder="Introduzca cero si no hay descuento" value="<?php echo isset($descuento) ? $descuento : ''; ?>" required/>
@@ -640,16 +640,11 @@ if($_POST){
                     <?php endif; ?>
                     <!--Fin envio de mensaje de error-->
                     </div>
-                    <div class="mb-3 mx-auto" style="width:48%;">
-                        <label for="redes" class="form-label">Redes sociales</label>
-                        <input type="text" class="form-control" name="redes" id="redes" aria-describedby="helpId" placeholder="" value="<?php echo isset($redes) ? $redes : ''; ?>"/>
-                    <!--Inicio envio de mensaje de error-->
-                    <?php if (isset($errores['redes'])): ?>
-                        <div class="alert alert-danger mt-1"><?php echo $errores['redes']; ?></div>
-                    <?php endif; ?>
-                    <!--Fin envio de mensaje de error-->
-                    </div>
                 </div>
+                    <div class="mb-3">
+                        <label for="redes" class="form-label">Redes sociales</label>
+                        <span id="infoRedes" class="error"></span>
+                    </div>
                 <button type="submit" id="submitBtn" class="btn btn-success">Crear</button>
                 <a name="" id="" class="btn btn-primary" href="index.php" role="button">Cancelar</a>
             </form>
@@ -689,3 +684,5 @@ if($_POST){
 <script src="../../js/validarActividades.js"> </script>
 <!-- Campo 19-->
 <script src="../../js/validarPrecioBase.js"> </script>
+
+<script src="../../js/advertirRedes.js"> </script>
