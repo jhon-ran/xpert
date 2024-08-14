@@ -209,9 +209,6 @@ if($_POST){
         }
 
         //*******INICIAN VALIDACIONES CAMPO 11********
-        if (strlen($ubicacion) > 25) {
-            $errores['ubicacion'] = "La ubicación no puede tener más de 25 caracteres";
-        }
 
         //*******INICIAN VALIDACIONES CAMPO 12********
         if (strlen($queTraer) > 1100) {
@@ -327,6 +324,11 @@ if($_POST){
                 $sentencia->bindParam(":destacado",$destacado);
                 $sentencia->bindParam(":itinerario",$itinerario); 
                 $sentencia->bindParam(":incluye",$incluye);
+                //Si campo vacío, se conviertr a Null para evitar error: Integrity constraint violation: 1452
+                if($ubicacion==""){
+                    $ubicacion = null;
+                    $sentencia->bindParam(":ubicacion",$ubicacion);
+                }
                 $sentencia->bindParam(":ubicacion",$ubicacion);
                 $sentencia->bindParam(":queTraer",$queTraer);
                 $sentencia->bindParam(":infoAdicional",$infoAdicional);
@@ -468,6 +470,11 @@ WHERE
     //se guarda la setencia ejecutada en otra variable para llamarla con loop en selector
     $redes = $sentencia->fetchAll(PDO::FETCH_ASSOC);
 
+    //query para obtener la ubicación registrados de tabla ubicaciones
+    $sentencia = $conexion->prepare("SELECT * FROM ubicaciones");
+    $sentencia->execute();
+    //se guarda la setencia ejecutada en otra variable para llamarla con loop en selector
+    $lista_ubicaciones = $sentencia->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
 <!-- Se llama el header desde los templates-->
@@ -611,8 +618,12 @@ WHERE
                 </div>
                 <div class="mb-3">
                     <label for="ubicacion" class="form-label">Ubicación</label>
-                    <input
-                        type="text" class="form-control" name="ubicacion" id="ubicacion" value="<?php echo $ubicacion;?>" aria-describedby="helpId" placeholder=""/>
+                        <select class="form-select form-select" name="ubicacion" id="ubicacion" onclick="validateTipoStaff()">
+                        <option value="" selected>Seleccione una opción</option>
+                        <?php foreach($lista_ubicaciones as $geo){ ?>
+                                <option <?php echo ($ubicacion == $geo['id'])?"selected":"";?> value="<?php echo $geo['id']; ?>"><?php echo $geo['poblacion']; ?></option>
+                        <?php }?>
+                        </select>
                     <!--Inicio envio de mensaje de error-->
                     <?php if (isset($errores['ubicacion'])): ?>
                         <div class="alert alert-danger mt-1"><?php echo $errores['ubicacion']; ?></div>

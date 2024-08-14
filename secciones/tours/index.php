@@ -49,8 +49,29 @@ if(isset($_GET['txtID'])){
    //******Termina código para eliminar registro******
 
 //******Inicia código para mostrar todos los registros******
-//Se prepara sentencia para seleccionar todos los datos 
-$sentencia = $conexion->prepare("SELECT * FROM tours");
+//Se prepara sentencia para seleccionar los datos de tablas ubicaciones y tours en join. Explicación:
+/*
+LEFT JOIN: Asegura que se incluyan todos los registros de la tabla Tours en el resultado, incluso si no hay una coincidencia correspondiente en la tabla Ubicaciones (es decir, aunque el campo ubicacion en Tours sea nulo).
+SELECT: Especifica las columnas que se incluirán en el conjunto de resultados. En este caso, se inlcuyen todas las columnas de la tabla Tours, y también las columnas relevantes de la tabla Ubicaciones.
+ON: Especifica la condición para la unión, que en este caso es que el campo ubicacion en Tours coincida con el campo id en Ubicaciones.
+*/
+$sentencia = $conexion->prepare("
+SELECT 
+    Tours.id,
+    Tours.foto,
+    Tours.titulo,
+    Tours.incluyeTransporte,
+    Tours.duracion,
+    Tours.precioBase,
+    Ubicaciones.geo,
+    Ubicaciones.estado,
+    Ubicaciones.poblacion,
+    Ubicaciones.direccion
+FROM 
+    Tours
+LEFT JOIN 
+    Ubicaciones ON Tours.ubicacion = Ubicaciones.id;
+");
 $sentencia->execute();
 $tours = $sentencia->fetchAll(PDO::FETCH_ASSOC);
 //Para probar que se esté leyendo todos los datos de la tabla, descomentar
@@ -83,7 +104,7 @@ $tours = $sentencia->fetchAll(PDO::FETCH_ASSOC);
         <div class="card mx-auto" style="width: 100%;">
             <img src="<?php echo $registro['foto']?>" class="card-img-top" alt="...">
             <div class="card-body">
-                <p class="card-text"><small class="text-muted"><?php echo $registro['ubicacion']?></small></p>
+                <p class="card-text"><small class="text-muted"><?php echo $registro['poblacion']?></small></p>
                 <h5 class="card-title"><?php echo $registro['titulo']?></h5>
                 <div class="row justify-content-between">
                     <div class="col-7">

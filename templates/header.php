@@ -73,6 +73,11 @@ if(!isset($_SESSION['usuario_id'])){
                         <li><a class="dropdown-item" href="<?php echo $url_base;?>secciones/tipo_staff/index.php">Tipo</a></li>
                     </ul>
                 </li>
+                <!-- descomentar cuando modulo esté listo
+                <li class="nav-item">
+                    <a class="nav-link" href="<?php echo $url_base;?>secciones/ubicaciones/">Ubicaciones</a>
+                </li>
+                -->
                 <li class="nav-item">
                     <a class="nav-link" href="<?php echo $url_base;?>secciones/vehiculos/">Vehiculos</a>
                 </li>
