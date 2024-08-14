@@ -1,11 +1,7 @@
-<?php 
-//se inicializa variable de sesión
-session_start();
-?>
-
 <!-- Importar conexión a BD-->
 <?php include("../../bd.php");
-
+//se inicializa variable de sesión
+session_start();
 //******Inicia código para eliminar registro******
 //Para recolectar información del url con el botón "eliminar" método GET
 //Se verifica que el id exista en el url
@@ -69,19 +65,17 @@ $sentencia = $conexion->prepare("SELECT
 FROM 
     Tours
 LEFT JOIN 
-    Ubicaciones ON Tours.ubicacion = Ubicaciones.id;
-");
+    Ubicaciones ON Tours.ubicacion = Ubicaciones.id;");
 $sentencia->execute();
 $tours = $sentencia->fetchAll(PDO::FETCH_ASSOC);
 //Para probar que se esté leyendo todos los datos de la tabla, descomentar
 //print_r($lista_tbl_puestos);
 //******Termina código para mostrar todos los registros******
-
 ?>
 
 <!-- Se llama el header desde los templates-->
 <!-- ../../ sube 2 niveles para poder acceder al folder de templates desde la posición actual-->
-<?php include("../../templates/header.php"); ?>
+<?php include("../../templates/header.php");?>
 
 <br>
     <div class="p-5 mb-4 bg-light rounded-3">
