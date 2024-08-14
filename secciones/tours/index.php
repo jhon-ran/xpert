@@ -55,8 +55,7 @@ LEFT JOIN: Asegura que se incluyan todos los registros de la tabla Tours en el r
 SELECT: Especifica las columnas que se incluirán en el conjunto de resultados. En este caso, se inlcuyen todas las columnas de la tabla Tours, y también las columnas relevantes de la tabla Ubicaciones.
 ON: Especifica la condición para la unión, que en este caso es que el campo ubicacion en Tours coincida con el campo id en Ubicaciones.
 */
-$sentencia = $conexion->prepare("
-SELECT 
+$sentencia = $conexion->prepare("SELECT 
     Tours.id,
     Tours.foto,
     Tours.titulo,
