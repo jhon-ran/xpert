@@ -46,6 +46,11 @@ if(isset($_GET['txtID'])){
 
 //******Inicia código para mostrar todos los registros******
 //Se prepara sentencia para seleccionar los datos de tablas ubicaciones y tours en join. Explicación:
+/*
+LEFT JOIN: Se segura que se incluyan todos los registros de la tabla Tours en el resultado, incluso si no hay una coincidencia correspondiente en la tabla Ubicaciones.
+SELECT: Especifica las columnas que se incluirán en el conjunto de resultados. Se incluyeron todas las columnas de la tabla Tours, y también las columnas relevantes de la tabla Ubicaciones.
+ON: Especifica la condición para la unión, que en este caso es que el campo ubicacion en Tours coincida con el campo id en Ubicaciones.
+*/
 $sentencia = $conexion->prepare("SELECT 
     tours.id,
     tours.foto,
