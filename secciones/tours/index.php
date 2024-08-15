@@ -46,11 +46,7 @@ if(isset($_GET['txtID'])){
 
 //******Inicia código para mostrar todos los registros******
 //Se prepara sentencia para seleccionar los datos de tablas ubicaciones y tours en join. Explicación:
-/*
-LEFT JOIN: Asegura que se incluyan todos los registros de la tabla Tours en el resultado, incluso si no hay una coincidencia correspondiente en la tabla Ubicaciones (es decir, aunque el campo ubicacion en Tours sea nulo).
-SELECT: Especifica las columnas que se incluirán en el conjunto de resultados. En este caso, se inlcuyen todas las columnas de la tabla Tours, y también las columnas relevantes de la tabla Ubicaciones.
-ON: Especifica la condición para la unión, que en este caso es que el campo ubicacion en Tours coincida con el campo id en Ubicaciones.
-*/
+
 $sentencia = $conexion->prepare("SELECT 
     Tours.id,
     Tours.foto,
@@ -66,6 +62,7 @@ FROM
     Tours
 LEFT JOIN 
     Ubicaciones ON Tours.ubicacion = Ubicaciones.id;");
+
 $sentencia->execute();
 $tours = $sentencia->fetchAll(PDO::FETCH_ASSOC);
 //Para probar que se esté leyendo todos los datos de la tabla, descomentar
@@ -75,7 +72,7 @@ $tours = $sentencia->fetchAll(PDO::FETCH_ASSOC);
 
 <!-- Se llama el header desde los templates-->
 <!-- ../../ sube 2 niveles para poder acceder al folder de templates desde la posición actual-->
-<?php include("../../templates/header.php");?>
+<?php include("../../templates/header.php"); ?>
 
 <br>
     <div class="p-5 mb-4 bg-light rounded-3">
