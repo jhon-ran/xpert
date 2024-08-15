@@ -15,14 +15,14 @@ if(isset($_GET['txtID'])){
    //Si esta variable existe, se asigna ese valor, de lo contrario se queda
    $txtID = (isset($_GET['txtID']))?$_GET['txtID']:$_GET['txtID'];
    //Se prepara sentencia para borrar dato seleccionado (id)
-   $sentencia = $conexion->prepare("DELETE FROM redes_tour WHERE id=:id");
+   $sentencia = $conexion->prepare("DELETE FROM ubicaciones WHERE id=:id");
    //Asignar los valores que vienen del método GET (id seleccionado por params)
    //Se asigna el valor de la variable a la sentencia
    $sentencia->bindParam(":id",$txtID);
    //Se ejecuta la sentencia con el valor asignado para borrar
    $sentencia->execute();
   //Mensaje de confirmación de borrado que activa Sweet Alert 2
-  $mensaje="Asignación de redes eliminada";
+  $mensaje="Ubicación eliminada";
   //Redirecionar después de eliminar a la lista de puestos
   //Llama a código de templates/footer.php
   header("Location:index.php?mensaje=".$mensaje);
@@ -32,32 +32,26 @@ if(isset($_GET['txtID'])){
 //******Inicia código para mostrar todos los registros******
 //Se prepara sentencia para seleccionar todos los datos 
 
-//******Inicia código para mostrar todos los registros******
-/* Query join para devolverá una lista de todas las asociaciones entre tours y logos. Explicación: 
-redes_tour.id AS association_id: El identificador único de la asociación en la tabla redes_tour.
-tours.id AS tour_id: El identificador único del tour.
-tours.titulo AS tour_title: El título del tour.
-logos.nombre AS logo_name: El nombre del logo.
-logos.id AS logo_id: El identificador único del logo.
-FROM redes_tour - Comienza la consulta desde la tabla redes_tour, que contiene las relaciones entre tours y logos.
-LEFT JOIN tours ON tours.id = redes_tour.id_tour: Realiza una unión a la izquierda entre redes_tour y tours para incluir todos los registros de redes_tour y los registros coincidentes de tours. Si no hay coincidencia, los campos de tours serán NULL.
-LEFT JOIN logos ON logos.id = redes_tour.id_logo: Realiza una unión a la izquierda entre redes_tour y logos para incluir todos los registros de redes_tour y los registros coincidentes de logos. Si no hay coincidencia, los campos de logos serán NULL.
-*/
-$sentencia = $conexion->prepare("SELECT 
-    redes_tour.id AS association_id,
-    tours.id AS tour_id,
-    tours.titulo AS tour_title,
-    logos.nombre AS logo_name,
-    logos.id AS logo_id
-FROM 
-    redes_tour
-LEFT JOIN 
-    tours ON tours.id = redes_tour.id_tour
-LEFT JOIN 
-    logos ON logos.id = redes_tour.id_logo;");
+//******Inicia código para mostrar todos los registros de ambas tablas asociadas******
 
+$sentencia = $conexion->prepare("SELECT 
+    t.id AS tour_id,
+    t.titulo,
+    t.ubicacion,
+    u.id AS ubicacion_id,
+    u.geo,
+    u.estado,
+    u.poblacion,
+    u.direccion
+FROM 
+    tours t
+RIGHT JOIN 
+    ubicaciones u
+ON 
+    t.ubicacion = u.id;
+");
 $sentencia->execute();
-$redes = $sentencia->fetchAll(PDO::FETCH_ASSOC);
+$tours_ubicaciones = $sentencia->fetchAll(PDO::FETCH_ASSOC);
 
 //Para probar que se esté leyendo todos los datos de la tabla, descomentar
 //print_r($cupones);
@@ -72,7 +66,7 @@ $redes = $sentencia->fetchAll(PDO::FETCH_ASSOC);
 
 <div class="card my-2">
   <div class="card-header">
-    <a name="" id="" class="btn btn-primary" href="crear.php" role="button">Asignar red a tour</a>
+    <a name="" id="" class="btn btn-primary" href="crear.php" role="button">Nueva ubicación</a>
   </div>
   <div class="card-body">
     <div
@@ -82,24 +76,20 @@ $redes = $sentencia->fetchAll(PDO::FETCH_ASSOC);
         <thead>
           <tr>
             <th scope="col">ID</th>
+            <th scope="col">Población</th>
+            <th scope="col">Dirección</th>
             <th scope="col">Tour</th>
-            <th scope="col">Red</th>
-            <th scope="col">ID asignación</th>
             <th scope="col"></th>
           </tr>
         </thead>
         <tbody>
-        <?php foreach($redes as $red){ ?>
+        <?php foreach($tours_ubicaciones as $red){ ?>
           <tr class="">
-            <td scope="row"><?php echo $red['tour_id']?></td>
-            <td><?php echo $red['tour_title']?></td>
-            <td><?php echo $red['logo_name']?></td>
-            <td><?php echo $red['association_id']?></td>
+            <td scope="row"><?php echo $red['ubicacion_id']?></td>
+            <td><?php echo $red['poblacion']?></td>
+            <td><?php echo $red['direccion']?></td>
+            <td><?php echo $red['titulo']?></td>
             <td>
-              <!--
-              <a name="" id="" class="btn btn-info" href="editar.php?txtID=<?php echo $registro['id']?>" role="button">Editar</a>
-              <a name="" id="" class="btn btn-danger" href="javascript:borrar(<?php echo $registro['id']?>);">Eliminar</a>
-              -->
               <div class="text-center" class="dropdown">
                 <a href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
                 <i class="fa fa-ellipsis-h" aria-hidden="true"></i>
@@ -107,9 +97,9 @@ $redes = $sentencia->fetchAll(PDO::FETCH_ASSOC);
 
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                 <!--Descomentr cuando qrchivo este creado-->
-                  <li><a class="dropdown-item" href="editar.php?txtID=<?php echo $red['association_id']?>">Editar</a></li>
+                  <li><a class="dropdown-item" href="editar.php?txtID=<?php echo $red['ubicacion_id']?>">Editar</a></li>
                   <!--Se sustituye el link del registro por la función SweatAlert para confirmar borrado-->
-                  <li><a class="dropdown-item" href="javascript:borrar(<?php echo $red['association_id']?>);">Eliminar</a></li>
+                  <li><a class="dropdown-item" href="javascript:borrar(<?php echo $red['ubicacion_id']?>);">Eliminar</a></li>
                 </ul>
               </div>
             </td>

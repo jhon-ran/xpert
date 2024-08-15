@@ -317,6 +317,11 @@ if($_POST){
                 $sentencia->bindParam(":duracion",$duracion);
                 $sentencia->bindParam(":tipo",$tipo);
                 $sentencia->bindParam(":capacidad",$capacidad);
+                //Si campo vacío, se conviertr a Null para evitar error: Integrity constraint violation: 1452
+                if($idiomas==""){
+                    $idiomas = null;
+                    $sentencia->bindParam(":idiomas",$idiomas);
+                }
                 $sentencia->bindParam(":idiomas",$idiomas);
 
                 //Se continuan los bindParam después de foto

@@ -79,6 +79,9 @@ if(!isset($_SESSION['usuario_id'])){
                 <li class="nav-item">
                     <a class="nav-link" href="<?php echo $url_base;?>secciones/idiomas/">Idiomas</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="<?php echo $url_base;?>secciones/ubicaciones/">Ubicaciones</a>
+                </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Redes sociales
