@@ -4,9 +4,22 @@ session_start();
 
 //******Inicia código para mostrar todos los registros******
 //Se prepara sentencia para seleccionar los datos de tablas ubicaciones y tours en join. Explicación:
-$sentencia = $conexion->prepare("SELECT Tours.id,Tours.foto,Tours.titulo,Tours.incluyeTransporte,Tours.duracion,Tours.precioBase,Ubicaciones.geo,Ubicaciones.estado,Ubicaciones.poblacion,Ubicaciones.direccion
-FROM Tours
-LEFT JOIN Ubicaciones ON Tours.ubicacion = Ubicaciones.id;");
+$sentencia = $conexion->prepare("SELECT 
+        tours.id,
+        tours.foto,
+        tours.titulo,
+        tours.incluyeTransporte,
+        tours.duracion,
+        tours.precioBase,
+        ubicaciones.geo,
+        ubicaciones.estado,
+        ubicaciones.poblacion,
+        ubicaciones.direccion
+    FROM 
+        tours
+    LEFT JOIN 
+        ubicaciones ON tours.ubicacion = ubicaciones.id;
+");
 
 $sentencia->execute();
 $tours = $sentencia->fetchAll(PDO::FETCH_ASSOC);
