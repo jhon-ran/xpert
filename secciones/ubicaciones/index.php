@@ -98,6 +98,7 @@ $tours_ubicaciones = $sentencia->fetchAll(PDO::FETCH_ASSOC);
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                 <!--Descomentr cuando qrchivo este creado-->
                   <li><a class="dropdown-item" href="editar.php?txtID=<?php echo $red['ubicacion_id']?>">Editar</a></li>
+                  <li><a class="dropdown-item" href="asignar.php?txtID=<?php echo $red['ubicacion_id']?>">Asignar a tour</a></li>
                   <!--Se sustituye el link del registro por la función SweatAlert para confirmar borrado-->
                   <li><a class="dropdown-item" href="javascript:borrar(<?php echo $red['ubicacion_id']?>);">Eliminar</a></li>
                 </ul>
