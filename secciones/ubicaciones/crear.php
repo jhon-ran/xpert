@@ -18,17 +18,16 @@ if($_POST){
         $poblacion = (isset($_POST["poblacion"])? $_POST["poblacion"]:"");
         $direccion = (isset($_POST["direccion"])? $_POST["direccion"]:"");
 
-        //Validaciones de geo
+        //Validaciones de datos
         if (strlen($geo) > 200) {
                 $errores['geo'] = "No puede tener más de 200 caracteres";
         }
 
-        //Validaciones de estado
         if (empty($estado)){
             $errores['estado']= "Campo obligatorio";
         }
         if (strlen($estado) < 6) {
-            $errores['estado'] = "No puede tener menos de 6 caracteres";
+            $errores['estado'] = "Debe tener al menos 6 caracteres";
         }
         if (strlen($estado) > 20) {
             $errores['estado'] = "No puede tener más de 20 caracteres";
@@ -37,21 +36,24 @@ if($_POST){
         $errores['estado'] = "Solo puede contener letras y espacios";
         }
      
-        //Validar que las placas no esté vacio
         if (empty($poblacion)){
                 $errores['poblacion']= "Campo obligatorio";
         }
-        //Validar si las placas no tiene menos de 4 caracteres
+
         if (strlen($poblacion) < 5) {
                 $errores['poblacion'] = "Debe tener al menos 5 caracteres";
         }
-        //Validar si las placas tiene más de 10 caracteres
+
         if (strlen($poblacion) > 15) {
                 $errores['poblacion'] = "No puede tener más de 15 caracteres";
         }
-        //Validar que el las placas solo tenga letras y num
-        if (!preg_match("/^[a-zA-ZáéíóúñÁÉÍÓÚÑ0-9\s\'\-]+$/", $poblacion)) {
-        $errores['poblacion'] = "Solo puede contener letras y números";
+
+        if (!preg_match("/^[a-zA-ZáéíóúñÁÉÍÓÚÑ0-9 \s\'\-]+$/", $poblacion)) {
+                $errores['poblacion'] = "Solo puede contener letras, espacios y números";
+        }
+        
+        if (strlen($direccion) > 60) {
+                $errores['direccion'] = "No puede tener más de 60 caracteres";
         }
 
         //******Inicia validación tipo de las placas existente en bd*****
@@ -134,7 +136,7 @@ if($_POST){
                                 <form action="crear.php" id="crearVehiculo" method="post">
                                         <div class="mb-3">
                                                 <label for="geo" class="form-label">Geolocalización</label>
-                                                <input type="text" class="form-control" name="geo" id="geo" oninput="validateModelo()" aria-describedby="helpId" placeholder="Ingrese link" value="<?php echo isset($geo) ? $geo : ''; ?>" required/>
+                                                <input type="text" class="form-control" name="geo" id="geo" oninput="validateUbicaciones()" aria-describedby="helpId" placeholder="Ingrese link" value="<?php echo isset($geo) ? $geo : ''; ?>" required/>
                                                 <!--Se llama mensaje de error de validacion de ../../js/validarNombre.js -->
                                                 <span id="errorGeo" class="error"></span>
                                                 <!--Inicio envio de mensaje de error-->
@@ -145,7 +147,7 @@ if($_POST){
                                         </div>
                                         <div class="mb-3">
                                                 <label for="estado" class="form-label">Estado</label>
-                                                <input type="text" class="form-control" name="estado" id="estado" oninput="validateAnio()" aria-describedby="helpId" placeholder="Ingrese Estado" value="<?php echo isset($estado) ? $estado : ''; ?>" required/>
+                                                <input type="text" class="form-control" name="estado" id="estado" oninput="validateUbicaciones()" aria-describedby="helpId" placeholder="Ingrese Estado" value="<?php echo isset($estado) ? $estado : ''; ?>" required/>
                                                 <!--Se llama mensaje de error de validacion de ../../js/validarNombre.js -->
                                                 <span id="errorEstado" class="error"></span>
                                                 <!--Inicio envio de mensaje de error-->
@@ -156,7 +158,7 @@ if($_POST){
                                         </div>
                                         <div class="mb-3">
                                                 <label for="poblacion" class="form-label">Población/ciudad</label>
-                                                <input type="text" class="form-control" name="poblacion" id="poblacion" oninput="validatePlacas()" aria-describedby="helpId" placeholder="Ingrese población/ciudad" value="<?php echo isset($poblacion) ? $poblacion : ''; ?>" required/>
+                                                <input type="text" class="form-control" name="poblacion" id="poblacion" oninput="validateUbicaciones()" aria-describedby="helpId" placeholder="Ingrese población/ciudad" value="<?php echo isset($poblacion) ? $poblacion : ''; ?>" required/>
                                                 <!--Se llama mensaje de error de validacion de ../../js/validarNombre.js -->
                                                 <span id="errorPoblacion" class="error"></span>
                                                 <!--Inicio envio de mensaje de error-->
@@ -167,7 +169,7 @@ if($_POST){
                                         </div>
                                         <div class="mb-3">
                                                 <label for="direccion" class="form-label">Dirección</label>
-                                                <input type="text" class="form-control" name="direccion" id="direccion" oninput="validatePlacas()" aria-describedby="helpId" placeholder="Ingrese direccion" value="<?php echo isset($direccion) ? $direccion : ''; ?>" required/>
+                                                <input type="text" class="form-control" name="direccion" id="direccion" oninput="validateUbicaciones()" aria-describedby="helpId" placeholder="Ingrese direccion" value="<?php echo isset($direccion) ? $direccion : ''; ?>" required/>
                                                 <!--Se llama mensaje de error de validacion de ../../js/validarNombre.js -->
                                                 <span id="errorDireccion" class="error"></span>
                                                 <!--Inicio envio de mensaje de error-->
@@ -191,3 +193,4 @@ if($_POST){
 <!-- ../../ sube 2 niveles para poder acceder al folder de templates desde la posición actual-->
 <?php include("../../templates/footer.php"); ?>
 <!-- Validadciones JS -->
+<script src="../../js/validarUbicaciones.js"> </script>

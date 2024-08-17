@@ -87,15 +87,14 @@ $tours = $sentencia->fetchAll(PDO::FETCH_ASSOC);
                 </div>
                 <div class="mb-3">
                     <label for="ubicacion" class="form-label">Tour</label>
-                        <select class="form-select form-select-sm" name="ubicacion" id="ubicacion" required>
+                        <select class="form-select form-select-sm" name="ubicacion" id="ubicacion" onclick="validateAsignarUbicacion()" required>
                             <option value="" selected>Seleccione una opción</option>
                             <?php foreach($tours as $tour){ ?>
                                 <option <?php echo ($ubicacion == $tour['id']) ? "selected" : "";?> value="<?php echo $tour['id'];?>"><?php echo $tour['titulo'];?></option>
                             <?php }?>
                         </select>
-
                     <!--Se llama mensaje de error de validacion de ../../js/validartipoUsuario.js -->
-                    <span id="errorTour" class="error"></span>   
+                    <span id="errorAsignar" class="error"></span>   
                     <!--Inicio envio de mensaje de error-->
                     <?php if (isset($errores['ubicacion'])): ?>
                         <div class="alert alert-danger mt-1"><?php echo $errores['ubicacion']; ?></div>
@@ -114,3 +113,5 @@ $tours = $sentencia->fetchAll(PDO::FETCH_ASSOC);
 <!-- Se llama el footer desde los templates-->
 <!-- ../../ sube 2 niveles para poder acceder al folder de templates desde la posición actual-->
 <?php include("../../templates/footer.php"); ?>
+<!-- Llama funcion para validar asignar ubicación a tours-->
+<script src="../../js/validarAsignarUbicacion.js"> </script>

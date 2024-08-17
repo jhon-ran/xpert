@@ -156,7 +156,7 @@ if($_POST){
                                         </div>
                                         <div class="mb-3">
                                                 <label for="geo" class="form-label">Geolocalización</label>
-                                                <input type="text" class="form-control" value ="<?php echo $geo;?>" name="geo" id="geo" oninput="validateModelo()" aria-describedby="helpId" placeholder="Ingrese link" value="<?php echo isset($geo) ? $geo : ''; ?>" required/>
+                                                <input type="text" class="form-control" value ="<?php echo $geo;?>" name="geo" id="geo" oninput="validateUbicaciones()" aria-describedby="helpId" placeholder="Ingrese link" value="<?php echo isset($geo) ? $geo : ''; ?>" required/>
                                                 <!--Se llama mensaje de error de validacion de ../../js/validarNombre.js -->
                                                 <span id="errorGeo" class="error"></span>
                                                 <!--Inicio envio de mensaje de error-->
@@ -166,8 +166,8 @@ if($_POST){
                                                 <!--Fin envio de mensaje de error-->
                                         </div>
                                         <div class="mb-3">
-                                                <label for="estado" class="form-label">Año</label>
-                                                <input type="text" class="form-control" value ="<?php echo $estado;?>" name="estado" id="estado" oninput="validateAnio()" aria-describedby="helpId" placeholder="Ingrese Estado" value="<?php echo isset($estado) ? $estado : ''; ?>" required/>
+                                                <label for="estado" class="form-label">Estado</label>
+                                                <input type="text" class="form-control" value ="<?php echo $estado;?>" name="estado" id="estado" oninput="validateUbicaciones()" aria-describedby="helpId" placeholder="Ingrese Estado" value="<?php echo isset($estado) ? $estado : ''; ?>" required/>
                                                 <!--Se llama mensaje de error de validacion de ../../js/validarNombre.js -->
                                                 <span id="errorEstado" class="error"></span>
                                                 <!--Inicio envio de mensaje de error-->
@@ -178,7 +178,7 @@ if($_POST){
                                         </div>
                                         <div class="mb-3">
                                                 <label for="poblacion" class="form-label">Población/ciudad</label>
-                                                <input type="text" class="form-control" value ="<?php echo $poblacion;?>" name="poblacion" id="poblacion" oninput="validatePlacas()" aria-describedby="helpId" placeholder="Ingrese población/ciudad" value="<?php echo isset($poblacion) ? $poblacion : ''; ?>" required/>
+                                                <input type="text" class="form-control" value ="<?php echo $poblacion;?>" name="poblacion" id="poblacion" oninput="validateUbicaciones()" aria-describedby="helpId" placeholder="Ingrese población/ciudad" value="<?php echo isset($poblacion) ? $poblacion : ''; ?>" required/>
                                                 <!--Se llama mensaje de error de validacion de ../../js/validarNombre.js -->
                                                 <span id="errorPoblacion" class="error"></span>
                                                 <!--Inicio envio de mensaje de error-->
@@ -189,7 +189,7 @@ if($_POST){
                                         </div>
                                         <div class="mb-3">
                                                 <label for="direccion" class="form-label">Dirección</label>
-                                                <input type="text" class="form-control" value ="<?php echo $direccion;?>" name="direccion" id="direccion" oninput="validatePlacas()" aria-describedby="helpId" placeholder="Ingrese dirección" value="<?php echo isset($direccion) ? $direccion : ''; ?>" required/>
+                                                <input type="text" class="form-control" value ="<?php echo $direccion;?>" name="direccion" id="direccion" oninput="validateUbicaciones()" aria-describedby="helpId" placeholder="Ingrese dirección" value="<?php echo isset($direccion) ? $direccion : ''; ?>" required/>
                                                 <!--Se llama mensaje de error de validacion de ../../js/validarNombre.js -->
                                                 <span id="errorDireccion" class="error"></span>
                                                 <!--Inicio envio de mensaje de error-->
@@ -212,3 +212,5 @@ if($_POST){
 <!-- Se llama el footer desde los templates-->
 <!-- ../../ sube 2 niveles para poder acceder al folder de templates desde la posición actual-->
 <?php include("../../templates/footer.php"); ?>
+<!-- Validadciones JS -->
+<script src="../../js/validarUbicaciones.js"> </script>
