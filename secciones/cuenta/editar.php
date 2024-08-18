@@ -199,6 +199,10 @@ if($_POST){
             <!--Fin envio de mensaje de error-->
             <form action="editar.php" id="editarUsuarios" method="post">
                 <div class="mb-3">
+                    
+                    <input type="hidden" class="form-control" value ="<?php echo $txtID;?>" name="txtID" id="txtID" aria-describedby="helpId" readonly placeholder=""/>
+                </div>
+                <div class="mb-3">
                     <label for="nombre" class="form-label">Nombre</label>
                     <input type="text" class="form-control" value="<?php echo $nombre;?>" name="nombre" id="nombre" oninput="validateNombreUsuario()" aria-describedby="helpId" placeholder="" required/>
                     <!--Se llama mensaje de error de validacion de ../../js/validarNombreUsuario.js -->
