@@ -1,6 +1,12 @@
-<?php 
+<?php
 //se inicializa variable de sesión
 session_start();
+
+//si no existe la variable de sesión usuario_id, se redirige al login
+if(!isset($_SESSION['usuario_id'])){
+    header('Location:login.php');
+    exit();
+}
 ?>
 <!-- Se llama el header desde los templates-->
 <!-- ../../ sube 2 niveles para poder acceder al folder de templates desde la posición actual-->
@@ -75,7 +81,7 @@ session_start();
 
                   <div class="row">
                     <div class="col-sm-12">
-                      <a class="btn btn-info " target="__blank" href="">Editar</a>
+                      <a class="btn btn-info" href="editar.php?txtID=<?php echo $_SESSION['usuario_id']?>">Editar</a>
                     </div>
                   </div>
                 </div>
