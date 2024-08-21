@@ -58,8 +58,14 @@ if(!isset($_SESSION['usuario_id'])){
                 <li class="nav-item">
                     <a class="nav-link" href="<?php echo $url_base;?>secciones/tours/">Tours</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="<?php echo $url_base;?>secciones/cupones/">Cupones</a>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Cupones
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <li><a class="dropdown-item" href="<?php echo $url_base;?>secciones/cupones/">Administrar</a></li>
+                        <li><a class="dropdown-item" href="<?php echo $url_base;?>secciones/cupones_usuarios/index.php">Asignar</a></li>
+                    </ul>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="<?php echo $url_base;?>secciones/mis_cupones/">Mis cupones</a>
