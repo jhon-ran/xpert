@@ -54,7 +54,7 @@ if($_POST){
         //Campo 19
         $precioBase = (isset($_POST["precioBase"])? $_POST["precioBase"]:"");
         //Campo 20
-        $descuento = (isset($_POST["descuento"])? $_POST["descuento"]:"");
+        $id_cupon = (isset($_POST["id_cupon"])? $_POST["id_cupon"]:"");
         //Campo 21
         //$redes = (isset($_POST["redes"])? $_POST["redes"]:"");
 
@@ -259,9 +259,7 @@ if($_POST){
             $errores['precioBase'] = "El precio no puede ser negativo";
         }
         //*******INICIAN VALIDACIONES CAMPO 20********
-        if ($descuento >= $precioBase) {
-            $errores['descuento'] = "El descuento no puede ser igual o mayor al precio del tour";
-        }
+
         /*******INICIAN VALIDACIONES CAMPO 21********/
         /*
         if (strlen($redes) > 25) {
@@ -279,8 +277,8 @@ if($_POST){
             //Conexion a la base de datos
             try{
             //Preparar la inseción de los datos enviados por POST
-            $sentencia = $conexion->prepare("INSERT INTO tours(id,titulo,duracion,tipo,capacidad,idiomas,foto,vistaGeneral,destacado,itinerario,incluye,ubicacion,queTraer,infoAdicional,polCancel,actividades,incluyeTransporte,transporte,staff,precioBase,descuento) 
-            VALUES (null, :titulo, :duracion, :tipo, :capacidad, :idiomas, :foto, :vistaGeneral, :destacado, :itinerario, :incluye, :ubicacion,:queTraer, :infoAdicional, :polCancel, :actividades, :incluyeTransporte, :transporte, :staff, :precioBase, :descuento)" );
+            $sentencia = $conexion->prepare("INSERT INTO tours(id,titulo,duracion,tipo,capacidad,idiomas,foto,vistaGeneral,destacado,itinerario,incluye,ubicacion,queTraer,infoAdicional,polCancel,actividades,incluyeTransporte,transporte,staff,precioBase,id_cupon) 
+            VALUES (null, :titulo, :duracion, :tipo, :capacidad, :idiomas, :foto, :vistaGeneral, :destacado, :itinerario, :incluye, :ubicacion,:queTraer, :infoAdicional, :polCancel, :actividades, :incluyeTransporte, :transporte, :staff, :precioBase, :id_cupon)" );
             //Asignar los valores que vienen del formulario (POST)
             $sentencia->bindParam(":titulo",$titulo);
             $sentencia->bindParam(":duracion",$duracion);
@@ -341,7 +339,13 @@ if($_POST){
 
             $sentencia->bindParam(":staff",$staff);
             $sentencia->bindParam(":precioBase",$precioBase);
-            $sentencia->bindParam(":descuento",$descuento);
+
+            //Si campo vacío, se conviertr a Null para evitar error: Integrity constraint violation: 1452
+            if($id_cupon==""){
+                $id_cupon = null;
+                $sentencia->bindParam(":id_cupon",$id_cupon);
+            }
+            $sentencia->bindParam(":id_cupon",$id_cupon);
             //$sentencia->bindParam(":redes",$redes);
             //Se ejecuta la sentencia con los valores de param asignados
             $sentencia->execute();
@@ -399,6 +403,12 @@ WHERE
     $sentencia->execute();
     //se guarda la setencia ejecutada en otra variable para llamarla con loop en selector
     $lista_ubicaciones = $sentencia->fetchAll(PDO::FETCH_ASSOC);
+
+    //query para los cupones existentes de lq tabla cupones
+    $sentencia = $conexion->prepare("SELECT * FROM cupones");
+    $sentencia->execute();
+    //se guarda la setencia ejecutada en otra variable para llamarla con loop en selector
+    $lista_cupones = $sentencia->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
 <!-- Se llama el header desde los templates-->
@@ -651,11 +661,16 @@ WHERE
                     <!--Fin envio de mensaje de error-->
                     </div>
                     <div class="mb-3 mx-auto" style="width:48%;">
-                        <label for="descuento" class="form-label">Descuento</label>
-                        <input type="number" class="form-control" name="descuento" id="descuento" aria-describedby="helpId" placeholder="Introduzca cero si no hay descuento" value="<?php echo isset($descuento) ? $descuento : ''; ?>" required/>
+                        <label for="id_cupon" class="form-label">Cupón de descuento</label>
+                        <select class="form-select form-select" name="id_cupon" id="id_cupon" >
+                            <option value="" selected>Seleccione una opción</option>
+                                <?php foreach($lista_cupones as $cupon){ ?>
+                                        <option value="<?php echo $cupon['id']?>"><?php echo $cupon["nombre"]?></option>
+                                <?php }?>
+                        </select>
                     <!--Inicio envio de mensaje de error-->
-                    <?php if (isset($errores['descuento'])): ?>
-                        <div class="alert alert-danger mt-1"><?php echo $errores['descuento']; ?></div>
+                    <?php if (isset($errores['id_cupon'])): ?>
+                        <div class="alert alert-danger mt-1"><?php echo $errores['id_cupon']; ?></div>
                     <?php endif; ?>
                     <!--Fin envio de mensaje de error-->
                     </div>

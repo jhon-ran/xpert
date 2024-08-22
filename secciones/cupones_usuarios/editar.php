@@ -153,11 +153,11 @@ $lista_cupones = $sentencia->fetchAll(PDO::FETCH_ASSOC);
                     <input type="text" class="form-control" value ="<?php echo $txtID;?>" readonly name="txtID" id="txtID" aria-describedby="helpId" placeholder=""/>
                 </div>
                 <div class="mb-3">
-                    <label for="id_usuario" class="form-label">Tour</label>
+                    <label for="id_usuario" class="form-label">Vendedor</label>
                     <select class="form-select form-select-sm" name="id_usuario" id="id_usuario" onclick="validateAsignarCupon()" required>
                         <option value="" selected>Seleccione un vendedor</option>
                             <?php foreach($vendedores as $vendedor){ ?>
-                                    <option <?php echo ($id_usuario == $vendedor['id'])?"selected":"";?> value="<?php echo $vendedor['id']; ?>"><?php echo $vendedor['nombre']; ?></option>
+                                    <option <?php echo ($id_usuario == $vendedor['id'])?"selected":"";?> value="<?php echo $vendedor['id']; ?>"><?php echo $vendedor['nombre'], ' ', $vendedor["apellidos"]?></option>
                             <?php }?>
                     </select>
                     <!--Se llama mensaje de error de validacion de ../../js/validartipoUsuario.js -->

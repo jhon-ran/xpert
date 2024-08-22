@@ -40,7 +40,7 @@ if(isset($_GET['txtID'])){
     $transporte = $registro["transporte"];
     $staff = $registro["staff"];
     $precioBase = $registro["precioBase"];
-    $descuento = $registro["descuento"];
+    $id_cupon = $registro["id_cupon"];
 
 
     //print_r($restricciones);
@@ -77,7 +77,7 @@ if($_POST){
     $transporte = (isset($_POST["transporte"])? $_POST["transporte"]:"");
     $staff = (isset($_POST["staff"])? $_POST["staff"]:"");
     $precioBase = (isset($_POST["precioBase"])? $_POST["precioBase"]:"");
-    $descuento = (isset($_POST["descuento"])? $_POST["descuento"]:"");
+    $id_cupon = (isset($_POST["id_cupon"])? $_POST["id_cupon"]:"");
  
 
     //*******INICIAN VALIDACIONES CAMPO 1********
@@ -274,9 +274,7 @@ if($_POST){
             $errores['precioBase'] = "El precio no puede ser negativo";
         }
         //*******INICIAN VALIDACIONES CAMPO 20********
-        if ($descuento >= $precioBase) {
-            $errores['descuento'] = "El descuento no puede ser igual o mayor al precio del tour";
-        }
+
         /*******INICIAN VALIDACIONES CAMPO 21********/
 
         
@@ -309,7 +307,7 @@ if($_POST){
                 transporte=:transporte,
                 staff=:staff,
                 precioBase=:precioBase,
-                descuento=:descuento
+                id_cupon=:id_cupon
                 WHERE id=:id");
 
                 //Asignar los valores que vienen del formulario (POST)
@@ -350,7 +348,12 @@ if($_POST){
                 $sentencia->bindParam(":transporte",$transporte);
                 $sentencia->bindParam(":staff",$staff);
                 $sentencia->bindParam(":precioBase",$precioBase);
-                $sentencia->bindParam(":descuento",$descuento);
+                //Si campo vacío, se conviertr a Null para evitar error: Integrity constraint violation: 1452
+                if($id_cupon==""){
+                    $id_cupon = null;
+                    $sentencia->bindParam(":id_cupon",$id_cupon);
+                }
+                $sentencia->bindParam(":id_cupon",$id_cupon);
 
                 $sentencia->bindParam(":id",$txtID);
                 //Se ejecuta la sentencia con los valores de param asignados
@@ -480,6 +483,11 @@ WHERE
     $sentencia->execute();
     //se guarda la setencia ejecutada en otra variable para llamarla con loop en selector
     $lista_ubicaciones = $sentencia->fetchAll(PDO::FETCH_ASSOC);
+    //query para los cupones existentes de lq tabla cupones
+    $sentencia = $conexion->prepare("SELECT * FROM cupones");
+    $sentencia->execute();
+    //se guarda la setencia ejecutada en otra variable para llamarla con loop en selector
+    $lista_cupones = $sentencia->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
 <!-- Se llama el header desde los templates-->
@@ -740,11 +748,16 @@ WHERE
                     <!--Fin envio de mensaje de error-->
                     </div>
                     <div class="mb-3 mx-auto" style="width:48%;">
-                        <label for="descuento" class="form-label">Descuento</label>
-                        <input type="number" class="form-control" name="descuento" id="descuento" value="<?php echo $descuento;?>" aria-describedby="helpId" placeholder="" required/>
+                        <label for="id_cupon" class="form-label">Descuento</label>
+                         <select class="form-select form-select-sm" name="id_cupon" id="id_cupon" required>
+                            <option value="" selected>Seleccione una opción</option>
+                                <?php foreach($lista_cupones as $cupon){ ?>
+                                    <option <?php echo ($id_cupon == $cupon['id'])?"selected":"";?> value="<?php echo $cupon['id']; ?>"><?php echo $cupon["nombre"]; ?></option>
+                                <?php }?>
+                        </select>
                     <!--Inicio envio de mensaje de error-->
-                    <?php if (isset($errores['descuento'])): ?>
-                        <div class="alert alert-danger mt-1"><?php echo $errores['descuento']; ?></div>
+                    <?php if (isset($errores['id_cupon'])): ?>
+                        <div class="alert alert-danger mt-1"><?php echo $errores['id_cupon']; ?></div>
                     <?php endif; ?>
                     <!--Fin envio de mensaje de error-->
                     </div>

@@ -47,6 +47,7 @@ $sentencia = $conexion->prepare("SELECT
     usuarios_cupones.id AS association_id,
     usuarios.id AS user_id,
     usuarios.nombre AS user_name,
+    usuarios.apellidos AS user_last,
     cupones.nombre AS cupon_name,
     cupones.id AS cupon_id
 FROM 
@@ -102,7 +103,7 @@ $asignaciones = $sentencia->fetchAll(PDO::FETCH_ASSOC);
         <?php foreach($asignaciones as $asignacion){ ?>
           <tr class="">
             <td scope="row"><?php echo $asignacion['user_id']?></td>
-            <td><?php echo $asignacion['user_name']?></td>
+            <td><?php echo $asignacion['user_name'], ' ', $asignacion["user_last"]?></td>
             <td><?php echo $asignacion['cupon_name']?></td>
             <td><?php echo $asignacion['association_id']?></td>
             <td>
