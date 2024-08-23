@@ -2,6 +2,9 @@
 <?php include("../../bd.php"); 
 //se inicializa variable de sesión
 session_start();
+// Obtener el ID del usuario loggeado desde la sesión
+$usuario_id = $_SESSION['usuario_id'];
+
 //si no existe la variable de sesión usuario_id, se redirige al index
 if($_SESSION["usuario_tipo"]=="cliente" || $_SESSION["usuario_tipo"]=="ventas"){
     header('Location:../../index.php');
@@ -119,8 +122,8 @@ if($_POST){
 
                 try{
                 //Preparar la inseción de los datos enviados por POST
-                $sentencia = $conexion->prepare("INSERT INTO cupones(id,nombre,descuento,inicioValidez,terminoValidez,restricciones) 
-                VALUES (null, :nombre, :descuento, :inicioValidez, :terminoValidez, :restricciones)" );
+                $sentencia = $conexion->prepare("INSERT INTO cupones(id,nombre,descuento,inicioValidez,terminoValidez,restricciones,creador) 
+                VALUES (null, :nombre, :descuento, :inicioValidez, :terminoValidez, :restricciones,:creador)" );
                 
                 //Asignar los valores que vienen del formulario (POST)
                 //Se convierte el nombre del cupón a mayusculas antes de enviarlo a la BD con strtoupper()
@@ -134,6 +137,8 @@ if($_POST){
                         $sentencia->bindParam(":restricciones",$restricciones);
                 }
                 $sentencia->bindParam(":restricciones",$restricciones);
+                //se usa el id del usuario logeado para ingresarlo como creador del cupon
+                $sentencia->bindParam(':creador', $usuario_id);
                 //Se ejecuta la sentencia con los valores de param asignados
                 $sentencia->execute();
                 //Mensaje de confirmación de creado que activa Sweet Alert 2
