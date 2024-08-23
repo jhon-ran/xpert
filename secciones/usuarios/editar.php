@@ -2,6 +2,8 @@
 include("../../conexion.php");
 //se inicializa variable de sesión
 session_start();
+//se guarda el valor de la variable de usuario logeado para usarla como modificador en tabla usuarios_historial
+$usuario_id = $_SESSION['usuario_id'];
 
 //******Inicia código para recibir registro******
 //Para verificar que se envía un id
@@ -147,8 +149,31 @@ if($_POST){
    }
 
 
-       //Si no hay errores (array de errores vacio)
+    //Si no hay errores (array de errores vacio)
    if(empty($errores)){
+
+    /*INICIA CODIGO PARA VINCULAR EL USUARIO LOGGEADO PARA QUE
+    APAREZCA COMO MODIFICADOR CUANDO EN LA TABLA usuarios_registro*/
+    try {
+        // Conexión a la base de datos
+        $conexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+        // Preparar la sentencia para establecer la variable de sesión en MySQL
+        $stmt = $conexion->prepare("SET @modificador = :usuario_id");
+
+        // Vincular el parámetro :usuario_id a la variable $usuario_id
+        $stmt->bindParam(':usuario_id', $usuario_id, PDO::PARAM_INT);
+
+        // Ejecutar la sentencia
+        $stmt->execute();
+
+        echo "Variable de sesión @modificador establecida correctamente.";
+    } catch (PDOException $e) {
+        echo "Error: " . $e->getMessage();
+    }
+    /*TERMINA CODIGO PARA VINCULAR EL USUARIO LOGGEADO PARA QUE
+    APAREZCA COMO MODIFICADOR CUANDO EN LA TABLA usuarios_registro*/
+
     //Conexion a la base de datos
         try{
             //Preparar la inseción de los datos enviados por POST
@@ -166,6 +191,7 @@ if($_POST){
             $sentencia->bindParam(":password",$newPassword);
             $sentencia->bindParam(":tipo",$tipo);
             $sentencia->bindParam(":id",$txtID);
+
             $sentencia->execute();
             //Mensaje de confirmación de edición que activa Sweet Alert 2
             //Llama a código de templates/header.php
