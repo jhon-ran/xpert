@@ -2,6 +2,8 @@
 <?php include("../../bd.php"); 
 //se inicializa variable de sesión
 session_start();
+// Obtener el ID del usuario loggeado desde la sesión
+$usuario_id = $_SESSION['usuario_id'];
 //si no existe la variable de sesión usuario_id, se redirige al index
 if($_SESSION["usuario_tipo"]=="cliente" || $_SESSION["usuario_tipo"]=="ventas"){
     header('Location:../../index.php');
@@ -277,8 +279,8 @@ if($_POST){
             //Conexion a la base de datos
             try{
             //Preparar la inseción de los datos enviados por POST
-            $sentencia = $conexion->prepare("INSERT INTO tours(id,titulo,duracion,tipo,capacidad,idiomas,foto,vistaGeneral,destacado,itinerario,incluye,ubicacion,queTraer,infoAdicional,polCancel,actividades,incluyeTransporte,transporte,staff,precioBase,id_cupon) 
-            VALUES (null, :titulo, :duracion, :tipo, :capacidad, :idiomas, :foto, :vistaGeneral, :destacado, :itinerario, :incluye, :ubicacion,:queTraer, :infoAdicional, :polCancel, :actividades, :incluyeTransporte, :transporte, :staff, :precioBase, :id_cupon)" );
+            $sentencia = $conexion->prepare("INSERT INTO tours(id,titulo,duracion,tipo,capacidad,idiomas,foto,vistaGeneral,destacado,itinerario,incluye,ubicacion,queTraer,infoAdicional,polCancel,actividades,incluyeTransporte,transporte,staff,precioBase,id_cupon,creador) 
+            VALUES (null, :titulo, :duracion, :tipo, :capacidad, :idiomas, :foto, :vistaGeneral, :destacado, :itinerario, :incluye, :ubicacion,:queTraer, :infoAdicional, :polCancel, :actividades, :incluyeTransporte, :transporte, :staff, :precioBase, :id_cupon,:creador)" );
             //Asignar los valores que vienen del formulario (POST)
             $sentencia->bindParam(":titulo",$titulo);
             $sentencia->bindParam(":duracion",$duracion);
@@ -346,8 +348,9 @@ if($_POST){
                 $sentencia->bindParam(":id_cupon",$id_cupon);
             }
             $sentencia->bindParam(":id_cupon",$id_cupon);
-            //$sentencia->bindParam(":redes",$redes);
             //Se ejecuta la sentencia con los valores de param asignados
+            //se usa el id del usuario logeado para ingresarlo como creador del cupon
+            $sentencia->bindParam(':creador', $usuario_id);
             $sentencia->execute();
             //Mensaje de confirmación de creado que activa Sweet Alert 2
             $mensaje="Tour creado";
