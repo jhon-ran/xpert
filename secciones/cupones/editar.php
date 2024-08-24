@@ -2,6 +2,8 @@
 include("../../bd.php"); 
 //se inicializa variable de sesión
 session_start();
+//se guarda el valor de la variable de usuario logeado para usarla como modificador en tabla cupones_historial
+$usuario_id = $_SESSION['usuario_id'];
 
 //******Inicia código para recibir registro******
 //Para verificar que se envía un id
@@ -135,6 +137,29 @@ if($_POST){
 
         //Si no hay errores (array de errores vacio)
         if(empty($errores)){
+
+                 /*INICIA CODIGO PARA VINCULAR EL USUARIO LOGGEADO PARA QUE
+                APAREZCA COMO MODIFICADOR CUANDO EN LA TABLA cupones_registro*/
+                try {
+                        // Conexión a la base de datos
+                        $conexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+                        // Preparar la sentencia para establecer la variable de sesión en MySQL
+                        $stmt = $conexion->prepare("SET @modificador = :usuario_id");
+
+                        // Vincular el parámetro :usuario_id a la variable $usuario_id
+                        $stmt->bindParam(':usuario_id', $usuario_id, PDO::PARAM_INT);
+
+                        // Ejecutar la sentencia
+                        $stmt->execute();
+
+                        echo "Variable de sesión @modificador establecida correctamente.";
+                } catch (PDOException $e) {
+                        echo "Error: " . $e->getMessage();
+                }
+                /*TERMINA CODIGO PARA VINCULAR EL USUARIO LOGGEADO PARA QUE
+                APAREZCA COMO MODIFICADOR CUANDO EN LA TABLA cupones_registro*/
+
                 try{
                         //Preparar modificar el registro enviados por POST
                         $sentencia = $conexion->prepare("UPDATE cupones SET nombre=:nombre, 
