@@ -3,46 +3,128 @@ include("../../bd.php");
 //se inicializa variable de sesión
 session_start();
 
+//TOURS******************************
 //query para obtener los tours creados hoy
-$sentencia = $conexion->prepare("SELECT * FROM tours WHERE DATE(fechaCreacion) = CURRENT_DATE;");
+//$sentencia = $conexion->prepare("SELECT * FROM tours WHERE DATE(fechaCreacion) = CURRENT_DATE;");
+$sentencia = $conexion->prepare("SELECT
+    t.id,
+    t.titulo,
+    t.creador,
+    u.nombre,
+    u.apellidos
+FROM
+    tours t
+JOIN
+    usuarios u
+ON
+    t.creador = u.id
+WHERE
+    DATE(t.fechaCreacion) = CURRENT_DATE;
+");    
 $sentencia->execute();
 $tours_hoy = $sentencia->fetchAll(PDO::FETCH_ASSOC);
+
 //query para obtener los tours creados yer
-$sentencia = $conexion->prepare("SELECT * 
-FROM tours 
-WHERE DATE(fechaCreacion) = CURRENT_DATE - INTERVAL 1 DAY;
+$sentencia = $conexion->prepare("SELECT
+    t.id,
+    t.titulo,
+    t.creador,
+    u.nombre,
+    u.apellidos
+FROM
+    tours t
+JOIN
+    usuarios u
+ON
+    t.creador = u.id
+WHERE
+    DATE(t.fechaCreacion) = CURRENT_DATE - INTERVAL 1 DAY;
 ");
 $sentencia->execute();
 $tours_ayer = $sentencia->fetchAll(PDO::FETCH_ASSOC);
 //query para obtener los tours creados hace una semana (2-7 días atrás)
-$sentencia = $conexion->prepare("SELECT * 
-FROM tours 
-WHERE fechaCreacion >= CURRENT_DATE - INTERVAL 7 DAY 
-  AND fechaCreacion < CURRENT_DATE - INTERVAL 1 DAY;
+$sentencia = $conexion->prepare("SELECT
+    t.id,
+    t.titulo,
+    t.creador,
+    u.nombre,
+    u.apellidos
+FROM
+    tours t
+JOIN
+    usuarios u
+ON
+    t.creador = u.id
+WHERE
+    t.fechaCreacion >= CURRENT_DATE - INTERVAL 7 DAY
+    AND t.fechaCreacion < CURRENT_DATE - INTERVAL 1 DAY;
 ");
 $sentencia->execute();
 $tours_semana = $sentencia->fetchAll(PDO::FETCH_ASSOC);
 
+//**********CUPONES******************************
 //query para obtener los cupones creados hoy
-$sentencia = $conexion->prepare("SELECT * FROM cupones WHERE DATE(fechaCreacion) = CURRENT_DATE;");
+//$sentencia = $conexion->prepare("SELECT * FROM cupones WHERE DATE(fechaCreacion) = CURRENT_DATE;");
+$sentencia = $conexion->prepare("SELECT
+    c.id,
+    c.nombre as Cnombre,
+    c.creador,
+    u.nombre,
+    u.apellidos
+FROM
+    cupones c
+JOIN
+    usuarios u
+ON
+    c.creador = u.id
+WHERE
+    DATE(c.fechaCreacion) = CURRENT_DATE;
+");
 $sentencia->execute();
 $cupones_hoy = $sentencia->fetchAll(PDO::FETCH_ASSOC);
+
 //query para obtener los cupones creados yer
-$sentencia = $conexion->prepare("SELECT * 
-FROM cupones 
-WHERE DATE(fechaCreacion) = CURRENT_DATE - INTERVAL 1 DAY;
+//$sentencia = $conexion->prepare("SELECT * FROM cupones WHERE DATE(fechaCreacion) = CURRENT_DATE - INTERVAL 1 DAY;");
+$sentencia = $conexion->prepare("SELECT
+    c.id,
+    c.nombre as Cnombre,
+    c.creador,
+    u.nombre,
+    u.apellidos
+FROM
+    cupones c
+JOIN
+    usuarios u
+ON
+    c.creador = u.id
+WHERE
+    DATE(c.fechaCreacion) = CURRENT_DATE - INTERVAL 1 DAY;
 ");
 $sentencia->execute();
 $cupones_ayer = $sentencia->fetchAll(PDO::FETCH_ASSOC);
+
 //query para obtener los cupones creados hace una semana (2-7 días atrás)
-$sentencia = $conexion->prepare("SELECT * 
-FROM cupones 
-WHERE fechaCreacion >= CURRENT_DATE - INTERVAL 7 DAY 
-  AND fechaCreacion < CURRENT_DATE - INTERVAL 1 DAY;
+//$sentencia = $conexion->prepare("SELECT * FROM cupones WHERE fechaCreacion >= CURRENT_DATE - INTERVAL 7 DAY AND fechaCreacion < CURRENT_DATE - INTERVAL 1 DAY;");
+$sentencia = $conexion->prepare("SELECT
+    c.id,
+    c.nombre as Cnombre,
+    c.creador,
+    u.nombre,
+    u.apellidos
+FROM
+    cupones c
+JOIN
+    usuarios u
+ON
+    c.creador = u.id
+WHERE
+      c.fechaCreacion >= CURRENT_DATE - INTERVAL 7 DAY
+    AND c.fechaCreacion < CURRENT_DATE - INTERVAL 1 DAY;
 ");
 $sentencia->execute();
 $cupones_semana = $sentencia->fetchAll(PDO::FETCH_ASSOC);
 
+//**********USUARIOS******************************
 //query para obtener los usuarios creados hoy
 $sentencia = $conexion->prepare("SELECT * FROM usuarios WHERE DATE(fecha) = CURRENT_DATE;");
 $sentencia->execute();
@@ -63,6 +145,7 @@ WHERE fecha >= CURRENT_DATE - INTERVAL 7 DAY
 $sentencia->execute();
 $usuarios_semana = $sentencia->fetchAll(PDO::FETCH_ASSOC);
 
+//**********ASIGNACIONES DE CUPONES******************************
 //query para obtener las asignaciones de cupones creadas hoy
 $sentencia = $conexion->prepare("SELECT 
     usuarios_cupones.id AS association_id,
@@ -194,7 +277,7 @@ $asignaciones_semana = $sentencia->fetchAll(PDO::FETCH_ASSOC);
                                   <!-- content -->
                             <div class="ms-3">
                               <p class="mb-0
-                                font-weight-medium">Juan Pérez creo el tour <a href="#!"><?php echo $tour['titulo']?></a></p>
+                                font-weight-medium"><?php echo $tour['nombre'], ' ', $tour["apellidos"]?> creo el tour <a href="#!"><?php echo $tour['titulo']?></a></p>
                             </div>
                           </div>
                           <div>
@@ -204,7 +287,7 @@ $asignaciones_semana = $sentencia->fetchAll(PDO::FETCH_ASSOC);
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-more-vertical icon-xs"><circle cx="12" cy="12" r="1"></circle><circle cx="12" cy="5" r="1"></circle><circle cx="12" cy="19" r="1"></circle></svg>
                               </a>
                               <div class="dropdown-menu" aria-labelledby="dropdownactivityOne">
-                                <a class="dropdown-item d-flex align-items-center" href="#!">Ver</a>
+                                <a class="dropdown-item d-flex align-items-center" href="<?php echo $url_base;?>secciones/tours/">Ver tours</a>
                               </div>
                             </div>
                           </div>
@@ -223,7 +306,7 @@ $asignaciones_semana = $sentencia->fetchAll(PDO::FETCH_ASSOC);
                                   <!-- content -->
                             <div class="ms-3">
                               <p class="mb-0
-                                font-weight-medium">Juan Pérez creo el cupon <a href="#!"><?php echo $cupon['nombre']?></a></p>
+                                font-weight-medium"><?php echo $cupon['nombre'], ' ', $cupon["apellidos"]?> creó el cupón <a href="#!"><?php echo $cupon['Cnombre']?></a></p>
                             </div>
                           </div>
                           <div>
@@ -233,7 +316,7 @@ $asignaciones_semana = $sentencia->fetchAll(PDO::FETCH_ASSOC);
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-more-vertical icon-xs"><circle cx="12" cy="12" r="1"></circle><circle cx="12" cy="5" r="1"></circle><circle cx="12" cy="19" r="1"></circle></svg>
                               </a>
                               <div class="dropdown-menu" aria-labelledby="dropdownactivityOne">
-                                <a class="dropdown-item d-flex align-items-center" href="#!">Ver</a>
+                                <a class="dropdown-item d-flex align-items-center" href="<?php echo $url_base;?>secciones/cupones">Ver cupones</a>
                               </div>
                             </div>
                           </div>
@@ -262,7 +345,7 @@ $asignaciones_semana = $sentencia->fetchAll(PDO::FETCH_ASSOC);
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-more-vertical icon-xs"><circle cx="12" cy="12" r="1"></circle><circle cx="12" cy="5" r="1"></circle><circle cx="12" cy="19" r="1"></circle></svg>
                               </a>
                               <div class="dropdown-menu" aria-labelledby="dropdownactivityOne">
-                                <a class="dropdown-item d-flex align-items-center" href="#!">Ver</a>
+                                <a class="dropdown-item d-flex align-items-center" href="<?php echo $url_base;?>secciones/cupones_usuarios/index.php">Ver asignaciones</a>
                               </div>
                             </div>
                           </div>
@@ -290,7 +373,7 @@ $asignaciones_semana = $sentencia->fetchAll(PDO::FETCH_ASSOC);
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-more-vertical icon-xs"><circle cx="12" cy="12" r="1"></circle><circle cx="12" cy="5" r="1"></circle><circle cx="12" cy="19" r="1"></circle></svg>
                               </a>
                               <div class="dropdown-menu" aria-labelledby="dropdownactivityOne">
-                                <a class="dropdown-item d-flex align-items-center" href="#!">Ver</a>
+                                <a class="dropdown-item d-flex align-items-center" href="<?php echo $url_base;?>secciones/usuarios/">Ver usuarios</a>
                               </div>
                             </div>
                           </div>
@@ -326,8 +409,8 @@ $asignaciones_semana = $sentencia->fetchAll(PDO::FETCH_ASSOC);
                              <!-- content  -->
                             <div class="ms-3">
                               <p class="mb-0
-                                font-weight-medium">Martha Morales creó
-                                el cupón <a href="#!"><?php echo $cupon['nombre']?></a></p>
+                                font-weight-medium"><?php echo $cupon['nombre'], ' ', $cupon["apellidos"]?> creó
+                                el cupón <a href="#!"><?php echo $cupon['Cnombre']?></a></p>
                             </div>
                           </div>
                           <div>
@@ -337,7 +420,7 @@ $asignaciones_semana = $sentencia->fetchAll(PDO::FETCH_ASSOC);
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-more-vertical icon-xs"><circle cx="12" cy="12" r="1"></circle><circle cx="12" cy="5" r="1"></circle><circle cx="12" cy="19" r="1"></circle></svg>
                               </a>
                               <div class="dropdown-menu" aria-labelledby="dropdownactivitySeven">
-                                <a class="dropdown-item d-flex align-items-center" href="#!">Ver</a>
+                                <a class="dropdown-item d-flex align-items-center" href="<?php echo $url_base;?>secciones/cupones">Ver cupones</a>
                               </div>
                             </div>
                           </div>
@@ -366,7 +449,7 @@ $asignaciones_semana = $sentencia->fetchAll(PDO::FETCH_ASSOC);
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-more-vertical icon-xs"><circle cx="12" cy="12" r="1"></circle><circle cx="12" cy="5" r="1"></circle><circle cx="12" cy="19" r="1"></circle></svg>
                               </a>
                               <div class="dropdown-menu" aria-labelledby="dropdownactivityOne">
-                                <a class="dropdown-item d-flex align-items-center" href="#!">Ver</a>
+                                <a class="dropdown-item d-flex align-items-center" href="<?php echo $url_base;?>secciones/cupones_usuarios/index.php">Ver asignaciones</a>
                               </div>
                             </div>
                           </div>
@@ -383,7 +466,7 @@ $asignaciones_semana = $sentencia->fetchAll(PDO::FETCH_ASSOC);
                              <!-- content  -->
                             <div class="ms-3">
                               <p class="mb-0
-                                font-weight-medium">Alicia Rodriguez creó
+                                font-weight-medium"><?php echo $tour['nombre'], ' ', $tour["apellidos"]?> creó
                                 el tour <a href="#!"><?php echo $tour['titulo']?></a></p>
                             </div>
                           </div>
@@ -394,7 +477,7 @@ $asignaciones_semana = $sentencia->fetchAll(PDO::FETCH_ASSOC);
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-more-vertical icon-xs"><circle cx="12" cy="12" r="1"></circle><circle cx="12" cy="5" r="1"></circle><circle cx="12" cy="19" r="1"></circle></svg>
                               </a>
                               <div class="dropdown-menu" aria-labelledby="dropdownactivitySeven">
-                                <a class="dropdown-item d-flex align-items-center" href="#!">Ver</a>
+                                <a class="dropdown-item d-flex align-items-center" href="<?php echo $url_base;?>secciones/tours/">Ver tours</a>
                               </div>
                             </div>
                           </div>
@@ -423,7 +506,7 @@ $asignaciones_semana = $sentencia->fetchAll(PDO::FETCH_ASSOC);
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-more-vertical icon-xs"><circle cx="12" cy="12" r="1"></circle><circle cx="12" cy="5" r="1"></circle><circle cx="12" cy="19" r="1"></circle></svg>
                               </a>
                               <div class="dropdown-menu" aria-labelledby="dropdownactivityOne">
-                                <a class="dropdown-item d-flex align-items-center" href="#!">Ver</a>
+                                <a class="dropdown-item d-flex align-items-center" href="<?php echo $url_base;?>secciones/usuarios/">Ver usuarios</a>
                               </div>
                             </div>
                           </div>
@@ -470,7 +553,7 @@ $asignaciones_semana = $sentencia->fetchAll(PDO::FETCH_ASSOC);
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-more-vertical icon-xs"><circle cx="12" cy="12" r="1"></circle><circle cx="12" cy="5" r="1"></circle><circle cx="12" cy="19" r="1"></circle></svg>
                               </a>
                               <div class="dropdown-menu" aria-labelledby="dropdownactivityTen">
-                                <a class="dropdown-item d-flex align-items-center" href="#!">Ver</a>
+                                <a class="dropdown-item d-flex align-items-center" href="<?php echo $url_base;?>secciones/tours/">Ver tours</a>
                               </div>
                             </div>
                           </div>
@@ -489,7 +572,7 @@ $asignaciones_semana = $sentencia->fetchAll(PDO::FETCH_ASSOC);
                              <!-- content -->
                             <div class="ms-3">
                               <p class="mb-0
-                                font-weight-medium">Romina Avalos creo el cupon <a href="#!"><?php echo $cupon['nombre']?></a></p>
+                                font-weight-medium"><?php echo $cupon['nombre'], ' ', $cupon["apellidos"]?> creó el cupon <a href="#!"><?php echo $cupon['Cnombre']?></a></p>
                             </div>
                           </div>
                           <div>
@@ -499,7 +582,7 @@ $asignaciones_semana = $sentencia->fetchAll(PDO::FETCH_ASSOC);
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-more-vertical icon-xs"><circle cx="12" cy="12" r="1"></circle><circle cx="12" cy="5" r="1"></circle><circle cx="12" cy="19" r="1"></circle></svg>
                               </a>
                               <div class="dropdown-menu" aria-labelledby="dropdownactivityTen">
-                                <a class="dropdown-item d-flex align-items-center" href="#!">Ver</a>
+                                <a class="dropdown-item d-flex align-items-center" href="<?php echo $url_base;?>secciones/cupones">Ver cupones</a>
                               </div>
                             </div>
                           </div>
@@ -528,7 +611,7 @@ $asignaciones_semana = $sentencia->fetchAll(PDO::FETCH_ASSOC);
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-more-vertical icon-xs"><circle cx="12" cy="12" r="1"></circle><circle cx="12" cy="5" r="1"></circle><circle cx="12" cy="19" r="1"></circle></svg>
                               </a>
                               <div class="dropdown-menu" aria-labelledby="dropdownactivityOne">
-                                <a class="dropdown-item d-flex align-items-center" href="#!">Ver</a>
+                                <a class="dropdown-item d-flex align-items-center" href="<?php echo $url_base;?>secciones/cupones_usuarios/index.php">Ver asignaciones</a>
                               </div>
                             </div>
                           </div>
@@ -557,7 +640,7 @@ $asignaciones_semana = $sentencia->fetchAll(PDO::FETCH_ASSOC);
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-more-vertical icon-xs"><circle cx="12" cy="12" r="1"></circle><circle cx="12" cy="5" r="1"></circle><circle cx="12" cy="19" r="1"></circle></svg>
                               </a>
                               <div class="dropdown-menu" aria-labelledby="dropdownactivityOne">
-                                <a class="dropdown-item d-flex align-items-center" href="#!">Ver</a>
+                                <a class="dropdown-item d-flex align-items-center" href="<?php echo $url_base;?>secciones/usuarios/">Ver usuarios</a>
                               </div>
                             </div>
                           </div>
