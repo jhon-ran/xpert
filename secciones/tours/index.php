@@ -113,10 +113,7 @@ $tours = $sentencia->fetchAll(PDO::FETCH_ASSOC);
                     <div class="col-4"><p class="card-text"><small class="text-muted">desde $<?php echo $registro['precioBase']?></small></p></div>
                 </div>
                 <?php if($_SESSION["usuario_tipo"]=="admin"  || $_SESSION["usuario_tipo"]=="superadmin"):?>
-                    <!-- vieja vista con botones
-                    <a href="editar.php?txtID=<?php echo $registro['id']?>" class="btn btn-primary">Editar</a>
-                    <a name="" id="" class="btn btn-danger" href="javascript:borrar(<?php echo $registro['id']?>);">Eliminar</a>
-                    -->
+                    <a href="ver.php?txtID=<?php echo $registro['id']?>" class="btn btn-primary">Ver más</a> 
                     <div class="dropdown">
                         <a href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
                         <i class="fa fa-ellipsis-h" aria-hidden="true"></i>
@@ -130,6 +127,7 @@ $tours = $sentencia->fetchAll(PDO::FETCH_ASSOC);
 
                 <?php elseif($_SESSION["usuario_tipo"]=="ventas"):?>
                     <!--<a href="editar.php?txtID=<?php echo $registro['id']?>" class="btn btn-primary">Editar</a>-->
+                    <a href="ver.php?txtID=<?php echo $registro['id']?>" class="btn btn-primary">Ver más</a> 
                     <div class="dropdown">
                         <a href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
                         <i class="fa fa-ellipsis-h" aria-hidden="true"></i>
@@ -139,7 +137,7 @@ $tours = $sentencia->fetchAll(PDO::FETCH_ASSOC);
                         </ul>
                     </div>
                 <?php else:?>
-                    <a href="" class="btn btn-primary">Ver más</a>
+                    <a href="ver.php?txtID=<?php echo $registro['id']?>" class="btn btn-primary">Ver más</a> 
                 <?php endif; ?>
                 </div>
             </div>
