@@ -1,19 +1,7 @@
 <?php
-//Descomentar para servidor remoto
-$servidor = "127.0.0.1:3306";
-$baseDatos = "u878617270_bd_xpert";
-$usuario = "u878617270_superbad";
-$contrasena = "Romulo_xpert8";
-//Descomentar para servidor local
-//$servidor = "localhost";
-//$baseDatos = "bd_xpert";
-//$usuario = "root";
-//$contrasena = "";
+include("../../bd.php");
 
 try {
-    $conexion = new PDO("mysql:host=$servidor;dbname=$baseDatos", $usuario, $contrasena);
-    $conexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
     if (isset($_GET['tipo'])) {
         $tipo = $_GET['tipo'];
 
@@ -27,7 +15,10 @@ try {
             $usuarios = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
             echo "<h2>Usuarios</h2>";
-            echo "<table class='table table-bordered'>
+            echo "<div class='card my-2'>";
+            echo "<div class='card-body'>";
+            echo "<div class='table-responsive-lg'>";
+            echo "<table class='table' id='tabla_id'>
                     <thead>
                         <tr>
                             <th>ID</th>
@@ -52,9 +43,12 @@ try {
                         <td>{$usuario['modificador']}</td>
                       </tr>";
             }
-
+            
             echo "  </tbody>
-                  </table>";
+                  </table>
+                  </div>
+                  </div>
+                  </div>";
         } elseif ($tipo == 'cupones') {
             $query = "SELECT c.id, c.nombre, c.descuento, c.inicioValidez, c.terminoValidez, c.fechaCreacion, ch.fechaModificacion, uc.nombre as creador, um.nombre as modificador
                       FROM cupones c
@@ -66,7 +60,10 @@ try {
             $cupones = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
             echo "<h2>Cupones</h2>";
-            echo "<table class='table table-bordered'>
+            echo "<div class='card my-2'>";
+            echo "<div class='card-body'>";
+            echo "<div class='table-responsive-lg'>";
+            echo "<table class='table' id='tabla_id'>
                     <thead>
                         <tr>
                             <th>ID</th>
@@ -97,7 +94,10 @@ try {
             }
 
             echo "  </tbody>
-                  </table>";
+                  </table>
+                  </div>
+                  </div>
+                  </div>";
         } elseif ($tipo == 'tours') {
             $query = "SELECT t.id, t.titulo, t.duracion, t.capacidad, t.fechaCreacion, th.fechaModificacion, uc.nombre as creador, um.nombre as modificador
                       FROM tours t
@@ -109,7 +109,10 @@ try {
             $tours = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
             echo "<h2>Tours</h2>";
-            echo "<table class='table table-bordered'>
+            echo "<div class='card my-2'>";
+            echo "<div class='card-body'>";
+            echo "<div class='table-responsive-lg'>";
+            echo "<table class='table' id='tabla_id'>
                     <thead>
                         <tr>
                             <th>ID</th>
@@ -138,7 +141,10 @@ try {
             }
 
             echo "  </tbody>
-                  </table>";
+                  </table>
+                  </div>
+                  </div>
+                  </div>";
         } elseif ($tipo == 'cupones_usuarios') {
             // Consulta ajustada para usuarios_cupones
             $query = "SELECT cu.id, cu.nombre as nombreCupon, u.nombre as nombreUsuario, uc.fecha_asignacion
@@ -150,7 +156,10 @@ try {
             $cuponesUsuarios = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
             echo "<h2>Cupones Asignados a Usuarios</h2>";
-            echo "<table class='table table-bordered'>
+            echo "<div class='card my-2'>";
+            echo "<div class='card-body'>";
+            echo "<div class='table-responsive-md'>";
+            echo "<table class='table' id='tabla_id'>
                     <thead>
                         <tr>
                             <th>ID Cupón</th>
@@ -169,9 +178,11 @@ try {
                         <td>{$cuponUsuario['fecha_asignacion']}</td>
                       </tr>";
             }
-
             echo "  </tbody>
-                  </table>";
+                  </table>
+                   </div>
+                  </div>
+                  </div>";
         } elseif ($tipo == 'cupones_tours') {
             // Consulta ajustada para tours y cupones
             $query = "SELECT t.id, cu.nombre as nombreCupon, t.titulo as nombreTour, t.fechaCreacion as fecha_asignacion
@@ -182,7 +193,10 @@ try {
             $cuponesTours = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
             echo "<h2>Cupones Asignados a Tours</h2>";
-            echo "<table class='table table-bordered'>
+            echo "<div class='card my-2'>";
+            echo "<div class='card-body'>";
+            echo "<div class='table-responsive-md'>";
+            echo "<table class='table' id='tabla_id'>
                     <thead>
                         <tr>
                             <th>ID Cupón</th>
@@ -203,12 +217,15 @@ try {
             }
 
             echo "  </tbody>
-                  </table>";
+                  </table>
+                   </div>
+                  </div>
+                  </div>";
         }
+        
     }
 } catch (Exception $ex) {
     echo "Error al conectarse a la base de datos: " . $ex->getMessage();
 }
+
 ?>
-
-
