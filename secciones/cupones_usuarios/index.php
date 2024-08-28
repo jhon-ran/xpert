@@ -95,7 +95,6 @@ $asignaciones = $sentencia->fetchAll(PDO::FETCH_ASSOC);
             <th scope="col">ID</th>
             <th scope="col">Vendedor</th>
             <th scope="col">Cupón</th>
-            <th scope="col">ID asignación</th>
             <th scope="col"></th>
           </tr>
         </thead>
@@ -105,7 +104,6 @@ $asignaciones = $sentencia->fetchAll(PDO::FETCH_ASSOC);
             <td scope="row"><?php echo $asignacion['user_id']?></td>
             <td><?php echo $asignacion['user_name'], ' ', $asignacion["user_last"]?></td>
             <td><?php echo $asignacion['cupon_name']?></td>
-            <td><?php echo $asignacion['association_id']?></td>
             <td>
               <div class="text-center" class="dropdown">
                 <a href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
@@ -114,6 +112,7 @@ $asignaciones = $sentencia->fetchAll(PDO::FETCH_ASSOC);
 
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                 <!--Descomentr cuando qrchivo este creado-->
+                <li><a class="dropdown-item" href="ver.php?txtID=<?php echo $asignacion['association_id']?>">Ver</a></li>
                   <li><a class="dropdown-item" href="editar.php?txtID=<?php echo $asignacion['association_id']?>">Editar</a></li>
                   <!--Se sustituye el link del registro por la función SweatAlert para confirmar borrado-->
                   <li><a class="dropdown-item" href="javascript:borrar(<?php echo $asignacion['association_id']?>);">Eliminar</a></li>

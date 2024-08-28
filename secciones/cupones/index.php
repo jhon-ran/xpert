@@ -70,10 +70,13 @@ $cupones = $sentencia->fetchAll(PDO::FETCH_ASSOC);
             <td scope="row"><?php echo $registro['id']?></td>
             <td><?php echo $registro['nombre']?></td>
             <td><?php echo $registro['descuento']?></td>
-            <td><?php echo $registro['inicioValidez']?></td>
-            <td><?php echo $registro['terminoValidez']?></td>
+            <!--<td><?php echo $registro['inicioValidez']?></td>-->
+            <td><?php echo date("d/m/Y H:i", strtotime($registro['inicioValidez']))?></td>
+            <!--<td><?php echo $registro['terminoValidez']?></td>-->
+            <td><?php echo date("d/m/Y H:i", strtotime($registro['terminoValidez']))?></td>
             <td><?php echo $registro['restricciones']?></td>
-            <td><?php echo $registro['fechaCreacion']?></td>
+            <!--<td><?php echo $registro['fechaCreacion']?></td>-->
+            <td><?php echo date("d/m/Y H:i", strtotime($registro['fechaCreacion']))?></td>
             <td>
               <!--antigua vista con botones
               <a name="" id="" class="btn btn-info" href="editar.php?txtID=<?php echo $registro['id']?>" role="button">Editar</a>
@@ -86,6 +89,7 @@ $cupones = $sentencia->fetchAll(PDO::FETCH_ASSOC);
                 </a>
 
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                  <li><a class="dropdown-item" href="ver.php?txtID=<?php echo $registro['id']?>">Ver</a></li>
                   <li><a class="dropdown-item" href="editar.php?txtID=<?php echo $registro['id']?>">Editar</a></li>
                   <!--Se sustituye el link del registro por la función SweatAlert para confirmar borrado-->
                   <li><a class="dropdown-item" href="javascript:borrar(<?php echo $registro['id']?>);">Eliminar</a></li>
