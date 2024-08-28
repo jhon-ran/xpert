@@ -3,202 +3,204 @@ include("../../bd.php");
 //se inicializa variable de sesión
 session_start();
 
-//TOURS******************************
-//query para obtener los tours creados hoy
-//$sentencia = $conexion->prepare("SELECT * FROM tours WHERE DATE(fechaCreacion) = CURRENT_DATE;");
-$sentencia = $conexion->prepare("SELECT
-    t.id,
-    t.titulo,
-    t.creador,
-    u.nombre,
-    u.apellidos
-FROM
-    tours t
-JOIN
-    usuarios u
-ON
-    t.creador = u.id
-WHERE
-    DATE(t.fechaCreacion) = CURRENT_DATE;
-");    
-$sentencia->execute();
-$tours_hoy = $sentencia->fetchAll(PDO::FETCH_ASSOC);
+    //TOURS******************************
+    //query para obtener los tours creados hoy
+    //$sentencia = $conexion->prepare("SELECT * FROM tours WHERE DATE(fechaCreacion) = CURRENT_DATE;");
+    $sentencia = $conexion->prepare("SELECT
+        t.id,
+        t.titulo,
+        t.creador,
+        u.nombre,
+        u.apellidos
+    FROM
+        tours t
+    JOIN
+        usuarios u
+    ON
+        t.creador = u.id
+    WHERE
+        DATE(t.fechaCreacion) = CURRENT_DATE;
+    ");    
+    $sentencia->execute();
+    $tours_hoy = $sentencia->fetchAll(PDO::FETCH_ASSOC);
 
-//query para obtener los tours creados yer
-$sentencia = $conexion->prepare("SELECT
-    t.id,
-    t.titulo,
-    t.creador,
-    u.nombre,
-    u.apellidos
-FROM
-    tours t
-JOIN
-    usuarios u
-ON
-    t.creador = u.id
-WHERE
-    DATE(t.fechaCreacion) = CURRENT_DATE - INTERVAL 1 DAY;
-");
-$sentencia->execute();
-$tours_ayer = $sentencia->fetchAll(PDO::FETCH_ASSOC);
-//query para obtener los tours creados hace una semana (2-7 días atrás)
-$sentencia = $conexion->prepare("SELECT
-    t.id,
-    t.titulo,
-    t.creador,
-    u.nombre,
-    u.apellidos
-FROM
-    tours t
-JOIN
-    usuarios u
-ON
-    t.creador = u.id
-WHERE
-    t.fechaCreacion >= CURRENT_DATE - INTERVAL 7 DAY
-    AND t.fechaCreacion < CURRENT_DATE - INTERVAL 1 DAY;
-");
-$sentencia->execute();
-$tours_semana = $sentencia->fetchAll(PDO::FETCH_ASSOC);
+    //query para obtener los tours creados yer
+    $sentencia = $conexion->prepare("SELECT
+        t.id,
+        t.titulo,
+        t.creador,
+        u.nombre,
+        u.apellidos
+    FROM
+        tours t
+    JOIN
+        usuarios u
+    ON
+        t.creador = u.id
+    WHERE
+        DATE(t.fechaCreacion) = CURRENT_DATE - INTERVAL 1 DAY;
+    ");
+    $sentencia->execute();
+    $tours_ayer = $sentencia->fetchAll(PDO::FETCH_ASSOC);
+    //query para obtener los tours creados hace una semana (2-7 días atrás)
+    $sentencia = $conexion->prepare("SELECT
+        t.id,
+        t.titulo,
+        t.creador,
+        u.nombre,
+        u.apellidos
+    FROM
+        tours t
+    JOIN
+        usuarios u
+    ON
+        t.creador = u.id
+    WHERE
+        t.fechaCreacion >= CURRENT_DATE - INTERVAL 7 DAY
+        AND t.fechaCreacion < CURRENT_DATE - INTERVAL 1 DAY;
+    ");
+    $sentencia->execute();
+    $tours_semana = $sentencia->fetchAll(PDO::FETCH_ASSOC);
 
-//**********CUPONES******************************
-//query para obtener los cupones creados hoy
-//$sentencia = $conexion->prepare("SELECT * FROM cupones WHERE DATE(fechaCreacion) = CURRENT_DATE;");
-$sentencia = $conexion->prepare("SELECT
-    c.id,
-    c.nombre as Cnombre,
-    c.creador,
-    u.nombre,
-    u.apellidos
-FROM
-    cupones c
-JOIN
-    usuarios u
-ON
-    c.creador = u.id
-WHERE
-    DATE(c.fechaCreacion) = CURRENT_DATE;
-");
-$sentencia->execute();
-$cupones_hoy = $sentencia->fetchAll(PDO::FETCH_ASSOC);
+    //**********CUPONES******************************
+    //query para obtener los cupones creados hoy
+    //$sentencia = $conexion->prepare("SELECT * FROM cupones WHERE DATE(fechaCreacion) = CURRENT_DATE;");
+    $sentencia = $conexion->prepare("SELECT
+        c.id,
+        c.nombre as Cnombre,
+        c.creador,
+        u.nombre,
+        u.apellidos
+    FROM
+        cupones c
+    JOIN
+        usuarios u
+    ON
+        c.creador = u.id
+    WHERE
+        DATE(c.fechaCreacion) = CURRENT_DATE;
+    ");
+    $sentencia->execute();
+    $cupones_hoy = $sentencia->fetchAll(PDO::FETCH_ASSOC);
 
-//query para obtener los cupones creados yer
-//$sentencia = $conexion->prepare("SELECT * FROM cupones WHERE DATE(fechaCreacion) = CURRENT_DATE - INTERVAL 1 DAY;");
-$sentencia = $conexion->prepare("SELECT
-    c.id,
-    c.nombre as Cnombre,
-    c.creador,
-    u.nombre,
-    u.apellidos
-FROM
-    cupones c
-JOIN
-    usuarios u
-ON
-    c.creador = u.id
-WHERE
-    DATE(c.fechaCreacion) = CURRENT_DATE - INTERVAL 1 DAY;
-");
-$sentencia->execute();
-$cupones_ayer = $sentencia->fetchAll(PDO::FETCH_ASSOC);
+    //query para obtener los cupones creados yer
+    //$sentencia = $conexion->prepare("SELECT * FROM cupones WHERE DATE(fechaCreacion) = CURRENT_DATE - INTERVAL 1 DAY;");
+    $sentencia = $conexion->prepare("SELECT
+        c.id,
+        c.nombre as Cnombre,
+        c.creador,
+        u.nombre,
+        u.apellidos
+    FROM
+        cupones c
+    JOIN
+        usuarios u
+    ON
+        c.creador = u.id
+    WHERE
+        DATE(c.fechaCreacion) = CURRENT_DATE - INTERVAL 1 DAY;
+    ");
+    $sentencia->execute();
+    $cupones_ayer = $sentencia->fetchAll(PDO::FETCH_ASSOC);
 
-//query para obtener los cupones creados hace una semana (2-7 días atrás)
-//$sentencia = $conexion->prepare("SELECT * FROM cupones WHERE fechaCreacion >= CURRENT_DATE - INTERVAL 7 DAY AND fechaCreacion < CURRENT_DATE - INTERVAL 1 DAY;");
-$sentencia = $conexion->prepare("SELECT
-    c.id,
-    c.nombre as Cnombre,
-    c.creador,
-    u.nombre,
-    u.apellidos
-FROM
-    cupones c
-JOIN
-    usuarios u
-ON
-    c.creador = u.id
-WHERE
-      c.fechaCreacion >= CURRENT_DATE - INTERVAL 7 DAY
-    AND c.fechaCreacion < CURRENT_DATE - INTERVAL 1 DAY;
-");
-$sentencia->execute();
-$cupones_semana = $sentencia->fetchAll(PDO::FETCH_ASSOC);
+    //query para obtener los cupones creados hace una semana (2-7 días atrás)
+    //$sentencia = $conexion->prepare("SELECT * FROM cupones WHERE fechaCreacion >= CURRENT_DATE - INTERVAL 7 DAY AND fechaCreacion < CURRENT_DATE - INTERVAL 1 DAY;");
+    $sentencia = $conexion->prepare("SELECT
+        c.id,
+        c.nombre as Cnombre,
+        c.creador,
+        u.nombre,
+        u.apellidos
+    FROM
+        cupones c
+    JOIN
+        usuarios u
+    ON
+        c.creador = u.id
+    WHERE
+          c.fechaCreacion >= CURRENT_DATE - INTERVAL 7 DAY
+        AND c.fechaCreacion < CURRENT_DATE - INTERVAL 1 DAY;
+    ");
+    $sentencia->execute();
+    $cupones_semana = $sentencia->fetchAll(PDO::FETCH_ASSOC);
 
-//**********USUARIOS******************************
-//query para obtener los usuarios creados hoy
-$sentencia = $conexion->prepare("SELECT * FROM usuarios WHERE DATE(fecha) = CURRENT_DATE;");
-$sentencia->execute();
-$usuarios_hoy = $sentencia->fetchAll(PDO::FETCH_ASSOC);
-//query para obtener los usuarios creados yer
-$sentencia = $conexion->prepare("SELECT * 
-FROM usuarios 
-WHERE DATE(fecha) = CURRENT_DATE - INTERVAL 1 DAY;
-");
-$sentencia->execute();
-$usuarios_ayer = $sentencia->fetchAll(PDO::FETCH_ASSOC);
-//query para obtener los usuarios creados hace una semana (2-7 días atrás)
-$sentencia = $conexion->prepare("SELECT * 
-FROM usuarios 
-WHERE fecha >= CURRENT_DATE - INTERVAL 7 DAY 
-  AND fecha < CURRENT_DATE - INTERVAL 1 DAY;
-");
-$sentencia->execute();
-$usuarios_semana = $sentencia->fetchAll(PDO::FETCH_ASSOC);
+    //**********USUARIOS******************************
+    //query para obtener los usuarios creados hoy
+    $sentencia = $conexion->prepare("SELECT * FROM usuarios WHERE DATE(fecha) = CURRENT_DATE;");
+    $sentencia->execute();
+    $usuarios_hoy = $sentencia->fetchAll(PDO::FETCH_ASSOC);
+    //query para obtener los usuarios creados yer
+    $sentencia = $conexion->prepare("SELECT * 
+    FROM usuarios 
+    WHERE DATE(fecha) = CURRENT_DATE - INTERVAL 1 DAY;
+    ");
+    $sentencia->execute();
+    $usuarios_ayer = $sentencia->fetchAll(PDO::FETCH_ASSOC);
+    //query para obtener los usuarios creados hace una semana (2-7 días atrás)
+    $sentencia = $conexion->prepare("SELECT * 
+    FROM usuarios 
+    WHERE fecha >= CURRENT_DATE - INTERVAL 7 DAY 
+      AND fecha < CURRENT_DATE - INTERVAL 1 DAY;
+    ");
+    $sentencia->execute();
+    $usuarios_semana = $sentencia->fetchAll(PDO::FETCH_ASSOC);
 
-//**********ASIGNACIONES DE CUPONES******************************
-//query para obtener las asignaciones de cupones creadas hoy
-$sentencia = $conexion->prepare("SELECT 
-    usuarios_cupones.id AS association_id,
-    usuarios.id AS user_id,
-    usuarios.nombre AS user_name,
-    usuarios.apellidos AS user_last,
-    cupones.nombre AS cupon_name,
-    cupones.id AS cupon_id
-FROM 
-    usuarios_cupones
-LEFT JOIN 
-    usuarios ON usuarios.id = usuarios_cupones.id_usuario
-LEFT JOIN 
-    cupones ON cupones.id = usuarios_cupones.id_cupon
-WHERE DATE(fecha_asignacion) = CURRENT_DATE;");
+    //**********ASIGNACIONES DE CUPONES******************************
+    //query para obtener las asignaciones de cupones creadas hoy
+    $sentencia = $conexion->prepare("SELECT 
+        usuarios_cupones.id AS association_id,
+        usuarios.id AS user_id,
+        usuarios.nombre AS user_name,
+        usuarios.apellidos AS user_last,
+        cupones.nombre AS cupon_name,
+        cupones.id AS cupon_id
+    FROM 
+        usuarios_cupones
+    LEFT JOIN 
+        usuarios ON usuarios.id = usuarios_cupones.id_usuario
+    LEFT JOIN 
+        cupones ON cupones.id = usuarios_cupones.id_cupon
+    WHERE DATE(fecha_asignacion) = CURRENT_DATE;");
 
-$sentencia->execute();
-$asignaciones_hoy = $sentencia->fetchAll(PDO::FETCH_ASSOC);
-//query para obtener las asignaciones de cupones creadas ayer
-$sentencia = $conexion->prepare("SELECT 
-    usuarios_cupones.id AS association_id,
-    usuarios.id AS user_id,
-    usuarios.nombre AS user_name,
-    usuarios.apellidos AS user_last,
-    cupones.nombre AS cupon_name,
-    cupones.id AS cupon_id
-FROM 
-    usuarios_cupones
-LEFT JOIN 
-    usuarios ON usuarios.id = usuarios_cupones.id_usuario
-LEFT JOIN 
-    cupones ON cupones.id = usuarios_cupones.id_cupon
-WHERE DATE(fecha_asignacion) = CURRENT_DATE - INTERVAL 1 DAY;");
-$sentencia->execute();
-$asignaciones_ayer = $sentencia->fetchAll(PDO::FETCH_ASSOC);
-//query para obtener las asignaciones de cupones creadas hace una semana (2-7 días atrás)
-$sentencia = $conexion->prepare("SELECT 
-    usuarios_cupones.id AS association_id,
-    usuarios.id AS user_id,
-    usuarios.nombre AS user_name,
-    usuarios.apellidos AS user_last,
-    cupones.nombre AS cupon_name,
-    cupones.id AS cupon_id
-FROM 
-    usuarios_cupones
-LEFT JOIN 
-    usuarios ON usuarios.id = usuarios_cupones.id_usuario
-LEFT JOIN 
-    cupones ON cupones.id = usuarios_cupones.id_cupon
-WHERE fecha_asignacion >= CURRENT_DATE - INTERVAL 7 DAY 
-  AND fecha_asignacion < CURRENT_DATE - INTERVAL 1 DAY;");
-$sentencia->execute();
-$asignaciones_semana = $sentencia->fetchAll(PDO::FETCH_ASSOC);
+    $sentencia->execute();
+    $asignaciones_hoy = $sentencia->fetchAll(PDO::FETCH_ASSOC);
+    //query para obtener las asignaciones de cupones creadas ayer
+    $sentencia = $conexion->prepare("SELECT 
+        usuarios_cupones.id AS association_id,
+        usuarios.id AS user_id,
+        usuarios.nombre AS user_name,
+        usuarios.apellidos AS user_last,
+        cupones.nombre AS cupon_name,
+        cupones.id AS cupon_id
+    FROM 
+        usuarios_cupones
+    LEFT JOIN 
+        usuarios ON usuarios.id = usuarios_cupones.id_usuario
+    LEFT JOIN 
+        cupones ON cupones.id = usuarios_cupones.id_cupon
+    WHERE DATE(fecha_asignacion) = CURRENT_DATE - INTERVAL 1 DAY;");
+    $sentencia->execute();
+    $asignaciones_ayer = $sentencia->fetchAll(PDO::FETCH_ASSOC);
+    //query para obtener las asignaciones de cupones creadas hace una semana (2-7 días atrás)
+    $sentencia = $conexion->prepare("SELECT 
+        usuarios_cupones.id AS association_id,
+        usuarios.id AS user_id,
+        usuarios.nombre AS user_name,
+        usuarios.apellidos AS user_last,
+        cupones.nombre AS cupon_name,
+        cupones.id AS cupon_id
+    FROM 
+        usuarios_cupones
+    LEFT JOIN 
+        usuarios ON usuarios.id = usuarios_cupones.id_usuario
+    LEFT JOIN 
+        cupones ON cupones.id = usuarios_cupones.id_cupon
+    WHERE fecha_asignacion >= CURRENT_DATE - INTERVAL 7 DAY 
+      AND fecha_asignacion < CURRENT_DATE - INTERVAL 1 DAY;");
+    $sentencia->execute();
+    $asignaciones_semana = $sentencia->fetchAll(PDO::FETCH_ASSOC);
+
+
 ?>
 <!-- Se llama el header desde los templates-->
 <!-- ../../ sube 2 niveles para poder acceder al folder de templates desde la posición actual-->
@@ -277,7 +279,7 @@ $asignaciones_semana = $sentencia->fetchAll(PDO::FETCH_ASSOC);
                                   <!-- content -->
                             <div class="ms-3">
                               <p class="mb-0
-                                font-weight-medium"><?php echo $tour['nombre'], ' ', $tour["apellidos"]?> creo el tour <a href="#!"><?php echo $tour['titulo']?></a></p>
+                                font-weight-medium"><?php echo $tour['nombre'], ' ', $tour["apellidos"]?> creo el tour <a href="<?php echo $url_base;?>secciones/tours/ver.php?txtID=<?php echo $tour['id']?>"><?php echo $tour['titulo']?></a></p>
                             </div>
                           </div>
                           <div>
@@ -467,7 +469,7 @@ $asignaciones_semana = $sentencia->fetchAll(PDO::FETCH_ASSOC);
                             <div class="ms-3">
                               <p class="mb-0
                                 font-weight-medium"><?php echo $tour['nombre'], ' ', $tour["apellidos"]?> creó
-                                el tour <a href="#!"><?php echo $tour['titulo']?></a></p>
+                                el tour <a href="<?php echo $url_base;?>secciones/tours/ver.php?txtID=<?php echo $tour['id']?>"><?php echo $tour['titulo']?></a></p>
                             </div>
                           </div>
                           <div>
@@ -543,7 +545,8 @@ $asignaciones_semana = $sentencia->fetchAll(PDO::FETCH_ASSOC);
                              <!-- content -->
                             <div class="ms-3">
                               <p class="mb-0
-                                font-weight-medium">Jorge Salas creo el tour <a href="#!"><?php echo $tour['titulo']?></a></p>
+                              
+                                font-weight-medium">Jorge Salas creo el tour <a href="<?php echo $url_base;?>secciones/tours/ver.php?txtID=<?php echo $tour['id']?>"><?php echo $tour['titulo']?></a></p>
                             </div>
                           </div>
                           <div>
