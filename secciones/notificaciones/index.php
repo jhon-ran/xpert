@@ -3,6 +3,11 @@ include("../../bd.php");
 //se inicializa variable de sesión
 session_start();
 
+//si no existe la variable de sesión usuario_id, se redirige al index
+if($_SESSION["usuario_tipo"]=="cliente" || $_SESSION["usuario_tipo"]=="ventas"){
+    header('Location:../../index.php');
+    exit();
+}
     //TOURS******************************
     //query para obtener los tours creados hoy
     //$sentencia = $conexion->prepare("SELECT * FROM tours WHERE DATE(fechaCreacion) = CURRENT_DATE;");
