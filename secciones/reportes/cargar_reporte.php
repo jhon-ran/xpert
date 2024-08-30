@@ -38,8 +38,8 @@ try {
                         <td>{$usuario['nombre']}</td>
                         <td>{$usuario['apellidos']}</td>
                         <td>{$usuario['email']}</td>
-                        <td>{$usuario['fecha']}</td>
-                        <td>{$usuario['fechaModificacion']}</td>
+                        <td>" . date("d/m/Y H:i", strtotime($usuario['fecha'])) . "</td>
+                        <td>" . (!empty($usuario['fechaModificacion']) ? date("d/m/Y H:i", strtotime($usuario['fechaModificacion'])) : '') . "</td>
                         <td>{$usuario['modificador']}</td>
                       </tr>";
             }
@@ -84,10 +84,10 @@ try {
                         <td>{$cupon['id']}</td>
                         <td>{$cupon['nombre']}</td>
                         <td>{$cupon['descuento']}</td>
-                        <td>{$cupon['inicioValidez']}</td>
-                        <td>{$cupon['terminoValidez']}</td>
-                        <td>{$cupon['fechaCreacion']}</td>
-                        <td>{$cupon['fechaModificacion']}</td>
+                        <td>" . date("d/m/Y H:i", strtotime($cupon['inicioValidez'])) . "</td>
+                        <td>" . date("d/m/Y H:i", strtotime($cupon['terminoValidez'])) . "</td>
+                        <td>" . date("d/m/Y H:i", strtotime($cupon['fechaCreacion'])) . "</td>
+                        <td>" . (!empty($cupon['fechaModificacion']) ? date("d/m/Y H:i", strtotime($cupon['fechaModificacion'])) : '') . "</td>
                         <td>{$cupon['creador']}</td>
                         <td>{$cupon['modificador']}</td>
                       </tr>";
@@ -116,7 +116,7 @@ try {
                     <thead>
                         <tr>
                             <th>ID</th>
-                            <th>Título</th>
+                            <th>Tour</th>
                             <th>Duración</th>
                             <th>Capacidad</th>
                             <th>Fecha de Creación</th>
@@ -133,8 +133,8 @@ try {
                         <td>{$tour['titulo']}</td>
                         <td>{$tour['duracion']}</td>
                         <td>{$tour['capacidad']}</td>
-                        <td>{$tour['fechaCreacion']}</td>
-                        <td>{$tour['fechaModificacion']}</td>
+                        <td>" . date("d/m/Y H:i", strtotime($tour['fechaCreacion'])) . "</td>
+                        <td>" . (!empty($tour['fechaModificacion']) ? date("d/m/Y H:i", strtotime($tour['fechaModificacion'])) : '') . "</td>
                         <td>{$tour['creador']}</td>
                         <td>{$tour['modificador']}</td>
                       </tr>";
@@ -146,7 +146,6 @@ try {
                   </div>
                   </div>";
         } elseif ($tipo == 'cupones_usuarios') {
-            // Consulta ajustada para usuarios_cupones
             $query = "SELECT cu.id, cu.nombre as nombreCupon, u.nombre as nombreUsuario, uc.fecha_asignacion
                       FROM usuarios_cupones uc
                       LEFT JOIN cupones cu ON uc.id_cupon = cu.id
@@ -175,16 +174,15 @@ try {
                         <td>{$cuponUsuario['id']}</td>
                         <td>{$cuponUsuario['nombreCupon']}</td>
                         <td>{$cuponUsuario['nombreUsuario']}</td>
-                        <td>{$cuponUsuario['fecha_asignacion']}</td>
+                        <td>" . date("d/m/Y H:i", strtotime($cuponUsuario['fecha_asignacion'])) . "</td>
                       </tr>";
             }
             echo "  </tbody>
                   </table>
-                   </div>
+                  </div>
                   </div>
                   </div>";
         } elseif ($tipo == 'cupones_tours') {
-            // Consulta ajustada para tours y cupones
             $query = "SELECT t.id, cu.nombre as nombreCupon, t.titulo as nombreTour, t.fechaCreacion as fecha_asignacion
                       FROM tours t
                       JOIN cupones cu ON t.id_cupon = cu.id";
@@ -212,20 +210,59 @@ try {
                         <td>{$cuponTour['id']}</td>
                         <td>{$cuponTour['nombreCupon']}</td>
                         <td>{$cuponTour['nombreTour']}</td>
-                        <td>{$cuponTour['fecha_asignacion']}</td>
+                        <td>" . date("d/m/Y H:i", strtotime($cuponTour['fecha_asignacion'])) . "</td>
                       </tr>";
             }
 
             echo "  </tbody>
                   </table>
-                   </div>
+                  </div>
+                  </div>
+                  </div>";
+        } elseif ($tipo == 'tours_likes') {
+            $query = "SELECT t.id as id_tour, t.titulo as nombreTour, u.id as id_usuario, CONCAT(u.nombre, ' ', u.apellidos) as nombreUsuario, l.fechaLike
+                      FROM likes l
+                      LEFT JOIN tours t ON l.id_tour = t.id
+                      LEFT JOIN usuarios u ON l.id_usuario = u.id";
+            $stmt = $conexion->prepare($query);
+            $stmt->execute();
+            $likesTours = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+            echo "<h2>Tours con Likes</h2>";
+            echo "<div class='card my-2'>";
+            echo "<div class='card-body'>";
+            echo "<div class='table-responsive-md'>";
+            echo "<table class='table' id='tabla_id'>
+                    <thead>
+                        <tr>
+                            <th>ID Tour</th>
+                            <th>Tour</th>
+                            <th>ID Usuario</th>
+                            <th>Usuario</th>
+                            <th>Fecha de Like</th>
+                        </tr>
+                    </thead>
+                    <tbody>";
+
+            foreach ($likesTours as $like) {
+                echo "<tr>
+                        <td>{$like['id_tour']}</td>
+                        <td>{$like['nombreTour']}</td>
+                        <td>{$like['id_usuario']}</td>
+                        <td>{$like['nombreUsuario']}</td>
+                        <td>" . date("d/m/Y H:i", strtotime($like['fechaLike'])) . "</td>
+                      </tr>";
+            }
+
+            echo "  </tbody>
+                  </table>
+                  </div>
                   </div>
                   </div>";
         }
-        
     }
 } catch (Exception $ex) {
     echo "Error al conectarse a la base de datos: " . $ex->getMessage();
 }
-
 ?>
+

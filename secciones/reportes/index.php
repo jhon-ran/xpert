@@ -23,13 +23,16 @@ session_start();
             <button class="btn btn-primary w-100" onclick="cargarReporte('tours')">Reporte de Tours</button>
         </div>
         <div class="col-12 col-sm-6 col-md-4 mb-2">
+            <button class="btn btn-primary w-100" onclick="cargarReporte('tours_likes')">Reporte de likes</button>
+        </div>
+        <div class="col-12 col-sm-6 col-md-4 mb-2">
             <button class="btn btn-primary w-100" onclick="cargarReporte('cupones_usuarios')">Cupones Asignados a Usuarios</button>
         </div>
         <div class="col-12 col-sm-6 col-md-4 mb-2">
             <button class="btn btn-primary w-100" onclick="cargarReporte('cupones_tours')">Cupones Asignados a Tours</button>
         </div>
         <div class="col-12 col-sm-6 col-md-4 mb-2">
-            <button class="btn btn-success w-100" onclick="exportarExcel()">Exportar</button>
+            <button class="btn btn-success w-100" onclick="exportar()">Exportar</button>
         </div>
     </div>
 
@@ -83,18 +86,42 @@ session_start();
             xhr.send();
         }
 
-        function exportarExcel() {
+        function exportar() {
             var reporte = document.getElementById('contenedor-reporte').innerHTML;
-            var form = document.createElement('form');
-            form.method = 'POST';
-            form.action = 'exportar_excel.php';
-            var input = document.createElement('input');
-            input.type = 'hidden';
-            input.name = 'reporte';
-            input.value = reporte;
-            form.appendChild(input);
-            document.body.appendChild(form);
-            form.submit();
+
+        // Crear un contenedor temporal para convertir el HTML de la tabla a texto CSV
+        var tempElement = document.createElement('div');
+        tempElement.innerHTML = reporte;
+
+        var table = tempElement.querySelector('table');
+        if (!table) {
+            alert('No se ha encontrado ninguna tabla para exportar.');
+            return;
+        }
+
+        var rows = Array.from(table.rows);
+        var csv = rows.map(function(row) {
+            var cells = Array.from(row.cells);
+            return cells.map(function(cell) {
+                return '"' + cell.innerText.replace(/"/g, '""') + '"'; // Escapar comillas dobles
+            }).join(',');
+        }).join('\n');
+
+        // Añadir el BOM para UTF-8 al inicio del CSV
+        var bom = '\uFEFF';
+        var csvWithBom = bom + csv;
+
+        // Crear un Blob con el contenido CSV
+        var blob = new Blob([csvWithBom], { type: 'text/csv;charset=utf-8;' });
+        var link = document.createElement('a');
+        link.href = URL.createObjectURL(blob);
+        link.download = 'reporte.csv';
+
+        // Desencadenar la descarga del archivo CSV
+        link.style.display = 'none';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
         }
     </script>
 </body>
