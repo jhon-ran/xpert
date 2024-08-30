@@ -59,6 +59,7 @@ $sentencia = $conexion->prepare("SELECT
     tours.id,
     tours.foto,
     tours.titulo,
+    tours.vistaGeneral,
     tours.incluyeTransporte,
     tours.duracion,
     tours.precioBase,
@@ -82,7 +83,7 @@ $tours = $sentencia->fetchAll(PDO::FETCH_ASSOC);
 //print_r($lista_tbl_puestos);
 //******Termina código para mostrar todos los registros******
 
-
+//Para manejo de likes
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_POST['id_tour']) && isset($_POST['id_usuario'])) {
         $id_tour = $_POST['id_tour'];
@@ -149,7 +150,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <?php echo $registro['poblacion']?>
                 </p>
                 <p class="card__description">
-                    Descripción
+                <!--Se limita a 90 el num de caracteres que se muestran-->
+                    <?php echo substr($registro['vistaGeneral'], 0, 90); ?>
                 </p>
                 <div class="card__bottom">
                     <div class="card__properties">
