@@ -216,7 +216,7 @@ if($_SESSION["usuario_tipo"]=="cliente" || $_SESSION["usuario_tipo"]=="ventas"){
           <div class="row align-items-center">
             <div class="col-xl-12 col-lg-12 col-md-12 col-12">
               <!-- Bg -->
-              <div class="pt-20 rounded-top" style="background:url(https://bootdey.com/image/480x480/0dcaf0/000000) no-repeat; background-size: cover;">
+              <div class="pt-20 rounded-top" style="background:url(https://bootdey.com/image/480x480/0d6efd/000000) no-repeat; background-size: cover;">
               </div>
               <div class="card rounded-bottom smooth-shadow-sm">
                 <div class="d-flex align-items-center justify-content-between
