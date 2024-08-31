@@ -46,107 +46,103 @@ if(!isset($_SESSION['usuario_id'])){
     <body>
         <header>
             <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <div class="container-fluid">
-        <!-- Botón de Menú para Pantallas Pequeñas -->
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+                <div class="container-fluid">
+                    <!-- Botón de Menú para Pantallas Pequeñas -->
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
 
-        <!-- Contenido de la Barra de Navegación -->
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <?php if ($_SESSION["usuario_tipo"] == "admin" || $_SESSION["usuario_tipo"] == "superadmin"): ?>
-                    <li class="nav-item">
-                        <a class="nav-link" href="<?php echo $url_base; ?>secciones/cuenta/">Mi cuenta</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="<?php echo $url_base; ?>secciones/usuarios/">Usuarios</a>
-                    </li>
-                    <!-- Menú Desplegable para Tours -->
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownTours" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Tours
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownTours">
-                            <li><a class="dropdown-item" href="<?php echo $url_base; ?>secciones/tours/">Todos los tours</a></li>
-                            <li><a class="dropdown-item" href="<?php echo $url_base; ?>secciones/vehiculos/">Vehículos</a></li>
-                            <li><a class="dropdown-item" href="<?php echo $url_base; ?>secciones/idiomas/">Idiomas</a></li>
-                            <li><a class="dropdown-item" href="<?php echo $url_base; ?>secciones/ubicaciones/">Ubicaciones</a></li>
+                    <!-- Contenido de la Barra de Navegación -->
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                            <?php if ($_SESSION["usuario_tipo"] == "admin" || $_SESSION["usuario_tipo"] == "superadmin"): ?>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="<?php echo $url_base; ?>secciones/cuenta/">Mi cuenta</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="<?php echo $url_base; ?>secciones/usuarios/">Usuarios</a>
+                                </li>
+                                <!-- Menú Desplegable para Tours -->
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownTours" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        Tours
+                                    </a>
+                                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownTours">
+                                        <li><a class="dropdown-item" href="<?php echo $url_base; ?>secciones/tours/">Todos los tours</a></li>
+                                        <li><a class="dropdown-item" href="<?php echo $url_base; ?>secciones/vehiculos/">Vehículos</a></li>
+                                        <li><a class="dropdown-item" href="<?php echo $url_base; ?>secciones/idiomas/">Idiomas</a></li>
+                                        <li><a class="dropdown-item" href="<?php echo $url_base; ?>secciones/ubicaciones/">Ubicaciones</a></li>
+                                    </ul>
+                                </li>
+                                <!-- Menú Desplegable para Cupones -->
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownCupones" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        Cupones
+                                    </a>
+                                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownCupones">
+                                        <li><a class="dropdown-item" href="<?php echo $url_base; ?>secciones/cupones/">Todos los cupones</a></li>
+                                        <li><a class="dropdown-item" href="<?php echo $url_base; ?>secciones/cupones_usuarios/">Asignar</a></li>
+                                        <li><a class="dropdown-item" href="<?php echo $url_base; ?>secciones/mis_cupones/">Mis cupones</a></li>
+                                    </ul>
+                                </li>
+                                <!-- Menú Desplegable para Staff -->
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownStaff" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        Staff
+                                    </a>
+                                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownStaff">
+                                        <li><a class="dropdown-item" href="<?php echo $url_base; ?>secciones/staff/">Administrar</a></li>
+                                        <li><a class="dropdown-item" href="<?php echo $url_base; ?>secciones/tipo_staff/">Tipo</a></li>
+                                    </ul>
+                                </li>
+                                <!-- Menú Desplegable para Redes Sociales -->
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownRedes" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        Redes sociales
+                                    </a>
+                                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownRedes">
+                                        <li><a class="dropdown-item" href="<?php echo $url_base; ?>secciones/redes/">Administrar</a></li>
+                                        <li><a class="dropdown-item" href="<?php echo $url_base; ?>secciones/logo_redes/">Logos</a></li>
+                                    </ul>
+                                </li>
+                                <!-- Elementos Independientes para Administración -->
+                                <li class="nav-item">
+                                    <a class="nav-link" href="<?php echo $url_base; ?>secciones/notificaciones/">Notificaciones</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="<?php echo $url_base; ?>secciones/reportes/">Reportes</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="<?php echo $url_base; ?>cerrar.php">Cerrar</a>
+                                </li>
+                            <?php elseif ($_SESSION["usuario_tipo"] == "ventas"): ?>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="<?php echo $url_base; ?>secciones/cuenta/">Mi cuenta</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="<?php echo $url_base; ?>secciones/tours/">Tours</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="<?php echo $url_base; ?>secciones/mis_cupones/">Mis cupones</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="<?php echo $url_base; ?>cerrar.php">Cerrar</a>
+                                </li>
+                            <?php elseif ($_SESSION["usuario_tipo"] == "cliente"): ?>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="<?php echo $url_base; ?>secciones/cuenta/">Mi cuenta</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="<?php echo $url_base; ?>secciones/tours/">Tours</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="<?php echo $url_base; ?>cerrar.php">Cerrar</a>
+                                </li>
+                            <?php endif; ?>
                         </ul>
-                    </li>
-                    <!-- Menú Desplegable para Cupones -->
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownCupones" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Cupones
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownCupones">
-                            <li><a class="dropdown-item" href="<?php echo $url_base; ?>secciones/cupones/">Todos los cupones</a></li>
-                            <li><a class="dropdown-item" href="<?php echo $url_base; ?>secciones/cupones_usuarios/">Asignar</a></li>
-                            <li><a class="dropdown-item" href="<?php echo $url_base; ?>secciones/mis_cupones/">Mis cupones</a></li>
-                        </ul>
-                    </li>
-                    <!-- Menú Desplegable para Staff -->
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownStaff" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Staff
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownStaff">
-                            <li><a class="dropdown-item" href="<?php echo $url_base; ?>secciones/staff/">Administrar</a></li>
-                            <li><a class="dropdown-item" href="<?php echo $url_base; ?>secciones/tipo_staff/">Tipo</a></li>
-                        </ul>
-                    </li>
-                    <!-- Menú Desplegable para Redes Sociales -->
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownRedes" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Redes sociales
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownRedes">
-                            <li><a class="dropdown-item" href="<?php echo $url_base; ?>secciones/redes/">Administrar</a></li>
-                            <li><a class="dropdown-item" href="<?php echo $url_base; ?>secciones/logo_redes/">Logos</a></li>
-                        </ul>
-                    </li>
-                    <!-- Menú Desplegable para Administración -->
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownAdmin" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Administración
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownAdmin">
-                            <li><a class="dropdown-item" href="<?php echo $url_base; ?>secciones/notificaciones/">Notificaciones</a></li>
-                            <li><a class="dropdown-item" href="<?php echo $url_base; ?>secciones/reportes/">Reportes</a></li>
-                        </ul>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="<?php echo $url_base; ?>cerrar.php">Cerrar</a>
-                    </li>
-                <?php elseif ($_SESSION["usuario_tipo"] == "ventas"): ?>
-                    <li class="nav-item">
-                        <a class="nav-link" href="<?php echo $url_base; ?>secciones/cuenta/">Mi cuenta</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="<?php echo $url_base; ?>secciones/tours/">Tours</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="<?php echo $url_base; ?>secciones/mis_cupones/">Mis cupones</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="<?php echo $url_base; ?>cerrar.php">Cerrar</a>
-                    </li>
-                <?php elseif ($_SESSION["usuario_tipo"] == "cliente"): ?>
-                    <li class="nav-item">
-                        <a class="nav-link" href="<?php echo $url_base; ?>secciones/cuenta/">Mi cuenta</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="<?php echo $url_base; ?>secciones/tours/">Tours</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="<?php echo $url_base; ?>cerrar.php">Cerrar</a>
-                    </li>
-                <?php endif; ?>
-            </ul>
-        </div>
-    </div>
-</nav>
-
+                    </div>
+                </div>
+            </nav>
         </header>       
 
         <main class="container">
