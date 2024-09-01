@@ -313,7 +313,7 @@ if($_SESSION["usuario_tipo"]=="cliente" || $_SESSION["usuario_tipo"]=="ventas"){
                                   <!-- content -->
                             <div class="ms-3">
                               <p class="mb-0
-                                font-weight-medium"><?php echo $cupon['nombre'], ' ', $cupon["apellidos"]?> creó el cupón <a href="#!"><?php echo $cupon['Cnombre']?></a></p>
+                                font-weight-medium"><?php echo $cupon['nombre'], ' ', $cupon["apellidos"]?> creó el cupón <a href="<?php echo $url_base;?>secciones/cupones/ver.php?txtID=<?php echo $cupon['id']?>"><?php echo $cupon['Cnombre']?></a></p>
                             </div>
                           </div>
                           <div>
@@ -342,7 +342,7 @@ if($_SESSION["usuario_tipo"]=="cliente" || $_SESSION["usuario_tipo"]=="ventas"){
                                   <!-- content -->
                             <div class="ms-3">
                               <p class="mb-0
-                                font-weight-medium">Se le asignó el cupón <a href="#!"><?php echo $asignacion['cupon_name']?></a> a <?php echo $asignacion['user_name'], ' ', $asignacion["user_last"]?></p>
+                                font-weight-medium">Se le asignó el cupón <a href="<?php echo $url_base;?>secciones/cupones/ver.php?txtID=<?php echo $cupon['id']?>"><?php echo $asignacion['cupon_name']?></a> a <?php echo $asignacion['user_name'], ' ', $asignacion["user_last"]?></p>
                             </div>
                           </div>
                           <div>
@@ -417,7 +417,7 @@ if($_SESSION["usuario_tipo"]=="cliente" || $_SESSION["usuario_tipo"]=="ventas"){
                             <div class="ms-3">
                               <p class="mb-0
                                 font-weight-medium"><?php echo $cupon['nombre'], ' ', $cupon["apellidos"]?> creó
-                                el cupón <a href="#!"><?php echo $cupon['Cnombre']?></a></p>
+                                el cupón <a href="<?php echo $url_base;?>secciones/cupones/ver.php?txtID=<?php echo $cupon['id']?>"><?php echo $cupon['Cnombre']?></a></p>
                             </div>
                           </div>
                           <div>
@@ -446,7 +446,7 @@ if($_SESSION["usuario_tipo"]=="cliente" || $_SESSION["usuario_tipo"]=="ventas"){
                                   <!-- content -->
                             <div class="ms-3">
                               <p class="mb-0
-                                font-weight-medium">Se le asignó el cupón <a href="#!"><?php echo $asignacion['cupon_name']?></a> a <?php echo $asignacion['user_name'], ' ', $asignacion["user_last"]?></p>
+                                font-weight-medium">Se le asignó el cupón <a href="<?php echo $url_base;?>secciones/cupones/ver.php?txtID=<?php echo $cupon['id']?>"><?php echo $asignacion['cupon_name']?></a> a <?php echo $asignacion['user_name'], ' ', $asignacion["user_last"]?></p>
                             </div>
                           </div>
                           <div>
@@ -580,7 +580,7 @@ if($_SESSION["usuario_tipo"]=="cliente" || $_SESSION["usuario_tipo"]=="ventas"){
                              <!-- content -->
                             <div class="ms-3">
                               <p class="mb-0
-                                font-weight-medium"><?php echo $cupon['nombre'], ' ', $cupon["apellidos"]?> creó el cupon <a href="#!"><?php echo $cupon['Cnombre']?></a></p>
+                                font-weight-medium"><?php echo $cupon['nombre'], ' ', $cupon["apellidos"]?> creó el cupon <a href="<?php echo $url_base;?>secciones/cupones/ver.php?txtID=<?php echo $cupon['id']?>"><?php echo $cupon['Cnombre']?></a></p>
                             </div>
                           </div>
                           <div>
@@ -609,7 +609,7 @@ if($_SESSION["usuario_tipo"]=="cliente" || $_SESSION["usuario_tipo"]=="ventas"){
                                   <!-- content -->
                             <div class="ms-3">
                               <p class="mb-0
-                                font-weight-medium">Se le asignó el cupón <a href="#!"><?php echo $asignacion['cupon_name']?></a> a <?php echo $asignacion['user_name'], ' ', $asignacion["user_last"]?></p>
+                                font-weight-medium">Se le asignó el cupón <a href="<?php echo $url_base;?>secciones/cupones/ver.php?txtID=<?php echo $cupon['id']?>"><?php echo $asignacion['cupon_name']?></a> a <?php echo $asignacion['user_name'], ' ', $asignacion["user_last"]?></p>
                             </div>
                           </div>
                           <div>

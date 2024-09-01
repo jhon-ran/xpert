@@ -95,7 +95,7 @@ if($_POST){
 <?php include("../../templates/header.php"); ?>
 
 <!--Nuevo look empieza-->
-<header class="text-center">
+<header class="text-center my-5">
     <h1>Añadir idioma</h1>
 </header>
 
@@ -126,6 +126,16 @@ if($_POST){
         </div>
 </div>
     <!--Nuevo look termina-->
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
 
 <!-- Se llama el footer desde los templates-->
 <!-- ../../ sube 2 niveles para poder acceder al folder de templates desde la posición actual-->

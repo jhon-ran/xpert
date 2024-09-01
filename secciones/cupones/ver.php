@@ -64,7 +64,7 @@ if(isset($_GET['txtID'])){
                 <!-- Descuento Section -->
                 <div class="mb-3">
                     <label for="descuento" class="form-label fw-bold">Descuento:</label>
-                    <div class="text-muted" id="descuento"><?php echo $descuento; ?>%</div>
+                    <div class="text-muted" id="descuento"><?php echo $descuento; ?></div>
                 </div>
                 <hr>
 

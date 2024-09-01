@@ -59,7 +59,9 @@ $vehiculos = $sentencia->fetchAll(PDO::FETCH_ASSOC);
 <!-- ../../ sube 2 niveles para poder acceder al folder de templates desde la posición actual-->
 <?php include("../../templates/header.php"); ?>
 
-<h2>Vehículos</h2>
+<header class="text-center my-4">
+            <h1>Vehículos</h1>
+</header>
 
 <!--Nuevo look inicia-->
 <div class="card my-2">
@@ -107,6 +109,9 @@ $vehiculos = $sentencia->fetchAll(PDO::FETCH_ASSOC);
     </div>
   </div>
 </div>
+<br>
+<br>
+<br>
   <!--Nuevo look termina-->
 
 <!-- Se llama el footer desde los templates-->
