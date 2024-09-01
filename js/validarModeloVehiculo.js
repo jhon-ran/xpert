@@ -19,7 +19,7 @@ function validateModelo() {
         errorMessage.style.display = 'inline';
         // se dishabilita el botón
         submitBtn.disabled = true;
-    } else if (value.length > 10) {
+    } else if (value.length > 20) {
         errorMessage.textContent = 'No puede tener más de 10 caracteres';
         errorMessage.style.display = 'inline';
         // se dishabilita el botón

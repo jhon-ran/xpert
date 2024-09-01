@@ -62,9 +62,11 @@ $tours_ubicaciones = $sentencia->fetchAll(PDO::FETCH_ASSOC);
 <!-- ../../ sube 2 niveles para poder acceder al folder de templates desde la posición actual-->
 <?php include("../../templates/header.php"); ?>
 
-<h2>Ubicaciones de tours</h2>
+<header class="text-center my-4">
+            <h1>Ubicaciones de tours</h1>
+</header>
 
-<div class="card my-2">
+<div class="card my-3">
   <div class="card-header">
     <a name="" id="" class="btn btn-primary" href="crear.php" role="button">Nueva ubicación</a>
   </div>
@@ -111,8 +113,8 @@ $tours_ubicaciones = $sentencia->fetchAll(PDO::FETCH_ASSOC);
     </div>
   </div>
 </div>
-
   <!--Nuevo look termina-->
+  
 
 
 <!-- Se llama el footer desde los templates-->

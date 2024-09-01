@@ -195,7 +195,7 @@ if($_POST){
 <?php include("../../templates/header.php"); ?>
 
 <!--Nuevo look empieza-->
-<header class="text-center">
+<header class="text-center my-2">
             <h1>Añadir logo</h1>
 </header>
 

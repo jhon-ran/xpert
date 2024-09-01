@@ -113,8 +113,8 @@ if($_POST){
 <?php include("../../templates/header.php"); ?>
 
 <!--Nuevo look empieza-->
-<header class="text-center">
-            <h1>Editar tipo</h1>
+<header class="text-center my-4">
+        <h1>Editar tipo</h1>
 </header>
 <div class="row my-2">
 <div class="col-md-4"><br><br></div>
@@ -146,7 +146,16 @@ if($_POST){
                 </div>
         </div>
 </div>
-    <!--Nuevo look termina-->
+<!--Nuevo look termina-->
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
 
 <!-- Se llama el footer desde los templates-->
 <!-- ../../ sube 2 niveles para poder acceder al folder de templates desde la posición actual-->

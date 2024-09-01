@@ -133,10 +133,10 @@ $lista_cupones = $sentencia->fetchAll(PDO::FETCH_ASSOC);
 <!-- ../../ sube 2 niveles para poder acceder al folder de templates desde la posición actual-->
 <?php include("../../templates/header.php"); ?>
 
-    <!--Nuevo look inicia-->
-    <header class="text-center">
-            <h1>Editar asignación de cupón</h1>
-    </header>
+<!--Nuevo look inicia-->
+<header class="text-center my-4">
+        <h1>Editar asignación de cupón</h1>
+</header>
     
 <div class="row my-2">
     <div class="col-md-4"><br><br></div>
@@ -191,7 +191,12 @@ $lista_cupones = $sentencia->fetchAll(PDO::FETCH_ASSOC);
         </div>
     </div>
 </div>
-    <!--Nuevo look termina-->
+<!--Nuevo look termina-->
+<br>
+<br>
+<br>
+<br>
+<br>
 
 <!-- Se llama el footer desde los templates-->
 <!-- ../../ sube 2 niveles para poder acceder al folder de templates desde la posición actual-->

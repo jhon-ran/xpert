@@ -44,8 +44,9 @@ $tipo = $sentencia->fetchAll(PDO::FETCH_ASSOC);
 <!-- ../../ sube 2 niveles para poder acceder al folder de templates desde la posición actual-->
 <?php include("../../templates/header.php"); ?>
 
-<h2>Tipos de staff</h2>
-
+<header class="text-center my-3">
+  <h1>Tipos de staff</h1>
+</header>
 <!--Nuevo look inicia-->
 <div class="card my-2">
   <div class="card-header">

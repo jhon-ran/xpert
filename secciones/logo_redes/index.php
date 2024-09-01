@@ -64,8 +64,9 @@ $lista_logos = $sentencia->fetchAll(PDO::FETCH_ASSOC);
 <!-- ../../ sube 2 niveles para poder acceder al folder de templates desde la posición actual-->
 <?php include("../../templates/header.php"); ?>
 
-<h2>Logos de redes</h2>
-
+<header class="text-center my-2">
+        <h1>Logos de redes sociales</h1>
+</header>
 <!--Nuevo look inicia-->
 <div class="card my-2">
   <div class="card-header">

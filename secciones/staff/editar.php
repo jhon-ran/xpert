@@ -174,10 +174,10 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
 <!-- ../../ sube 2 niveles para poder acceder al folder de templates desde la posición actual-->
 <?php include("../../templates/header.php"); ?>
 
-    <!--Nuevo look inicia-->
-    <header class="text-center">
-            <h1>Editar staff</h1>
-    </header>
+<!--Nuevo look inicia-->
+<header class="text-center my-2">
+        <h1>Editar staff</h1>
+</header>
     
 <div class="row my-2">
     <div class="col-md-4"><br><br></div>

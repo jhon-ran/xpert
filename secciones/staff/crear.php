@@ -153,7 +153,7 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
 <?php include("../../templates/header.php"); ?>
 
     <!--Nuevo look inicia-->
-    <header class="text-center">
+    <header class="text-center my-3">
             <h1>Registrar staff</h1>
     </header>
     
@@ -223,7 +223,9 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
         </div>
     </div>
 </div>
-    <!--Nuevo look termina-->
+<!--Nuevo look termina-->
+<br>
+<br>
 
 <!-- Se llama el footer desde los templates-->
 <!-- ../../ sube 2 niveles para poder acceder al folder de templates desde la posición actual-->

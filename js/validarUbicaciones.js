@@ -58,8 +58,8 @@ function validateUbicaciones() {
         errorMessagePoblacion.style.display = 'inline';
         // se dishabilita el botón
         submitBtn.disabled = true;
-    } else if (valuePoblacion.length > 15) {
-        errorMessagePoblacion.textContent = 'No puede tener más de 15 caracteres';
+    } else if (valuePoblacion.length > 20) {
+        errorMessagePoblacion.textContent = 'No puede tener más de 20 caracteres';
         errorMessagePoblacion.style.display = 'inline';
         // se dishabilita el botón
         submitBtn.disabled = true;

@@ -202,7 +202,7 @@ if($_POST){
 <script src="../../js/validarFechas.js"> </script>
 
 <!--Nuevo look empieza-->
-<header class="text-center">
+<header class="text-center my-2">
             <h1>Editar cupón</h1>
 </header>
 <div class="row my-2">

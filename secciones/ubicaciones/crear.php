@@ -44,8 +44,8 @@ if($_POST){
                 $errores['poblacion'] = "Debe tener al menos 5 caracteres";
         }
 
-        if (strlen($poblacion) > 15) {
-                $errores['poblacion'] = "No puede tener más de 15 caracteres";
+        if (strlen($poblacion) > 20) {
+                $errores['poblacion'] = "No puede tener más de 20 caracteres";
         }
 
         if (!preg_match("/^[a-zA-ZáéíóúñÁÉÍÓÚÑ0-9 \s\'\-]+$/", $poblacion)) {
@@ -123,7 +123,7 @@ if($_POST){
 <?php include("../../templates/header.php"); ?>
 
 <!--Nuevo look empieza-->
-<header class="text-center">
+<header class="text-center my-3">
             <h1>Alta de ubicación</h1>
 </header>
 
@@ -188,7 +188,8 @@ if($_POST){
         </div>
 </div>
     <!--Nuevo look termina-->
-
+<br>
+<br>
 <!-- Se llama el footer desde los templates-->
 <!-- ../../ sube 2 niveles para poder acceder al folder de templates desde la posición actual-->
 <?php include("../../templates/footer.php"); ?>

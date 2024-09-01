@@ -92,7 +92,7 @@ $tours = $sentencia->fetchAll(PDO::FETCH_ASSOC);
 <?php include("../../templates/header.php"); ?>
 
     <!--Nuevo look inicia-->
-    <header class="text-center">
+    <header class="text-center my-4">
             <h1>Asignar dirección a tour</h1>
     </header>
     
@@ -133,7 +133,15 @@ $tours = $sentencia->fetchAll(PDO::FETCH_ASSOC);
         </div>
     </div>
 </div>
-    <!--Nuevo look termina-->
+<!--Nuevo look termina-->
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
 
 <!-- Se llama el footer desde los templates-->
 <!-- ../../ sube 2 niveles para poder acceder al folder de templates desde la posición actual-->

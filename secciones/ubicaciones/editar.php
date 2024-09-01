@@ -63,8 +63,8 @@ if($_POST){
         if (strlen($poblacion) < 5) {
                 $errores['poblacion'] = "Debe tener al menos 5 caracteres";
         }
-        if (strlen($poblacion) > 15) {
-                $errores['poblacion'] = "No puede tener más de 15 caracteres";
+        if (strlen($poblacion) > 20) {
+                $errores['poblacion'] = "No puede tener más de 20 caracteres";
         }
         if (!preg_match("/^[a-zA-ZáéíóúñÁÉÍÓÚÑ0-9\s\'\-]+$/", $poblacion)) {
         $errores['poblacion'] = "Solo puede contener letras y números";
@@ -139,7 +139,7 @@ if($_POST){
 <?php include("../../templates/header.php"); ?>
 
 <!--Nuevo look empieza-->
-<header class="text-center">
+<header class="text-center my-3">
             <h1>Editar ubicacion</h1>
 </header>
 

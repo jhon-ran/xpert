@@ -42,7 +42,9 @@ $cupones = $sentencia->fetchAll(PDO::FETCH_ASSOC);
 <!-- ../../ sube 2 niveles para poder acceder al folder de templates desde la posición actual-->
 <?php include("../../templates/header.php"); ?>
 
-<h2>Cupones existentes</h2>
+<header class="text-center my-3">
+            <h1>Cupones</h1>
+</header>
 
 <!--Nuevo look inicia-->
 <div class="card my-2">

@@ -48,15 +48,9 @@ $staff = $sentencia->fetchAll(PDO::FETCH_ASSOC);
 <!-- ../../ sube 2 niveles para poder acceder al folder de templates desde la posición actual-->
 <?php include("../../templates/header.php"); ?>
 
-<br>
-<div class="p-5 mb-4 bg-light rounded-3">
-    <div class="container-fluid py-5">
-        <h1 class="display-5 fw-bold">Bienvenid@ a la administración de staff</h1>
-    </div>
-</div>
-
-
-<h2>Staff</h2>
+<header class="text-center my-3">
+        <h1>Administración de staff</h1>
+</header>
 <!--Nuevo look inicia-->
 <div class="card my-2">
   <div class="card-header">

@@ -69,15 +69,9 @@ $asignaciones = $sentencia->fetchAll(PDO::FETCH_ASSOC);
 <!-- ../../ sube 2 niveles para poder acceder al folder de templates desde la posición actual-->
 <?php include("../../templates/header.php"); ?>
 
-<br>
-<div class="p-5 mb-4 bg-light rounded-3">
-    <div class="container-fluid py-5">
-        <h1 class="display-5 fw-bold">Asignación de cupones a vendedores</h1>
-    </div>
-</div>
-
-
-<h2>Copones asignados</h2>
+<header class="text-center my-3">
+            <h1>Cupones asignados a vendedores</h1>
+</header>
 <!--Nuevo look inicia-->
 
 

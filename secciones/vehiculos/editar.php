@@ -50,8 +50,8 @@ if($_POST){
                 $errores['modelo'] = "Debe tener al menos 5 caracteres";
         }
         //Validar si el modelo tiene más de 10 caracteres
-        if (strlen($modelo) > 10) {
-                $errores['modelo'] = "No puede tener más de 10 caracteres";
+        if (strlen($modelo) > 20) {
+                $errores['modelo'] = "No puede tener más de 20 caracteres";
         }
         //Validar que el modelo solo tenga letras y num
         if (!preg_match("/^[a-zA-ZáéíóúñÁÉÍÓÚÑ0-9\s\'\-]+$/", $modelo)) {
