@@ -14,13 +14,13 @@ if(!isset($_SESSION['usuario_id'])){
 
     
 <br>
-    <div class="p-5 mb-4 bg-light rounded-3">
-        <div class="container-fluid py-5">
-            <h1 class="display-5 fw-bold">Bienvenid@ a tu perfil de usuario</h1>
-        </div>
+<div class="p-4 mb-3 bg-light rounded-3 shadow-sm">
+    <div class="container-fluid text-center">
+        <h1 class="display-5 fw-bold">Bienvenid@ a tu perfil de usuario</h1>
     </div>
+</div>
 
-<div class="container">
+<div class="container my-3">
     <div class="main-body">
     
           <div class="row gutters-sm">
@@ -32,7 +32,7 @@ if(!isset($_SESSION['usuario_id'])){
                     <div class="mt-3">
                       <h4><?php echo $_SESSION['usuario_nombre']?></h4>
                       <p class="text-secondary mb-1"><?php echo $_SESSION['usuario_tipo']?></p>
-                      <p class="text-muted font-size-sm">perez@gmail.com</p>
+                      <p class="text-muted font-size-sm"><?php echo $_SESSION['correo']?></p>
                     </div>
                   </div>
                 </div>
@@ -65,7 +65,7 @@ if(!isset($_SESSION['usuario_id'])){
                       <h6 class="mb-0">Correo</h6>
                     </div>
                     <div class="col-sm-9 text-secondary">
-                      perez@gmail.com
+                      <?php echo $_SESSION['correo']?>
                     </div>
                   </div>
                   <hr>
@@ -81,7 +81,7 @@ if(!isset($_SESSION['usuario_id'])){
 
                   <div class="row">
                     <div class="col-sm-12">
-                      <a class="btn btn-info" href="editar.php?txtID=<?php echo $_SESSION['usuario_id']?>">Editar</a>
+                      <a class="btn btn-outline-info" href="editar.php?txtID=<?php echo $_SESSION['usuario_id']?>">Editar</a>
                     </div>
                   </div>
                 </div>
@@ -89,9 +89,12 @@ if(!isset($_SESSION['usuario_id'])){
 
             </div>
           </div>
-
         </div>
     </div>
+<br>
+<br>
+<br>
+<br>
 
 <!-- Se llama el footer desde los templates-->
 <!-- ../../ sube 2 niveles para poder acceder al folder de templates desde la posición actual-->

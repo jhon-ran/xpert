@@ -72,6 +72,7 @@ if ($_SERVER["REQUEST_METHOD"]=="POST") {
                 $_SESSION['usuario_tipo']= $usuario['tipo'];
                 $_SESSION['nombre']= $usuario['nombre'];
                 $_SESSION['apellidos']= $usuario['apellidos'];
+                $_SESSION['correo']= $usuario['email'];
 
                 $login = true;
             }
