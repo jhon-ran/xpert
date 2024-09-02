@@ -48,7 +48,7 @@ $lista_cupones = $sentencia->fetchAll(PDO::FETCH_ASSOC);
 
 <!--Nuevo look inicia-->
 <!--Nuevo look inicia-->
-<header class="text-center">
+<header class="text-center my-3">
     <h1>Cupón asignado</h1>
 </header>
 
@@ -58,14 +58,14 @@ $lista_cupones = $sentencia->fetchAll(PDO::FETCH_ASSOC);
         <div class="card">
             <div class="card-header">Datos de asignación</div>
             <div class="card-body">
-                <!-- ID Section -->
+                <!-- ID -->
                 <div class="mb-3">
                     <label for="txtID" class="form-label fw-bold">ID:</label>
                     <div class="text-muted" id="txtID"><?php echo $txtID; ?></div>
                 </div>
                 <hr>
 
-                <!-- Vendedor Section -->
+                <!-- Vendedor-->
                 <div class="mb-3">
                     <label for="id_usuario" class="form-label fw-bold">Vendedor:</label>
                     <div class="text-muted" id="id_usuario">
@@ -81,7 +81,7 @@ $lista_cupones = $sentencia->fetchAll(PDO::FETCH_ASSOC);
                 </div>
                 <hr>
 
-                <!-- Cupón Section -->
+                <!-- Cupón -->
                 <div class="mb-3">
                     <label for="id_cupon" class="form-label fw-bold">Cupón:</label>
                     <div class="text-muted" id="id_cupon">
@@ -93,6 +93,14 @@ $lista_cupones = $sentencia->fetchAll(PDO::FETCH_ASSOC);
                                 }
                             }
                         ?>
+                    </div>
+                </div>
+                <hr>
+                <!-- Fecha asignación -->
+                <div class="mb-3">
+                    <label for="id_cupon" class="form-label fw-bold">Fecha asignación:</label>
+                    <div class="text-muted" id="id_cupon">
+                    <?php echo date("d/m/Y H:i", strtotime($registro['fecha_asignacion']))?>
                     </div>
                 </div>
                 <hr>

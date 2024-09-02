@@ -56,6 +56,9 @@ if(!isset($_SESSION['usuario_id'])){
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                             <?php if ($_SESSION["usuario_tipo"] == "admin" || $_SESSION["usuario_tipo"] == "superadmin"): ?>
+                             <li class="nav-item">
+                                    <a class="nav-link" href="<?php echo $url_base; ?>index.php"><i class="fa fa-home" aria-hidden="true"></i></a>
+                                </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="<?php echo $url_base; ?>secciones/cuenta/">Mi cuenta</a>
                                 </li>
@@ -117,6 +120,9 @@ if(!isset($_SESSION['usuario_id'])){
                                 </li>
                             <?php elseif ($_SESSION["usuario_tipo"] == "ventas"): ?>
                                 <li class="nav-item">
+                                    <a class="nav-link" href="<?php echo $url_base; ?>index.php"><i class="fa fa-home" aria-hidden="true"></i></a>
+                                </li>
+                                <li class="nav-item">
                                     <a class="nav-link" href="<?php echo $url_base; ?>secciones/cuenta/">Mi cuenta</a>
                                 </li>
                                 <li class="nav-item">
@@ -129,6 +135,9 @@ if(!isset($_SESSION['usuario_id'])){
                                     <a class="nav-link" href="<?php echo $url_base; ?>cerrar.php">Cerrar</a>
                                 </li>
                             <?php elseif ($_SESSION["usuario_tipo"] == "cliente"): ?>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="<?php echo $url_base; ?>index.php"><i class="fa fa-home" aria-hidden="true"></i></a>
+                                </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="<?php echo $url_base; ?>secciones/cuenta/">Mi cuenta</a>
                                 </li>

@@ -45,6 +45,7 @@ LEFT JOIN logos ON logos.id = redes_tour.id_logo: Realiza una unión a la izquie
 */
 $sentencia = $conexion->prepare("SELECT 
     usuarios_cupones.id AS association_id,
+    usuarios_cupones.fecha_asignacion AS asignation_date,
     usuarios.id AS user_id,
     usuarios.nombre AS user_name,
     usuarios.apellidos AS user_last,
@@ -75,7 +76,7 @@ $asignaciones = $sentencia->fetchAll(PDO::FETCH_ASSOC);
 <!--Nuevo look inicia-->
 
 
-<div class="card my-2">
+<div class="card my-3">
   <div class="card-header">
     <a name="" id="" class="btn btn-primary" href="crear.php" role="button">Asignar cupón a vendedor</a>
   </div>
@@ -89,6 +90,7 @@ $asignaciones = $sentencia->fetchAll(PDO::FETCH_ASSOC);
             <th scope="col">ID</th>
             <th scope="col">Vendedor</th>
             <th scope="col">Cupón</th>
+            <th scope="col">Fecha asignación</th>
             <th scope="col"></th>
           </tr>
         </thead>
@@ -98,6 +100,9 @@ $asignaciones = $sentencia->fetchAll(PDO::FETCH_ASSOC);
             <td scope="row"><?php echo $asignacion['user_id']?></td>
             <td><?php echo $asignacion['user_name'], ' ', $asignacion["user_last"]?></td>
             <td><?php echo $asignacion['cupon_name']?></td>
+            <td><?php echo date("d/m/Y H:i", strtotime($asignacion['asignation_date']))?></td>
+            
+            
             <td>
               <div class="text-center" class="dropdown">
                 <a href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
