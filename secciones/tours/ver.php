@@ -134,38 +134,60 @@ WHERE
             <div class="text-center my-4">
                 <div><h1><?php echo $titulo;?></h1></div>
             </div>
-            <div class="row">
-                <div class="col-md-6 mb-4 border-bottom pb-2">
-                    <h5 class="fw-bold">Duración en horas</h5>
-                    <div><?php echo $duracion;?></div>
+             <hr class="mb-4">
+            <!-- Distribución responsiva en una sola línea -->
+            <div class="row text-center mb-4">
+                <div class="col-md-3 col-sm-6 mb-2">
+                    <h5 class="fw-bold"><i class="fa fa-clock-o" aria-hidden="true"></i> Duración</h5>
+                    <div><?php echo $duracion; ?>
+                    <!--Se evalua si incluye transporte y de ser el caso se muestra en la tarjeta -->
+                        <?php if($registro['incluyeTransporte'] == "sí"){ ?>
+                            <?php echo " + Transportación"?> 
+                        <?php } ?></div>
                 </div>
-                <div class="col-md-6 mb-4 border-bottom pb-2">
-                    <h5 class="fw-bold">Tipo</h5>
-                    <div><?php echo $tipo;?></div>
+                <div class="col-md-3 col-sm-6 mb-2">
+                    <h5 class="fw-bold"><i class="fa fa-globe" aria-hidden="true"></i> Tipo de tour</h5>
+                    <div><?php echo $tipo; ?></div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-md-6 mb-4 border-bottom pb-2">
-                    <h5 class="fw-bold">Capacidad máxima</h5>
-                    <div><?php echo $capacidad;?></div>
+                <div class="col-md-3 col-sm-6 mb-2">
+                    <h5 class="fw-bold"><i class="fa fa-users" aria-hidden="true"></i> Tamaño de grupo</h5>
+                    <div><?php echo $capacidad; ?></div>
                 </div>
-                <div class="col-md-6 mb-4 border-bottom pb-2">
-                    <h5 class="fw-bold">Idiomas</h5>
+                <div class="col-md-3 col-sm-6 mb-2">
+                    <h5 class="fw-bold"><i class="fa fa-language" aria-hidden="true"></i> Idiomas</h5>
                     <div>
                         <?php
-                            foreach($lenguas as $idioma){
-                                if ($idiomas == $idioma['id']){
-                                    echo $idioma['lengua'];
-                                    break;
-                                }
+                        foreach ($lenguas as $idioma) {
+                            if ($idiomas == $idioma['id']) {
+                                echo $idioma['lengua'];
+                                break;
                             }
+                        }
                         ?>
                     </div>
                 </div>
             </div>
             <!-- Ajuste de tamaño de la imagen -->
-            <div class="mb-4 border-bottom pb-2 text-center">
+            <div class="mb-4 pb-2 text-center">
                 <img src="<?php echo $foto;?>" class="img-fluid rounded-top img-thumbnail" alt="Foto tour" style="max-width: 60%; height: auto;"/>
+            </div>
+            <div class="mb-4 border-bottom pb-2 text-center">
+            <h5 class="fw-bold">Redes sociales</h5>
+                <div>
+                    <?php
+                    foreach($redes as $red){
+                        // Ruta base para recuperar los logos
+                        $rutaBaseImagenes = '../logo_redes/';
+
+                        // Construye la ruta completa a la imagen
+                        $rutaImagen = $rutaBaseImagenes . $red['pic'];
+
+                        echo '<a href="' . htmlspecialchars($red['url']) . '" target="_blank">';
+                        echo '<img src="' . htmlspecialchars($rutaImagen) . '" alt="Logo de ' . htmlspecialchars($red['logo_name']) . '" style="width: 40px; height: 40px; margin: 5px;">';
+                        echo '</a>';
+                    }
+                    ?>
+                </div>
             </div>
             <div class="mb-4 border-bottom pb-2">
                 <h5 class="fw-bold">Vista general</h5>
@@ -213,20 +235,20 @@ WHERE
                 <div><?php echo nl2br($actividades);?></div>
             </div>
             <div class="row">
-                <div class="col-md-6 mb-4 border-bottom pb-2">
+                <div class="col-md-12 mb-4 border-bottom pb-2">
                     <h5 class="fw-bold">Incluye transporte</h5>
-                    <div><?php echo $incluyeTransporte;?></div>
+                    <div><?php echo $incluyeTransporte; ?></div>
                 </div>
-                <div class="col-md-6 mb-4 border-bottom pb-2">
+                <div class="col-md-12 mb-4 border-bottom pb-2">
                     <h5 class="fw-bold">Vehículo</h5>
                     <div>
                         <?php
-                            foreach($vehiculos as $vehiculo){
-                                if ($transporte == $vehiculo['id']){
-                                    echo $vehiculo['modelo'];
-                                    break;
-                                }
+                        foreach ($vehiculos as $vehiculo) {
+                            if ($transporte == $vehiculo['id']) {
+                                echo $vehiculo['modelo'];
+                                break;
                             }
+                        }
                         ?>
                     </div>
                 </div>
@@ -245,20 +267,20 @@ WHERE
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-6 mb-4 border-bottom pb-2">
+                <div class="col-md-12 mb-4 border-bottom pb-2">
                     <h5 class="fw-bold">Precio desde</h5>
-                    <div><?php echo $precioBase;?></div>
+                    <div><?php echo $precioBase; ?></div>
                 </div>
-                <div class="col-md-6 mb-4 border-bottom pb-2">
+                <div class="col-md-12 mb-4 border-bottom pb-2">
                     <h5 class="fw-bold">Descuento</h5>
                     <div>
                         <?php
-                            foreach($lista_cupones as $cupon){
-                                if ($id_cupon == $cupon['id']){
-                                    echo $cupon["nombre"];
-                                    break;
-                                }
+                        foreach ($lista_cupones as $cupon) {
+                            if ($id_cupon == $cupon['id']) {
+                                echo $cupon["nombre"];
+                                break;
                             }
+                        }
                         ?>
                     </div>
                 </div>
@@ -269,24 +291,6 @@ WHERE
             <br>
         </div>
     </div>
-<div class="mb-4 border-bottom pb-2 text-center">
-    <h5 class="fw-bold">Redes sociales</h5>
-    <div>
-        <?php
-        foreach($redes as $red){
-            // Ruta base para recuperar los logos
-            $rutaBaseImagenes = '../logo_redes/';
-
-            // Construye la ruta completa a la imagen
-            $rutaImagen = $rutaBaseImagenes . $red['pic'];
-
-            echo '<a href="' . htmlspecialchars($red['url']) . '" target="_blank">';
-            echo '<img src="' . htmlspecialchars($rutaImagen) . '" alt="Logo de ' . htmlspecialchars($red['logo_name']) . '" style="width: 40px; height: 40px; margin: 5px;">';
-            echo '</a>';
-        }
-        ?>
-    </div>
-</div>
 
 </div>
 
