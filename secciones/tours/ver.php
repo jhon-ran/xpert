@@ -93,9 +93,11 @@ WHERE redes_tour.id = :id: Filtra los resultados para que solo se incluyan las f
     */
     $sentencia = $conexion->prepare("SELECT 
     redes_tour.id AS association_id,
+    redes_tour.link AS url,
     tours.id AS tour_id,
     tours.titulo AS tour_title,
     logos.nombre AS logo_name,
+    logos.foto AS pic,
     logos.id AS logo_id
 FROM 
     redes_tour
@@ -267,6 +269,25 @@ WHERE
             <br>
         </div>
     </div>
+<div class="mb-4 border-bottom pb-2 text-center">
+    <h5 class="fw-bold">Redes sociales</h5>
+    <div>
+        <?php
+        foreach($redes as $red){
+            // Ruta base para recuperar los logos
+            $rutaBaseImagenes = '../logo_redes/';
+
+            // Construye la ruta completa a la imagen
+            $rutaImagen = $rutaBaseImagenes . $red['pic'];
+
+            echo '<a href="' . htmlspecialchars($red['url']) . '" target="_blank">';
+            echo '<img src="' . htmlspecialchars($rutaImagen) . '" alt="Logo de ' . htmlspecialchars($red['logo_name']) . '" style="width: 40px; height: 40px; margin: 5px;">';
+            echo '</a>';
+        }
+        ?>
+    </div>
+</div>
+
 </div>
 
 <?php include("../../templates/footer.php"); ?>
