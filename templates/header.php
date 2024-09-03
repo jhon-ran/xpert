@@ -32,6 +32,8 @@ if(!isset($_SESSION['usuario_id'])){
         />
         <!-- estilo para personalizar -->
         <link rel="stylesheet" href="../../style.css">
+        <!-- estilo para personalizar y que index.php puede acceder a él -->
+        <link rel="stylesheet" href="style.css">
         <!-- font awesome -->
         <script src="https://kit.fontawesome.com/07ff07af43.js" crossorigin="anonymous"></script>
         <!-- cdn JQuery v.3.7.1-->
@@ -45,10 +47,10 @@ if(!isset($_SESSION['usuario_id'])){
 
     <body>
         <header>
-            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <nav class="navbar navbar-expand-lg navbar-light bg-light custom-navbar">
                 <div class="container-fluid">
                     <!-- Botón de Menú para Pantallas Pequeñas -->
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <button class="navbar-toggler custom-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
 

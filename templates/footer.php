@@ -1,13 +1,14 @@
 
 </main>
-<footer class="bg-body-tertiary text-center text-lg-start">
+<footer class="footer-custom text-center text-lg-start">
   <!-- Copyright -->
-  <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.05);">
+  <div class="footer-content text-center p-3">
     © 2024 Copyright:
-    <a class="text-body" href="https://mvptest.me/xpert/">Tours Xpert</a>
+    <a class="footer-link" href="https://mvptest.me/xpert/">Tours Xpert</a>
   </div>
   <!-- Copyright -->
 </footer>
+
 <!-- Bootstrap JavaScript Libraries -->
 <script
     src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"

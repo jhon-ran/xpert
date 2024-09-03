@@ -248,6 +248,7 @@
     -webkit-line-clamp: 5;
 }
 
+
 .card__buttons {
     display: flex;
     gap: 0.5rem;
@@ -275,4 +276,104 @@
     fill: var(--like);
 }
 
-/* INICIA ESTILO PARA LIKES Y TARJETAS DE TOURS*/
+/* TERMINA ESTILO PARA LIKES Y TARJETAS DE TOURS*/
+
+/* INICIA ESTILO PARA NAVBAR*/
+.custom-navbar {
+    background-color: #ffffff; /* Fondo blanco */
+    border-bottom: 1px solid #e5e5e5; /* Líneas de separación en gris claro */
+    transition: background-color 0.3s ease;
+}
+
+.custom-navbar .navbar-nav .nav-link {
+    color: #333; /* Color del texto en gris oscuro */
+    font-weight: 500; /* Aumenta el grosor del texto */
+    padding: 10px 15px; /* Espaciado alrededor de los enlaces */
+    transition: color 0.3s ease, background-color 0.3s ease; /* Transición para hovers */
+}
+
+.custom-navbar .navbar-nav .nav-link:hover {
+    color: #ffffff; /* Color del texto al pasar el cursor */
+    background-color: #555555; /* Fondo gris oscuro en hover */
+    border-radius: 5px; /* Bordes ligeramente redondeados */
+}
+
+.custom-navbar .navbar-nav .nav-link.active {
+    color: #ffffff; /* Color del texto del enlace activo */
+    background-color: #333333; /* Fondo del enlace activo */
+    border-radius: 5px; /* Bordes ligeramente redondeados */
+}
+
+/* Custom Toggler Button */
+.custom-toggler {
+    border-color: #cccccc; /* Color del borde del botón del menú */
+}
+
+.custom-toggler .navbar-toggler-icon {
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba%2833, 37, 41, 0.8%29' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+}
+
+.custom-toggler:hover {
+    background-color: #f0f0f0; /* Cambia el fondo del botón en hover */
+    border-color: #bbbbbb; /* Cambia el color del borde en hover */
+}
+
+/* Dropdown Menu Customization */
+.navbar-nav .dropdown-menu {
+    background-color: #ffffff; /* Fondo blanco para los menús desplegables */
+    border: 1px solid #e5e5e5; /* Borde gris claro */
+}
+
+.navbar-nav .dropdown-item {
+    color: #333; /* Color del texto de los ítems */
+    transition: background-color 0.3s ease, color 0.3s ease; /* Transición para los ítems */
+    display: -webkit-box; /* Utiliza la caja flexible de Webkit para que funcione el truncado */
+    -webkit-line-clamp: 1; /* Define el número de líneas a mostrar */
+    -webkit-box-orient: vertical; /* Establece la orientación de la caja flexible como vertical */
+    overflow: hidden; /* Oculta el contenido desbordado */
+    line-clamp: 1; /* Define la propiedad estándar para futuros navegadores */
+}
+
+.navbar-nav .dropdown-item:hover {
+    background-color: #e5e5e5; /* Fondo gris claro al pasar el cursor */
+    color: #333; /* Color del texto en hover */
+}
+
+/* Responsive adjustments */
+@media (max-width: 992px) {
+    .navbar-nav .nav-link {
+        padding: 8px 12px; /* Ajuste de espaciado en pantallas más pequeñas */
+    }
+}
+
+/* TERMINA ESTILO PARA NAVBAR*/
+
+/* INICIA ESTILO PARA NAVBAR*/
+.footer-custom {
+    background-color: #ffffff; /* Fondo blanco */
+    border-top: 1px solid #e5e5e5; /* Línea de separación en gris claro */
+    padding: 20px 0; /* Espaciado vertical */
+}
+
+.footer-content {
+    color: #333; /* Color del texto */
+    font-size: 14px; /* Tamaño de fuente más pequeño */
+}
+
+.footer-link {
+    color: #333; /* Color del texto del enlace */
+    text-decoration: none; /* Sin subrayado */
+    transition: color 0.3s ease; /* Transición para el color en hover */
+}
+
+.footer-link:hover {
+    color: #555555; /* Color de enlace en hover */
+}
+
+/* Responsive adjustments */
+@media (max-width: 992px) {
+    .footer-custom {
+        padding: 15px 0; /* Espaciado más pequeño en pantallas pequeñas */
+    }
+}
+
