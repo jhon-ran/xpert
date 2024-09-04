@@ -774,7 +774,7 @@ WHERE
                     </div>
                     <div class="mb-3 mx-auto" style="width:48%;">
                         <label for="id_cupon" class="form-label">Descuento</label>
-                         <select class="form-select form-select-sm" name="id_cupon" id="id_cupon" required>
+                         <select class="form-select form-select-sm" name="id_cupon" id="id_cupon">
                             <option value="" selected>Seleccione una opción</option>
                                 <?php foreach($lista_cupones as $cupon){ ?>
                                     <option <?php echo ($id_cupon == $cupon['id'])?"selected":"";?> value="<?php echo $cupon['id']; ?>"><?php echo $cupon["nombre"]; ?></option>

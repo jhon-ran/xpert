@@ -138,23 +138,23 @@ WHERE
             <!-- Distribución responsiva en una sola línea -->
             <div class="row text-center mb-4">
                 <div class="col-md-3 col-sm-6 mb-2">
-                    <h5 class="fw-bold"><i class="fa fa-clock-o" aria-hidden="true"></i> Duración</h5>
-                    <div><?php echo $duracion; ?>
+                    <h5 class="fw-bold"><i class="fa fa-clock-o text-primary" aria-hidden="true"></i> Duración</h5>
+                    <div><?php echo $duracion; ?>hrs.
                     <!--Se evalua si incluye transporte y de ser el caso se muestra en la tarjeta -->
                         <?php if($registro['incluyeTransporte'] == "sí"){ ?>
                             <?php echo " + Transportación"?> 
                         <?php } ?></div>
                 </div>
                 <div class="col-md-3 col-sm-6 mb-2">
-                    <h5 class="fw-bold"><i class="fa fa-globe" aria-hidden="true"></i> Tipo de tour</h5>
+                    <h5 class="fw-bold"><i class="fa fa-globe text-primary" aria-hidden="true"></i> Tipo de tour</h5>
                     <div><?php echo $tipo; ?></div>
                 </div>
                 <div class="col-md-3 col-sm-6 mb-2">
-                    <h5 class="fw-bold"><i class="fa fa-users" aria-hidden="true"></i> Tamaño de grupo</h5>
+                    <h5 class="fw-bold"><i class="fa fa-users text-primary" aria-hidden="true"></i> Tamaño de grupo</h5>
                     <div><?php echo $capacidad; ?></div>
                 </div>
                 <div class="col-md-3 col-sm-6 mb-2">
-                    <h5 class="fw-bold"><i class="fa fa-language" aria-hidden="true"></i> Idiomas</h5>
+                    <h5 class="fw-bold"><i class="fa fa-language text-primary" aria-hidden="true"></i> Idiomas</h5>
                     <div>
                         <?php
                         foreach ($lenguas as $idioma) {
