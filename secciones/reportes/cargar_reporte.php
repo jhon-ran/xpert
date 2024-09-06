@@ -6,7 +6,8 @@ try {
         $tipo = $_GET['tipo'];
 
         if ($tipo == 'usuarios') {
-            $query = "SELECT u.id, u.nombre, u.apellidos, u.email, u.fecha, uh.fechaModificacion, um.nombre as modificador
+            $query = "SELECT u.id, u.nombre, u.apellidos, u.email, u.fecha, uh.fechaModificacion, um.nombre as modificador,
+                        um.apellidos as modificadorApe
                       FROM usuarios u
                       LEFT JOIN usuarios_historial uh ON u.id = uh.id_usuario
                       LEFT JOIN usuarios um ON uh.modificador = um.id";
@@ -25,8 +26,8 @@ try {
                             <th>Nombre</th>
                             <th>Apellidos</th>
                             <th>Email</th>
-                            <th>Fecha de Creación</th>
-                            <th>Fecha de Modificación</th>
+                            <th>Fecha de creación</th>
+                            <th>Fecha de modificación</th>
                             <th>Modificado por</th>
                         </tr>
                     </thead>
@@ -40,7 +41,7 @@ try {
                         <td>{$usuario['email']}</td>
                         <td>" . date("d/m/Y H:i", strtotime($usuario['fecha'])) . "</td>
                         <td>" . (!empty($usuario['fechaModificacion']) ? date("d/m/Y H:i", strtotime($usuario['fechaModificacion'])) : '') . "</td>
-                        <td>{$usuario['modificador']}</td>
+                        <td>{$usuario['modificador']} {$usuario['modificadorApe']}</td>
                       </tr>";
             }
             
@@ -50,7 +51,7 @@ try {
                   </div>
                   </div>";
         } elseif ($tipo == 'cupones') {
-            $query = "SELECT c.id, c.nombre, c.descuento, c.inicioValidez, c.terminoValidez, c.fechaCreacion, ch.fechaModificacion, uc.nombre as creador, um.nombre as modificador
+            $query = "SELECT c.id, c.nombre, c.descuento, c.inicioValidez, c.terminoValidez, c.fechaCreacion, ch.fechaModificacion, uc.nombre as creador, uc.apellidos as creadorApe, um.nombre as modificador, um.apellidos as modificadorApe
                       FROM cupones c
                       LEFT JOIN cupones_historial ch ON c.id = ch.id_cupon
                       LEFT JOIN usuarios uc ON c.creador = uc.id
@@ -69,10 +70,10 @@ try {
                             <th>ID</th>
                             <th>Nombre</th>
                             <th>Descuento</th>
-                            <th>Inicio Validez</th>
-                            <th>Término Validez</th>
-                            <th>Fecha de Creación</th>
-                            <th>Fecha de Modificación</th>
+                            <th>Inicio validez</th>
+                            <th>Término validez</th>
+                            <th>Fecha de creación</th>
+                            <th>Fecha de modificación</th>
                             <th>Creado por</th>
                             <th>Modificado por</th>
                         </tr>
@@ -88,8 +89,8 @@ try {
                         <td>" . date("d/m/Y H:i", strtotime($cupon['terminoValidez'])) . "</td>
                         <td>" . date("d/m/Y H:i", strtotime($cupon['fechaCreacion'])) . "</td>
                         <td>" . (!empty($cupon['fechaModificacion']) ? date("d/m/Y H:i", strtotime($cupon['fechaModificacion'])) : '') . "</td>
-                        <td>{$cupon['creador']}</td>
-                        <td>{$cupon['modificador']}</td>
+                        <td>{$cupon['creador']} {$cupon['creadorApe']}</td>
+                        <td>{$cupon['modificador']} {$cupon['modificadorApe']}</td>
                       </tr>";
             }
 
@@ -99,7 +100,7 @@ try {
                   </div>
                   </div>";
         } elseif ($tipo == 'tours') {
-            $query = "SELECT t.id, t.titulo, t.duracion, t.capacidad, t.fechaCreacion, th.fechaModificacion, uc.nombre as creador, um.nombre as modificador
+            $query = "SELECT t.id, t.titulo, t.duracion, t.capacidad, t.fechaCreacion, th.fechaModificacion, uc.nombre as creador, uc.apellidos as creadorApe, um.nombre as modificador, um.apellidos as modificadorApe
                       FROM tours t
                       LEFT JOIN tours_historial th ON t.id = th.id_tour
                       LEFT JOIN usuarios uc ON t.creador = uc.id
@@ -119,8 +120,8 @@ try {
                             <th>Tour</th>
                             <th>Duración</th>
                             <th>Capacidad</th>
-                            <th>Fecha de Creación</th>
-                            <th>Fecha de Modificación</th>
+                            <th>Fecha de creación</th>
+                            <th>Fecha de modificación</th>
                             <th>Creado por</th>
                             <th>Modificado por</th>
                         </tr>
@@ -135,8 +136,8 @@ try {
                         <td>{$tour['capacidad']}</td>
                         <td>" . date("d/m/Y H:i", strtotime($tour['fechaCreacion'])) . "</td>
                         <td>" . (!empty($tour['fechaModificacion']) ? date("d/m/Y H:i", strtotime($tour['fechaModificacion'])) : '') . "</td>
-                        <td>{$tour['creador']}</td>
-                        <td>{$tour['modificador']}</td>
+                        <td>{$tour['creador']} {$tour['creadorApe']}</td>
+                        <td>{$tour['modificador']} {$tour['modificadorApe']}</td>
                       </tr>";
             }
 
@@ -146,7 +147,7 @@ try {
                   </div>
                   </div>";
         } elseif ($tipo == 'cupones_usuarios') {
-            $query = "SELECT cu.id, cu.nombre as nombreCupon, u.nombre as nombreUsuario, uc.fecha_asignacion
+            $query = "SELECT cu.id, cu.nombre as nombreCupon, u.nombre as nombreUsuario, u.apellidos as apellidosUsuario, uc.fecha_asignacion
                       FROM usuarios_cupones uc
                       LEFT JOIN cupones cu ON uc.id_cupon = cu.id
                       LEFT JOIN usuarios u ON uc.id_usuario = u.id";
@@ -162,9 +163,9 @@ try {
                     <thead>
                         <tr>
                             <th>ID Cupón</th>
-                            <th>Nombre Cupón</th>
-                            <th>Usuario Asignado</th>
-                            <th>Fecha de Asignación</th>
+                            <th>Cupón</th>
+                            <th>Usuario asignado</th>
+                            <th>Fecha de asignación</th>
                         </tr>
                     </thead>
                     <tbody>";
@@ -173,7 +174,7 @@ try {
                 echo "<tr>
                         <td>{$cuponUsuario['id']}</td>
                         <td>{$cuponUsuario['nombreCupon']}</td>
-                        <td>{$cuponUsuario['nombreUsuario']}</td>
+                        <td>{$cuponUsuario['nombreUsuario']} {$cuponUsuario['apellidosUsuario']}</td>
                         <td>" . date("d/m/Y H:i", strtotime($cuponUsuario['fecha_asignacion'])) . "</td>
                       </tr>";
             }
@@ -237,9 +238,9 @@ try {
                         <tr>
                             <th>ID Tour</th>
                             <th>Tour</th>
-                            <th>ID Usuario</th>
+                            <th>ID usuario</th>
                             <th>Usuario</th>
-                            <th>Fecha de Like</th>
+                            <th>Fecha de like</th>
                         </tr>
                     </thead>
                     <tbody>";
