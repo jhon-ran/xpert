@@ -145,12 +145,6 @@ if($_POST){
         }
 
         //*******INICIAN VALIDACIONES CAMPO  3********
-        if (strlen($tipo) > 20) {
-            $errores['tipo'] = "El tipo no puede ser mayor a 20 caracteres";
-        }
-        if (preg_match('/[=<>|]/', $tipo)) {
-            $errores['tipo'] = "El tipo no puede contener los caracteres especiales = - | < >";
-        }
 
         //*******INICIAN VALIDACIONES CAMPO 4********
         //Validar que la capacidad no sea un número negativo
@@ -564,13 +558,26 @@ WHERE
                     </div>
                     <div class="mb-3 mx-auto" style="width:48%;">
                         <label for="tipo" class="form-label">Tipo</label>
-                        <input type="text" class="form-control" name="tipo" id="tipo" value="<?php echo $tipo;?>" aria-describedby="helpId" placeholder=""/>
-                    <!--Inicio envio de mensaje de error-->
-                    <?php if (isset($errores['tipo'])): ?>
-                        <div class="alert alert-danger mt-1"><?php echo $errores['tipo']; ?></div>
-                    <?php endif; ?>
-                    <!--Fin envio de mensaje de error-->
+                        <select class="form-select form-select" name="tipo" id="tipo">
+                            <!-- Muestra la opción seleccionada por defecto -->
+                            <option value="<?php echo $tipo;?>" selected><?php echo ucfirst($tipo);?></option>
+
+                            <!-- Si el valor es "sí", solo muestra "No" como opción adicional -->
+                            <?php if ($tipo == 'Excursión Diaria'): ?>
+                                <option value="Specific Tour">Specific Tour</option>
+                            
+                            <!-- Si el valor es "No", solo muestra "Sí" como opción adicional -->
+                            <?php elseif ($tipo == 'Specific Tour'): ?>
+                                <option value="Excursión Diaria">Excursión Diaria</option>
+                            
+                            <!-- Si el valor es diferente o no definido, muestra ambas opciones -->
+                            <?php else: ?>
+                                <option value="Excursión Diaria">Excursión Diaria</option>
+                                <option value="Specific Tour">Specific Tour</option>
+                            <?php endif; ?>
+                        </select>
                     </div>
+
                 </div>
                 <!--Inicia input group para agrupar campos en una misma línea-->
                 <div class="input-group">

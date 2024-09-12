@@ -123,14 +123,7 @@ if($_POST){
         }
      
         //*******INICIAN VALIDACIONES CAMPO  3********
-        if (strlen($tipo) > 20) {
-            $errores['tipo'] = "El tipo no puede ser mayor a 20 caracteres";
-        }
-        if (preg_match('/[=<>|]/', $tipo)) {
-            $errores['tipo'] = "El tipo no puede contener los caracteres especiales = - | < >";
-        }
-        
-
+ 
         //*******INICIAN VALIDACIONES CAMPO 4********
         //Validar que la capacidad no sea un número negativo
         if ($capacidad < 0) {
@@ -458,7 +451,11 @@ WHERE
                     </div>
                     <div class="mb-3 mx-auto" style="width:48%;">
                         <label for="tipo" class="form-label">Tipo</label>
-                        <input type="text" class="form-control" name="tipo" id="tipo" aria-describedby="helpId" placeholder="" value="<?php echo isset($tipo) ? $tipo : ''; ?>"/>
+                        <select class="form-select form-select" name="tipo" id="tipo">
+                            <option value="" selected>Seleccione una opción</option>
+                            <option value="Excursión Diaria">Excursión Diaria</option>
+                            <option value="Specific Tour">Specific Tour</option>
+                        </select>
                         <!--Inicio envio de mensaje de error-->
                         <?php if (isset($errores['tipo'])): ?>
                             <div class="alert alert-danger mt-1"><?php echo $errores['tipo']; ?></div>
