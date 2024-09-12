@@ -721,10 +721,22 @@ WHERE
                     <div class="mb-3 mx-auto" style="width:30%;">
                         <label for="incluyeTransporte" class="form-label">¿Transporte?</label>
                         <select class="form-select form-select" name="incluyeTransporte" id="incluyeTransporte">
-                            <!--<option value="" selected>Seleccione una opción</option>-->
-                            <option value="<?php echo $incluyeTransporte;?>"><?php echo $incluyeTransporte;?></option>
-                            <option value="sí">Sí</option>
-                            <option value="No">No</option>
+                            <!-- Muestra la opción seleccionada por defecto -->
+                            <option value="<?php echo $incluyeTransporte;?>" selected><?php echo ucfirst($incluyeTransporte);?></option>
+
+                            <!-- Si el valor es "sí", solo muestra "No" como opción adicional -->
+                            <?php if (strtolower($incluyeTransporte) == 'sí'): ?>
+                                <option value="No">No</option>
+                            
+                            <!-- Si el valor es "No", solo muestra "Sí" como opción adicional -->
+                            <?php elseif (strtolower($incluyeTransporte) == 'no'): ?>
+                                <option value="sí">Sí</option>
+                            
+                            <!-- Si el valor es diferente o no definido, muestra ambas opciones -->
+                            <?php else: ?>
+                                <option value="sí">Sí</option>
+                                <option value="No">No</option>
+                            <?php endif; ?>
                         </select>
                     </div>
                     <div class="mb-3 mx-auto" style="width:65%;">
