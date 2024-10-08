@@ -28,7 +28,7 @@ session_start();
         <div class="col-12 col-sm-6 col-md-4 mb-2">
             <button class="btn btn-primary w-100" onclick="cargarReporte('cupones_usuarios')">Cupones Asignados a Usuarios</button>
         </div>
-        <div class="col-12 col-sm-6 col-md-4 mb-2">
+        <div class="col-12 col-sm-6 col-md-4 mb-6">
             <button class="btn btn-primary w-100" onclick="cargarReporte('cupones_tours')">Cupones Asignados a Tours</button>
         </div>
         <div class="col-12 col-sm-6 col-md-4 mb-2">
