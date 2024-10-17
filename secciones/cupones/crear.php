@@ -184,7 +184,7 @@ if($_POST){
                                         </div>
                                         <div class="mb-3">
                                                 <label for="descuento" class="form-label">Descuento</label>
-                                                <input type="number" class="form-control" name="descuento" id="descuento" oninput="validateDescuento()" aria-describedby="helpId" placeholder="Ingrese monto de descuento" value="<?php echo isset($descuento) ? $descuento : ''; ?>" required/>
+                                                <input type="number" class="form-control" name="descuento" id="descuento" oninput="validateDescuento()" aria-describedby="helpId" placeholder="Ingrese monto de descuento en dólares" value="<?php echo isset($descuento) ? $descuento : ''; ?>" required/>
                                                 <!--Se llama mensaje de error de validacion de ../../js/validarDescuento.js -->
                                                 <span id="errorDescuento" class="error"></span>
                                                 <!--Inicio envio de mensaje de error-->

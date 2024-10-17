@@ -139,7 +139,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <?php foreach($tours as $registro){ ?>
         <article class="cardNuevo" data-id-tour="<?php echo $registro['id']; ?>">
             <div class="card__preview">
-                <img src="<?php echo $registro['foto']?>" alt="...">
+                <a href="ver.php?txtID=<?php echo $registro['id']?>">
+                    <img src="<?php echo $registro['foto']?>" alt="..." >
+                </a>
                 <div class="card__price">
                     desde $<?php echo $registro['precioBase']?>
                 </div>

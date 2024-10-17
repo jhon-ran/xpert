@@ -140,7 +140,7 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
             $succes = true;
             //Mensaje de confirmación de creación que activa Sweet Alert 2
             //Llama a código de templates/header.php
-            $mensaje="Se registro el usuario correctamente";
+            $mensaje="Felicidades. Te acabas de registrar";
     
             //Redireccionar al login
             header("Location:login.php?mensaje=".$mensaje);
